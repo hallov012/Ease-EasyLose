@@ -1,0 +1,38 @@
+.drag-counter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stepper {
+  background: #ff4957;
+  cursor: pointer;
+  width: 130px;
+  height: 130px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 64px;
+  box-shadow: -1px 57px 80px -17px rgba(255, 73, 87, 0.25);
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.stepper span {
+  user-select: none;
+}
+.stepper span.active {
+}
+.stepper span.hide {
+  opacity: 0;
+}
+.arrow-top {
+  user-select: none;
+  width: 50px;
+}
+.arrow-bottom {
+  user-select: none;
+  width: 50px;
+}
