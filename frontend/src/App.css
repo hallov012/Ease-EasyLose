@@ -1,0 +1,35 @@
+:root {
+  --main-color: #7579e7;
+  --light-color: #b1e1ff;
+  --sub-color: #afb4ff;
+  --text-color: #00033f;
+  --gray-color: #f0f0f0;
+}
+
+.App {
+  text-align: center;
+}
+
+.top_line_gradient {
+  height: 10px;
+  background: var(--main-color);
+  background: linear-gradient(
+    90deg,
+    var(--main-color) 0%,
+    var(--light-color) 50%,
+    var(--main-color) 100%
+  );
+}
+
+#top_nav_area {
+  height: 50px;
+  background: var(--gray-color);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+
+#bottom_nav_area {
+  position: fixed;
+  bottom: 0;
+}
