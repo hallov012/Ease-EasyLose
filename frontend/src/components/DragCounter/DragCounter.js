@@ -3,13 +3,11 @@ import anime from "animejs/lib/anime.es.js";
 import "./DragCounter.css";
 
 const DragCounter = () => {
+  const [count, setCount] = useState(15);
   const [draggable, setDraggable] = useState(false);
   const [startPosition, setStartPosition] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
   const animationRef = useRef(undefined);
-
-  console.log(draggable);
-  console.log(currentPosition);
 
   const backToCenter = () => {
     animationRef.current = anime({
@@ -31,6 +29,11 @@ const DragCounter = () => {
     // setCurrentPosition(0);
   };
   const onMouseUpEventHandler = (event) => {
+    if (currentPosition > 0) {
+      setCount((current) => current + 1);
+    } else if (currentPosition < 0) {
+      setCount((current) => current - 1);
+    }
     setDraggable(false);
     // setCurrentPosition(0);
     backToCenter();
@@ -75,7 +78,7 @@ const DragCounter = () => {
         // onMouseMove={onMouseMoveEventHandler}
         style={{ transform: `translateY(${currentPosition}px)` }}
       >
-        <span className="count first active hide">15</span>
+        <span className="count first active">{count}</span>
         <span className="count second next"></span>
       </div>
 
