@@ -9,7 +9,12 @@ import MyPage from "./pages/MyPage";
 import SignUpPage from "./pages/SignUpPage";
 import StartPage from "./pages/StartPage";
 
+import BottomNav from "./components/BottomNav/BottomNav";
+
+import { useState } from "react";
+
 function App() {
+  const [authorized, setAuthorized] = useState(true);
   return (
     <div className="App">
       <div className="top_line_gradient"></div>
@@ -39,6 +44,11 @@ function App() {
           <MyPage></MyPage>
         </Route>
       </Switch>
+      {authorized ? (
+        <div id="bottom_nav_area">
+          <BottomNav />
+        </div>
+      ) : null}
     </div>
   );
 }

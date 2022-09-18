@@ -1,5 +1,4 @@
 import TopNavDate from "../components/TopNav/TopNavDate";
-import BottomNav from "../components/BottomNav/BottomNav";
 
 function ChartPage() {
   return (
@@ -9,9 +8,6 @@ function ChartPage() {
         <TopNavDate />
       </div>
       <h1>Welcome to ChartPage</h1>
-      <div id="bottom_nav_area">
-        <BottomNav />
-      </div>
     </div>
   );
 }
