@@ -2,23 +2,21 @@ import { useEffect, useState, useRef } from "react";
 import anime from "animejs/lib/anime.es.js";
 // import arrow from "../../assets/arrow.svg";
 import Arrow from "../../assets/Arrow.svg";
-import "./DragCounter.css";
+import "./SlideCounter.css";
 
-const DragCounter = () => {
-  const [count, setCount] = useState(15);
+const SlideCounter = () => {
+  const [count, setCount] = useState(100);
   const [draggable, setDraggable] = useState(false);
   const [startPosition, setStartPosition] = useState(0);
-  const [currentPosition, setCurrentPosition] = useState(0);
   const animationRef = useRef(undefined);
 
-  const backToCenter = () => {
+  const playAnimation = () => {
     animationRef.current = anime({
-      targets: ".stepper",
-      translateY: 0,
+      targets: ".count",
       duration: 1000,
-      scaleY: [
+      scale: [
         {
-          value: 1.5,
+          value: 1.3,
           duration: 100,
           easing: "easeOutExpo",
         },
@@ -28,30 +26,28 @@ const DragCounter = () => {
   };
 
   const onMouseDownEventHandler = (event) => {
-    if (animationRef.current) {
-      animationRef.current.pause();
-      animationRef.current.remove(animationRef);
-      animationRef.current = null;
-    }
     const y = event.clientY || event.touches[0].clientY;
     setDraggable(true);
     setStartPosition(y);
-    setCurrentPosition(0);
   };
   const onMouseUpEventHandler = (event) => {
-    if (currentPosition > 0) {
-      setCount((current) => current + 1);
-    } else if (currentPosition < 0) {
-      setCount((current) => current - 1);
-    }
     setDraggable(false);
-    backToCenter();
   };
   const onMouseMoveEventHandler = (event) => {
     const y = event.clientY || event.touches[0].clientY;
 
     if (draggable) {
-      setCurrentPosition(y - startPosition);
+      if (y - startPosition > 20) {
+        playAnimation();
+        const temp = (Number(count) - 0.1).toFixed(1);
+        setCount(temp);
+        setStartPosition(y);
+      } else if (y - startPosition < -20) {
+        playAnimation();
+        const temp = (Number(count) + 0.1).toFixed(1);
+        setCount(temp);
+        setStartPosition(y);
+      }
     }
   };
   useEffect(() => {
@@ -81,10 +77,8 @@ const DragCounter = () => {
         // onMouseDown={onMouseDownEventHandler}
         // onMouseUp={onMouseUpEventHandler}
         // onMouseMove={onMouseMoveEventHandler}
-        style={{ transform: `translateY(${currentPosition}px)` }}
       >
-        <span className="count first active">{count}</span>
-        <span className="count second next"></span>
+        <span className="count">{count}</span>
       </div>
 
       <div
@@ -101,4 +95,4 @@ const DragCounter = () => {
   );
 };
 
-export default DragCounter;
+export default SlideCounter;
