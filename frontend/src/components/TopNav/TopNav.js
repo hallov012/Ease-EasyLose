@@ -1,7 +1,7 @@
-import "./TopNav.css"
+import "./TopNav.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 function TopNav(props) {
   return (
@@ -26,7 +26,7 @@ function TopNav(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default TopNav
+export default TopNav;
