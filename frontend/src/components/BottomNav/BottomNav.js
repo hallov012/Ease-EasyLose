@@ -15,7 +15,7 @@ function BottomNav() {
   return (
     <div>
       <div className="navbar">
-        <NavLink to="/calendarpage" activeClassName="navbar__item__active">
+        <NavLink to="/calendar" activeClassName="navbar__item__active">
           <div className="navbar__item ">
             <span className="navbar__icon">
               <div className="icon">
@@ -24,7 +24,7 @@ function BottomNav() {
             </span>
           </div>
         </NavLink>
-        <NavLink to="/mockmealpage" activeClassName="navbar__item__active">
+        <NavLink to="/plan" activeClassName="navbar__item__active">
           <div className="navbar__item">
             <span className="navbar__icon">
               <div className="icon">
@@ -33,7 +33,7 @@ function BottomNav() {
             </span>
           </div>
         </NavLink>
-        <NavLink to="/mainpage" activeClassName="navbar__item__active">
+        <NavLink to="/main" activeClassName="navbar__item__active">
           <div className="navbar__item">
             <span className="navbar__icon">
               <div className="icon">
@@ -42,7 +42,7 @@ function BottomNav() {
             </span>
           </div>
         </NavLink>
-        <NavLink to="/chartpage" activeClassName="navbar__item__active">
+        <NavLink to="/chart" activeClassName="navbar__item__active">
           <div className="navbar__item">
             <span className="navbar__icon">
               <div className="icon">

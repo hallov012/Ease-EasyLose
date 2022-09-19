@@ -1,6 +1,7 @@
 import "./App.css";
 
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import CalendarPage from "./pages/CalendarPage";
 import PlanPage from "./pages/PlanPage";
 import MainPage from "./pages/MainPage";
@@ -16,7 +17,12 @@ import BottomNav from "./components/BottomNav/BottomNav";
 import { useState } from "react";
 
 function App() {
-  const [authorized, setAuthorized] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
+
   return (
     <div className="App">
       <div className="top_line_gradient"></div>
@@ -49,11 +55,9 @@ function App() {
           <AuthPage></AuthPage>
         </Route>
       </Switch>
-      {authorized ? (
-        <div id="bottom_nav_area">
-          <BottomNav />
-        </div>
-      ) : null}
+      <div id="bottom_nav_area">
+        <BottomNav />
+      </div>
     </div>
   );
 }
