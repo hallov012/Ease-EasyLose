@@ -35,8 +35,8 @@
   padding-bottom: 0.5rem;
   font-size: 21px;
   color: var(--text-color);
-  transition: all 0.55s cubic-bezier(0.71, 0.03, 0.23, 0.95);
-  border-radius: 50%;
+  /* transition: all 0.55s cubic-bezier(0.71, 0.03, 0.23, 0.95);
+  border-radius: 50%; */
 }
 
 .navbar__item__active {
@@ -46,6 +46,8 @@
   box-shadow: 0 7px 15px var(--sub-color);
   transform: translateY(-30px);
   opacity: 1;
+  transition: all 0.55s cubic-bezier(0.71, 0.03, 0.23, 0.95);
+  border-radius: 50%;
 }
 
 .navbar__item__active .navbar__icon {

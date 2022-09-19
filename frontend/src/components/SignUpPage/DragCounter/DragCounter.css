@@ -5,7 +5,7 @@
   align-items: center;
 }
 .stepper {
-  background: #ff4957;
+  background: #7c83fd;
   cursor: pointer;
   width: 130px;
   height: 130px;
@@ -15,7 +15,7 @@
   align-items: center;
   color: #fff;
   font-size: 64px;
-  box-shadow: -1px 57px 80px -17px rgba(255, 73, 87, 0.25);
+  /* box-shadow: 5px 5px rgba(153, 051, 255, 1); */
   overflow: hidden;
   margin-top: 10px;
   margin-bottom: 10px;
