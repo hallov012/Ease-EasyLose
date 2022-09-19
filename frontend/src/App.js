@@ -17,11 +17,22 @@ import BottomNav from "./components/BottomNav/BottomNav";
 import { useState } from "react";
 
 function App() {
-  const location = useLocation();
+  const location = useLocation().pathname;
 
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
+  function renderBottomNav() {
+    if (
+      location.includes("main") ||
+      location.includes("calendar") ||
+      location.includes("plan") ||
+      location.includes("chart") ||
+      location.includes("mypage")
+    )
+      return (
+        <div id="bottom_nav_area">
+          <BottomNav />
+        </div>
+      );
+  }
 
   return (
     <div className="App">
@@ -55,9 +66,7 @@ function App() {
           <AuthPage></AuthPage>
         </Route>
       </Switch>
-      <div id="bottom_nav_area">
-        <BottomNav />
-      </div>
+      {renderBottomNav()}
     </div>
   );
 }
