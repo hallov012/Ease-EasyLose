@@ -1,4 +1,4 @@
-import "./TopNav.css"
+import classes from "./TopNav.module.css"
 import * as React from "react"
 import TextField from "@mui/material/TextField"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
@@ -15,7 +15,7 @@ function TopNavDate() {
   }
 
   return (
-    <div className="date__input">
+    <div className={classes.date__input}>
       <LocalizationProvider dateAdapter={AdapterDayjs} className="date">
         <MobileDatePicker
           value={value}
@@ -24,7 +24,7 @@ function TopNavDate() {
           renderInput={(params) => <TextField {...params} />}
         />
       </LocalizationProvider>
-      <div className="calender__icon">
+      <div className={classes.calender__icon}>
         <FontAwesomeIcon icon={faCalendarDays} size="xl" />
       </div>
     </div>
