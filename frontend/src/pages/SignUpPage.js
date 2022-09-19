@@ -1,4 +1,5 @@
 import TopNav from "../components/TopNav/TopNav";
+import { Route } from "react-router-dom";
 
 function SignUpPage() {
   return (
@@ -6,7 +7,6 @@ function SignUpPage() {
       <div id="top_nav_area">
         <TopNav text="" arrow={[false, true]}></TopNav>
       </div>
-      <h1>Welcome to SignUpPage</h1>
     </div>
   );
 }
