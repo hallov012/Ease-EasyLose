@@ -1,0 +1,128 @@
+.icon {
+  opacity: 0;
+  animation: disapear 1s ease 3.3s reverse forwards;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon img {
+  width: 360px;
+}
+
+.icon span {
+  position: relative;
+  bottom: 50px;
+  color: var(--main-color);
+  margin-bottom: 0.2rem;
+}
+
+@font-face {
+  font-family: "SBAggroB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.description {
+  animation: disapear 1s ease 3s normal forwards;
+  position: relative;
+  z-index: 10;
+  bottom: 180px;
+}
+
+.description div {
+  font-family: "SBAggroB";
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  font-size: 2.5rem;
+}
+
+.description div:nth-of-type(2) {
+  width: 0px;
+  animation: reveal-left 3s forwards;
+}
+
+.description div:nth-of-type(3) {
+  width: 0px;
+  animation: reveal-right 3s forwards;
+}
+
+.description div:nth-of-type(2) span {
+  margin-left: -100px;
+  animation: slidein-left 3s forwards;
+}
+
+.description div:nth-of-type(3) span {
+  margin-right: -100px;
+  animation: slidein-right 3s forwards;
+}
+
+@keyframes slidein-left {
+  0% {
+    margin-left: -100px;
+  }
+  40% {
+    margin-left: -100px;
+  }
+  60% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+
+@keyframes slidein-right {
+  0% {
+    margin-right: -100px;
+  }
+  40% {
+    margin-right: -100px;
+  }
+  60% {
+    margin-right: 0px;
+  }
+  100% {
+    margin-right: 0px;
+  }
+}
+
+@keyframes reveal-left {
+  30% {
+    width: 0;
+  }
+  80% {
+    width: 3.5rem;
+  }
+  100% {
+    opacity: 1;
+    width: 3.5rem;
+  }
+}
+
+@keyframes reveal-right {
+  30% {
+    width: 0;
+  }
+  80% {
+    width: 3.6rem;
+  }
+  100% {
+    opacity: 1;
+    width: 3.6rem;
+  }
+}
+
+@keyframes disapear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
