@@ -1,21 +1,12 @@
 import classes from "./LoginArea.module.css"
-import logo from "../../../assets/EaseLogo.png"
+import LogoArea from "../LogoArea/LogoArea"
+import SocialBtns from "../SocialBtns/SocialBtns"
 
 function LoginArea() {
   return (
     <div className={classes.login__box}>
-      <img className={classes.icon} src={logo} alt="?" />
-      <div className={classes.description}>
-        <div>Ea</div>
-        <div>
-          <span>sy</span>
-        </div>
-        <div>
-          <span>Lo</span>
-        </div>
-        <div>se</div>
-      </div>
-      <div clseeName={classes.content}></div>
+      <LogoArea />
+      <SocialBtns />
     </div>
   )
 }
