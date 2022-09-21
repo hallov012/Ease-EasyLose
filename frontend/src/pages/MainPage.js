@@ -1,15 +1,23 @@
-import TopNavDate from "../components/TopNav/TopNavDate";
+import { Route } from "react-router-dom"
+
+import DailyDietPage from "../components/MainPage/pages/DailyDietPage"
+import DailySummaryPage from "../components/MainPage/pages/DailySummaryPage"
+import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage"
 
 function MainPage() {
   return (
     <div>
-      <div id="top_nav_area">
-        {/* <TopNav text={"2022.09.15 (목)"} arrow={[0, 1]} /> */}
-        <TopNavDate />
-      </div>
-      <h1>Welcome to MainPage</h1>
+      <Route path="/main" exact>
+        <DailyDietPage />
+      </Route>
+      <Route path="/main/summary">
+        <DailySummaryPage />
+      </Route>
+      <Route path="main/:mealtime">
+        <MealSummaryPage />
+      </Route>
     </div>
-  );
+  )
 }
 
-export default MainPage;
+export default MainPage

@@ -1,9 +1,10 @@
 :root {
-  --main-color: #7579e7;
+  --main-color: #7c83fd;
   --light-color: #b1e1ff;
   --sub-color: #afb4ff;
   --text-color: #00033f;
   --gray-color: #f0f0f0;
+  --point-color: #a66cff;
 }
 
 .App {
@@ -32,4 +33,17 @@
 #bottom_nav_area {
   position: fixed;
   bottom: 0;
+}
+
+.box_shadow {
+  box-shadow: 0 4px 5px gray;
+}
+
+.gradient_color__vertical {
+  background: var(--main-color);
+  background: linear-gradient(
+    180deg,
+    var(--main-color) 44%,
+    var(--light-color) 100%
+  );
 }
