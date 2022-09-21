@@ -48,7 +48,22 @@
   );
 }
 
+.gradient_color__horizon {
+  background: var(--main-color);
+  background: linear-gradient(
+    90deg,
+    var(--main-color) 44%,
+    var(--light-color) 88%
+  );
+}
+
 a {
   text-decoration: none;
   color: var(--text-color);
+}
+
+@media (min-height: 800px) {
+  .App {
+    font-size: 1.1rem;
+  }
 }
