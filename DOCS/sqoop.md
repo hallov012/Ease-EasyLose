@@ -43,8 +43,15 @@ export HADOOP_MAPRED_HOME=/usr/local/hadoop
 
 [https://earthconquest.tistory.com/241](https://earthconquest.tistory.com/241)
 
-### 진행할것
+## Mysql-connector 설치
 
-1. HBase 설치하기
-2. MariaDB 설치하기
-3. HBase 테이블을 MariaDB에 옮기기
+```java
+wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.tar.gz
+tar xzvf mysql-connector-java-5.1.38.tar.gz
+cd mysql-connector-java-5.1.38/
+cp mysql-connector-java-5.1.38-bin.jar ~/sqoop/lib
+```
+
+```java
+sqoop list-databases --connect jdbc:mysql://IP_ADDRESS:3306/ --username root --password 123
+```
