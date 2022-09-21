@@ -14,22 +14,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 // swagger 주소 : http://localhost:8080/swagger-ui.html
 public class SwaggerConfig {
-    @Bean
-    public Docket restAPI() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.easylose.backend"))
-                .paths(PathSelectors.any())
-                .build();
-    }
+  @Bean
+  public Docket restAPI() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .apiInfo(apiInfo())
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.easylose.backend"))
+        .paths(PathSelectors.any())
+        .build();
+  }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Easy Lose Spring Boot REST API")
-                .version("1.0.0")
-                .description("Easy Lose Swagger를 통해 Easy Build 하세요!")
-                .build();
-
-    }
+  private ApiInfo apiInfo() {
+    return new ApiInfoBuilder()
+        .title("Easy Lose Spring Boot REST API")
+        .version("1.0.0")
+        .description("Easy Lose Swagger를 통해 Easy Build 하세요!")
+        .build();
+  }
 }

@@ -1,4 +1,3 @@
 package com.easylose.backend.api.v1.repository;
 
-public interface DailyMealLogRepository {
-}
+public interface DailyMealLogRepository {}

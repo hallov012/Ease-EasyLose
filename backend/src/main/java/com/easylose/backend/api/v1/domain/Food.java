@@ -1,49 +1,42 @@
 package com.easylose.backend.api.v1.domain;
 
 import com.easylose.backend.api.v1.enums.FoodType;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="food")
+@Table(name = "food")
 public class Food {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+  @Id @GeneratedValue private Long id;
 
-    @Enumerated
-    @Column(nullable = false)
-    private FoodType foodType;
+  @Enumerated
+  @Column(nullable = false)
+  private FoodType foodType;
 
-    @Column(length=30, nullable = false)
-    private String name;
+  @Column(length = 30, nullable = false)
+  private String name;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    @Column(name="product_id", length=20)
-    private String productId;
+  @Column(name = "product_id", length = 20)
+  private String productId;
 
-    @Column(length=50)
-    private String barcode;
+  @Column(length = 50)
+  private String barcode;
 
-    private Float calorie;
+  private Float calorie;
 
-    private Float carb;
+  private Float carb;
 
-    private Float protein;
+  private Float protein;
 
-    private Float fat;
-
-
+  private Float fat;
 }
