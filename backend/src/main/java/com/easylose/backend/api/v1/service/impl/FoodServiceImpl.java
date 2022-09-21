@@ -1,4 +1,3 @@
 package com.easylose.backend.api.v1.service.impl;
 
-public class FoodServiceImpl {
-}
+public class FoodServiceImpl {}

@@ -1,23 +1,21 @@
 package com.easylose.backend.api.v1.domain;
 
-import javax.persistence.*;
-
 import com.easylose.backend.api.v1.dto.UserDto;
 import com.easylose.backend.api.v1.enums.ActivityLevel;
 import com.easylose.backend.api.v1.enums.Gender;
 import com.easylose.backend.api.v1.enums.Goal;
+import java.time.LocalDateTime;
+import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.sql.Update;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
-
 @Entity // Entity 선언
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 무분별한 객체 생성을 방지할 수 있음, User user = new User() 생성 금지당함
+@NoArgsConstructor(
+    access = AccessLevel.PROTECTED) // 무분별한 객체 생성을 방지할 수 있음, User user = new User() 생성 금지당함
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 @DynamicUpdate
@@ -34,10 +32,10 @@ public class User {
 
   private String birthdate;
 
-  @Column(length=100)
+  @Column(length = 100)
   private String loginType;
 
-  @Column(length=100)
+  @Column(length = 100)
   private String authorizationCode;
 
   @Enumerated(EnumType.STRING)
@@ -56,16 +54,39 @@ public class User {
 
   private String profileImg;
 
+  private String providerId;
+
+  private String provider;
+
+  @Setter private String refreshJws;
+
   @CreatedDate
-  @Column(name="created_at", updatable = false, nullable = false)
+  @Column(name = "created_at", updatable = false, nullable = false)
   private LocalDateTime createdAt;
 
   @LastModifiedDate
-  @Column(name="updated_at")
+  @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
   @Builder
-  public User(Long id, String name, Gender gender, String birthdate, String loginType, String authorizationCode, ActivityLevel activityLevel, Goal goal, Float dailyCalorie, Float dailyCarb, Float dailyProtein, Float dailyFat, String profileImg, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public User(
+      Long id,
+      String name,
+      Gender gender,
+      String birthdate,
+      String loginType,
+      String authorizationCode,
+      ActivityLevel activityLevel,
+      Goal goal,
+      Float dailyCalorie,
+      Float dailyCarb,
+      Float dailyProtein,
+      Float dailyFat,
+      String profileImg,
+      String providerId,
+      String provider,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.name = name;
     this.gender = gender;
@@ -79,11 +100,13 @@ public class User {
     this.dailyProtein = dailyProtein;
     this.dailyFat = dailyFat;
     this.profileImg = profileImg;
+    this.providerId = providerId;
+    this.provider = provider;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
 
-  public void update(UserDto.UpdateRequestDto requestDto){
+  public void update(UserDto.UpdateRequestDto requestDto) {
     this.activityLevel = requestDto.getActivityLevel();
     this.goal = requestDto.getGoal();
     this.dailyCalorie = requestDto.getDailyCalorie();
@@ -92,6 +115,10 @@ public class User {
     this.dailyFat = requestDto.getDailyFat();
   }
 
+  public void updateProvider(String name, String profileImg, String providerId, String provider) {
+    this.name = name;
+    this.profileImg = profileImg;
+    this.providerId = providerId;
+    this.provider = provider;
+  }
 }
-
-
