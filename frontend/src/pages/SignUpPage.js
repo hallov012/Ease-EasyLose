@@ -1,5 +1,5 @@
 import TopNav from "../components/TopNav/TopNav";
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import SignUpHeader from "../components/SignUpPage/SignUpHeader/SignUpHeader";
 import { useEffect, useState } from "react";
 import GenderPicker from "../components/SignUpPage/GenderPicker/GenderPicker";
@@ -77,7 +77,6 @@ function SignUpPage() {
   });
 
   function setArrow() {
-    const temp = informationMap.get(location);
     if (location === "/gender") {
       if (userGender === "") {
         return ["", ""];

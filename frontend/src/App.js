@@ -59,7 +59,7 @@ function App() {
         <Route path="/mypage">
           <MyPage></MyPage>
         </Route>
-        <Route path="/add/:typeName">
+        <Route path="/add">
           <AddPage></AddPage>
         </Route>
         <Route path="/auth/:tokenInfo">
