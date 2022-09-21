@@ -1,10 +1,16 @@
-import "./SignUpPage.module.css";
+import SignUpProgressBar from "../SignUpProgressBar/SignUpProgressBar";
+import classes from "./SignUpHeader.module.css";
 
 function SignUpHeader(props) {
   return (
-    <div>
-      <div>{props.title}</div>
-      <div>{props.subtitle}</div>
+    <div className={classes.container}>
+      <div className={classes.title}>{props.title}</div>
+      <div className={classes.progressbar}>
+        <SignUpProgressBar done={props.done}></SignUpProgressBar>
+      </div>
+      {props.subtitle ? (
+        <div className={classes.subtitle}>{props.subtitle}</div>
+      ) : null}
     </div>
   );
 }

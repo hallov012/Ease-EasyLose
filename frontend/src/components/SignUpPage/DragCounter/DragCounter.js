@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import anime from "animejs/lib/anime.es.js";
 // import arrow from "../../assets/arrow.svg";
-import Arrow from "../../assets/Arrow.svg";
+import Arrow from "../../assets/SignUpPage/Arrow.svg";
 import "./DragCounter.css";
 
 const DragCounter = () => {

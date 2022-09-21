@@ -1,7 +1,6 @@
 .top_nav_item_list {
   display: grid;
   width: 100vw;
-  height: 50px;
   grid-template-columns: 1fr 8fr 1fr;
 }
 
