@@ -1,6 +1,7 @@
 import TopNavDate from "../../../components/TopNav/TopNavDate"
 import NutrientSummary from "../NutrientSummary/NutrientSummary"
 import SumProgressBar from "../SumProgressBar/SumProgressBar"
+import MealCardList from "../MealCardList/MealCardList"
 
 function DailyDietPage() {
   return (
@@ -11,6 +12,7 @@ function DailyDietPage() {
       <div style={{ margin: "0 20px" }}>
         <NutrientSummary />
         <SumProgressBar />
+        <MealCardList />
       </div>
     </div>
   )
