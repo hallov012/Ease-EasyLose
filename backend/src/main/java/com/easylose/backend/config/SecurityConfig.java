@@ -26,9 +26,11 @@ public class SecurityConfig {
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring()
-        // swagger
-        .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/v2/api-docs");
+    return (web) ->
+        web.ignoring()
+            // swagger
+            .antMatchers(
+                "/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/v2/api-docs");
   }
 
   @Bean
@@ -53,7 +55,8 @@ public class SecurityConfig {
         .exceptionHandling()
         .authenticationEntryPoint(new AuthenticationEntryPointImpl())
         .and()
-        .addFilterBefore(new AuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(
+            new AuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
         .oauth2Login()
         .successHandler(successHandler)
         .redirectionEndpoint()
@@ -64,7 +67,8 @@ public class SecurityConfig {
 
   @Bean
   FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
-    final FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<ForwardedHeaderFilter>();
+    final FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean =
+        new FilterRegistrationBean<ForwardedHeaderFilter>();
 
     filterRegistrationBean.setFilter(new ForwardedHeaderFilter());
     filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);

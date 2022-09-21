@@ -1,5 +1,6 @@
 package com.easylose.backend.security.auth;
 
+import com.easylose.backend.security.jwt.JwtService;
 import java.io.IOException;
 import java.util.Arrays;
 import javax.servlet.FilterChain;
@@ -16,8 +17,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
-
-import com.easylose.backend.security.jwt.JwtService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -63,8 +62,9 @@ public class AuthenticationFilter extends GenericFilterBean {
       switch (jwtService.validateAccessJws(accessJws)) {
         case OK:
           Long id = jwtService.getId(accessJws);
-          Authentication auth = new UsernamePasswordAuthenticationToken(
-              id, "", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+          Authentication auth =
+              new UsernamePasswordAuthenticationToken(
+                  id, "", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
 
           SecurityContextHolder.getContext().setAuthentication(auth);
           break;
