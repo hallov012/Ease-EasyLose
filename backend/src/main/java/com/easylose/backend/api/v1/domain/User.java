@@ -32,11 +32,9 @@ public class User {
 
   private String birthdate;
 
-  @Column(length = 100)
-  private String loginType;
+  private Float height;
 
-  @Column(length = 100)
-  private String authorizationCode;
+  private Float weight;
 
   @Enumerated(EnumType.STRING)
   private ActivityLevel activityLevel;
@@ -69,30 +67,13 @@ public class User {
   private LocalDateTime updatedAt;
 
   @Builder
-  public User(
-      Long id,
-      String name,
-      Gender gender,
-      String birthdate,
-      String loginType,
-      String authorizationCode,
-      ActivityLevel activityLevel,
-      Goal goal,
-      Float dailyCalorie,
-      Float dailyCarb,
-      Float dailyProtein,
-      Float dailyFat,
-      String profileImg,
-      String providerId,
-      String provider,
-      LocalDateTime createdAt,
-      LocalDateTime updatedAt) {
+  public User(Long id, String name, Gender gender, String birthdate, Float height, Float weight, ActivityLevel activityLevel, Goal goal, Float dailyCalorie, Float dailyCarb, Float dailyProtein, Float dailyFat, String profileImg, String providerId, String provider, LocalDateTime createdAt, LocalDateTime updatedAt) {
     this.id = id;
     this.name = name;
     this.gender = gender;
     this.birthdate = birthdate;
-    this.loginType = loginType;
-    this.authorizationCode = authorizationCode;
+    this.height = height;
+    this.weight = weight;
     this.activityLevel = activityLevel;
     this.goal = goal;
     this.dailyCalorie = dailyCalorie;
@@ -105,6 +86,9 @@ public class User {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
+
+
+
 
   public void update(UserDto.UpdateRequestDto requestDto) {
     this.activityLevel = requestDto.getActivityLevel();
