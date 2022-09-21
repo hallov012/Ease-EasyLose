@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,5 +46,12 @@ public class ProfileController {
     logger.info("[deleteUser] Request Delete User Information");
     userService.deleteUser(id);
     return ResponseEntity.status(HttpStatus.OK).body(null);
+  }
+
+  @GetMapping("")
+  @ApiOperation(value = "로그인 한 유저 정보", notes = "로그인 한 유저 정보를 불러온다.")
+  public ResponseEntity<UserDto.ResponseDto> getMe(@AuthenticationPrincipal Long id) {
+    UserDto.ResponseDto response = userService.getUser(id);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }
