@@ -14,7 +14,7 @@ const theme = createTheme({
 })
 
 function ProgressCircular() {
-  const percent = 72
+  const percent = 78
   const [percent_value, setValue] = useState(percent)
   const [circleColor, setColor] = useState("inherit")
 

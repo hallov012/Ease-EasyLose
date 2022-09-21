@@ -1,0 +1,36 @@
+.meal_item__box {
+  margin-top: 0.8rem;
+  background-color: var(--gray-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.meal_item__box i {
+  color: var(--sub-color);
+  font-size: 1.3rem;
+}
+
+.meal_item__box .item__top {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.meal_item__box .item__middle {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  bottom: 0.8rem;
+}
+
+.item__middle span:first-child {
+  font-weight: bolder;
+  margin-bottom: 0.3rem;
+}
+
+.meal_item__box .item__bottom {
+  color: var(--main-color);
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  font-size: 0.8rem;
+}
