@@ -1,9 +1,7 @@
-package com.easylose.backend.security.jwt;
+package com.easylose.backend.security.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -14,18 +12,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.easylose.backend.security.jwt.JwtService;
+
 @Slf4j
 @RequiredArgsConstructor
-public class JwtAuthFilter extends GenericFilterBean {
+public class AuthenticationFilter extends GenericFilterBean {
   private final JwtService jwtService;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
+      throws IOException, ServletException, AuthenticationException {
 
     String accessJws = null;
     String refreshJws = ((HttpServletRequest) request).getHeader("Refresh-Token");
@@ -36,18 +37,15 @@ public class JwtAuthFilter extends GenericFilterBean {
         case OK:
           accessJws = jwtService.refreshAccessJws(refreshJws);
           ((HttpServletResponse) response).addHeader("Access-Token", accessJws);
-
           break;
 
         case EXPIRED:
-          setErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Refresh Token Expired");
-
-          return;
+          request.setAttribute("jwtError", "Refresh token expired");
+          break;
 
         case ERROR:
-          setErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Invalid Refresh Token");
-
-          return;
+          request.setAttribute("jwtError", "Invalid refresh token");
+          break;
       }
     } else {
       String headerAuthorization = ((HttpServletRequest) request).getHeader("Authorization");
@@ -59,39 +57,28 @@ public class JwtAuthFilter extends GenericFilterBean {
 
     log.info("accessJws={}, refreshJws={}", accessJws, refreshJws);
 
-    switch (jwtService.validateAccessJws(accessJws)) {
-      case OK:
-        Long id = jwtService.getId(accessJws);
-        Authentication auth =
-            new UsernamePasswordAuthenticationToken(
-                id, "", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+    if (accessJws == null) {
+      request.setAttribute("jwtError", "Access token required");
+    } else {
+      switch (jwtService.validateAccessJws(accessJws)) {
+        case OK:
+          Long id = jwtService.getId(accessJws);
+          Authentication auth = new UsernamePasswordAuthenticationToken(
+              id, "", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
 
-        SecurityContextHolder.getContext().setAuthentication(auth);
+          SecurityContextHolder.getContext().setAuthentication(auth);
+          break;
 
-        break;
+        case EXPIRED:
+          request.setAttribute("jwtError", "Access token expired");
+          break;
 
-      case EXPIRED:
-        setErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Access Token Expired");
-
-        return;
-
-      case ERROR:
-        setErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Invalid Access Token");
-
-        return;
+        case ERROR:
+          request.setAttribute("jwtError", "Invalid access token");
+          break;
+      }
     }
 
     chain.doFilter(request, response);
-  }
-
-  private void setErrorResponse(ServletResponse response, int status, String message)
-      throws IOException, IllegalStateException {
-    HashMap<String, String> errorMessage = new HashMap<String, String>();
-    errorMessage.put("Error", message);
-    String errorMessageJson = (new ObjectMapper()).writeValueAsString(errorMessage);
-
-    response.setContentType("application/json");
-    ((HttpServletResponse) response).setStatus(status);
-    response.getOutputStream().print(errorMessageJson);
   }
 }
