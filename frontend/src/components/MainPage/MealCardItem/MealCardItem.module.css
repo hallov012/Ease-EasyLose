@@ -34,3 +34,28 @@
   align-items: center;
   font-size: 0.8rem;
 }
+
+@media (min-height: 800px) {
+  .meal_item__box {
+    height: 8rem;
+  }
+
+  .meal_item__box i {
+    font-size: 1.5rem;
+  }
+
+  .meal_item__box .item__middle {
+    bottom: 0;
+    font-size: 1.1rem;
+  }
+
+  .item__middle span:first-child {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .meal_item__box .item__bottom {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+}

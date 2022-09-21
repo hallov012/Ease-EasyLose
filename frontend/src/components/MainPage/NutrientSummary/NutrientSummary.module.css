@@ -5,7 +5,7 @@
 .summary_link {
   color: var(--main-color);
   width: 4rem;
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
 }
 
 .summary_box {
@@ -33,4 +33,18 @@
 .calorie_text span:first-child {
   font-weight: bolder;
   margin-bottom: 0.1rem;
+}
+
+@media (min-height: 800px) {
+  .summary_box {
+    height: 18.5rem;
+  }
+
+  .summary_link {
+    margin-top: 1rem;
+  }
+
+  .progress_area {
+    margin-top: 1rem;
+  }
 }

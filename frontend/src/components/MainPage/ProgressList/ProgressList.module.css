@@ -1,0 +1,49 @@
+.progress_box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.progress_item {
+  padding: 0 1.2rem;
+  position: relative;
+  bottom: 1rem;
+}
+
+.nutrient_text {
+  margin-bottom: 0.3rem;
+}
+
+.circular_progress {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  left: 0.3rem;
+}
+
+.circular_progress svg {
+  width: 5rem;
+  position: relative;
+  left: -3rem;
+}
+
+.circular_progress .inner_circle {
+  border: solid 2px rgba(255, 255, 255, 0.7);
+  content: "";
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 100%;
+  position: relative;
+  bottom: 3.1rem;
+  left: 0.2rem;
+}
+
+@media (min-height: 800px) {
+  .linear_progress {
+    display: none;
+  }
+
+  .circular_progress {
+    display: flex;
+  }
+}
