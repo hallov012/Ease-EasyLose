@@ -1,107 +1,185 @@
 import TopNav from "../components/TopNav/TopNav";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import SignUpHeader from "../components/SignUpPage/SignUpHeader/SignUpHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import GenderPicker from "../components/SignUpPage/GenderPicker/GenderPicker";
+import BirthPicker from "../components/SignUpPage/BirthPicker/BirthPicker";
+import HeightPicker from "../components/SignUpPage/HeightPicker/HeightPicker";
+import WeightPicker from "../components/SignUpPage/WeightPicker/WeightPicker";
+import ActivityPicker from "../components/SignUpPage/ActivityPicker/ActivityPicker";
+import GoalPicker from "../components/SignUpPage/GoalPicker/GoalPicker";
+import PickComplete from "../components/SignUpPage/PickComplete/PickComplete";
 
 function SignUpPage() {
   const location = useLocation().pathname.replace("/signup", "");
-  const [currentPageInfo, setCurrentPageInfo] = useState(null);
+  const [userGender, setUserGender] = useState("");
+  const [userBirth, setUserBirth] = useState("20000101");
+  const [userWeight, setUserWeight] = useState("70");
+  const [userHeight, setUserHeight] = useState("180");
+  const [userActivity, setUserActivity] = useState(5);
+  const [userGoal, setUserGoal] = useState(5);
 
-  const infoMap = new Map();
-  infoMap.set("", {
-    title: "응애",
-    subtitle: "되나?",
-    notice: "되면 대박",
-    arrow: ["", "/signup/gender"],
+  useEffect(() => {}, []);
+  // const [userInfo, setUserInfo] = useState({
+  //   gender: "",
+  //   birth: "",
+  //   height: "",
+  //   weight: "",
+  //   activity: "",
+  //   goal: "",
+  // });
+
+  console.log(
+    `${userGender}/${userBirth}/${userWeight}kg/${userHeight}cm/${userActivity}/${userGoal}`
+  );
+
+  const informationMap = new Map();
+  informationMap.set("/gender", {
+    title: "성별",
+    subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "0",
   });
-  infoMap.set("/gender", {
-    title: "성별 입력",
-    subtitle: "회원님의 성별을 입력해주세요",
-    notice: "맞춤 추천을 위한 성별을 입력해주세요",
-    arrow: ["", "/signup/birth"],
-    done: "10",
+  informationMap.set("/birth", {
+    title: "생일",
+    subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
+    done: "16",
   });
-  infoMap.set("/birth", {
-    title: "생일 입력",
-    subtitle: "회원님의 생일을 입력해주세요",
-    notice: "맞춤 추천을 위한 생일을 입력해주세요",
-    arrow: ["/signup/gender", "/signup/height"],
-    done: "25",
+  informationMap.set("/height", {
+    title: "키",
+    subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
+    done: "32",
   });
-  infoMap.set("/height", {
-    title: "신장 입력",
-    subtitle: "회원님의 신장을 입력해주세요",
-    notice: "맞춤 추천을 위한 신장을 입력해주세요",
-    arrow: ["/signup/birth", "/signup/weight"],
-    done: "40",
+  informationMap.set("/weight", {
+    title: "몸무게",
+    subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
+    done: "48",
   });
-  infoMap.set("/weight", {
-    title: "몸무게 입력",
-    subtitle: "회원님의 몸무게을 입력해주세요",
-    notice: "맞춤 추천을 위한 몸무게을 입력해주세요",
-    arrow: ["/signup/height", "/signup/amountOfActivity"],
-    done: "55",
+  informationMap.set("/activity", {
+    title: "활동량",
+    subtitle: "하루 활동량을 기준으로 선택해주세요!",
+    done: "64",
   });
-  infoMap.set("/amountOfActivity", {
-    title: "활동량 입력",
-    subtitle: "회원님의 활동량을 입력해주세요",
-    notice: "맞춤 추천을 위한 활동량을 입력해주세요",
-    arrow: ["/signup/weight", "/signup/goal"],
-    done: "70",
+  informationMap.set("/goal", {
+    title: "목표",
+    subtitle: "선택하실 목표에 맞게 영양 비율을 추천해드립니다!",
+    done: "80",
   });
-  infoMap.set("/goal", {
-    title: "목표 입력",
-    subtitle: "회원님의 목표를 입력해주세요",
-    notice: "맞춤 추천을 위한을 목표를 입력해주세요",
-    arrow: ["/signup/amountOfActivity", ""],
-    done: "85",
-  });
-  infoMap.set("/complete", {
-    title: "끝",
-    subtitle: "끝났어요",
-    notice: "완료됨ㅋ",
-    arrow: ["", ""],
+  // informationMap.set("/verify", {
+  //   title: "입력 확인",
+  //   subtitle: "보다 정확한 추천을 위해 입력 내역을 확인해주세요!",
+  //   arrow: ["", ""],
+  //   done: "100",
+  // });
+  informationMap.set("/complete", {
+    title: "수고하셨습니다!",
+    subtitle: "",
     done: "100",
   });
 
+  function setArrow() {
+    const temp = informationMap.get(location);
+    if (location === "/gender") {
+      if (userGender === "") {
+        return ["", ""];
+      } else {
+        return ["", "/signup/birth"];
+      }
+    } else if (location === "/activity") {
+      if (userActivity === 5) {
+        return ["/signup/weight", ""];
+      } else {
+        return ["/signup/weight", "/signup/goal"];
+      }
+    } else if (location === "/goal") {
+      if (userGoal === 5) {
+        return ["/signup/activity", ""];
+      } else {
+        return ["/signup/activity", "/signup/complete"];
+      }
+    } else if (location === "/height") {
+      return ["/signup/birth", "/signup/weight"];
+    } else if (location === "/weight") {
+      return ["/signup/height", "/signup/activity"];
+    } else if (location === "/birth") {
+      return ["/signup/gender", "/signup/height"];
+    } else {
+      return ["", ""];
+    }
+  }
+
   function renderSignUpPage() {
-    const temp = infoMap.get(location);
+    const temp = informationMap.get(location);
     return (
       <div>
         <div id="top_nav_area">
-          <TopNav text="" arrow={temp.arrow}></TopNav>
+          <TopNav text="" arrow={setArrow()}></TopNav>
         </div>
         <SignUpHeader
           title={temp.title}
-          subtitle={temp.subtitle}
-          notice={temp.notice}
           done={temp.done}
+          subtitle={temp.subtitle}
         ></SignUpHeader>
         <Switch>
-          <Route path="/signup" exact>
-            <h1>정보를 입력해보아요~</h1>
-          </Route>
           <Route path="/signup/gender">
-            <h1>Gender Component</h1>
+            <GenderPicker
+              value={userGender}
+              setGender={(value) => {
+                setUserGender(value);
+                // setUserInfo((current) => {
+                //   let newObject = { ...current };
+                //   newObject["gender"] = value;
+                //   return newObject;
+                // });
+              }}
+            ></GenderPicker>
           </Route>
           <Route path="/signup/height">
-            <h1>Height Component</h1>
+            <HeightPicker
+              value={userHeight}
+              setHeight={(value) => {
+                setUserHeight(value);
+              }}
+            ></HeightPicker>
           </Route>
           <Route path="/signup/weight">
-            <h1>Weight Component</h1>
+            <WeightPicker
+              value={userWeight}
+              setWeight={(value) => {
+                setUserWeight(value);
+              }}
+            ></WeightPicker>
           </Route>
           <Route path="/signup/birth">
-            <h1>Birth Component</h1>
+            <BirthPicker
+              value={userBirth}
+              setBirth={(value) => {
+                setUserBirth(value);
+                // setUserInfo((current) => {
+                //   let newObject = { ...current };
+                //   newObject["birth"] = value;
+                //   return newObject;
+                // });
+              }}
+            ></BirthPicker>
           </Route>
-          <Route path="/signup/amountOfActivity">
-            <h1>Amount of Activity Component</h1>
+          <Route path="/signup/activity">
+            <ActivityPicker
+              value={userActivity}
+              setValue={(value) => {
+                setUserActivity(value);
+              }}
+            ></ActivityPicker>
           </Route>
           <Route path="/signup/goal">
-            <h1>Goal Component</h1>
+            <GoalPicker
+              value={userGoal}
+              setValue={(value) => {
+                setUserGoal(value);
+              }}
+            ></GoalPicker>
           </Route>
           <Route path="/signup/complete">
-            <h1>Complete Component</h1>
+            <PickComplete></PickComplete>
           </Route>
         </Switch>
       </div>
