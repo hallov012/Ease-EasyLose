@@ -20,7 +20,7 @@ function DailyDietPage(props) {
           }}
         />
       </div>
-      <div style={{ margin: "0 20px" }}>
+      <div style={{ margin: "0 5vw" }}>
         <NutrientSummary />
         <SumProgressBar />
         <MealCardList />
