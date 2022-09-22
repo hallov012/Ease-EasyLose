@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+}
+
+.inputbox {
+  width: 90vw;
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid black 2px;
+}
+
+.foodName {
+  border: 0;
+  outline: 0;
+  height: 5vh;
+  width: 60vw;
+  border-radius: 5px;
+  background: var(--gray-color);
+  text-align: center;
+  font-family: "Arita-dotum-Medium";
+  font-size: 18px;
+}
+
+.detailcontainer {
+  margin-top: 2vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+.detailBig {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+  font-weight: bold;
+  margin-bottom: 5px;
+  border-bottom: solid #d9d9d9 1px;
+  height: 5vh;
+}
+
+.detailSmall {
+  width: 80vw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.detailSmallSmall {
+  width: 75vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5vh;
+  border-bottom: solid #d9d9d9 1px;
+}
+
+.input {
+  border: 0;
+  outline: 0;
+  width: 20vw;
+  text-align: right;
+  font-family: "Arita-dotum-Medium";
+  font-weight: inherit;
+  font-size: 1rem;
+}
+
+.addButtonContainer {
+  width: 100vw;
+  position: absolute;
+  bottom: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addButton {
+  width: 90vw;
+  height: 5vh;
+  background: var(--gray-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-weight: 1000;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}

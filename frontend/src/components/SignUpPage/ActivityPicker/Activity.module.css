@@ -7,10 +7,11 @@
 }
 
 .pickedItem {
+  padding-right: 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 80vw;
+  width: 90vw;
   height: 10vh;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -24,7 +25,7 @@
   border: 0;
   outline: 0;
   margin: 2vw;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
 /* display: flex;
@@ -32,10 +33,11 @@
   align-items: center; */
 
 .activityItem {
+  padding-right: 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 80vw;
+  width: 90vw;
   height: 10vh;
   background: #ebebeb;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -43,7 +45,7 @@
   border: 0;
   outline: 0;
   margin: 2vw;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
 /* .activityItem svg {

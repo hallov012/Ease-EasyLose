@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  height: 10vh;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid #00033f;
+}
+
+.icontainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 100%;
+}
+
+.acontainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.amount {
+  color: var(--main-color);
+  margin-right: 10px;
+}
