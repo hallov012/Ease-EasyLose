@@ -3,7 +3,6 @@ package com.easylose.backend.api.v1.domain;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import com.easylose.backend.api.v1.enums.MealType;
 import javax.persistence.*;
-
 import lombok.*;
 
 @Entity
@@ -12,9 +11,7 @@ import lombok.*;
 @Table(name = "dailymeal_log")
 public class DailyMealLog {
 
-  @Id
-  @GeneratedValue
-  private Long id;
+  @Id @GeneratedValue private Long id;
   private String date;
 
   private MealType mealType;
@@ -38,7 +35,8 @@ public class DailyMealLog {
     this.user = user;
     this.food = food;
   }
-  public void update(DailyMealLogDto.CreateAndUpdateRequestDto updateRequestDto){
+
+  public void update(DailyMealLogDto.CreateAndUpdateRequestDto updateRequestDto) {
     this.date = updateRequestDto.getDate();
     this.mealType = updateRequestDto.getMealType();
     this.food = updateRequestDto.getFood();

@@ -51,11 +51,21 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
               .name(name)
               .profileImg(profileImg)
               .build();
+
       user = userRepository.save(user);
 
     } else {
-      user = queryResult.get(0);
-      user.updateProvider(name, profileImg, providerId, provider);
+      Long id = queryResult.get(0).getId();
+      user =
+          User.builder()
+              .id(id)
+              .providerId(providerId)
+              .provider(provider)
+              .name(name)
+              .profileImg(profileImg)
+              .build();
+
+      user = userRepository.save(user);
     }
 
     TokenDto token = jwtService.create(user);
