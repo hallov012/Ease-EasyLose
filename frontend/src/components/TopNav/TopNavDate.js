@@ -7,12 +7,16 @@ import dayjs from "dayjs"
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons"
+import { useEffect } from "react"
 
-function TopNavDate() {
+function TopNavDate(props) {
   const [value, setValue] = React.useState(dayjs(new Date()))
   const handleChange = (newValue) => {
     setValue(newValue)
   }
+  useEffect(() => {
+    props.setValue(value)
+  }, [value])
 
   return (
     <div className={classes.date__input}>

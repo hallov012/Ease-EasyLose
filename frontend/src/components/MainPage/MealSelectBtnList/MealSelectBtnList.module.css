@@ -1,0 +1,13 @@
+.btn_area {
+  margin-top: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 0.4rem;
+}
+
+.meal_btn {
+  /* background: var(--gray-color); */
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 20px;
+}

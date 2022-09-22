@@ -3,11 +3,22 @@ import NutrientSummary from "../NutrientSummary/NutrientSummary"
 import SumProgressBar from "../SumProgressBar/SumProgressBar"
 import MealCardList from "../MealCardList/MealCardList"
 
-function DailyDietPage() {
+import { useState, useEffect } from "react"
+
+function DailyDietPage(props) {
+  const [date, setDate] = useState(undefined)
+  useEffect(() => {
+    props.setValue(date)
+  }, [date])
+
   return (
     <div>
       <div id="top_nav_area">
-        <TopNavDate />
+        <TopNavDate
+          setValue={(value) => {
+            setDate(value)
+          }}
+        />
       </div>
       <div style={{ margin: "0 20px" }}>
         <NutrientSummary />

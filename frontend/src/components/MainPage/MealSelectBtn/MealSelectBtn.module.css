@@ -1,0 +1,6 @@
+.meal_btn {
+  /* background: var(--gray-color); */
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 20px;
+}
