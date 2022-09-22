@@ -75,7 +75,7 @@ initLimit=10
 syncLimit=5
 dataDir=/data
 clientPort=2181
-server.1=zk01:2888:3888
+server.1=localhost:2888:3888
 ```
 
 ```bash
@@ -93,5 +93,24 @@ $ start-all.sh
 $ hdfs dfsadmin -safemode leave
 $ $HBASE_HOME/bin/start-hbase.sh
 $ $HBASE_HOME/bin/hbase shell
+```
+
+## HBase 이용 Mapreduce build를 위한 세팅
+### hadoop
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HADOOP_CLASSPATH="$HADOOP_CLASSPATH:$HBASE_HOME/lib/*"
+```
+
+### ~/.bashrc
+```
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HADOOP_HOME="/usr/local/hadoop"
+export PATH="$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH"
+export HBASE_HOME="/usr/local/hbase"
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+export LD_LIBRARY_PATH="$HADOOP_HOME/lib/native"
+export HADOOP_CLASSPATH="$HBASE_HOME/lib/*"
+export CLASSPATH=$HBASE_HOME/lib
 ```
 
