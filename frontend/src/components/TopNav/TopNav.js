@@ -1,9 +1,9 @@
-import classes from "./TopNav.module.css";
+import classes from "./TopNav.module.css"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"
 
 function TopNav(props) {
   return (
@@ -18,7 +18,9 @@ function TopNav(props) {
         </NavLink>
       </div>
       <div className={`${classes.top_nav_item} ${classes.top_nav_item__text}`}>
-        <div className={classes.top_nav_item__box}>{props.text}</div>
+        <div className={classes.top_nav_item__box}>
+          <div>{props.text}</div>
+        </div>
       </div>
       <div className={classes.top_nav_item}>
         <NavLink
@@ -30,7 +32,7 @@ function TopNav(props) {
         </NavLink>
       </div>
     </div>
-  );
+  )
 }
 
-export default TopNav;
+export default TopNav

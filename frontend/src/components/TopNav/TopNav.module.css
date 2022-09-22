@@ -17,6 +17,11 @@
   align-items: center;
 }
 
+.top_nav_item__box div {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 .top_nav_item__arrow {
   cursor: pointer;
 }
