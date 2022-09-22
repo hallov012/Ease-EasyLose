@@ -4,18 +4,22 @@ import com.easylose.backend.api.v1.dto.UserDto;
 import com.easylose.backend.api.v1.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import java.util.Collection;
+
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+
+@Slf4j
 @RestController // json 반환
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-  private final Logger logger = LoggerFactory.getLogger(UserController.class);
   UserService userService;
 
   @Autowired
@@ -23,20 +27,30 @@ public class UserController {
     this.userService = userService;
   }
 
+
   @GetMapping("")
-  @ApiOperation(value = "전체 유저 목록", notes = "전체 유저목록을 불러온다")
-  public ResponseEntity<Collection> getUserAll() {
-    logger.info("[getUserAll] Request Read All User List");
-    Collection users = userService.getUserAll();
-    return ResponseEntity.status(HttpStatus.OK).body(users);
+  @ApiOperation(value = "로그인 한 유저 정보", notes = "로그인 한 유저 정보를 불러온다.")
+  public ResponseEntity<UserDto.ResponseDto> getUser(@AuthenticationPrincipal Long id) {
+    log.info("[GET] Log in user's information request");
+    UserDto.ResponseDto response = userService.getUser(id);
+    log.info("[GET] Log in user's information response");
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+  @PutMapping("")
+  @ApiOperation(value = "로그인 한 유저 정보 변경", notes = "로그인 한 유저 정보를 업데이트 한다")
+  public ResponseEntity<UserDto.ResponseDto> updateUser(
+          @AuthenticationPrincipal Long id, @RequestBody UserDto.UpdateRequestDto userRequestDto) {
+
+    UserDto.ResponseDto response = userService.updateUser(id, userRequestDto);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  @PostMapping("")
-  @ApiOperation(value = "유저 생성", notes = "유저를 생성한다")
-  public ResponseEntity<UserDto.ResponseDto> createUser(
-      @RequestBody UserDto.CreateRequestDto userRequestDto) {
-    logger.info("[createUser] Request Create User");
-    UserDto.ResponseDto response = userService.createUser(userRequestDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  @DeleteMapping("")
+  @ApiOperation(value = "로그인 한 유저 정보 삭제", notes = "로그인 한 유저 정보를 삭제한다.")
+  public ResponseEntity deleteUser(@AuthenticationPrincipal Long id) {
+    userService.deleteUser(id);
+    return ResponseEntity.status(HttpStatus.OK).body(null);
   }
+
+
 }

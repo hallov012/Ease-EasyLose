@@ -18,10 +18,6 @@ public class UserServiceImpl implements UserService {
     this.userRepository = userRepository;
   }
 
-  public Collection<UserDto> getUserAll() {
-    Collection users = userRepository.findAll();
-    return users;
-  }
 
   public UserDto.ResponseDto createUser(UserDto.CreateRequestDto userRequestDto) {
     User user = userRepository.save(userRequestDto.toEntity());

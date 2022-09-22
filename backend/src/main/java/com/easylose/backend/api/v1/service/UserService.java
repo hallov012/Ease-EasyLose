@@ -4,11 +4,9 @@ import com.easylose.backend.api.v1.dto.UserDto;
 import java.util.Collection;
 
 public interface UserService {
-  Collection<UserDto> getUserAll();
-
-  UserDto.ResponseDto createUser(UserDto.CreateRequestDto userRequestDto);
 
   UserDto.ResponseDto getUser(Long id);
+  UserDto.ResponseDto createUser(UserDto.CreateRequestDto userRequestDto);
 
   UserDto.ResponseDto updateUser(Long id, UserDto.UpdateRequestDto userRequestDto);
 

@@ -19,8 +19,10 @@ public class UserDto {
     private String name;
     private Gender gender;
     private String birthdate;
-    private String loginType;
-    private String authorizationCode;
+
+    private Float height;
+    private Float weight;
+
     private ActivityLevel activityLevel;
     private Goal goal;
     private Float dailyCalorie;
@@ -33,8 +35,8 @@ public class UserDto {
           .name(name)
           .gender(gender)
           .birthdate(birthdate)
-          .loginType(loginType)
-          .authorizationCode(authorizationCode)
+          .height(height)
+          .weight(weight)
           .activityLevel(activityLevel)
           .goal(goal)
           .dailyCalorie(dailyCalorie)
@@ -53,8 +55,8 @@ public class UserDto {
     private String name;
     private Gender gender;
     private String birthdate;
-    private String loginType;
-    private String authorizationCode;
+    private Float height;
+    private Float weight;
     private ActivityLevel activityLevel;
     private Goal goal;
     private Float dailyCalorie;
@@ -70,8 +72,8 @@ public class UserDto {
       this.name = user.getName();
       this.gender = user.getGender();
       this.birthdate = user.getBirthdate();
-      this.loginType = user.getLoginType();
-      this.authorizationCode = user.getAuthorizationCode();
+      this.height = user.getHeight();
+      this.weight = user.getWeight();
       this.activityLevel = user.getActivityLevel();
       this.goal = user.getGoal();
       this.dailyCalorie = user.getDailyCalorie();
@@ -88,6 +90,9 @@ public class UserDto {
   @Builder
   @Getter
   public static class UpdateRequestDto {
+
+    private Float height;
+    private Float weight;
     private ActivityLevel activityLevel;
     private Goal goal;
     private Float dailyCalorie;
@@ -97,13 +102,15 @@ public class UserDto {
 
     public User toEntity() {
       return User.builder()
-          .activityLevel(activityLevel)
-          .goal(goal)
-          .dailyCalorie(dailyCalorie)
-          .dailyCarb(dailyCarb)
-          .dailyProtein(dailyProtein)
-          .dailyFat(dailyFat)
-          .build();
+              .height(height)
+              .weight(weight)
+              .activityLevel(activityLevel)
+              .goal(goal)
+              .dailyCalorie(dailyCalorie)
+              .dailyCarb(dailyCarb)
+              .dailyProtein(dailyProtein)
+              .dailyFat(dailyFat)
+              .build();
     }
   }
 }
