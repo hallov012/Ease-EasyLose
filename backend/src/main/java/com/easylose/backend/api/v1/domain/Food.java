@@ -1,25 +1,27 @@
 package com.easylose.backend.api.v1.domain;
 
-import com.easylose.backend.api.v1.enums.FoodType;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Entity
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@Entity // Entity 선언
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor(
+        access = AccessLevel.PROTECTED) // 무분별한 객체 생성을 방지할 수 있음, User user = new User() 생성 금지당함
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "food")
 public class Food {
 
   @Id @GeneratedValue private Long id;
 
-  @Enumerated
-  @Column(nullable = false)
-  private FoodType foodType;
+  private String foodType;
 
-  @Column(length = 30, nullable = false)
+  @Column(length = 30)
   private String name;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -28,6 +30,8 @@ public class Food {
 
   @Column(name = "product_id", length = 20)
   private String productId;
+
+  private Float totalAmount;
 
   @Column(length = 50)
   private String barcode;
@@ -39,4 +43,10 @@ public class Food {
   private Float protein;
 
   private Float fat;
+
+  private Float sugar;
+  private Float salt;
+  private Float cholesterol;
+  private Float saturatedFat;
+  private Float trasnFat;
 }

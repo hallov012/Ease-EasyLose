@@ -1,3 +1,9 @@
 package com.easylose.backend.api.v1.service;
 
-public interface FoodSetService {}
+import java.util.Collection;
+
+public interface FoodSetService {
+
+    Collection getFoodSetAll(Long id);
+
+}

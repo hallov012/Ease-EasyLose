@@ -31,10 +31,8 @@ public class DailyMealLogController {
   @PostMapping("")
   @ApiOperation(value = "유저가 먹은 음식 생성", notes = "먹은 음식 생성")
   public ResponseEntity<DailyMealLogDto.ResponseDto> createDailyMeal(
-      @AuthenticationPrincipal Long id,
-      @RequestBody DailyMealLogDto.CreateAndUpdateRequestDto createRequestDto) {
-    DailyMealLogDto.ResponseDto response =
-        dailyMealLogService.createDailyMeal(id, createRequestDto);
+      @AuthenticationPrincipal Long id, @RequestBody DailyMealLogDto.RequestDto requestDto) {
+    DailyMealLogDto.ResponseDto response = dailyMealLogService.createDailyMeal(id, requestDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
@@ -43,9 +41,9 @@ public class DailyMealLogController {
   public ResponseEntity<DailyMealLogDto.ResponseDto> updateDailyMeal(
       @AuthenticationPrincipal Long id,
       @PathVariable Long dailyMeal_id,
-      @RequestBody DailyMealLogDto.CreateAndUpdateRequestDto updateRequestDto) {
+      @RequestBody DailyMealLogDto.RequestDto requestDto) {
     DailyMealLogDto.ResponseDto response =
-        dailyMealLogService.updateDailyMeal(id, dailyMeal_id, updateRequestDto);
+        dailyMealLogService.updateDailyMeal(id, dailyMeal_id, requestDto);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
