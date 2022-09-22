@@ -31,9 +31,6 @@ function NutrientChart() {
             chart: {
               width: 300,
             },
-            legend: {
-              position: "right",
-            },
           },
         },
       ],
@@ -42,12 +39,11 @@ function NutrientChart() {
   return (
     <div className={classes.chart_box}>
       <span>섭취 영양소 비율</span>
-      <div className="donut">
+      <div>
         <ReactApexChart
           options={data.options}
           series={data.series}
           type="donut"
-          width="380"
         />
       </div>
     </div>
