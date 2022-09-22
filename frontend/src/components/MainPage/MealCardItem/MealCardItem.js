@@ -6,10 +6,10 @@ import LinearProgress from "@mui/material/LinearProgress"
 function MealCardItem(props) {
   const data = props.meal
   const MealName = {
-    breakfast: "아침",
-    lunch: "점심",
-    dinner: "저녁",
-    snack: "간식",
+    BREAKFAST: "아침",
+    LUNCH: "점심",
+    DINNER: "저녁",
+    SNACK: "간식",
   }
   return (
     <NavLink to={`/main/${props.meal.type}`}>
