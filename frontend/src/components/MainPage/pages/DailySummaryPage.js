@@ -1,5 +1,6 @@
 import MealSelectBtnList from "../MealSelectBtnList/MealSelectBtnList"
 import NutrientChart from "../NutrientChart/NutrientChart"
+import NutrientProgressGraph from "../NutrientProgressGraph/NutrientProgressGraph"
 import TopNav from "../../TopNav/TopNav"
 
 import { useState } from "react"
@@ -37,6 +38,7 @@ function DailySummaryPage(props) {
       <div style={{ margin: "0 5vw" }}>
         <MealSelectBtnList />
         <NutrientChart />
+        <NutrientProgressGraph />
       </div>
     </div>
   )

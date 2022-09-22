@@ -1,0 +1,10 @@
+.chart_box {
+  margin-top: 1.5rem;
+}
+
+.chart_box span {
+  font-weight: bolder;
+  float: left;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
