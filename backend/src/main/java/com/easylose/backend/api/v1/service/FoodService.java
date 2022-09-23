@@ -1,3 +1,8 @@
 package com.easylose.backend.api.v1.service;
 
-public interface FoodService {}
+import com.easylose.backend.api.v1.dto.FoodDto;
+import java.util.Collection;
+
+public interface FoodService {
+  Collection getFood(Long id, FoodDto.RequestDto requesteDto);
+}

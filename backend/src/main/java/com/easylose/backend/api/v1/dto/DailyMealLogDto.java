@@ -5,16 +5,15 @@ import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.enums.MealType;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-@Getter
 public class DailyMealLogDto {
 
   @AllArgsConstructor
   @Builder
   @Getter
+  @Setter
+  @ToString
   public static class GetRequestDto {
     private String year;
     private String month;
@@ -24,19 +23,24 @@ public class DailyMealLogDto {
   @AllArgsConstructor
   @Builder
   @Getter
-  public static class CreateAndUpdateRequestDto {
+  @Setter
+  @ToString
+  public static class RequestDto {
     private String date;
     private MealType mealType;
     private Food food;
+    private User user;
 
     public DailyMealLog toEntity() {
-      return DailyMealLog.builder().date(date).mealType(mealType).food(food).build();
+      return DailyMealLog.builder().mealType(mealType).food(food).user(user).date(date).build();
     }
   }
 
   @AllArgsConstructor
   @Builder
   @Getter
+  @Setter
+  @ToString
   public static class ResponseDto {
     private Long id;
     private String date;
@@ -44,14 +48,5 @@ public class DailyMealLogDto {
     private Float count;
     private User user;
     private Food food;
-
-    public ResponseDto(DailyMealLog dailyMealLog) {
-      this.id = dailyMealLog.getId();
-      this.date = dailyMealLog.getDate();
-      this.count = dailyMealLog.getCount();
-      this.mealType = dailyMealLog.getMealType();
-      this.user = dailyMealLog.getUser();
-      this.food = dailyMealLog.getFood();
-    }
   }
 }
