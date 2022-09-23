@@ -20,6 +20,10 @@
     var(--light-color) 50%,
     var(--main-color) 100%
   );
+  width: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 #top_nav_area {
@@ -28,6 +32,9 @@
   width: 100vw;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 2vh;
+  z-index: 100;
 }
 
 #bottom_nav_area {
