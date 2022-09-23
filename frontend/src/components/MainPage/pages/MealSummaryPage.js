@@ -1,5 +1,6 @@
 import TopNav from "../../TopNav/TopNav"
 import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo"
+import UserFoodList from "../UserFoodList/UserFoodList"
 
 import { useParams } from "react-router-dom"
 
@@ -12,7 +13,6 @@ function MealSummaryPage() {
     SNACK: "간식",
   }
   const mealtime = params.mealtime
-  console.log(meal[mealtime])
   return (
     <div>
       <div id="top_nav_area">
@@ -24,6 +24,7 @@ function MealSummaryPage() {
         }}
       >
         <MealNutrientInfo />
+        <UserFoodList />
       </div>
     </div>
   )

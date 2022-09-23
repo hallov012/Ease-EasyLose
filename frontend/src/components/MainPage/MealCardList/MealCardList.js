@@ -9,7 +9,7 @@ function MealCardList() {
     { type: "DINNER", calorieSum: 0, icon: "fa-moon", percent: 0 },
     { type: "SNACK", calorieSum: 0, icon: "fa-cookie-bite", percent: 0 },
   ]
-  const mealCardList = meal.map((data) => <MealCardItem meal={data} />)
+  const mealCardList = meal.map((data, idx) => <MealCardItem meal={data} />)
   return <div className={classes.meal_card__area}>{mealCardList}</div>
 }
 export default MealCardList
