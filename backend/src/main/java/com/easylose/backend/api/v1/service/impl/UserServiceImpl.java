@@ -2,37 +2,33 @@ package com.easylose.backend.api.v1.service.impl;
 
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.UserDto;
+import com.easylose.backend.api.v1.mapper.UserMapper;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.service.UserService;
-import java.util.Collection;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-
-  @Autowired
-  public UserServiceImpl(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
-
-
-  public UserDto.ResponseDto createUser(UserDto.CreateRequestDto userRequestDto) {
-    User user = userRepository.save(userRequestDto.toEntity());
-    return new UserDto.ResponseDto(user);
-  }
+  private final UserMapper userMapper;
 
   public UserDto.ResponseDto getUser(Long id) {
-    return new UserDto.ResponseDto(userRepository.findById(id).orElse(null));
+    return userMapper.userToResponseDto(userRepository.getReferenceById(id));
   }
 
-  public UserDto.ResponseDto updateUser(Long id, UserDto.UpdateRequestDto userRequestDto) {
-    User user = userRepository.findById(id).orElse(null);
-    user.update(userRequestDto);
+  public UserDto.ResponseDto updateUser(Long id, UserDto.RequestDto requestDto) {
+    User user = userRepository.getReferenceById(id);
+    log.info("request: {}", requestDto);
+    log.info("user: {}", user);
+    userMapper.updateUserFromRequestDto(requestDto, user);
+    log.info("user: {}", user);
     userRepository.save(user);
-    return new UserDto.ResponseDto(user);
+    return userMapper.userToResponseDto(user);
   }
 
   public void deleteUser(Long id) {

@@ -38,6 +38,11 @@ dependencies {
   //validation
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.1'
 
+  // mapstruct
+  implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+  annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+  annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
   compileOnly 'org.projectlombok:lombok'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -56,6 +61,8 @@ spotless  {
 }
 
 bootRun {
+  dependsOn("spotlessCheck")
+
   if (file('.env').exists()) {
     file('.env').readLines().each() {
       if (!it.isEmpty() && !it.startsWith("#")) {

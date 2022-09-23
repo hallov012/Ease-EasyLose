@@ -52,11 +52,11 @@ public class SecurityConfig {
         .anyRequest()
         .authenticated()
         .and()
+        .addFilterBefore(
+            new AuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling()
         .authenticationEntryPoint(new AuthenticationEntryPointImpl())
         .and()
-        .addFilterBefore(
-            new AuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
         .oauth2Login()
         .successHandler(successHandler)
         .redirectionEndpoint()

@@ -10,24 +10,17 @@ import io.jsonwebtoken.security.Keys;
 import java.util.Date;
 import java.util.List;
 import javax.crypto.SecretKey;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class JwtService {
 
   private final UserRepository userRepository;
-  private final String accessEncodeKey;
-  private final String refreshEncodeKey;
-
-  public JwtService(
-      UserRepository userRepository,
-      @Value("${secret.jwt.access-encode-key}") String accessEncodeKey,
-      @Value("${secret.jwt.refresh-encode-key}") String refreshEncodeKey) {
-    this.userRepository = userRepository;
-    this.accessEncodeKey = accessEncodeKey;
-    this.refreshEncodeKey = refreshEncodeKey;
-  }
+  private @Value("${secret.jwt.access-encode-key}") String accessEncodeKey;
+  private @Value("${secret.jwt.refresh-encode-key}") String refreshEncodeKey;
 
   public TokenDto create(User user) {
     String accessJws = createJws(accessEncodeKey, 30, user, "AT");
