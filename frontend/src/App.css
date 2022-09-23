@@ -12,7 +12,7 @@
 }
 
 .top_line_gradient {
-  height: 10px;
+  height: 2vh;
   background: var(--main-color);
   background: linear-gradient(
     90deg,
@@ -23,7 +23,7 @@
 }
 
 #top_nav_area {
-  height: 50px;
+  height: 7vh;
   background: var(--gray-color);
   width: 100vw;
   display: flex;
