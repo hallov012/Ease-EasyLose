@@ -15,7 +15,7 @@ function MainPage() {
       <Route path="/main/summary">
         <DailySummaryPage date={targetDate} />
       </Route>
-      <Route path="main/:mealtime">
+      <Route path="/main/:mealtime">
         <MealSummaryPage />
       </Route>
     </div>
