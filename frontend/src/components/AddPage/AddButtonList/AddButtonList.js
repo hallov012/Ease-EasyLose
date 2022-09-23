@@ -5,20 +5,6 @@ function AddButtonList() {
   return (
     <div className={classes.container}>
       <NavLink
-        to="/add/search"
-        className={classes.icon}
-        activeClassName={classes.activeicon}
-      >
-        <i class="fa-solid fa-circle-plus fa-fw"></i>
-      </NavLink>
-      <NavLink
-        to="/add/basket"
-        className={classes.icon}
-        activeClassName={classes.activeicon}
-      >
-        <i class="fa-solid fa-basket-shopping fa-fw"></i>
-      </NavLink>
-      <NavLink
         to="/add/barcode"
         className={classes.icon}
         activeClassName={classes.activeicon}
@@ -45,6 +31,13 @@ function AddButtonList() {
         activeClassName={classes.activeicon}
       >
         <i class="fa-solid fa-folder-plus fa-fw"></i>
+      </NavLink>
+      <NavLink
+        to="/add/voice"
+        className={classes.icon}
+        activeClassName={classes.activeicon}
+      >
+        <i class="fa-solid fa-microphone fa-fw"></i>
       </NavLink>
     </div>
   );
