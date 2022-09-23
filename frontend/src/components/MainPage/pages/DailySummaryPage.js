@@ -1,6 +1,7 @@
 import MealSelectBtnList from "../MealSelectBtnList/MealSelectBtnList"
 import NutrientChart from "../NutrientChart/NutrientChart"
 import NutrientProgressGraph from "../NutrientProgressGraph/NutrientProgressGraph"
+import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
 import TopNav from "../../TopNav/TopNav"
 
 import { useState } from "react"
@@ -35,10 +36,15 @@ function DailySummaryPage(props) {
       <div id="top_nav_area">
         <TopNav text={dateTitle} arrow={["/main", 0]} />
       </div>
-      <div style={{ margin: "0 5vw" }}>
+      <div
+        style={{
+          margin: "10vh 5vw 15vh",
+        }}
+      >
         <MealSelectBtnList />
         <NutrientChart />
         <NutrientProgressGraph />
+        <NutrientProgressBox />
       </div>
     </div>
   )
