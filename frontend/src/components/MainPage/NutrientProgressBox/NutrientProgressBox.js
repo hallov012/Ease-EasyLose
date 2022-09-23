@@ -45,6 +45,7 @@ function NutrientProgressBox() {
         toolbar: {
           show: false,
         },
+        offsetX: -10,
       },
       plotOptions: {
         bar: {
