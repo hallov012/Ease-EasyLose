@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:stable
     depends_on:
-      # - backend
+      - backend
       # - frontend
     ports:
       - "80:80"
@@ -28,16 +28,16 @@ services:
     env_file:
       - .env
 
-  # backend:
-  #   build: ./backend
-  #   image: easylose/backend
-  #   expose:
-  #     - 8080
-  #   command: java -jar ./app.jar
-  #   depends_on:
-  #     - db
-  #   env_file:
-  #     - .env
+  backend:
+    build: ./backend
+    image: easylose/backend
+    expose:
+      - 8080
+    command: java -jar ./app.jar
+    depends_on:
+      - db
+    env_file:
+      - .env
 
   # frontend:
 
