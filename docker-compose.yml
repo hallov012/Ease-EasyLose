@@ -33,7 +33,7 @@ services:
   #   image: easylose/backend
   #   expose:
   #     - 8080
-  #   command: java -jar app.jar
+  #   command: java -jar ./app.jar
   #   depends_on:
   #     - db
   #   env_file:
