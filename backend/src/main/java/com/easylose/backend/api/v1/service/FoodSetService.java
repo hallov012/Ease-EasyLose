@@ -4,6 +4,5 @@ import java.util.Collection;
 
 public interface FoodSetService {
 
-    Collection getFoodSetAll(Long id);
-
+  Collection getFoodSetAll(Long id);
 }

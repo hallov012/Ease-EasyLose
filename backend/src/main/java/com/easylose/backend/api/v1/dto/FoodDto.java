@@ -1,11 +1,8 @@
 package com.easylose.backend.api.v1.dto;
 
 import com.easylose.backend.api.v1.domain.User;
-
-import lombok.*;
-
 import javax.persistence.*;
-
+import lombok.*;
 
 public class FoodDto {
   @AllArgsConstructor
@@ -13,7 +10,7 @@ public class FoodDto {
   @Getter
   @Setter
   @ToString
-  public static class ResponseDto{
+  public static class ResponseDto {
     private Long id;
 
     private String foodType;
@@ -41,14 +38,14 @@ public class FoodDto {
     private Float cholesterol;
     private Float saturatedFat;
     private Float trasnFat;
-
   }
+
   @AllArgsConstructor
   @Builder
   @Getter
   @Setter
   @ToString
-  public static class RequestDto{
+  public static class RequestDto {
     private String name;
     private String barcode;
   }
