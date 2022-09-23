@@ -20,18 +20,18 @@ public class UserController {
 
   @GetMapping("")
   @ApiOperation(value = "로그인 한 유저 정보", notes = "로그인 한 유저 정보를 불러온다.")
-  public ResponseEntity<UserDto.ResponseDto> getUser(@AuthenticationPrincipal Long id) {
+  public ResponseEntity<UserDto.UserResponseDto> getUser(@AuthenticationPrincipal Long id) {
     log.info("[GET] Log in user's information request");
-    UserDto.ResponseDto response = userService.getUser(id);
+    UserDto.UserResponseDto response = userService.getUser(id);
     log.info("[GET] Log in user's information response");
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @PutMapping("")
   @ApiOperation(value = "로그인 한 유저 정보 변경", notes = "로그인 한 유저 정보를 업데이트 한다")
-  public ResponseEntity<UserDto.ResponseDto> updateUser(
-      @AuthenticationPrincipal Long id, @RequestBody UserDto.RequestDto requestDto) {
-    UserDto.ResponseDto response = userService.updateUser(id, requestDto);
+  public ResponseEntity<UserDto.UserResponseDto> updateUser(
+      @AuthenticationPrincipal Long id, @RequestBody UserDto.UserRequestDto requestDto) {
+    UserDto.UserResponseDto response = userService.updateUser(id, requestDto);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

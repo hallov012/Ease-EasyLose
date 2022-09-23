@@ -17,11 +17,11 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final UserMapper userMapper;
 
-  public UserDto.ResponseDto getUser(Long id) {
+  public UserDto.UserResponseDto getUser(Long id) {
     return userMapper.userToResponseDto(userRepository.getReferenceById(id));
   }
 
-  public UserDto.ResponseDto updateUser(Long id, UserDto.RequestDto requestDto) {
+  public UserDto.UserResponseDto updateUser(Long id, UserDto.UserRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
     log.info("request: {}", requestDto);
     log.info("user: {}", user);

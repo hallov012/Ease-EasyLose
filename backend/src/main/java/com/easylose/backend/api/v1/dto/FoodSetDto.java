@@ -16,7 +16,7 @@ public class FoodSetDto {
   @Getter
   @Setter
   @ToString
-  public static class ResponseDto {
+  public static class FoodSetResponseDto {
     private Long id;
     private MealType mealType;
     private User user;
@@ -27,7 +27,7 @@ public class FoodSetDto {
   @Getter
   @Setter
   @ToString
-  public static class RequestDto {
+  public static class FoodSetRequestDto {
     private MealType mealType;
   }
 }

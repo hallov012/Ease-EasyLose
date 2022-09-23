@@ -10,7 +10,7 @@ public class FoodDto {
   @Getter
   @Setter
   @ToString
-  public static class ResponseDto {
+  public static class FoodResponseDto {
     private Long id;
 
     private String foodType;
@@ -45,7 +45,7 @@ public class FoodDto {
   @Getter
   @Setter
   @ToString
-  public static class RequestDto {
+  public static class FoodRequestDto {
     private String name;
     private String barcode;
   }

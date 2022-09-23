@@ -23,7 +23,7 @@ public class MeasureLogDto {
   @Getter
   @Setter
   @ToString
-  public static class ResponseDto {
+  public static class MeasureLogResponseDto {
     private Long id;
     private LocalDateTime createdAt;
     private Float height;
@@ -36,7 +36,7 @@ public class MeasureLogDto {
   @Getter
   @Setter
   @ToString
-  public static class RequestDto {
+  public static class MeasureLogRequestDto {
     private String startDate;
     private String endDate;
   }

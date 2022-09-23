@@ -4,6 +4,6 @@ import com.easylose.backend.api.v1.dto.MeasureLogDto;
 import java.util.Collection;
 
 public interface MeasureLogService {
-  Collection<MeasureLogDto.ResponseDto> getMeasureLogAll(
-      Long id, MeasureLogDto.RequestDto requestDto);
+  Collection<MeasureLogDto.MeasureLogResponseDto> getMeasureLogAll(
+      Long id, MeasureLogDto.MeasureLogRequestDto requestDto);
 }
