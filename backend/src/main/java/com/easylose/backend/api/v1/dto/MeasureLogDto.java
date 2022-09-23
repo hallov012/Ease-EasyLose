@@ -1,0 +1,16 @@
+package com.easylose.backend.api.v1.dto;
+
+import com.easylose.backend.api.v1.domain.User;
+import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.Getter;
+
+@Getter
+public class MeasureLogDto {
+
+  private Long id;
+  private Float height;
+  private Float weight;
+  private User user;
+  private LocalDateTime createdAt;
+}
