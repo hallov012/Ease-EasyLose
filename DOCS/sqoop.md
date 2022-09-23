@@ -172,4 +172,4 @@ cp commons-lang-2.6.jar /sqoop/lib
 
 ### 정리
 
-- Job 부분에서 에러가 발생하여 진행하지 못함
+- Job 부분에서 에러가 발생하여 진행중
