@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -25,6 +26,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
   private final UserRepository userRepository;
   private final JwtService jwtService;
+  private @Value("${easylose.frontend-redirect-uri}") String frontendRedirectUri;
 
   @Override
   public void onAuthenticationSuccess(
@@ -74,11 +76,13 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     userRepository.save(user);
 
     String url =
-        UriComponentsBuilder.fromUriString("http://frontend-root/oauth2/redirect")
+        UriComponentsBuilder.fromUriString(frontendRedirectUri)
             .queryParam("accessToken", token.getAccessJws())
             .queryParam("refreshToken", token.getRefreshJws())
             .build()
             .toUriString();
+
+    log.info(url);
 
     getRedirectStrategy().sendRedirect(request, response, url);
   }
