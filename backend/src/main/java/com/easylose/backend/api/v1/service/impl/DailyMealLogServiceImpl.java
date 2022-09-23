@@ -22,7 +22,7 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
 
   public final DailyMealLogMapper dailyMealLogMapper;
 
-  public Collection getDailyMealAll(Long id, DailyMealLogDto.GetRequestDto getRequestDto) {
+  public Collection getDailyMealAll(Long id, DailyMealLogDto.DailyMealGetRequestDto getRequestDto) {
 
     String date = getRequestDto.getYear() + getRequestDto.getMonth() + getRequestDto.getDate();
     Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
@@ -35,16 +35,16 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
     return dailyMealLogRepository.findAll(spec);
   }
 
-  public DailyMealLogDto.ResponseDto createDailyMeal(
-      Long id, DailyMealLogDto.RequestDto requestDto) {
+  public DailyMealLogDto.DailyMealResponseDto createDailyMeal(
+      Long id, DailyMealLogDto.DailyMealRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
     requestDto.setUser(user);
     return dailyMealLogMapper.dailyMealLogToResponseDto(
         dailyMealLogRepository.save(requestDto.toEntity()));
   }
 
-  public DailyMealLogDto.ResponseDto updateDailyMeal(
-      Long id, Long dailyMeal_id, DailyMealLogDto.RequestDto requestDto) {
+  public DailyMealLogDto.DailyMealResponseDto updateDailyMeal(
+      Long id, Long dailyMeal_id, DailyMealLogDto.DailyMealRequestDto requestDto) {
     User user = userRepository.findById(id).orElse(null);
     DailyMealLog dailyMealLog = dailyMealLogRepository.findById(dailyMeal_id).orElse(null);
     if (user == dailyMealLog.getUser()) {

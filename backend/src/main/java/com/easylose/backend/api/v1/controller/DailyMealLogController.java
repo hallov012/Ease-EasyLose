@@ -23,26 +23,29 @@ public class DailyMealLogController {
   @GetMapping("")
   @ApiOperation(value = "유저가 먹은 음식 조회", notes = "유저가 특정 날짜에 먹은 음식 조회")
   public ResponseEntity<Collection> getDailyMealAll(
-      @AuthenticationPrincipal Long id, @RequestBody DailyMealLogDto.GetRequestDto getRequestDto) {
+      @AuthenticationPrincipal Long id,
+      @RequestBody DailyMealLogDto.DailyMealGetRequestDto getRequestDto) {
     Collection response = dailyMealLogService.getDailyMealAll(id, getRequestDto);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @PostMapping("")
   @ApiOperation(value = "유저가 먹은 음식 생성", notes = "먹은 음식 생성")
-  public ResponseEntity<DailyMealLogDto.ResponseDto> createDailyMeal(
-      @AuthenticationPrincipal Long id, @RequestBody DailyMealLogDto.RequestDto requestDto) {
-    DailyMealLogDto.ResponseDto response = dailyMealLogService.createDailyMeal(id, requestDto);
+  public ResponseEntity<DailyMealLogDto.DailyMealResponseDto> createDailyMeal(
+      @AuthenticationPrincipal Long id,
+      @RequestBody DailyMealLogDto.DailyMealRequestDto requestDto) {
+    DailyMealLogDto.DailyMealResponseDto response =
+        dailyMealLogService.createDailyMeal(id, requestDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   @PutMapping("/{dailyMeal_id}")
   @ApiOperation(value = "유저가 먹은 음식 수정", notes = "먹은 음식 수정")
-  public ResponseEntity<DailyMealLogDto.ResponseDto> updateDailyMeal(
+  public ResponseEntity<DailyMealLogDto.DailyMealResponseDto> updateDailyMeal(
       @AuthenticationPrincipal Long id,
       @PathVariable Long dailyMeal_id,
-      @RequestBody DailyMealLogDto.RequestDto requestDto) {
-    DailyMealLogDto.ResponseDto response =
+      @RequestBody DailyMealLogDto.DailyMealRequestDto requestDto) {
+    DailyMealLogDto.DailyMealResponseDto response =
         dailyMealLogService.updateDailyMeal(id, dailyMeal_id, requestDto);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

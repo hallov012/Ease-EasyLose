@@ -7,14 +7,15 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface DailyMealLogMapper {
 
-  //    void createDailyMealLogFromRequestDto(DailyMealLogDto.RequestDto dto, @MappingTarget
+  //    void createDailyMealLogFromRequestDto(DailyMealLogDto.DailyMealRequestDto dto,
+  // @MappingTarget
   // DailyMealLog dailyMealLog);
 
   @BeanMapping(
       nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
       nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
   void updateDailyMealLogFromRequestDto(
-      DailyMealLogDto.RequestDto dto, @MappingTarget DailyMealLog dailyMealLog);
+      DailyMealLogDto.DailyMealRequestDto dto, @MappingTarget DailyMealLog dailyMealLog);
 
-  DailyMealLogDto.ResponseDto dailyMealLogToResponseDto(DailyMealLog dailyMealLog);
+  DailyMealLogDto.DailyMealResponseDto dailyMealLogToResponseDto(DailyMealLog dailyMealLog);
 }

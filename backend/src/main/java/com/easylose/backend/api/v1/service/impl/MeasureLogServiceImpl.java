@@ -2,7 +2,7 @@ package com.easylose.backend.api.v1.service.impl;
 
 import com.easylose.backend.api.v1.domain.MeasureLog;
 import com.easylose.backend.api.v1.domain.User;
-import com.easylose.backend.api.v1.dto.MeasureLogDto.RequestDto;
+import com.easylose.backend.api.v1.dto.MeasureLogDto;
 import com.easylose.backend.api.v1.repository.MeasureLogRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.specification.MeasureLogSpecification;
@@ -22,7 +22,7 @@ public class MeasureLogServiceImpl implements MeasureLogService {
   private final UserRepository userRepository;
 
   @Override
-  public Collection getMeasureLogAll(Long id, RequestDto requestDto) {
+  public Collection getMeasureLogAll(Long id, MeasureLogDto.MeasureLogRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
     Specification<MeasureLog> spec = (root, query, builder) -> null;
 

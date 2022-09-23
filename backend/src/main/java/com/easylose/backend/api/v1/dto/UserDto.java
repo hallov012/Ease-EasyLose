@@ -17,7 +17,7 @@ public class UserDto {
   @Getter
   @Setter
   @ToString
-  public static class ResponseDto {
+  public static class UserResponseDto {
     private Long id;
     private String name;
     private Gender gender;
@@ -40,7 +40,7 @@ public class UserDto {
   @Getter
   @Setter
   @ToString
-  public static class RequestDto {
+  public static class UserRequestDto {
     private Float height;
     private Float weight;
     private ActivityLevel activityLevel;

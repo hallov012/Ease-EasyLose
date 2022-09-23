@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FoodSetRepository extends JpaRepository<FoodSet, Long> {
 
-  Collection<FoodSetDto.ResponseDto> findFoodSetByUser(User user);
+  Collection<FoodSetDto.FoodSetResponseDto> findFoodSetByUser(User user);
 }

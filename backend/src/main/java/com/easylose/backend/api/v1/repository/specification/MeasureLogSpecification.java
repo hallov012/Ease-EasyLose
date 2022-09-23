@@ -16,7 +16,8 @@ public class MeasureLogSpecification {
     return (root, query, builder) -> builder.equal(root.get("user"), user);
   }
 
-  public static Specification<MeasureLog> betweenDate(MeasureLogDto.RequestDto requestDto) {
+  public static Specification<MeasureLog> betweenDate(
+      MeasureLogDto.MeasureLogRequestDto requestDto) {
     // 시작 데이터만 있을 경우
     return (root, query, builder) -> {
       DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");

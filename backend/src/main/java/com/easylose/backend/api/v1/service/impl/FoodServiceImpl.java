@@ -16,7 +16,7 @@ public class FoodServiceImpl implements FoodService {
 
   private final FoodRepository foodRepository;
 
-  public Collection<Food> getFood(Long id, FoodDto.RequestDto requestDto) {
+  public Collection<Food> getFood(Long id, FoodDto.FoodRequestDto requestDto) {
 
     if (requestDto.getName() != null) {
       return foodRepository.findByName(requestDto.getName());

@@ -25,8 +25,9 @@ public class MeasureLogController {
   @GetMapping("")
   @ApiOperation(value = "유저 몸무게 변화 추이")
   public ResponseEntity<Collection> getMeasureLogAll(
-      @AuthenticationPrincipal Long id, @RequestBody MeasureLogDto.RequestDto requestDto) {
-    Collection<MeasureLogDto.ResponseDto> response =
+      @AuthenticationPrincipal Long id,
+      @RequestBody MeasureLogDto.MeasureLogRequestDto requestDto) {
+    Collection<MeasureLogDto.MeasureLogResponseDto> response =
         measureLogService.getMeasureLogAll(id, requestDto);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

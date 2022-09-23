@@ -13,7 +13,7 @@ public interface UserMapper {
   @BeanMapping(
       nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
       nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-  void updateUserFromRequestDto(UserDto.RequestDto dto, @MappingTarget User user);
+  void updateUserFromRequestDto(UserDto.UserRequestDto dto, @MappingTarget User user);
 
-  UserDto.ResponseDto userToResponseDto(User user);
+  UserDto.UserResponseDto userToResponseDto(User user);
 }

@@ -14,7 +14,7 @@ public class DailyMealLogDto {
   @Getter
   @Setter
   @ToString
-  public static class GetRequestDto {
+  public static class DailyMealGetRequestDto {
     private String year;
     private String month;
     private String date;
@@ -25,7 +25,7 @@ public class DailyMealLogDto {
   @Getter
   @Setter
   @ToString
-  public static class RequestDto {
+  public static class DailyMealRequestDto {
     private String date;
     private MealType mealType;
     private Food food;
@@ -41,7 +41,7 @@ public class DailyMealLogDto {
   @Getter
   @Setter
   @ToString
-  public static class ResponseDto {
+  public static class DailyMealResponseDto {
     private Long id;
     private String date;
     private MealType mealType;
