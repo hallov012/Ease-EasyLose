@@ -1,0 +1,57 @@
+upstream easylose-backend {
+    server backend:8080;
+}
+
+server {
+  listen 80;
+
+  server_name ${SERVICE_HOST};
+
+  location /.well-known/acme-challenge/ {
+      allow all;
+      root /var/www/certbot;
+  }
+
+  location / {
+      return 301 https://$host$request_uri;
+  }
+}
+
+server {
+  listen 443 ssl;
+
+  client_max_body_size 5M;
+  server_name ${SERVICE_HOST};
+
+  ssl_certificate /etc/letsencrypt/live/${SERVICE_HOST}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/${SERVICE_HOST}/privkey.pem;
+
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto https;
+
+  location /api {
+    proxy_pass http://easylose-backend/api;
+  }
+
+  location /login {
+    proxy_pass http://easylose-backend/login;
+  }
+
+  location /logout {
+    proxy_pass http://easylose-backend/logout;
+  }
+
+  location /oauth2 {
+    proxy_pass http://easylose-backend/oauth2;
+  }
+
+  location /swagger {
+    proxy_pass http://easylose-backend/swagger;
+  }
+
+  location / {
+    proxy_pass http://easylose-backend;
+  }
+}
