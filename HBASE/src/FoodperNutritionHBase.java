@@ -65,7 +65,6 @@ public class FoodperNutritionHBase {
     @Override
     public void map(ImmutableBytesWritable row, Result columns, Context context)
         throws IOException, InterruptedException {
-      
       String carbon_s = new String(columns.getValue(CF, ATTR1));
       String protein_s = new String(columns.getValue(CF, ATTR2));
       String fat_s = new String(columns.getValue(CF, ATTR3));
@@ -93,48 +92,58 @@ public class FoodperNutritionHBase {
         }
       }
 
-      keypair.set(Double.toString(carbon) + "," + Double.toString(protein) + "," + Double.toString(fat) + ",");
+      keypair.set(Double.toString(carbon) + "," + Double.toString(protein) + "," + Double.toString(fat));
       numpair.set(row.get());
       context.write(keypair,numpair);
     }
   }
   
   public static class ConcatenatorReducer extends TableReducer<Text, Text, ImmutableBytesWritable> {
-    private Text list = new Text();
+    //private Text list = new Text();    
     
+    @Override
     public void reduce(Text key, Iterable<Text> values, Context context)
         throws IOException, InterruptedException {
+      System.out.println("-------------- Reduce started--------------");
       String s = new String();
       int comma = 0;
       for (Text val : values) {
         if (comma == 0) {
           comma = 1;
-          s += val.toString();
+          s = val.toString();
         } else {
           s += ("," + val.toString());
         }
-        list.set(s);
-        Put put = new Put(Bytes.toBytes(key.toString()));
-        put.add(Bytes.toBytes("food_index"), Bytes.toBytes("foods_num"), Bytes.toBytes(s));
-        context.write(null, put);
+        //list.set(s);
+        
       }
+      System.out.println(key);
+      ImmutableBytesWritable key_b = new ImmutableBytesWritable(Bytes.toBytes(key.toString()));
+      Put put = new Put(Bytes.toBytes(key.toString()));
+      put.addColumn(Bytes.toBytes("foods_num"), Bytes.toBytes("food_index"), Bytes.toBytes(s));
+      context.write(key_b, put);
     }
   }
   
   /* Main function */
   public static void main(String[] args) throws Exception {
-    Configuration conf = new Configuration();
-    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
+    // Configuration conf = new Configuration();
+    HBaseConfiguration conf = new HBaseConfiguration();
+    //String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
     
     Job job = new Job(conf, "food per nutrition");
     job.setJarByClass(FoodperNutritionHBase.class);
     Scan scan = new Scan();
     String families = "nutrition";
     String qualifiers = "carbon,protein,fat";
-    scan.addColumn(Bytes.toBytes(families), Bytes.toBytes(qualifiers));
-    scan.setFilter(new FirstKeyOnlyFilter());
+    scan.addColumn(Bytes.toBytes(families), Bytes.toBytes("carbon"));
+    scan.addColumn(Bytes.toBytes(families), Bytes.toBytes("protein"));
+    scan.addColumn(Bytes.toBytes(families), Bytes.toBytes("fat"));
+    // scan.addColumn(Bytes.toBytes(families), Bytes.toBytes(qualifiers));
+    // scan.setFilter(new FirstKeyOnlyFilter());
     TableMapReduceUtil.initTableMapperJob("nutrition_DB", scan, TokenizerMapper.class, Text.class, Text.class, job);
     TableMapReduceUtil.initTableReducerJob("food_recommend", ConcatenatorReducer.class, job);
+    job.setNumReduceTasks(1);
 
     
     Configuration config = job.getConfiguration();
