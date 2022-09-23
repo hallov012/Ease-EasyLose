@@ -1,5 +1,21 @@
 /*
- * test not done
+ * Copyright 2022. Dongwon Kim All rights reserved.
+ *
+ * File name : FoodperNutritionHBase.java
+ * 
+ * MapReduce for food recommendation
+ *   map: 
+ *     - key: carbon,protein,fat
+ *     - value: food index
+ *     - get data from 'nutrition_DB'
+ * 
+ *   reduce:
+ *     - key: carbon,protein,fat
+ *     - value: food index1,food index2, ....
+ *     - store data to 'food_recommend'
+ *     
+ * Modificatoin history
+ *     written by Dongwon Kim on Sep 23, 2022
  */
 package ease;
 
@@ -23,27 +39,11 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.conf.Configuration;
 
-// import java.io.IOException;
-
-// import org.apache.hadoop.conf.Configuration;
-// import org.apache.hadoop.fs.Path;
-// import org.apache.hadoop.fs.FileSystem;
-// import org.apache.hadoop.io.LongWritable;
-
-// import org.apache.hadoop.mapreduce.Job;
-// import org.apache.hadoop.mapreduce.Mapper;
-// import org.apache.hadoop.mapreduce.Reducer;
-// import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-// import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-// import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-
-
 public class FoodperNutritionHBase {
   public static class TokenizerMapper extends TableMapper<Text, Text> {
     // variable declarations
     private Text keypair = new Text();
     private Text numpair = new Text();
-    private String filename;
     private int carbon_max, carbon_unit, protein_max, protein_unit, fat_max, fat_unit;
     public static final byte[] CF = "nutrition".getBytes();
     public static final byte[] ATTR1 = "carbon".getBytes();
@@ -61,7 +61,17 @@ public class FoodperNutritionHBase {
       fat_unit = config.getInt("fat_unit", 5);
     }
     
-    // map function (Context -> fixed parameter)
+    /*
+     * Map
+     * 
+     * input: 
+     *  row: food index
+     *  columns: nutrition:carbon, nutrition:protein, nutrition:fat
+     * 
+     * output:
+     *  key: Text, carbon,protein,fat
+     *  value: Text, food index 
+     */
     @Override
     public void map(ImmutableBytesWritable row, Result columns, Context context)
         throws IOException, InterruptedException {
@@ -73,6 +83,7 @@ public class FoodperNutritionHBase {
       double protein = Double.parseDouble(protein_s);
       double fat = Double.parseDouble(fat_s);
 
+      // range nutrition values
       for (int i = 0; i < carbon_max; i += carbon_unit) {
         if (carbon >= i && carbon < i + carbon_unit) {
           carbon = (double) i;
@@ -99,12 +110,20 @@ public class FoodperNutritionHBase {
   }
   
   public static class ConcatenatorReducer extends TableReducer<Text, Text, ImmutableBytesWritable> {
-    //private Text list = new Text();    
-    
+    /*
+     * Reduce
+     * 
+     * input
+     *  key: Text, carbon,protein,fat
+     *  value: Text, food index 
+     * 
+     * output
+     *  key: ImmutableBytesWritable carbon,protein,fat
+     *  value: ImmutableBytesWritable, food indexs
+     */    
     @Override
     public void reduce(Text key, Iterable<Text> values, Context context)
         throws IOException, InterruptedException {
-      System.out.println("-------------- Reduce started--------------");
       String s = new String();
       int comma = 0;
       for (Text val : values) {
@@ -114,10 +133,7 @@ public class FoodperNutritionHBase {
         } else {
           s += ("," + val.toString());
         }
-        //list.set(s);
-        
       }
-      System.out.println(key);
       ImmutableBytesWritable key_b = new ImmutableBytesWritable(Bytes.toBytes(key.toString()));
       Put put = new Put(Bytes.toBytes(key.toString()));
       put.addColumn(Bytes.toBytes("foods_num"), Bytes.toBytes("food_index"), Bytes.toBytes(s));
@@ -127,10 +143,7 @@ public class FoodperNutritionHBase {
   
   /* Main function */
   public static void main(String[] args) throws Exception {
-    // Configuration conf = new Configuration();
     HBaseConfiguration conf = new HBaseConfiguration();
-    //String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-    
     Job job = new Job(conf, "food per nutrition");
     job.setJarByClass(FoodperNutritionHBase.class);
     Scan scan = new Scan();
@@ -139,8 +152,6 @@ public class FoodperNutritionHBase {
     scan.addColumn(Bytes.toBytes(families), Bytes.toBytes("carbon"));
     scan.addColumn(Bytes.toBytes(families), Bytes.toBytes("protein"));
     scan.addColumn(Bytes.toBytes(families), Bytes.toBytes("fat"));
-    // scan.addColumn(Bytes.toBytes(families), Bytes.toBytes(qualifiers));
-    // scan.setFilter(new FirstKeyOnlyFilter());
     TableMapReduceUtil.initTableMapperJob("nutrition_DB", scan, TokenizerMapper.class, Text.class, Text.class, job);
     TableMapReduceUtil.initTableReducerJob("food_recommend", ConcatenatorReducer.class, job);
     job.setNumReduceTasks(1);
@@ -155,6 +166,5 @@ public class FoodperNutritionHBase {
     config.setInt("fat_unit", 5);
 
     System.exit(job.waitForCompletion(true) ? 0 : 1);
-  }
-  
+  }  
 }
