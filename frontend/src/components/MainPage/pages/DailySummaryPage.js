@@ -1,9 +1,9 @@
+import TopNav from "../../TopNav/TopNav"
 import MealSelectBtnList from "../MealSelectBtnList/MealSelectBtnList"
 import NutrientChart from "../NutrientChart/NutrientChart"
 import NutrientProgressGraph from "../NutrientProgressGraph/NutrientProgressGraph"
 import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
 import UserInfo from "../UserInfo/UserInfo"
-import TopNav from "../../TopNav/TopNav"
 
 import { useState } from "react"
 
