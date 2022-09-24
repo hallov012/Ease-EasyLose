@@ -12,7 +12,7 @@ function MealCardItem(props) {
     SNACK: "간식",
   }
   return (
-    <NavLink to={`/main/${props.meal.type}`}>
+    <NavLink to={`/main/meal/${props.meal.type}`}>
       <div className={`${classes.meal_item__box} box_shadow`}>
         <div className={classes.item__top}>
           <i className={`fa-solid ${data.icon}`}></i>

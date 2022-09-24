@@ -12,10 +12,10 @@ function MainPage() {
       <Route path="/main" exact>
         <DailyDietPage setValue={(value) => setTartgetDate(value)} />
       </Route>
-      <Route path="/main/summary">
+      <Route path="/main/summary" exact>
         <DailySummaryPage date={targetDate} />
       </Route>
-      <Route path="main/:mealtime">
+      <Route path="/main/meal/:mealtime">
         <MealSummaryPage />
       </Route>
     </div>

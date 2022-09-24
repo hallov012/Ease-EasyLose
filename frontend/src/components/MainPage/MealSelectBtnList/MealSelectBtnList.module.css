@@ -1,5 +1,4 @@
 .btn_area {
-  margin-top: 0.7rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 0.5rem;
