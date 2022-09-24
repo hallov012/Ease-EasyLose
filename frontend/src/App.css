@@ -1,0 +1,76 @@
+:root {
+  --main-color: #7c83fd;
+  --light-color: #b1e1ff;
+  --sub-color: #afb4ff;
+  --text-color: #00033f;
+  --gray-color: #f0f0f0;
+  --point-color: #a66cff;
+}
+
+.App {
+  text-align: center;
+}
+
+.top_line_gradient {
+  height: 2vh;
+  background: var(--main-color);
+  background: linear-gradient(
+    90deg,
+    var(--main-color) 0%,
+    var(--light-color) 50%,
+    var(--main-color) 100%
+  );
+  width: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+#top_nav_area {
+  height: 7vh;
+  background: var(--gray-color);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 2vh;
+  z-index: 100;
+}
+
+#bottom_nav_area {
+  position: fixed;
+  bottom: 0;
+}
+
+.box_shadow {
+  box-shadow: 0 4px 5px gray;
+}
+
+.gradient_color__vertical {
+  background: var(--main-color);
+  background: linear-gradient(
+    180deg,
+    var(--main-color) 44%,
+    var(--light-color) 100%
+  );
+}
+
+.gradient_color__horizon {
+  background: var(--main-color);
+  background: linear-gradient(
+    90deg,
+    var(--main-color) 44%,
+    var(--light-color) 88%
+  );
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+@media (min-height: 800px) {
+  .App {
+    font-size: 1.1rem;
+  }
+}

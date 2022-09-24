@@ -1,0 +1,14 @@
+.btns__box {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
+.social__btn {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+}
+
+.social__btn span {
+  margin-top: 0.3rem;
+}
