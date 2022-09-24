@@ -24,10 +24,11 @@
 
 .subtitle {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: rgba(163, 216, 244, 0.5);
   width: 100vw;
   height: 5vh;
   opacity: 50;
+  padding-left: 10px;
 }

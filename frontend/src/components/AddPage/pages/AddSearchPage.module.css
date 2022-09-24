@@ -1,14 +1,23 @@
 .container {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 60vh;
+}
+
+.scontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  height: 5vh;
+  margin-bottom: 1vh;
 }
 
 .addButtonContainer {
   width: 100vw;
   position: absolute;
-  bottom: 4vh;
+  bottom: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;

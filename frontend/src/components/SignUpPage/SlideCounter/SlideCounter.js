@@ -32,7 +32,7 @@ const SlideCounter = (props) => {
     animationRef.current = anime({
       targets: "." + classes.count,
       duration: 1000,
-      scale: [
+      scaleY: [
         {
           value: 1.3,
           duration: 100,
@@ -135,7 +135,7 @@ const SlideCounter = (props) => {
           //   height: "50px",
           // }}
         >
-          {props.value}
+          {props.value} {props.unit}
         </div>
         <div
           style={{

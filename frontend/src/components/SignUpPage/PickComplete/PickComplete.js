@@ -37,6 +37,7 @@ function PickComplete() {
           style={{
             background:
               "linear-gradient(90deg,var(--main-color) 44%,var(--light-color) 88%)",
+            color: "white",
           }}
           onClick={onClickStart}
         >

@@ -1,14 +1,14 @@
-import TopNav from "../components/TopNav/TopNav"
-import { Redirect, Route, Switch, useLocation } from "react-router-dom"
-import SignUpHeader from "../components/SignUpPage/SignUpHeader/SignUpHeader"
-import { useEffect, useState } from "react"
-import GenderPicker from "../components/SignUpPage/GenderPicker/GenderPicker"
-import BirthPicker from "../components/SignUpPage/BirthPicker/BirthPicker"
-import HeightPicker from "../components/SignUpPage/HeightPicker/HeightPicker"
-import WeightPicker from "../components/SignUpPage/WeightPicker/WeightPicker"
-import ActivityPicker from "../components/SignUpPage/ActivityPicker/ActivityPicker"
-import GoalPicker from "../components/SignUpPage/GoalPicker/GoalPicker"
-import PickComplete from "../components/SignUpPage/PickComplete/PickComplete"
+import TopNav from "../components/TopNav/TopNav";
+import { Route, Switch, useLocation } from "react-router-dom";
+import SignUpHeader from "../components/SignUpPage/SignUpHeader/SignUpHeader";
+import { useEffect, useState } from "react";
+import GenderPicker from "../components/SignUpPage/GenderPicker/GenderPicker";
+import BirthPicker from "../components/SignUpPage/BirthPicker/BirthPicker";
+import HeightPicker from "../components/SignUpPage/HeightPicker/HeightPicker";
+import WeightPicker from "../components/SignUpPage/WeightPicker/WeightPicker";
+import ActivityPicker from "../components/SignUpPage/ActivityPicker/ActivityPicker";
+import GoalPicker from "../components/SignUpPage/GoalPicker/GoalPicker";
+import PickComplete from "../components/SignUpPage/PickComplete/PickComplete";
 
 function SignUpPage() {
   const location = useLocation().pathname.replace("/signup", "")
@@ -77,7 +77,6 @@ function SignUpPage() {
   })
 
   function setArrow() {
-    const temp = informationMap.get(location)
     if (location === "/gender") {
       if (userGender === "") {
         return ["", ""]
