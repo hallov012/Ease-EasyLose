@@ -2,6 +2,10 @@ upstream easylose-backend {
     server backend:8080;
 }
 
+upstream easylose-frontend {
+    server frontend:80;
+}
+
 server {
   listen 80;
 
@@ -52,6 +56,6 @@ server {
   }
 
   location / {
-    proxy_pass http://easylose-backend;
+    proxy_pass http://easylose-frontend;
   }
 }
