@@ -24,8 +24,10 @@ public class DailyMealLogController {
   @ApiOperation(value = "유저가 먹은 음식 조회", notes = "유저가 특정 날짜에 먹은 음식 조회")
   public ResponseEntity<Collection> getDailyMealAll(
       @AuthenticationPrincipal Long id,
-      @RequestBody DailyMealLogDto.DailyMealGetRequestDto getRequestDto) {
-    Collection response = dailyMealLogService.getDailyMealAll(id, getRequestDto);
+      @RequestParam(required = false) String year,
+      @RequestParam(required = false) String month,
+      @RequestParam(required = false) String day) {
+    Collection response = dailyMealLogService.getDailyMealAll(id, year, month, day);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

@@ -1,22 +1,14 @@
 package com.easylose.backend.api.v1.dto;
 
-import com.easylose.backend.api.v1.domain.User;
 import java.time.LocalDateTime;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 public class MeasureLogDto {
-
-  private Long id;
-  private Float height;
-  private Float weight;
-  private User user;
-  private LocalDateTime createdAt;
 
   @AllArgsConstructor
   @Builder
@@ -28,7 +20,8 @@ public class MeasureLogDto {
     private LocalDateTime createdAt;
     private Float height;
     private Float weight;
-    private User user;
+    //    private User user;
+    private Long userId;
   }
 
   @AllArgsConstructor
@@ -39,5 +32,19 @@ public class MeasureLogDto {
   public static class MeasureLogRequestDto {
     private String startDate;
     private String endDate;
+  }
+
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class MeasureLogFormDto {
+    private Float height;
+    private Float weight;
+    private Long userId;
+    //    private User user;
+
   }
 }

@@ -4,7 +4,7 @@ import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import java.util.Collection;
 
 public interface DailyMealLogService {
-  Collection getDailyMealAll(Long id, DailyMealLogDto.DailyMealGetRequestDto getRequestDto);
+  Collection getDailyMealAll(Long id, String year, String month, String day);
 
   DailyMealLogDto.DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto);

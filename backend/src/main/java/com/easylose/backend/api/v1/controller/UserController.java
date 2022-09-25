@@ -28,7 +28,7 @@ public class UserController {
   }
 
   @PutMapping("")
-  @ApiOperation(value = "로그인 한 유저 정보 변경", notes = "로그인 한 유저 정보를 업데이트 한다")
+  @ApiOperation(value = "로그인 한 유저 정보 변경", notes = "로그인 한 유저 정보를 업데이트 한다.")
   public ResponseEntity<UserDto.UserResponseDto> updateUser(
       @AuthenticationPrincipal Long id, @RequestBody UserDto.UserRequestDto requestDto) {
     UserDto.UserResponseDto response = userService.updateUser(id, requestDto);

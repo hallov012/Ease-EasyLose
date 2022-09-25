@@ -1,6 +1,7 @@
 package com.easylose.backend.api.v1.domain;
 
 import com.easylose.backend.api.v1.enums.MealType;
+import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,19 +19,23 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class DailyMealLog {
 
   @Id @GeneratedValue private Long id;
-  private String date;
+  private LocalDate date;
 
   private MealType mealType;
 
   private Float count;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private User user;
+  private Long foodId;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  @JoinColumn(name = "food_id")
-  private Food food;
+  private Long userId;
+
+  //  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  //  @JoinColumn(name = "user_id")
+  //  private User user;
+  //
+  //  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  //  @JoinColumn(name = "food_id")
+  //  private Food food;
 
   //  @Builder
   //  public DailyMealLog(Long id, String date, MealType mealType, Float count, User user, Food
