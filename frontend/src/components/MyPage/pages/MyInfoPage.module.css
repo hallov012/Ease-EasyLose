@@ -1,0 +1,118 @@
+.container {
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5vw;
+}
+
+.title {
+  width: 90vw;
+  height: 5vh;
+  font-size: 20px;
+  font-weight: 1000;
+  margin-bottom: 2vh;
+  text-align: start;
+}
+
+.box {
+  width: 90vw;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+  background-color: var(--gray-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.boxTitle {
+  width: 84vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2vh;
+}
+
+.boxinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 84vw;
+  margin-bottom: 2vh;
+}
+
+.boxicon i {
+  font-size: 22vw;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    180deg,
+    var(--main-color) 44%,
+    var(--light-color) 88%
+  );
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 24vw;
+}
+
+.user_info_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px var(--main-color);
+  width: 60vw;
+}
+
+.activity_and_goal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 84vw;
+  margin-bottom: 1vh;
+}
+
+.activity_and_goal i {
+  font-size: 24px;
+}
+
+.itemList {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 84vw;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+}
+
+.item {
+  width: 18vw;
+  height: 18vw;
+  color: black;
+  background: var(--sub-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.box_logout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  margin-top: 2vh;
+  background-color: var(--gray-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 2vw;
+  font-weight: 1000;
+}
