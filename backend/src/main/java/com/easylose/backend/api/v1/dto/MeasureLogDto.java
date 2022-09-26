@@ -24,19 +24,19 @@ public class MeasureLogDto {
     private Float weight;
   }
 
-  @AllArgsConstructor
-  @Builder
-  @Getter
-  @Setter
-  @ToString
-  public static class NutrientLogResponseDto {
-    private Long id;
-    private LocalDateTime createdAt;
-    private Float dailyCalorie;
-    private Float dailyCarb;
-    private Float dailyProtein;
-    private Float dailyFat;
-  }
+  //  @AllArgsConstructor
+  //  @Builder
+  //  @Getter
+  //  @Setter
+  //  @ToString
+  //  public static class NutrientLogResponseDto {
+  //    private Long id;
+  //    private LocalDateTime createdAt;
+  //    private Float dailyCalorie;
+  //    private Float dailyCarb;
+  //    private Float dailyProtein;
+  //    private Float dailyFat;
+  //  }
 
   @AllArgsConstructor
   @Builder
@@ -61,18 +61,18 @@ public class MeasureLogDto {
     private User user;
   }
 
-  @AllArgsConstructor
-  @NoArgsConstructor
-  @Builder
-  @Getter
-  @Setter
-  @ToString
-  public static class NutrientLogFormDto {
-    private Float dailyCalorie;
-    private Float dailyCarb;
-    private Float dailyProtein;
-    private Float dailyFat;
-    private Boolean isNutrient;
-    private User user;
-  }
+  //  @AllArgsConstructor
+  //  @NoArgsConstructor
+  //  @Builder
+  //  @Getter
+  //  @Setter
+  //  @ToString
+  //  public static class NutrientLogFormDto {
+  //    private Float dailyCalorie;
+  //    private Float dailyCarb;
+  //    private Float dailyProtein;
+  //    private Float dailyFat;
+  //    private Boolean isNutrient;
+  //    private User user;
+  //  }
 }

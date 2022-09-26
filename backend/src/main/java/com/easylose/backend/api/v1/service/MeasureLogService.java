@@ -7,9 +7,9 @@ public interface MeasureLogService {
 
   List getMeasureLogAll(Long id, LocalDate start, LocalDate end);
 
-  List getNutrientLogAll(Long id, LocalDate start, LocalDate end);
+  //  List getNutrientLogAll(Long id, LocalDate start, LocalDate end);
 
   void createMeasureLog(Long id);
 
-  void createNutrientLog(Long id);
+  //  void createNutrientLog(Long id);
 }

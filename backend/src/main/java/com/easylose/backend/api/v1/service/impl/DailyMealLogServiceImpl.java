@@ -42,18 +42,18 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
   }
 
   @Override
-//  public List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date) {
-//    Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
-//    User user = userRepository.getReferenceById(id);
-//    LocalDate date =
-//
-//    if (user != null && date != null) {
-//      spec = spec.and(DailyMealLogSpecification.equalUser(user));
-//      spec = spec.and(DailyMealLogSpecification.betweenDate(start));
-//    }
-//    List response = dailyMealLogRepository.findAll(spec);
-//    return response;
-//  }
+  //  public List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date) {
+  //    Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
+  //    User user = userRepository.getReferenceById(id);
+  //    LocalDate date =
+  //
+  //    if (user != null && date != null) {
+  //      spec = spec.and(DailyMealLogSpecification.equalUser(user));
+  //      spec = spec.and(DailyMealLogSpecification.betweenDate(start));
+  //    }
+  //    List response = dailyMealLogRepository.findAll(spec);
+  //    return response;
+  //  }
 
   public DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto) {
