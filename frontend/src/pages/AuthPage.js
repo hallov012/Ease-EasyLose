@@ -1,26 +1,26 @@
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { registerAccessToken } from "../store/userSlice";
+import { registerAccessToken, registerUserInfo } from "../store/userSlice";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { instance } from "../api/index";
 import axios from "axios";
 
 function AuthPage() {
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const tokens = location.search
     .replace("?accessToken=", "")
     .replace("refreshToken=", "")
     .split("&");
-  const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.user.accessToken);
 
-  const [userInfo, setUserInfo] = useState(undefined);
+  const accessToken = useSelector((state) => state.user.accessToken);
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   useEffect(() => {
     dispatch(registerAccessToken(tokens));
-  }, []);
+  }, [tokens, dispatch]);
 
   useEffect(() => {
     if (accessToken) {
@@ -29,24 +29,15 @@ function AuthPage() {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((response) => {
-          setUserInfo(response.data);
+          dispatch(registerUserInfo(response.data));
         })
         .catch((error) => {
           console.log(error);
         });
-      // instance
-      //   .get("/user", {})
-      //   .then((response) => {
-      //     setUserInfo(response.data);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
     }
-  }, [accessToken]);
+  }, [accessToken, dispatch]);
 
   useEffect(() => {
-    console.log(userInfo);
     if (userInfo) {
       if (userInfo.goal) {
         history.push("/main");
@@ -54,7 +45,7 @@ function AuthPage() {
         history.push("/signup/gender");
       }
     }
-  }, [userInfo]);
+  }, [userInfo, dispatch, history]);
 
   return <div></div>;
 }
