@@ -6,7 +6,6 @@ import com.easylose.backend.api.v1.enums.MealType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import lombok.*;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 public class DailyMealLogDto {
 
@@ -30,7 +29,6 @@ public class DailyMealLogDto {
   @Getter
   @Setter
   @ToString
-  @ResponseBody
   public static class DailyMealResponseDto {
     private Long id;
     private LocalDate date;
