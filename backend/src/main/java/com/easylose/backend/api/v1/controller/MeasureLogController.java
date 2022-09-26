@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.Operation;
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,9 +35,9 @@ public class MeasureLogController {
   }
 
   @GetMapping("/nutrient")
-  @ApiOperation(
-      value = "유저 영양소 세팅 변화 추이",
-      notes = "시작일자와 종료일자 입력 시 해당 기간 내 유저의 변화한 영양소 세팅 값을 알 수 있다. / 날짜 입령 형식 : yyyy-mm-dd")
+  @Operation(
+      summary = "유저 영양소 세팅 변화 추이",
+      description = "시작일자와 종료일자 입력 시 해당 기간 내 유저의 변화한 영양소 세팅 값을 알 수 있다. / 날짜 입령 형식 : yyyy-mm-dd")
   public ResponseEntity<List> getNutrientLogAll(
       @AuthenticationPrincipal Long id,
       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
