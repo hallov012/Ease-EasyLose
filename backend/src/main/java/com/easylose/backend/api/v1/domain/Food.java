@@ -1,5 +1,6 @@
 package com.easylose.backend.api.v1.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -27,6 +28,7 @@ public class Food {
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
+  @JsonIgnore
   private User user;
 
   @Column(name = "product_id", length = 20)
