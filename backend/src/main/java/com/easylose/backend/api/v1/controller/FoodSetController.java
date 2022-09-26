@@ -1,7 +1,7 @@
 package com.easylose.backend.api.v1.controller;
 
 import com.easylose.backend.api.v1.service.FoodSetService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class FoodSetController {
   private final FoodSetService foodSetService;
 
   @GetMapping("")
-  @ApiOperation(value = "유저의 개인 식단", notes = "유저의 개인 식단 전체 목록을 불러온다")
+  @Operation(summary = "유저의 개인 식단", description = "유저의 개인 식단 전체 목록을 불러온다")
   public ResponseEntity<Collection> getFoodSetAll(@AuthenticationPrincipal Long id) {
 
     Collection response = foodSetService.getFoodSetAll(id);

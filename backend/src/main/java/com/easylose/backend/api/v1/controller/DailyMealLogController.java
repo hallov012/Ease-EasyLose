@@ -2,7 +2,7 @@ package com.easylose.backend.api.v1.controller;
 
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class DailyMealLogController {
   }
 
   @GetMapping("")
-  @ApiOperation(value = "유저가 먹은 음식 조회", notes = "유저가 특정 날짜에 먹은 음식 조회")
+  @Operation(summary = "유저가 먹은 음식 조회", description = "유저가 특정 날짜에 먹은 음식 조회")
   public ResponseEntity<Collection> getDailyMealAll(
       @AuthenticationPrincipal Long id,
       @RequestBody DailyMealLogDto.DailyMealGetRequestDto getRequestDto) {
@@ -30,7 +30,7 @@ public class DailyMealLogController {
   }
 
   @PostMapping("")
-  @ApiOperation(value = "유저가 먹은 음식 생성", notes = "먹은 음식 생성")
+  @Operation(summary = "유저가 먹은 음식 생성", description = "먹은 음식 생성")
   public ResponseEntity<DailyMealLogDto.DailyMealResponseDto> createDailyMeal(
       @AuthenticationPrincipal Long id,
       @RequestBody DailyMealLogDto.DailyMealRequestDto requestDto) {
@@ -40,7 +40,7 @@ public class DailyMealLogController {
   }
 
   @PutMapping("/{dailyMeal_id}")
-  @ApiOperation(value = "유저가 먹은 음식 수정", notes = "먹은 음식 수정")
+  @Operation(summary = "유저가 먹은 음식 수정", description = "먹은 음식 수정")
   public ResponseEntity<DailyMealLogDto.DailyMealResponseDto> updateDailyMeal(
       @AuthenticationPrincipal Long id,
       @PathVariable Long dailyMeal_id,
@@ -51,7 +51,7 @@ public class DailyMealLogController {
   }
 
   @DeleteMapping("/{dailymeal_id}")
-  @ApiOperation(value = "로그인 한 유저 정보 삭제", notes = "로그인 한 유저 정보를 삭제한다.")
+  @Operation(summary = "로그인 한 유저 정보 삭제", description = "로그인 한 유저 정보를 삭제한다.")
   public ResponseEntity deleteDailyMeal(
       @AuthenticationPrincipal Long id, @PathVariable Long dailyMeal_id) {
     dailyMealLogService.deleteDailyMeal(id, dailyMeal_id);

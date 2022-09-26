@@ -2,7 +2,7 @@ package com.easylose.backend.api.v1.controller;
 
 import com.easylose.backend.api.v1.dto.MeasureLogDto;
 import com.easylose.backend.api.v1.service.MeasureLogService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class MeasureLogController {
   private final MeasureLogService measureLogService;
 
   @GetMapping("")
-  @ApiOperation(value = "유저 몸무게 변화 추이")
+  @Operation(summary = "유저 몸무게 변화 추이")
   public ResponseEntity<Collection> getMeasureLogAll(
       @AuthenticationPrincipal Long id,
       @RequestBody MeasureLogDto.MeasureLogRequestDto requestDto) {
