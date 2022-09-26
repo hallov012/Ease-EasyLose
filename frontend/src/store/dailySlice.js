@@ -6,7 +6,7 @@ export const dailySlice = createSlice({
     dailyDiet: null,
     targetDate: null,
   },
-  reducer: {
+  reducers: {
     registerDailyDiet: (state, action) => {
       state.dailyDiet = action.payload;
     },

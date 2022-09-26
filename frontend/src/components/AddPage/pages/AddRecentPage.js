@@ -8,7 +8,7 @@ import AddButtonList from "../AddButtonList/AddButtonList";
 function AddRecentPage() {
   const history = useHistory();
   return (
-    <div>
+    <div style={{ marginTop: "9vh" }}>
       <div id="top_nav_area">
         <TopNav arrow={["", "/signup/gender"]}></TopNav>
         {/* 링크 작업 해야됨 */}

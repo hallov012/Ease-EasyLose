@@ -43,13 +43,15 @@ function SignUpPage() {
         }
       )
       .then((response) => {
-        console.log(response);
-        axios
-          .get(`https://j7a704.p.ssafy.io/api/v1/user`, {})
-          .then((response) => {
-            console.log(`회원가입 완료: ${response.data}`);
-            dispatch(registerUserInfo(response.data));
-          });
+        axios({
+          method: "get",
+          url: "https://j7a704.p.ssafy.io/api/v1/user",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }).then((response) => {
+          dispatch(registerUserInfo(response.data));
+        });
         history.push("/main");
       })
       .catch((error) => {
