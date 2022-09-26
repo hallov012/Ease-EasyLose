@@ -25,7 +25,6 @@ public class FoodSetDetail {
   @JoinColumn(name = "food_id")
   private Food food;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  @JoinColumn(name = "foodset_id")
-  private FoodSet foodSet;
+  @Column(name = "foodset_id")
+  private Long foodSetId;
 }
