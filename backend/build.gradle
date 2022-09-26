@@ -33,6 +33,7 @@ dependencies {
 
   //swagger
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: '1.6.11'
 
   //validation
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.1'
