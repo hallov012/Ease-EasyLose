@@ -23,7 +23,7 @@ function WeightPicker({ setWeight, value }) {
           }}
           width={"100%"}
           height={"100%"}
-          point={0.1}
+          point={0.5}
           type={"float"}
           from={30}
           to={150}

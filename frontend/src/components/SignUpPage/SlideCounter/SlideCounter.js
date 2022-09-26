@@ -55,13 +55,13 @@ const SlideCounter = (props) => {
     const y = event.clientY || event.touches[0].clientY;
 
     if (draggable) {
-      if (y - startPosition > 20) {
+      if (y - startPosition > 10) {
         playAnimation();
         let temp = Number(props.value) - props.point;
         if (props.type === "float") temp = temp.toFixed(1);
         if (temp >= props.from && temp <= props.to) props.setValue(temp);
         setStartPosition(y);
-      } else if (y - startPosition < -20) {
+      } else if (y - startPosition < -10) {
         playAnimation();
         let temp = Number(props.value) + props.point;
         if (props.type === "float") temp = temp.toFixed(1);
