@@ -1,6 +1,6 @@
 import classes from "./MyInfoPage.module.css";
 
-function MyInfoPage() {
+function MyInfoPage({ userInfo }) {
   return (
     <div className={classes.container}>
       <div className={classes.title}>마이페이지</div>
@@ -16,44 +16,44 @@ function MyInfoPage() {
           <div className={classes.userinfo}>
             <div className={classes.user_info_item}>
               <div>나이</div>
-              <div>23세</div>
+              <div>{userInfo.birthdate}</div>
             </div>
             <div className={classes.user_info_item}>
               <div>체중</div>
-              <div>56.6kg</div>
+              <div>{userInfo.weight}kg</div>
             </div>
             <div className={classes.user_info_item}>
               <div>신장</div>
-              <div>162cm</div>
+              <div>{userInfo.height}cm</div>
             </div>
           </div>
         </div>
         <div>
           <div className={classes.activity_and_goal}>
             <i className="fa-solid fa-person-running"></i>
-            <div style={{ marginLeft: "2vw" }}>2~4시간 사이의 보통 활동</div>
+            <div style={{ marginLeft: "2vw" }}>{userInfo.activityLevel}</div>
           </div>
           <div className={classes.activity_and_goal}>
             <i className="fa-solid fa-seedling"></i>
-            <div style={{ marginLeft: "2vw" }}>다이어트</div>
+            <div style={{ marginLeft: "2vw" }}>{userInfo.goal}</div>
           </div>
         </div>
         <div className={classes.itemList}>
           <div className={classes.item}>
             <div style={{ fontWeight: 1000 }}>칼로리</div>
-            <div>1500kcal</div>
+            <div>{userInfo.dailyCalorie}kcal</div>
           </div>
           <div className={classes.item}>
             <div style={{ fontWeight: 1000 }}>탄수화물</div>
-            <div>40g</div>
+            <div>{userInfo.dailyCarb}g</div>
           </div>
           <div className={classes.item}>
             <div style={{ fontWeight: 1000 }}>단백질</div>
-            <div>50g</div>
+            <div>{userInfo.dailyProtein}g</div>
           </div>
           <div className={classes.item}>
             <div style={{ fontWeight: 1000 }}>지방</div>
-            <div>30g</div>
+            <div>{userInfo.dailyFat}g</div>
           </div>
         </div>
       </div>

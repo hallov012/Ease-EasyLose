@@ -11,6 +11,9 @@ import SignUpPage from "./pages/SignUpPage";
 import StartPage from "./pages/StartPage";
 import AuthPage from "./pages/AuthPage";
 import AddPage from "./pages/AddPage";
+import { useDispatch, useSelector } from "react-redux";
+import {} from "./store/userSlice";
+import store from "./store/store";
 
 import BottomNav from "./components/BottomNav/BottomNav";
 
@@ -18,6 +21,9 @@ import { useState } from "react";
 
 function App() {
   const location = useLocation().pathname;
+  const accessToken = useSelector((state) => state.user.accessToken);
+  console.log(`current-access-token: ${accessToken}`);
+  console.log(store);
 
   function renderBottomNav() {
     if (

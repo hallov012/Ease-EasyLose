@@ -24,10 +24,22 @@ function ActivityPicker({ setValue, value }) {
   }, [value]);
 
   const array = [
-    { icon: faChair, explanation: "30분 이하의 아주 가벼운 활동" },
-    { icon: faPersonWalking, explanation: "1~2시간 사이의 가벼운 활동" },
-    { icon: faRunning, explanation: "2~4시간 사이의 보통 활동" },
-    { icon: faDumbbell, explanation: "4시간 이상의 심한 활동" },
+    {
+      icon: faChair,
+      explanation: "30분 이하의 아주 가벼운 활동",
+      value: "LOWEST",
+    },
+    {
+      icon: faPersonWalking,
+      explanation: "1~2시간 사이의 가벼운 활동",
+      value: "LOW",
+    },
+    { icon: faRunning, explanation: "2~4시간 사이의 보통 활동", value: "HIGH" },
+    {
+      icon: faDumbbell,
+      explanation: "4시간 이상의 심한 활동",
+      value: "HIGHEST",
+    },
   ];
 
   return (
@@ -37,7 +49,7 @@ function ActivityPicker({ setValue, value }) {
           <div
             key={index}
             onClick={() => {
-              setValue(index);
+              setValue(array[index].value);
               setSelected(() => {
                 const newArray = [false, false, false, false];
                 newArray[index] = true;
