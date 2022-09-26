@@ -1,14 +1,18 @@
 package com.easylose.backend.api.v1.domain;
 
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
+@Entity // Entity 선언
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor(
+    access = AccessLevel.PROTECTED) // 무분별한 객체 생성을 방지할 수 있음, User user = new User() 생성 금지당함
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "foodset_detail")
 public class FoodSetDetail {
 
