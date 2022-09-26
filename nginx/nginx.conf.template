@@ -51,8 +51,8 @@ server {
     proxy_pass http://easylose-backend/oauth2;
   }
 
-  location /swagger {
-    proxy_pass http://easylose-backend/swagger;
+  location /documentation {
+    proxy_pass http://easylose-backend/documentation;
   }
 
   location / {
