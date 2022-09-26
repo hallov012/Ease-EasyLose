@@ -8,7 +8,7 @@ import java.util.List;
 public interface DailyMealLogService {
   List<DailyMealResponseDto> getDailyMealAll(Long id, LocalDate date);
 
-//  List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date);
+  //  List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date);
 
   DailyMealLogDto.DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto);

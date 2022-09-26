@@ -53,4 +53,30 @@ public class UserDto {
     private Float dailyFat;
     private Boolean isAutomatic;
   }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class AutoDto {
+    private Gender gender;
+    private String birthdate;
+    private Float height;
+    private Float weight;
+    private ActivityLevel activityLevel;
+    private Goal goal;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class ResultDto {
+    private Float dailyCalorie;
+    private Float dailyCarb;
+    private Float dailyProtein;
+    private Float dailyFat;
+  }
 }

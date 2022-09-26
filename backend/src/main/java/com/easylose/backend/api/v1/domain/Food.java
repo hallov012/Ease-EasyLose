@@ -1,5 +1,6 @@
 package com.easylose.backend.api.v1.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,11 +23,11 @@ public class Food {
 
   private Boolean canRecommend;
 
-  @Column(length = 30)
   private String name;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
+  @JsonIgnore
   private User user;
 
   @Column(name = "product_id", length = 20)
@@ -49,5 +50,5 @@ public class Food {
   private Float salt;
   private Float cholesterol;
   private Float saturatedFat;
-  private Float trasnFat;
+  private Float transFat;
 }

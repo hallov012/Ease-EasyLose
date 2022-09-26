@@ -4,12 +4,12 @@ import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,7 +33,10 @@ public class DailyMealLogController {
   }
 
   @PostMapping("")
-  @Operation(summary = "유저가 먹은 음식 생성", description = "유저가 특정 날짜에 먹은 음식 로그 데이터를 생성한다. / 날짜 입령 형식 : yyyy-mm-dd / mealType : [BREAKFAST, LUNCH, DINNER, SNACK]")
+  @Operation(
+      summary = "유저가 먹은 음식 생성",
+      description =
+          "유저가 특정 날짜에 먹은 음식 로그 데이터를 생성한다. / 날짜 입령 형식 : yyyy-mm-dd / mealType : [BREAKFAST, LUNCH, DINNER, SNACK]")
   public ResponseEntity<DailyMealResponseDto> createDailyMeal(
       @AuthenticationPrincipal Long id, @RequestBody DailyMealRequestDto requestDto) {
     DailyMealResponseDto response = dailyMealLogService.createDailyMeal(id, requestDto);
@@ -60,13 +63,13 @@ public class DailyMealLogController {
     return ResponseEntity.status(HttpStatus.OK).body(null);
   }
 
-//  @GetMapping("/calender}")
-//  @ApiOperation(value = "유저가 먹은 음식 월별 조회", notes = "유저가 먹은 음식 월별 조회 / 날짜 입력 형식 : yyyy-mm")
-//  public ResponseEntity<List> getDailyMealCalender(
-//      @AuthenticationPrincipal Long id,
-//      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
-//    List<DailyMealResponseDto> response = dailyMealLogService.getDailyMealCalender(id, date);
-//    log.info("response : {}", response);
-//    return ResponseEntity.status(HttpStatus.OK).body(response);
-//  }
+  //  @GetMapping("/calender}")
+  //  @ApiOperation(value = "유저가 먹은 음식 월별 조회", notes = "유저가 먹은 음식 월별 조회 / 날짜 입력 형식 : yyyy-mm")
+  //  public ResponseEntity<List> getDailyMealCalender(
+  //      @AuthenticationPrincipal Long id,
+  //      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+  //    List<DailyMealResponseDto> response = dailyMealLogService.getDailyMealCalender(id, date);
+  //    log.info("response : {}", response);
+  //    return ResponseEntity.status(HttpStatus.OK).body(response);
+  //  }
 }
