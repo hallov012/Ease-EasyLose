@@ -21,6 +21,8 @@ import { useState } from "react";
 
 function App() {
   const location = useLocation().pathname;
+  const accessToken = useSelector((state) => state.user.accessToken);
+  console.log(accessToken);
 
   function renderBottomNav() {
     if (

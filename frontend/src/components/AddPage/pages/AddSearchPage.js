@@ -1,16 +1,44 @@
 import TopNav from "../../TopNav/TopNav";
 import ToggleButton from "../ToggleButton/ToggleButton";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import classes from "./AddSearchPage.module.css";
 import ListItemCheckBox from "../ListItemCheckBox/ListItemCheckBox";
 import AddButtonList from "../AddButtonList/AddButtonList";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function AddSearchPage() {
+  const location = useLocation();
   const history = useHistory();
+  const accessToken = useSelector((state) => state.user.accessToken);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (searchTerm) {
+        axios({
+          method: "get",
+          url: "https://j7a704.p.ssafy.io/api/v1/food",
+          params: {
+            name: searchTerm,
+          },
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+          .then((response) => setSearchResult(response.data))
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }, 3000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
   return (
-    <div>
+    <div style={{ marginTop: "9vh" }}>
       <div id="top_nav_area">
-        <TopNav arrow={["", "/signup/gender"]}></TopNav>
+        <TopNav arrow={[``, ""]}></TopNav>
       </div>
       <div className={classes.container}>
         <div
@@ -30,6 +58,10 @@ function AddSearchPage() {
         </div>
         <div className={classes.scontainer}>
           <input
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
             style={{
               width: "75vw",
               height: "5vh",
@@ -47,11 +79,18 @@ function AddSearchPage() {
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
         </div>
-        <ListItemCheckBox></ListItemCheckBox>
-        <ListItemCheckBox></ListItemCheckBox>
-        <ListItemCheckBox></ListItemCheckBox>
+        {searchResult.map((item, index) => {
+          return (
+            <ListItemCheckBox key={index} foodInfo={item}></ListItemCheckBox>
+          );
+        })}
       </div>
-      <div className={classes.addButtonContainer}>
+      <div
+        onClick={() => {
+          history.push("/add/basket", { from: location });
+        }}
+        className={classes.addButtonContainer}
+      >
         <div className={classes.addButton}>추가하기</div>
       </div>
       <AddButtonList></AddButtonList>
