@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const userInfoSlice = createSlice({
-  name: "UserInfo",
+export const userSlice = createSlice({
+  name: "user",
   initialState: {
     accessToken: null,
     refreshToken: null,
+    userInfo: null,
   },
   reducers: {
-    register: (state, action) => {
+    registerAccessToken: (state, action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
@@ -15,14 +16,18 @@ export const userInfoSlice = createSlice({
       state.accessToken = action.payload[0];
       state.refreshToken = action.payload[1];
     },
-    deregister: (state) => {
+    deregisterAccessToken: (state) => {
       state.accessToken = "";
       state.refreshToken = "";
+    },
+    registerUserInfo: (state, action) => {
+      state.userInfo = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { register, deregister } = userInfoSlice.actions;
+export const { registerAccessToken, deregisterAccessToken, registerUserInfo } =
+  userSlice.actions;
 
-export default userInfoSlice.reducer;
+export default userSlice.reducer;
