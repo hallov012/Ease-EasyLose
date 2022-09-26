@@ -23,7 +23,6 @@ public class Food {
 
   private Boolean canRecommend;
 
-  @Column(length = 30)
   private String name;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -51,5 +50,5 @@ public class Food {
   private Float salt;
   private Float cholesterol;
   private Float saturatedFat;
-  private Float trasnFat;
+  private Float transFat;
 }

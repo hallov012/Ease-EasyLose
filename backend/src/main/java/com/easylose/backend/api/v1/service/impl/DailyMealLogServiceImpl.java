@@ -41,20 +41,6 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
     return response;
   }
 
-  @Override
-  //  public List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date) {
-  //    Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
-  //    User user = userRepository.getReferenceById(id);
-  //    LocalDate date =
-  //
-  //    if (user != null && date != null) {
-  //      spec = spec.and(DailyMealLogSpecification.equalUser(user));
-  //      spec = spec.and(DailyMealLogSpecification.betweenDate(start));
-  //    }
-  //    List response = dailyMealLogRepository.findAll(spec);
-  //    return response;
-  //  }
-
   public DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
@@ -64,11 +50,13 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
       log.info("this is empty");
       return null;
     }
-    requestDto.setUser(user);
-    requestDto.setFood(food);
-
-    return dailyMealLogMapper.toDto(
-        dailyMealLogRepository.save(dailyMealLogMapper.toEntity(requestDto)));
+    if (user == food.getUser() || food.getUser() == null) {
+      requestDto.setUser(user);
+      requestDto.setFood(food);
+      return dailyMealLogMapper.toDto(
+          dailyMealLogRepository.save(dailyMealLogMapper.toEntity(requestDto)));
+    }
+    return null;
   }
 
   public DailyMealResponseDto updateDailyMeal(
