@@ -20,6 +20,7 @@ public class FoodSet {
   @Id @GeneratedValue private Long id;
 
   @Column(nullable = false, name = "meal_type")
+  @Enumerated(EnumType.STRING)
   private MealType mealType;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

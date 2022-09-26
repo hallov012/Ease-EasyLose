@@ -1,30 +1,35 @@
 package com.easylose.backend.api.v1.service.impl;
 
 import com.easylose.backend.api.v1.domain.DailyMealLog;
+import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.mapper.DailyMealLogMapper;
 import com.easylose.backend.api.v1.repository.DailyMealLogRepository;
+import com.easylose.backend.api.v1.repository.FoodRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.specification.DailyMealLogSpecification;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
-import java.util.Collection;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DailyMealLogServiceImpl implements DailyMealLogService {
 
   public final DailyMealLogRepository dailyMealLogRepository;
   public final UserRepository userRepository;
+  public final FoodRepository foodRepository;
 
   public final DailyMealLogMapper dailyMealLogMapper;
 
-  public Collection getDailyMealAll(Long id, DailyMealLogDto.DailyMealGetRequestDto getRequestDto) {
-
-    String date = getRequestDto.getYear() + getRequestDto.getMonth() + getRequestDto.getDate();
+  public List<DailyMealResponseDto> getDailyMealAll(Long id, LocalDate date) {
     Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
     User user = userRepository.getReferenceById(id);
 
@@ -32,21 +37,44 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
       spec = spec.and(DailyMealLogSpecification.equalUser(user));
       spec = spec.and(DailyMealLogSpecification.equalDate(date));
     }
-    return dailyMealLogRepository.findAll(spec);
+    List response = dailyMealLogRepository.findAll(spec);
+    return response;
   }
 
-  public DailyMealLogDto.DailyMealResponseDto createDailyMeal(
+  @Override
+//  public List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date) {
+//    Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
+//    User user = userRepository.getReferenceById(id);
+//    LocalDate date =
+//
+//    if (user != null && date != null) {
+//      spec = spec.and(DailyMealLogSpecification.equalUser(user));
+//      spec = spec.and(DailyMealLogSpecification.betweenDate(start));
+//    }
+//    List response = dailyMealLogRepository.findAll(spec);
+//    return response;
+//  }
+
+  public DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
+    Food food = foodRepository.getReferenceById(requestDto.getFoodId());
+
+    if (user == null || food == null) {
+      log.info("this is empty");
+      return null;
+    }
     requestDto.setUser(user);
-    return dailyMealLogMapper.dailyMealLogToResponseDto(
-        dailyMealLogRepository.save(requestDto.toEntity()));
+    requestDto.setFood(food);
+
+    return dailyMealLogMapper.toDto(
+        dailyMealLogRepository.save(dailyMealLogMapper.toEntity(requestDto)));
   }
 
-  public DailyMealLogDto.DailyMealResponseDto updateDailyMeal(
+  public DailyMealResponseDto updateDailyMeal(
       Long id, Long dailyMeal_id, DailyMealLogDto.DailyMealRequestDto requestDto) {
-    User user = userRepository.findById(id).orElse(null);
-    DailyMealLog dailyMealLog = dailyMealLogRepository.findById(dailyMeal_id).orElse(null);
+    User user = userRepository.getReferenceById(id);
+    DailyMealLog dailyMealLog = dailyMealLogRepository.getReferenceById(dailyMeal_id);
     if (user == dailyMealLog.getUser()) {
       dailyMealLogMapper.updateDailyMealLogFromRequestDto(requestDto, dailyMealLog);
       dailyMealLogRepository.save(dailyMealLog);

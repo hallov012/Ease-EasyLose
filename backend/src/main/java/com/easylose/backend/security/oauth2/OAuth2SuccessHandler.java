@@ -57,15 +57,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
       user = userRepository.save(user);
 
     } else {
-      Long id = queryResult.get(0).getId();
-      user =
-          User.builder()
-              .id(id)
-              .providerId(providerId)
-              .provider(provider)
-              .name(name)
-              .profileImg(profileImg)
-              .build();
+      user = queryResult.get(0);
+      user.setProviderId(providerId);
+      user.setProvider(provider);
+      user.setName(name);
+      user.setProfileImg(profileImg);
 
       user = userRepository.save(user);
     }

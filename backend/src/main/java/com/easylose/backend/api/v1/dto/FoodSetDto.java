@@ -6,11 +6,6 @@ import javax.persistence.*;
 import lombok.*;
 
 public class FoodSetDto {
-
-  private Long id;
-  private MealType mealType;
-  private User user;
-
   @AllArgsConstructor
   @Builder
   @Getter

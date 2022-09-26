@@ -3,6 +3,7 @@ package com.easylose.backend.api.v1.domain;
 import com.easylose.backend.api.v1.enums.ActivityLevel;
 import com.easylose.backend.api.v1.enums.Gender;
 import com.easylose.backend.api.v1.enums.Goal;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
@@ -24,45 +25,51 @@ public class User {
 
   @Id // id 설정
   @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 설정을 db에 위임
+  @JsonProperty
   private Long id;
 
-  private String name;
+  @JsonProperty private String name;
 
   @Enumerated(EnumType.STRING)
+  @JsonProperty
   private Gender gender;
 
-  private String birthdate;
+  @JsonProperty private String birthdate;
 
-  private Float height;
+  @JsonProperty private Float height;
 
-  private Float weight;
+  @JsonProperty private Float weight;
 
+  @JsonProperty
   @Enumerated(EnumType.STRING)
   private ActivityLevel activityLevel;
 
+  @JsonProperty
   @Enumerated(EnumType.STRING)
   private Goal goal;
 
-  private Float dailyCalorie;
+  @JsonProperty private Float dailyCalorie;
 
-  private Float dailyCarb;
+  @JsonProperty private Float dailyCarb;
 
-  private Float dailyProtein;
+  @JsonProperty private Float dailyProtein;
 
-  private Float dailyFat;
+  @JsonProperty private Float dailyFat;
 
-  private String profileImg;
+  @JsonProperty private String profileImg;
 
-  private String providerId;
+  @JsonProperty private String providerId;
 
-  private String provider;
+  @JsonProperty private String provider;
 
-  private String refreshJws;
+  @JsonProperty private String refreshJws;
 
+  @JsonProperty
   @CreatedDate
   @Column(name = "created_at", updatable = false, nullable = false)
   private LocalDateTime createdAt;
 
+  @JsonProperty
   @LastModifiedDate
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
