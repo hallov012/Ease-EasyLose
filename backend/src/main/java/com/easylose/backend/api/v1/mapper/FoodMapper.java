@@ -3,6 +3,7 @@ package com.easylose.backend.api.v1.mapper;
 import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodUserDto;
+import java.util.List;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -17,6 +18,8 @@ public interface FoodMapper {
   Food toEntity(final FoodUserDto dto);
 
   FoodResponseDto toDto(final Food food);
+
+  List<FoodResponseDto> toDtoAll(final List<Food> foods);
 
   @BeanMapping(
       nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,

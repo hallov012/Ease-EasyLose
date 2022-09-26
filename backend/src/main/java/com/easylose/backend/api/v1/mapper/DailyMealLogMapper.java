@@ -4,6 +4,8 @@ import com.easylose.backend.api.v1.domain.DailyMealLog;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
+import java.util.List;
+import java.util.stream.Stream;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -20,7 +22,7 @@ public interface DailyMealLogMapper {
 
   DailyMealLog toEntity(final DailyMealRequestDto dto);
 
-  DailyMealResponseDto toDto(final DailyMealLog entity);
+  List<DailyMealResponseDto> toDtoAll(final Stream<DailyMealLog> mealLogs);
 
-  DailyMealLogDto.DailyMealResponseDto dailyMealLogToResponseDto(DailyMealLog dailyMealLog);
+  DailyMealResponseDto toDto(final DailyMealLog entity);
 }
