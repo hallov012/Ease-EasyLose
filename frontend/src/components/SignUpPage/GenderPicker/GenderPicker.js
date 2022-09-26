@@ -5,15 +5,15 @@ function GenderPicker(props) {
   const history = useHistory();
   const [selected, setSelected] = useState([false, false]);
   useEffect(() => {
-    if (props.value === "M") setSelected([true, false]);
-    else if (props.value === "F") setSelected([false, true]);
+    if (props.value === "MALE") setSelected([true, false]);
+    else if (props.value === "FEMALE") setSelected([false, true]);
   }, [props.value]);
   return (
     <div className={classes.container}>
       <button
         className={selected[0] ? classes.pickedItem : classes.genderItem}
         onClick={() => {
-          props.setGender("M");
+          props.setGender("MALE");
           setSelected([true, false]);
           history.push("/signup/birth");
         }}
@@ -23,7 +23,7 @@ function GenderPicker(props) {
       <button
         className={selected[1] ? classes.pickedItem : classes.genderItem}
         onClick={() => {
-          props.setGender("F");
+          props.setGender("FEMALE");
           setSelected([false, true]);
           history.push("/signup/birth");
         }}

@@ -1,15 +1,21 @@
-import TopNavDate from "../components/TopNav/TopNavDate"
-
+import TopNavDate from "../components/TopNav/TopNavDate";
+import { Route } from "react-router-dom";
+import MyInfoPage from "../components/MyPage/pages/MyInfoPage";
+import InfoModPage from "../components/MyPage/pages/InfoModPage";
+import { useSelector } from "react-redux";
 function MyPage() {
+  const userInfo = useSelector((state) => state.user.userInfo);
+
   return (
     <div>
-      <div id="top_nav_area">
-        {/* <TopNav text={"2022.09.15 (목)"} arrow={[0, 1]} /> */}
-        {/* <TopNavDate /> */}
-      </div>
-      <h1>Welcome to MyPage</h1>
+      <Route path="/mypage" exact>
+        <MyInfoPage userInfo={userInfo}></MyInfoPage>
+      </Route>
+      <Route path="/mypage/mod">
+        <InfoModPage userInfo={userInfo}></InfoModPage>
+      </Route>
     </div>
-  )
+  );
 }
 
-export default MyPage
+export default MyPage;

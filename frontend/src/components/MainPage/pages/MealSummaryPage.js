@@ -1,6 +1,8 @@
 import TopNav from "../../TopNav/TopNav"
 import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo"
 import UserFoodList from "../UserFoodList/UserFoodList"
+import NutrientChart from "../NutrientChart/NutrientChart"
+import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
 
 import { useParams } from "react-router-dom"
 
@@ -25,6 +27,8 @@ function MealSummaryPage() {
       >
         <MealNutrientInfo />
         <UserFoodList />
+        <NutrientChart />
+        <NutrientProgressBox />
       </div>
     </div>
   )

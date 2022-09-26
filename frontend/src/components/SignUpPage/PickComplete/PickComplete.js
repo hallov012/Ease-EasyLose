@@ -2,9 +2,7 @@ import classes from "./PickComplete.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
-function PickComplete() {
-  function onClickStart() {}
-
+function PickComplete(props) {
   return (
     <div className={classes.container}>
       <FontAwesomeIcon icon={faUserCheck} size="5x"></FontAwesomeIcon>
@@ -39,7 +37,9 @@ function PickComplete() {
               "linear-gradient(90deg,var(--main-color) 44%,var(--light-color) 88%)",
             color: "white",
           }}
-          onClick={onClickStart}
+          onClick={() => {
+            props.putUserInfo();
+          }}
         >
           시작하기
         </div>
