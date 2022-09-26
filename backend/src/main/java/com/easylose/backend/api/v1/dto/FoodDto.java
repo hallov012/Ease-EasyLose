@@ -26,7 +26,7 @@ public class FoodDto {
     private Float salt;
     private Float cholesterol;
     private Float saturatedFat;
-    private Float trasnFat;
+    private Float transFat;
   }
 
   @AllArgsConstructor
@@ -58,6 +58,6 @@ public class FoodDto {
     private Float salt;
     private Float cholesterol;
     private Float saturatedFat;
-    private Float trasnFat;
+    private Float transFat;
   }
 }
