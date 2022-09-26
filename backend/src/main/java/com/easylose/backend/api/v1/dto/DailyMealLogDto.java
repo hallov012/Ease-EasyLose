@@ -18,7 +18,6 @@ public class DailyMealLogDto {
     private LocalDate date;
     private MealType mealType;
     private Float count;
-    private Long userId;
     private Long foodId;
     @JsonIgnore private User user;
     @JsonIgnore private Food food;

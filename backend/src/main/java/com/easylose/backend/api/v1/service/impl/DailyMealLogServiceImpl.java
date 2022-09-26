@@ -4,6 +4,7 @@ import com.easylose.backend.api.v1.domain.DailyMealLog;
 import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.mapper.DailyMealLogMapper;
 import com.easylose.backend.api.v1.repository.DailyMealLogRepository;
@@ -37,12 +38,12 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
       spec = spec.and(DailyMealLogSpecification.equalUser(user));
       spec = spec.and(DailyMealLogSpecification.equalDate(date));
     }
-    List response = dailyMealLogRepository.findAll(spec);
+    List<DailyMealResponseDto> response =
+        dailyMealLogMapper.toDtoAll(dailyMealLogRepository.findAll(spec).stream());
     return response;
   }
 
-  public DailyMealResponseDto createDailyMeal(
-      Long id, DailyMealLogDto.DailyMealRequestDto requestDto) {
+  public DailyMealResponseDto createDailyMeal(Long id, DailyMealRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
     Food food = foodRepository.getReferenceById(requestDto.getFoodId());
 
@@ -67,7 +68,7 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
       dailyMealLogMapper.updateDailyMealLogFromRequestDto(requestDto, dailyMealLog);
       dailyMealLogRepository.save(dailyMealLog);
     }
-    return dailyMealLogMapper.dailyMealLogToResponseDto(dailyMealLog);
+    return dailyMealLogMapper.toDto(dailyMealLog);
   }
 
   public void deleteDailyMeal(Long id, Long dailyMeal_id) {
