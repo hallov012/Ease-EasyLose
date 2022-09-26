@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  hadoop:
+    build:
+      ./hadoop/.
+    ports:
+      - "16010:16010"
+    # command: start-all.sh && $HBASE_HOME/bin/start-hbase.sh
+
+  
+
+  # hadoop:
