@@ -4,16 +4,12 @@ import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
-<<<<<<< backend/src/main/java/com/easylose/backend/api/v1/controller/DailyMealLogController.java
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import io.swagger.v3.oas.annotations.Operation;
-import java.util.Collection;
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> backend/src/main/java/com/easylose/backend/api/v1/controller/DailyMealLogController.java
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -37,10 +33,6 @@ public class DailyMealLogController {
   }
 
   @PostMapping("")
-  @ApiOperation(
-      value = "유저가 먹은 음식 생성",
-      notes =
-          )
   @Operation(summary = "유저가 먹은 음식 생성", description = "유저가 특정 날짜에 먹은 음식 로그 데이터를 생성한다. / 날짜 입령 형식 : yyyy-mm-dd / mealType : [BREAKFAST, LUNCH, DINNER, SNACK]")
   public ResponseEntity<DailyMealResponseDto> createDailyMeal(
       @AuthenticationPrincipal Long id, @RequestBody DailyMealRequestDto requestDto) {
