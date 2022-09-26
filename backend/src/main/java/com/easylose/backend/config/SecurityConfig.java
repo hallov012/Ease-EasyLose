@@ -29,8 +29,7 @@ public class SecurityConfig {
     return (web) ->
         web.ignoring()
             // swagger
-            .antMatchers(
-                "/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/v2/api-docs");
+            .antMatchers("/documentation/**");
   }
 
   @Bean

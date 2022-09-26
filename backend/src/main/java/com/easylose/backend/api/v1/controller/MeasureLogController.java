@@ -1,9 +1,11 @@
 package com.easylose.backend.api.v1.controller;
 
 import com.easylose.backend.api.v1.service.MeasureLogService;
-import io.swagger.annotations.ApiOperation;
 import java.time.LocalDate;
 import java.util.List;
+
+import io.swagger.v3.oas.annotations.Operation;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,9 +26,7 @@ public class MeasureLogController {
   private final MeasureLogService measureLogService;
 
   @GetMapping("")
-  @ApiOperation(
-      value = "유저 키/몸무게 변화 추이",
-      notes = "시작일자와 종료일자 입력 시 해당 기간 내 유저의 변화한 키/몸무게를 알 수 있다. / 날짜 입령 형식 : yyyy-mm-dd")
+  @Operation(summary = "유저 몸무게 변화 추이", description="시작일자와 종료일자 입력 시 해당 기간 내 유저의 변화한 키/몸무게를 알 수 있다. / 날짜 입령 형식 : yyyy-mm-dd")
   public ResponseEntity<List> getMeasureLogAll(
       @AuthenticationPrincipal Long id,
       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
