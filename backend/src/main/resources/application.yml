@@ -13,3 +13,9 @@ spring:
       matching-strategy: ant-path-matcher
   profiles:
     include: oauth
+
+springdoc:
+  swagger-ui:
+    path: /documentation/swagger-ui.html
+  api-docs:
+    path: /documentation/v3/api-docs
