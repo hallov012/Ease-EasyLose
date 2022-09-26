@@ -1,71 +1,81 @@
 package com.easylose.backend.api.v1.service.impl;
 
 import com.easylose.backend.api.v1.domain.DailyMealLog;
+import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.mapper.DailyMealLogMapper;
 import com.easylose.backend.api.v1.repository.DailyMealLogRepository;
+import com.easylose.backend.api.v1.repository.FoodRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.specification.DailyMealLogSpecification;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DailyMealLogServiceImpl implements DailyMealLogService {
 
   public final DailyMealLogRepository dailyMealLogRepository;
   public final UserRepository userRepository;
+  public final FoodRepository foodRepository;
 
   public final DailyMealLogMapper dailyMealLogMapper;
 
-  public Collection getDailyMealAll(Long id, String year, String month, String day) {
-    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyyMMdd");
-    DateTimeFormatter formatMonth = DateTimeFormatter.ofPattern("yyyyMM");
-    DateTimeFormatter formatYear = DateTimeFormatter.ofPattern("yyyy");
-
-    LocalDate date = null;
-
-    if (year != null && month != null && day != null) {
-      date = LocalDate.parse(year + month + day, formatDate);
-    } else if (day == null && month != null && year != null) {
-      date = LocalDate.parse(year + month, formatMonth);
-    } else if (month == null && year != null) {
-      date = LocalDate.parse(year, formatYear);
-    } else {
-      date = LocalDate.now();
-    }
+  public List<DailyMealResponseDto> getDailyMealAll(Long id, LocalDate date) {
     Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
     User user = userRepository.getReferenceById(id);
 
     if (user != null && date != null) {
-      spec = spec.and(DailyMealLogSpecification.equalUser(id));
+      spec = spec.and(DailyMealLogSpecification.equalUser(user));
       spec = spec.and(DailyMealLogSpecification.equalDate(date));
     }
-    return dailyMealLogRepository.findAll(spec);
+    List response = dailyMealLogRepository.findAll(spec);
+    return response;
   }
 
-  public DailyMealLogDto.DailyMealResponseDto createDailyMeal(
+  @Override
+//  public List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date) {
+//    Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
+//    User user = userRepository.getReferenceById(id);
+//    LocalDate date =
+//
+//    if (user != null && date != null) {
+//      spec = spec.and(DailyMealLogSpecification.equalUser(user));
+//      spec = spec.and(DailyMealLogSpecification.betweenDate(start));
+//    }
+//    List response = dailyMealLogRepository.findAll(spec);
+//    return response;
+//  }
+
+  public DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
+    Food food = foodRepository.getReferenceById(requestDto.getFoodId());
 
-    if (user == null) {
+    if (user == null || food == null) {
+      log.info("this is empty");
       return null;
     }
+    requestDto.setUser(user);
+    requestDto.setFood(food);
+
     return dailyMealLogMapper.toDto(
         dailyMealLogRepository.save(dailyMealLogMapper.toEntity(requestDto)));
   }
 
-  public DailyMealLogDto.DailyMealResponseDto updateDailyMeal(
+  public DailyMealResponseDto updateDailyMeal(
       Long id, Long dailyMeal_id, DailyMealLogDto.DailyMealRequestDto requestDto) {
-    User user = userRepository.findById(id).orElse(null);
-    DailyMealLog dailyMealLog = dailyMealLogRepository.findById(dailyMeal_id).orElse(null);
-    if (user.getId() == dailyMealLog.getUserId()) {
+    User user = userRepository.getReferenceById(id);
+    DailyMealLog dailyMealLog = dailyMealLogRepository.getReferenceById(dailyMeal_id);
+    if (user == dailyMealLog.getUser()) {
       dailyMealLogMapper.updateDailyMealLogFromRequestDto(requestDto, dailyMealLog);
       dailyMealLogRepository.save(dailyMealLog);
     }
@@ -75,7 +85,7 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
   public void deleteDailyMeal(Long id, Long dailyMeal_id) {
     User user = userRepository.findById(id).orElse(null);
     DailyMealLog dailyMealLog = dailyMealLogRepository.findById(dailyMeal_id).orElse(null);
-    if (user.getId() == dailyMealLog.getUserId()) {
+    if (user == dailyMealLog.getUser()) {
       dailyMealLogRepository.deleteById(dailyMeal_id);
     }
   }

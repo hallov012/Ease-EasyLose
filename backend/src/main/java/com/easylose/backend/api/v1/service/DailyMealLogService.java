@@ -1,10 +1,14 @@
 package com.easylose.backend.api.v1.service;
 
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
-import java.util.Collection;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
+import java.time.LocalDate;
+import java.util.List;
 
 public interface DailyMealLogService {
-  Collection getDailyMealAll(Long id, String year, String month, String day);
+  List<DailyMealResponseDto> getDailyMealAll(Long id, LocalDate date);
+
+//  List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date);
 
   DailyMealLogDto.DailyMealResponseDto createDailyMeal(
       Long id, DailyMealLogDto.DailyMealRequestDto requestDto);

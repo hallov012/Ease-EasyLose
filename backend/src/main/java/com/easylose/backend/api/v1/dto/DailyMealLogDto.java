@@ -1,9 +1,12 @@
 package com.easylose.backend.api.v1.dto;
 
+import com.easylose.backend.api.v1.domain.Food;
+import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.enums.MealType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
-import javax.persistence.*;
 import lombok.*;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 public class DailyMealLogDto {
 
@@ -16,8 +19,10 @@ public class DailyMealLogDto {
     private LocalDate date;
     private MealType mealType;
     private Float count;
-    private Long foodId;
     private Long userId;
+    private Long foodId;
+    @JsonIgnore private User user;
+    @JsonIgnore private Food food;
   }
 
   @AllArgsConstructor
@@ -25,12 +30,13 @@ public class DailyMealLogDto {
   @Getter
   @Setter
   @ToString
+  @ResponseBody
   public static class DailyMealResponseDto {
     private Long id;
-    private String date;
+    private LocalDate date;
     private MealType mealType;
     private Float count;
-    private Long userId;
-    private Long foodId;
+    //    private User user;
+    //    private Food food;
   }
 }

@@ -1,13 +1,14 @@
 package com.easylose.backend.api.v1.repository.specification;
 
 import com.easylose.backend.api.v1.domain.DailyMealLog;
+import com.easylose.backend.api.v1.domain.User;
 import java.time.LocalDate;
 import org.springframework.data.jpa.domain.Specification;
 
 public class DailyMealLogSpecification {
 
-  public static Specification<DailyMealLog> equalUser(Long userId) {
-    return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("userId"), userId);
+  public static Specification<DailyMealLog> equalUser(User user) {
+    return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user"), user);
   }
 
   public static Specification<DailyMealLog> equalDate(LocalDate date) {

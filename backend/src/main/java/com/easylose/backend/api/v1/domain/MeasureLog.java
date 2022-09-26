@@ -1,5 +1,6 @@
 package com.easylose.backend.api.v1.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.AccessLevel;
@@ -30,10 +31,20 @@ public class MeasureLog {
 
   private Float weight;
 
-  //  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  //  @JoinColumn(name = "user_id")
-  //  private User user;
-  private Long userId;
+  private Float dailyCalorie;
+
+  private Float dailyCarb;
+
+  private Float dailyProtein;
+
+  private Float dailyFat;
+
+  private Boolean isNutrient;
+
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  @JsonIgnore
+  private User user;
 
   @CreatedDate
   @Column(updatable = false)

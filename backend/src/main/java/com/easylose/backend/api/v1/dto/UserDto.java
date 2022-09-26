@@ -41,6 +41,8 @@ public class UserDto {
   @Setter
   @ToString
   public static class UserRequestDto {
+    private Gender gender;
+    private String birthdate;
     private Float height;
     private Float weight;
     private ActivityLevel activityLevel;
@@ -49,5 +51,6 @@ public class UserDto {
     private Float dailyCarb;
     private Float dailyProtein;
     private Float dailyFat;
+    private Boolean isAutomatic;
   }
 }
