@@ -45,4 +45,23 @@ public class FoodServiceImpl implements FoodService {
     dto.setUser(user);
     return foodMapper.toDto(foodRepository.save(foodMapper.toEntity(dto)));
   }
+
+  @Override
+  public FoodResponseDto updateFood(Long id, Long food_id, FoodUserDto dto) {
+    User user = userRepository.getReferenceById(id);
+    Food food = foodRepository.getReferenceById(food_id);
+    if (user == food.getUser()) {
+      foodMapper.updateFoodFromDto(dto, food);
+    }
+    return foodMapper.toDto(foodRepository.save(food));
+  }
+
+  @Override
+  public void deleteFood(Long id, Long food_id) {
+    User user = userRepository.getReferenceById(id);
+    Food food = foodRepository.getReferenceById(food_id);
+    if (user == food.getUser()) {
+      foodRepository.deleteById(food_id);
+    }
+  }
 }
