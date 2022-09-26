@@ -20,7 +20,7 @@
     var(--light-color) 50%,
     var(--main-color) 100%
   );
-  width: 100vh;
+  width: 100vw;
   position: fixed;
   top: 0;
   z-index: 100;

@@ -1,0 +1,11 @@
+.graph_box {
+  padding-top: 1rem;
+  font-size: 1.1rem;
+  height: 30vh;
+  /* padding-bottom: 1rem; */
+}
+
+.graph_box .text {
+  float: left;
+  font-weight: bold;
+}

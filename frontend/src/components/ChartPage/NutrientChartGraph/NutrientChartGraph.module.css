@@ -1,0 +1,30 @@
+.graph_box {
+  padding-top: 1.5rem;
+}
+.top_area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.item_box {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.info_item {
+  display: flex;
+  margin-right: 0.3rem;
+}
+
+.info_item div {
+  height: 0.9rem;
+  width: 0.9rem;
+  border-radius: 0.9rem;
+  margin-right: 0.2rem;
+}

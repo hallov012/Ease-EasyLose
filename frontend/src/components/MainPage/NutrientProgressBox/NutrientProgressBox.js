@@ -1,6 +1,5 @@
 import classes from "./NutrientProgressBox.module.css"
 import ReactApexChart from "react-apexcharts"
-import { isNumeric } from "jquery"
 
 function NutrientProgressBox() {
   const plan = [1520, 160, 280, 100, 32, 2700, 300]
