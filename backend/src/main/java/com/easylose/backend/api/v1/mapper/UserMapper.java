@@ -2,6 +2,7 @@ package com.easylose.backend.api.v1.mapper;
 
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.UserDto;
+import com.easylose.backend.api.v1.dto.UserDto.AutoDto;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -15,5 +16,12 @@ public interface UserMapper {
       nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
   void updateUserFromRequestDto(UserDto.UserRequestDto dto, @MappingTarget User user);
 
+  @BeanMapping(
+      nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+      nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+  void updateUserFromResultDto(UserDto.ResultDto dto, @MappingTarget User user);
+
   UserDto.UserResponseDto userToResponseDto(User user);
+
+  AutoDto userToAutoDto(User user);
 }
