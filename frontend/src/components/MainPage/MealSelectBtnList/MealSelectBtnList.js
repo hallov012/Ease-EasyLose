@@ -6,7 +6,6 @@ import { useState, useEffect } from "react"
 function MealSelectBtnList() {
   const MealName = ["전체", "아침", "점심", "저녁", "간식"]
   const [select, setSelect] = useState([1, 0, 0, 0, 0])
-  const mealClick = (e) => console.log(e.target)
 
   const mealBtns = MealName.map((meal, idx) => (
     <div
