@@ -24,15 +24,12 @@ export const basketSlice = createSlice({
         )
       })
     },
-    registerItemFromSearchList: (state, action) => {
-      state.pickedList = [...state.pickedList, action.payload]
-      state.searchList = state.searchList.filter(
-        (item) => item.id !== action.payload.id
-      )
-    },
-    registerItemFromRecentList: (state, action) => {
+    registerItem: (state, action) => {
       state.pickedList = [...state.pickedList, action.payload]
       state.recentList = state.recentList.filter(
+        (item) => item.id !== action.payload.id
+      )
+      state.searchList = state.searchList.filter(
         (item) => item.id !== action.payload.id
       )
     },
@@ -41,15 +38,20 @@ export const basketSlice = createSlice({
         (item) => item.id !== action.payload.id
       )
     },
+    initializeBasket: (state) => {
+      state.pickedList = []
+      state.searchList = []
+      state.recentList = []
+    },
   },
 })
 
 export const {
   registerSearchList,
   registerRecentList,
-  registerItemFromSearchList,
-  registerItemFromRecentList,
+  registerItem,
   removeItem,
+  initializeBasket,
 } = basketSlice.actions
 
 export default basketSlice.reducer

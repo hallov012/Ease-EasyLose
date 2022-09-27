@@ -8,7 +8,6 @@ import TopHistoryNav from "../../TopNav/TopHistoryNav"
 function AddDetailPage() {
   const history = useHistory()
   const foodInfo = history.location.state.foodInfo
-  const previousPage = history.location.state.from.pathname
   return (
     <div>
       <div id="top_nav_area">
