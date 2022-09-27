@@ -50,7 +50,6 @@ public class FoodServiceImpl implements FoodService {
   public FoodResponseDto createFood(Long id, FoodUserDto dto) {
     User user = userRepository.getReferenceById(id);
     dto.setUser(user);
-    log.info("**{}**", dto);
     return foodMapper.toDto(foodRepository.save(foodMapper.toEntity(dto)));
   }
 

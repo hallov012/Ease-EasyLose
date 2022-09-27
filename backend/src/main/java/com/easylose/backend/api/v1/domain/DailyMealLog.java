@@ -35,7 +35,7 @@ public class DailyMealLog {
   @JsonIgnore
   private User user;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "food_id")
   @JsonIgnore
   private Food food;

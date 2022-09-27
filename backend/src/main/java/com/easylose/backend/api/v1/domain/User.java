@@ -34,7 +34,7 @@ public class User {
   @JsonProperty
   private Gender gender;
 
-  @JsonProperty private String birthdate;
+  @JsonProperty private Integer age;
 
   @JsonProperty private Float height;
 
@@ -48,13 +48,13 @@ public class User {
   @Enumerated(EnumType.STRING)
   private Goal goal;
 
-  @JsonProperty private Float dailyCalorie;
+  @JsonProperty private Integer dailyCalorie;
 
-  @JsonProperty private Float dailyCarb;
+  @JsonProperty private Integer dailyCarb;
 
-  @JsonProperty private Float dailyProtein;
+  @JsonProperty private Integer dailyProtein;
 
-  @JsonProperty private Float dailyFat;
+  @JsonProperty private Integer dailyFat;
 
   @JsonProperty private String profileImg;
 

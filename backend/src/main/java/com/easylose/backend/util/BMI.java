@@ -5,7 +5,6 @@ import com.easylose.backend.api.v1.dto.UserDto.ResultDto;
 import com.easylose.backend.api.v1.enums.ActivityLevel;
 import com.easylose.backend.api.v1.enums.Gender;
 import com.easylose.backend.api.v1.enums.Goal;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,7 +45,7 @@ public class BMI {
     this.gender = dto.getGender();
     this.activityLevel = dto.getActivityLevel();
     this.bmi = (10000 * weight) / (height * height);
-    this.age = LocalDate.now().getYear() - Integer.parseInt(dto.getBirthdate().substring(0, 4));
+    this.age = dto.getAge();
 
     log.info("age : {}", age);
     if (gender.toString() == "MALE") {
@@ -86,10 +85,10 @@ public class BMI {
     fat *= (calory / 9);
 
     return ResultDto.builder()
-        .dailyCalorie((float) calory)
-        .dailyProtein((float) protein)
-        .dailyCarb((float) carb)
-        .dailyFat((float) fat)
+        .dailyCalorie((int) calory)
+        .dailyProtein((int) protein)
+        .dailyCarb((int) carb)
+        .dailyFat((int) fat)
         .build();
   }
 }
