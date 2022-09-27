@@ -21,15 +21,15 @@ public class UserDto {
     private Long id;
     private String name;
     private Gender gender;
-    private String birthdate;
+    private Integer age;
     private Float height;
     private Float weight;
     private ActivityLevel activityLevel;
     private Goal goal;
-    private Float dailyCalorie;
-    private Float dailyCarb;
-    private Float dailyProtein;
-    private Float dailyFat;
+    private Integer dailyCalorie;
+    private Integer dailyCarb;
+    private Integer dailyProtein;
+    private Integer dailyFat;
     private String profileImg;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -42,15 +42,15 @@ public class UserDto {
   @ToString
   public static class UserRequestDto {
     private Gender gender;
-    private String birthdate;
+    private Integer age;
     private Float height;
     private Float weight;
     private ActivityLevel activityLevel;
     private Goal goal;
-    private Float dailyCalorie;
-    private Float dailyCarb;
-    private Float dailyProtein;
-    private Float dailyFat;
+    private Integer dailyCalorie;
+    private Integer dailyCarb;
+    private Integer dailyProtein;
+    private Integer dailyFat;
     private Boolean isAutomatic;
   }
 
@@ -61,7 +61,7 @@ public class UserDto {
   @ToString
   public static class AutoDto {
     private Gender gender;
-    private String birthdate;
+    private Integer age;
     private Float height;
     private Float weight;
     private ActivityLevel activityLevel;
@@ -74,9 +74,9 @@ public class UserDto {
   @Setter
   @ToString
   public static class ResultDto {
-    private Float dailyCalorie;
-    private Float dailyCarb;
-    private Float dailyProtein;
-    private Float dailyFat;
+    private Integer dailyCalorie;
+    private Integer dailyCarb;
+    private Integer dailyProtein;
+    private Integer dailyFat;
   }
 }
