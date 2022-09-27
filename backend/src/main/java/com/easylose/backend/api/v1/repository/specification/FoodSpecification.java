@@ -6,7 +6,10 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class FoodSpecification {
   public static Specification<Food> containName(String name, User user) {
-    return (root, query, builder) -> builder.like(root.get("name"), "%" + name + "%");
+    return (root, query, builder) ->
+        builder.and(
+            builder.like(root.get("name"), "%" + name + "%"),
+            builder.or(builder.equal(root.get("user"), user), builder.isNull(root.get("user"))));
   }
 
   public static Specification<Food> myFoodUser(User user) {

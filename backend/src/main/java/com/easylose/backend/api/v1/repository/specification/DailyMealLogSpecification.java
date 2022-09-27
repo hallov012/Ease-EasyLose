@@ -7,11 +7,12 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class DailyMealLogSpecification {
 
-  public static Specification<DailyMealLog> equalUser(User user) {
-    return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user"), user);
-  }
+  private DailyMealLog dailyMealLogFilter;
 
-  public static Specification<DailyMealLog> equalDate(LocalDate date) {
-    return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("date"), date);
+  public static Specification<DailyMealLog> equalUserAndDate(User user, LocalDate date) {
+    return (root, query, criteriaBuilder) ->
+        criteriaBuilder.and(
+            criteriaBuilder.equal(root.get("user"), user),
+            criteriaBuilder.equal(root.get("date"), date));
   }
 }

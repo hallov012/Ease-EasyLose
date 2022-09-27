@@ -25,7 +25,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "measure_log")
 public class MeasureLog {
 
-  @Id @GeneratedValue private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   private Float height;
 

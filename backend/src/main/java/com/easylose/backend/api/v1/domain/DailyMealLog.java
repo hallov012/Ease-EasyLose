@@ -19,7 +19,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "daily_meal")
 public class DailyMealLog {
 
-  @Id @GeneratedValue private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   private LocalDate date;
 
   @Enumerated(EnumType.STRING)
@@ -32,7 +35,7 @@ public class DailyMealLog {
   @JsonIgnore
   private User user;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "food_id")
   @JsonIgnore
   private Food food;

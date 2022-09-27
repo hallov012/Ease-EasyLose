@@ -12,6 +12,8 @@ import com.easylose.backend.api.v1.service.FoodService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,22 @@ public class FoodServiceImpl implements FoodService {
   private final UserRepository userRepository;
   private final FoodMapper foodMapper;
 
-  public List<Food> getFood(Long id, String name, String barcode) {
+  public List<FoodResponseDto> getFood(Long id, String name, String barcode) {
     User user = userRepository.getReferenceById(id);
     Specification<Food> spec = (root, query, builder) -> null;
+    if (name == null && barcode == null) {
+      return null;
+    }
     if (name != null) {
       spec = spec.and(FoodSpecification.containName(name, user));
-      spec = spec.and(FoodSpecification.myFoodUser(user));
+      //      spec = spec.and(FoodSpecification.myFoodUser(user));
     } else if (barcode != null) {
       spec = spec.and(FoodSpecification.equalBarcode(barcode));
       spec = spec.and(FoodSpecification.myFoodUser(user));
     }
-    List response = foodRepository.findAll(spec);
+    Pageable limit = PageRequest.of(0, 10);
+    List<FoodResponseDto> response =
+        foodMapper.toDtoAll(foodRepository.findAll(spec, limit).toList());
     log.info("response for food : {}", response);
 
     return response;

@@ -3,6 +3,7 @@ package com.easylose.backend.api.v1.controller;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResultDto;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.time.LocalDate;
@@ -24,10 +25,10 @@ public class DailyMealLogController {
 
   @GetMapping("")
   @Operation(summary = "유저가 먹은 음식 조회", description = "유저가 특정 날짜에 먹은 음식 조회 / 날짜 입령 형식 : yyyy-mm-dd")
-  public ResponseEntity<List> getDailyMealAll(
+  public ResponseEntity<List<DailyMealResultDto>> getDailyMealAll(
       @AuthenticationPrincipal Long id,
       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
-    List<DailyMealResponseDto> response = dailyMealLogService.getDailyMealAll(id, date);
+    List<DailyMealResultDto> response = dailyMealLogService.getDailyMealAll(id, date);
     log.info("response : {}", response);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
