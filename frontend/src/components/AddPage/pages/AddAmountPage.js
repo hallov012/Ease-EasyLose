@@ -5,13 +5,64 @@ import AddButtonList from "../AddButtonList/AddButtonList"
 import TopNav from "../../TopNav/TopNav"
 import { useHistory } from "react-router-dom"
 import { registerItem } from "../../../store/basketSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+
+import Slider from "@mui/material/Slider"
+import { styled } from "@mui/material/styles"
+
+const PrettoSlider = styled(Slider)({
+  color: "#7c83fd",
+  height: 8,
+  "& .MuiSlider-track": {
+    border: "none",
+  },
+  "& .MuiSlider-thumb": {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
+      boxShadow: "inherit",
+    },
+    "&:before": {
+      display: "none",
+    },
+  },
+  "& .MuiSlider-valueLabel": {
+    lineHeight: 1.2,
+    fontSize: 15,
+    background: "unset",
+    padding: 0,
+    width: 40,
+    height: 40,
+    borderRadius: "50% 50% 50% 0",
+    backgroundColor: "#7c83fd",
+    transformOrigin: "bottom left",
+    transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
+    "&:before": { display: "none" },
+    "&.MuiSlider-valueLabelOpen": {
+      transform: "translate(50%, -100%) rotate(-45deg) scale(1)",
+    },
+    "& > *": {
+      transform: "rotate(45deg)",
+    },
+  },
+})
 
 function AddAmountPage() {
   const history = useHistory()
   const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
   const foodInfo = history.location.state.foodInfo
+  const pickedList = useSelector((state) => state.basket.pickedList)
+
+  const current_total_calorie = () => {
+    let sum = 0
+    pickedList.map((item) => {
+      sum += item.calorie
+    })
+    return sum
+  }
 
   const onClickHandler = () => {
     const temp = { ...foodInfo, count: amount }
@@ -25,20 +76,30 @@ function AddAmountPage() {
         <TopNav arrow={["/add/search", ""]}></TopNav>
       </div>
       <div style={{ marginTop: "9vh" }} className={classes.container}>
-        <div className={classes.info}>
-          <div>1200 kcal</div>
+        <div>{foodInfo.calorie * amount} kcal</div>
+        <div style={{ width: "80vw", marginTop: "10vh" }}>
+          <PrettoSlider
+            valueLabelDisplay="on"
+            aria-label="pretto slider"
+            value={amount}
+            step={0.5}
+            min={0.5}
+            max={5}
+            onChange={(e) => {
+              setAmount(e.target.value)
+            }}
+          />
         </div>
-        {amount}인분
-        <input
-          type={"range"}
-          value={amount}
-          onChange={(event) => {
-            setAmount(event.target.value)
+        <div
+          style={{
+            width: "80vw",
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
           }}
-          min={0.5}
-          step={0.5}
-          max={5.0}
-        ></input>
+        >
+          ※ 1회 제공량 기준입니다
+        </div>
       </div>
       <div onClick={onClickHandler} className={classes.addButtonContainer}>
         <div className={classes.addButton}>추가하기</div>

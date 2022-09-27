@@ -20,8 +20,8 @@ function SignUpPage() {
   const [userAge, setUserAge] = useState(20)
   const [userWeight, setUserWeight] = useState(50)
   const [userHeight, setUserHeight] = useState(165)
-  const [userActivity, setUserActivity] = useState(5)
-  const [userGoal, setUserGoal] = useState(5)
+  const [userActivity, setUserActivity] = useState("")
+  const [userGoal, setUserGoal] = useState("")
   const history = useHistory()
   const dispatch = useDispatch()
   const accessToken = useSelector((state) => state.user.accessToken)
@@ -109,29 +109,17 @@ function SignUpPage() {
 
   function setArrow() {
     if (location === "/gender") {
-      if (userGender === "") {
-        return ["", ""]
-      } else {
-        return ["", "/signup/age"]
-      }
+      return ["", ""]
     } else if (location === "/activity") {
-      if (userActivity === 5) {
-        return ["/signup/weight", ""]
-      } else {
-        return ["/signup/weight", "/signup/goal"]
-      }
+      return ["/signup/weight", ""]
     } else if (location === "/goal") {
-      if (userGoal === 5) {
-        return ["/signup/activity", ""]
-      } else {
-        return ["/signup/activity", "/signup/complete"]
-      }
+      return ["/signup/activity", ""]
     } else if (location === "/height") {
-      return ["/signup/age", "/signup/weight"]
+      return ["/signup/age", ""]
     } else if (location === "/weight") {
-      return ["/signup/height", "/signup/activity"]
+      return ["/signup/height", ""]
     } else if (location === "/age") {
-      return ["/signup/gender", "/signup/height"]
+      return ["/signup/gender", ""]
     } else {
       return ["", ""]
     }
