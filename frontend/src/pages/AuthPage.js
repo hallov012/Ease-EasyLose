@@ -15,9 +15,6 @@ function AuthPage() {
     .replace("refreshToken=", "")
     .split("&")
 
-  // const accessToken = useSelector((state) => state.user.accessToken);
-  // const userInfo = useSelector((state) => state.user.userInfo);
-
   useEffect(() => {
     localStorage.setItem(
       "tokens",
@@ -26,30 +23,33 @@ function AuthPage() {
     dispatch(registerAccessToken(tokens))
   }, [])
 
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     axios
-  //       .get(`https://j7a704.p.ssafy.io/api/v1/user`, {
-  //         headers: { Authorization: `Bearer ${accessToken}` },
-  //       })
-  //       .then((response) => {
-  //         dispatch(registerUserInfo(response.data));
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // }, [accessToken, dispatch]);
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const userInfo = useSelector((state) => state.user.userInfo)
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     if (userInfo.goal) {
-  //       history.push("/main");
-  //     } else {
-  //       history.push("/signup/gender");
-  //     }
-  //   }
-  // }, [userInfo, dispatch, history]);
+  useEffect(() => {
+    if (accessToken) {
+      axios
+        .get(`https://j7a704.p.ssafy.io/api/v1/user`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((response) => {
+          dispatch(registerUserInfo(response.data))
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }, [accessToken, dispatch])
+
+  useEffect(() => {
+    if (userInfo) {
+      if (userInfo.goal) {
+        history.push("/main")
+      } else {
+        history.push("/signup/gender")
+      }
+    }
+  }, [userInfo, dispatch, history])
 
   return <div></div>
 }
