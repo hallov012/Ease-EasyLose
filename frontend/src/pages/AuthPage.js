@@ -1,26 +1,26 @@
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { registerAccessToken, registerUserInfo } from "../store/userSlice";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { useLocation } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { registerAccessToken, registerUserInfo } from "../store/userSlice"
+import { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
+import axios from "axios"
 
 function AuthPage() {
-  const location = useLocation();
-  const history = useHistory();
-  const dispatch = useDispatch();
+  const location = useLocation()
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   const tokens = location.search
     .replace("?accessToken=", "")
     .replace("refreshToken=", "")
-    .split("&");
+    .split("&")
 
-  const accessToken = useSelector((state) => state.user.accessToken);
-  const userInfo = useSelector((state) => state.user.userInfo);
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const userInfo = useSelector((state) => state.user.userInfo)
 
   useEffect(() => {
-    dispatch(registerAccessToken(tokens));
-  }, [tokens, dispatch]);
+    dispatch(registerAccessToken(tokens))
+  }, [tokens, dispatch])
 
   useEffect(() => {
     if (accessToken) {
@@ -29,25 +29,25 @@ function AuthPage() {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((response) => {
-          dispatch(registerUserInfo(response.data));
+          dispatch(registerUserInfo(response.data))
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
-  }, [accessToken, dispatch]);
+  }, [accessToken, dispatch])
 
   useEffect(() => {
     if (userInfo) {
       if (userInfo.goal) {
-        history.push("/main");
+        history.push("/main")
       } else {
-        history.push("/signup/gender");
+        history.push("/signup/gender")
       }
     }
-  }, [userInfo, dispatch, history]);
+  }, [userInfo, dispatch, history])
 
-  return <div></div>;
+  return <div></div>
 }
 
-export default AuthPage;
+export default AuthPage
