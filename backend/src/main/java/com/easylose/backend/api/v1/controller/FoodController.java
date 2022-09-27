@@ -39,6 +39,13 @@ public class FoodController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
+  @GetMapping("/recent")
+  @Operation(summary = "최근에 유저가 먹은 음식 리스트", description = "최근에 유저가 먹은 음식 중 상위 20개를 검색")
+  public ResponseEntity<Collection> getRecentFood(@AuthenticationPrincipal Long id) {
+    Collection<FoodResponseDto> response = foodService.getRecentFood(id);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
   @PostMapping("")
   @Operation(summary = "유저 커스텀 음식 생성", description = "유저의 커스텀 음식을 생성한다")
   public ResponseEntity<FoodResponseDto> createFood(
