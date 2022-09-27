@@ -7,8 +7,8 @@ import { useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 
 function NutrientSummary(props) {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+  const userInfo = props.userInfo
+  const userDailyDiet = props.userDailyDiet
 
   const [nowCal, setNowCal] = useState(0)
   const [planCal, setPlanCal] = useState(0)
@@ -43,6 +43,7 @@ function NutrientSummary(props) {
       setNutPercent(temp)
     }
   }, [userInfo, userDailyDiet, nowCal, planCal])
+
   return (
     <NavLink to="main/summary">
       <div className={classes.summary_area}>
