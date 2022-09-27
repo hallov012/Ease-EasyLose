@@ -6,6 +6,8 @@ services:
       ./hadoop/.
     ports:
       - "16010:16010"
-    # stdin_open: true
-    # tty: true
-    # command: /usr/bin/hbase/bin/start-hbase.sh
+    # command: start-all.sh && $HBASE_HOME/bin/start-hbase.sh
+
+  
+
+  # hadoop:
