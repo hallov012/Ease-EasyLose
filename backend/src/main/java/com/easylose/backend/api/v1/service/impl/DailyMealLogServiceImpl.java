@@ -35,6 +35,9 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
   public List<DailyMealResultDto> getDailyMealAll(Long id, LocalDate date) {
     Specification<DailyMealLog> spec = (root, query, criteriaBuilder) -> null;
     User user = userRepository.getReferenceById(id);
+    if (date == null) {
+      return null;
+    }
 
     if (user != null && date != null) {
       spec = spec.and(DailyMealLogSpecification.equalUserAndDate(user, date));
