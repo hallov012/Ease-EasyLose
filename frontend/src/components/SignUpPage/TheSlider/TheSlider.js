@@ -47,7 +47,6 @@ const PrettoSlider = styled(Slider)({
 })
 
 function TheSlider(props) {
-  const [value, setValue] = useState(props.value)
   const dataSet = {
     age: {
       nextPath: "height",
@@ -55,12 +54,12 @@ function TheSlider(props) {
       unitRight: "세",
     },
     height: {
-      nextPath: "height",
+      nextPath: "weight",
       unitLeft: "",
       unitRight: "cm",
     },
     weight: {
-      nextPath: "height",
+      nextPath: "activity",
       unitLeft: "",
       unitRight: "kg",
     },
@@ -71,20 +70,31 @@ function TheSlider(props) {
     <div className={classes.container}>
       <div className={classes.now_value}>
         <p>{dataSet[type].unitLeft}</p>
-        <p>{value}</p>
+        <p>{props.value}</p>
         <p>{dataSet[type].unitRight}</p>
       </div>
       <PrettoSlider
         valueLabelDisplay="on"
         aria-label="pretto slider"
-        defaultValue={props.value}
+        value={props.value}
         step={props.term}
         min={props.range[0]}
         max={props.range[1]}
         onChange={(e) => {
-          setValue(e.target.value)
+          props.setValue(e.target.value)
         }}
       />
+      {/* <input
+        className={classes.inputRange}
+        type="range"
+        value={props.value}
+        step={props.term}
+        min={props.range[0]}
+        max={props.range[1]}
+        onChange={(e) => {
+          props.setValue(e.target.value)
+        }}
+      ></input> */}
 
       <div className={classes.addButtonContainer}>
         <NavLink

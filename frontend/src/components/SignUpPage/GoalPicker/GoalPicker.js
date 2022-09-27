@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
-import classes from "./GoalPicker.module.css";
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react"
+import classes from "./GoalPicker.module.css"
+import { useHistory } from "react-router-dom"
 
 function GoalPicker({ setValue, value }) {
-  const history = useHistory();
-  const [selected, setSelected] = useState([false, false, false]);
+  const history = useHistory()
+  const [selected, setSelected] = useState([false, false, false])
   useEffect(() => {
-    if (value >= 0 && value < 3) {
-      setSelected(() => {
-        const newArray = [false, false, false];
-        newArray[Number(value)] = true;
-        return newArray;
-      });
+    let temp = 0
+    switch (value) {
+      case "KEEP":
+        temp = 0
+        break
+      case "DIET":
+        temp = 1
+        break
+      case "BULK":
+        temp = 2
+        break
     }
-  }, [value]);
+
+    setSelected(() => {
+      const newArray = [false, false, false]
+      newArray[Number(temp)] = true
+      return newArray
+    })
+  }, [value])
   const array = [
     {
       title: "유지",
@@ -33,7 +44,7 @@ function GoalPicker({ setValue, value }) {
       subexp: "탄수화물 40%, 단백질 40%, 지방 20%",
       value: "BULK",
     },
-  ];
+  ]
 
   return (
     <div className={classes.container}>
@@ -42,13 +53,13 @@ function GoalPicker({ setValue, value }) {
           <div
             key={index}
             onClick={() => {
-              setValue(array[index].value);
+              setValue(array[index].value)
               setSelected(() => {
-                const newArray = [false, false, false];
-                newArray[index] = true;
-                return newArray;
-              });
-              history.push("/signup/complete");
+                const newArray = [false, false, false]
+                newArray[index] = true
+                return newArray
+              })
+              history.push("/signup/complete")
             }}
             className={selected[index] ? classes.pickedItem : classes.goalItem}
           >
@@ -66,10 +77,10 @@ function GoalPicker({ setValue, value }) {
               <div>{item.subexp}</div>
             </div>
           </div>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
-export default GoalPicker;
+export default GoalPicker

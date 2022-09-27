@@ -18,8 +18,8 @@ function SignUpPage() {
   const location = useLocation().pathname.replace("/signup", "")
   const [userGender, setUserGender] = useState("")
   const [userAge, setUserAge] = useState(20)
-  const [userWeight, setUserWeight] = useState(70)
-  const [userHeight, setUserHeight] = useState(180)
+  const [userWeight, setUserWeight] = useState(50)
+  const [userHeight, setUserHeight] = useState(165)
   const [userActivity, setUserActivity] = useState(5)
   const [userGoal, setUserGoal] = useState(5)
   const history = useHistory()
@@ -175,6 +175,9 @@ function SignUpPage() {
                 type={"height"}
                 range={[130, 210]}
                 value={userHeight}
+                setValue={(value) => {
+                  setUserHeight(value)
+                }}
                 term={0.5}
               />
             </Route>
@@ -189,6 +192,9 @@ function SignUpPage() {
                 type={"weight"}
                 range={[30, 120]}
                 value={userWeight}
+                setValue={(value) => {
+                  setUserWeight(value)
+                }}
                 term={0.5}
               />
             </Route>
@@ -208,6 +214,9 @@ function SignUpPage() {
                 type={"age"}
                 range={[10, 80]}
                 value={userAge}
+                setValue={(value) => {
+                  setUserAge(value)
+                }}
                 term={1}
               />
             </Route>
