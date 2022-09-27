@@ -7,6 +7,8 @@ import java.util.Collection;
 public interface FoodService {
   Collection getFood(Long id, String name, String barcode);
 
+  Collection getRecentFood(Long id);
+
   FoodResponseDto createFood(Long id, FoodUserDto dto);
 
   FoodResponseDto updateFood(Long id, Long food_id, FoodUserDto dto);

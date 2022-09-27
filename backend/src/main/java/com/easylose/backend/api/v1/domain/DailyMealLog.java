@@ -3,8 +3,10 @@ package com.easylose.backend.api.v1.domain;
 import com.easylose.backend.api.v1.enums.MealType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity // Entity 선언
@@ -39,4 +41,8 @@ public class DailyMealLog {
   @JoinColumn(name = "food_id")
   @JsonIgnore
   private Food food;
+
+  @CreatedDate
+  @Column(name = "created_at", updatable = false, nullable = false)
+  private LocalDateTime createdAt;
 }
