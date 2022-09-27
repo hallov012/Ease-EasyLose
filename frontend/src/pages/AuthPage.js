@@ -15,12 +15,16 @@ function AuthPage() {
     .replace("refreshToken=", "")
     .split("&")
 
+  useEffect(() => {
+    localStorage.setItem(
+      "tokens",
+      JSON.stringify({ accessToken: tokens[0], refreshToken: tokens[1] })
+    )
+    dispatch(registerAccessToken(tokens))
+  }, [])
+
   const accessToken = useSelector((state) => state.user.accessToken)
   const userInfo = useSelector((state) => state.user.userInfo)
-
-  useEffect(() => {
-    dispatch(registerAccessToken(tokens))
-  }, [tokens, dispatch])
 
   useEffect(() => {
     if (accessToken) {
