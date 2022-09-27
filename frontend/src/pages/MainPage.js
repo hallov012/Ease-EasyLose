@@ -1,35 +1,41 @@
-import { Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Route } from "react-router-dom"
+import { useEffect, useState } from "react"
 
-import DailyDietPage from "../components/MainPage/pages/DailyDietPage";
-import DailySummaryPage from "../components/MainPage/pages/DailySummaryPage";
-import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage";
+import DailyDietPage from "../components/MainPage/pages/DailyDietPage"
+import DailySummaryPage from "../components/MainPage/pages/DailySummaryPage"
+import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage"
 
-import { useDispatch, useSelector } from "react-redux";
-import { registerTargetDate, registerDailyDiet } from "../store/dailySlice";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux"
+import { registerTargetDate, registerDailyDiet } from "../store/dailySlice"
+import axios from "axios"
 
 function MainPage() {
-  const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.user.accessToken);
+  const dispatch = useDispatch()
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
 
-  const [targetDate, setTartgetDate] = useState(undefined);
+  if (userDailyDiet) {
+    const mealData = userDailyDiet[0]
+  }
+
+  const [targetDate, setTartgetDate] = useState(undefined)
   useEffect(() => {
     if (targetDate) {
-      dispatch(registerTargetDate(targetDate.format("YYYY-MM-DD")));
+      dispatch(registerTargetDate(targetDate.format("YYYY-MM-DD")))
       axios({
         method: "get",
+        params: { date: targetDate.format("YYYY-MM-DD") },
         url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
         headers: { Authorization: `Bearer ${accessToken}` },
       })
         .then((response) => {
-          dispatch(registerDailyDiet(response.data));
+          dispatch(registerDailyDiet(response.data))
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
-  }, [targetDate]);
+  }, [targetDate])
 
   return (
     <div>
@@ -43,7 +49,7 @@ function MainPage() {
         <MealSummaryPage />
       </Route>
     </div>
-  );
+  )
 }
 
-export default MainPage;
+export default MainPage

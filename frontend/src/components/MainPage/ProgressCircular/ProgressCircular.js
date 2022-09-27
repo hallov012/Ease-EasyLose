@@ -1,7 +1,7 @@
 import classes from "./ProgressCircular.module.css"
 
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CircularProgress from "@mui/material/CircularProgress"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 
@@ -13,15 +13,21 @@ const theme = createTheme({
   },
 })
 
-function ProgressCircular() {
-  const percent = 78
-  const [percent_value, setValue] = useState(percent)
+function ProgressCircular(props) {
+  const percent = props.percent
+  const [percent_value, setValue] = useState(0)
   const [circleColor, setColor] = useState("inherit")
+  useEffect(() => {
+    if (percent) {
+      if (percent_value > 100) {
+        setColor("primary")
+        setValue(100)
+      } else {
+        setValue(percent)
+      }
+    }
+  })
 
-  if (percent_value > 100) {
-    setColor("primary")
-    setValue(100)
-  }
   return (
     <div className={classes.progress_box}>
       <ThemeProvider theme={theme}>
