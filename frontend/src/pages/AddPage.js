@@ -1,19 +1,15 @@
-import { Route } from "react-router-dom";
-import AddAmountPage from "../components/AddPage/pages/AddAmountPage";
-import AddBasketPage from "../components/AddPage/pages/AddBasketPage";
-import AddCustomPage from "../components/AddPage/pages/AddCustomPage";
-import AddDetailPage from "../components/AddPage/pages/AddDetailPage";
-import AddRecentPage from "../components/AddPage/pages/AddRecentPage";
-import AddSearchPage from "../components/AddPage/pages/AddSearchPage";
+import { Route } from "react-router-dom"
+import AddAmountPage from "../components/AddPage/pages/AddAmountPage"
+import AddBasketPage from "../components/AddPage/pages/AddBasketPage"
+import AddCustomPage from "../components/AddPage/pages/AddCustomPage"
+import AddDetailPage from "../components/AddPage/pages/AddDetailPage"
+import AddSearchPage from "../components/AddPage/pages/AddSearchPage"
 
 function AddPage() {
   return (
     <div>
       <Route path="/add/search">
         <AddSearchPage></AddSearchPage>
-      </Route>
-      <Route path="/add/recent">
-        <AddRecentPage></AddRecentPage>
       </Route>
       <Route path="/add/amount">
         <AddAmountPage></AddAmountPage>
@@ -28,7 +24,7 @@ function AddPage() {
         <AddCustomPage></AddCustomPage>
       </Route>
     </div>
-  );
+  )
 }
 
-export default AddPage;
+export default AddPage
