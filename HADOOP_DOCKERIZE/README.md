@@ -20,3 +20,5 @@ date: 2022-09-27
     - zookeeper 3.7.1
     - HBase 2.4.14
 
+## Note
+- ver2.0 사용하면 됨
