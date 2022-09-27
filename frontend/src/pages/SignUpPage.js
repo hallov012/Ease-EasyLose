@@ -9,6 +9,7 @@ import WeightPicker from "../components/SignUpPage/WeightPicker/WeightPicker"
 import ActivityPicker from "../components/SignUpPage/ActivityPicker/ActivityPicker"
 import GoalPicker from "../components/SignUpPage/GoalPicker/GoalPicker"
 import PickComplete from "../components/SignUpPage/PickComplete/PickComplete"
+import TheSlider from "../components/SignUpPage/TheSlider/TheSlider"
 import { useDispatch, useSelector } from "react-redux"
 import { registerUserInfo } from "../store/userSlice"
 import { useHistory } from "react-router-dom"
@@ -164,20 +165,32 @@ function SignUpPage() {
               ></GenderPicker>
             </Route>
             <Route path="/signup/height">
-              <HeightPicker
+              {/* <HeightPicker
                 value={userHeight}
                 setHeight={(value) => {
                   setUserHeight(value)
                 }}
-              ></HeightPicker>
+              ></HeightPicker> */}
+              <TheSlider
+                type={"height"}
+                range={[130, 210]}
+                value={userHeight}
+                term={0.5}
+              />
             </Route>
             <Route path="/signup/weight">
-              <WeightPicker
+              {/* <WeightPicker
                 value={userWeight}
                 setWeight={(value) => {
                   setUserWeight(value)
                 }}
-              ></WeightPicker>
+              ></WeightPicker> */}
+              <TheSlider
+                type={"weight"}
+                range={[30, 120]}
+                value={userWeight}
+                term={0.5}
+              />
             </Route>
             <Route path="/signup/age">
               {/* <BirthPicker
@@ -191,6 +204,12 @@ function SignUpPage() {
                   // });
                 }}
               ></BirthPicker> */}
+              <TheSlider
+                type={"age"}
+                range={[10, 80]}
+                value={userAge}
+                term={1}
+              />
             </Route>
             <Route path="/signup/activity">
               <ActivityPicker
