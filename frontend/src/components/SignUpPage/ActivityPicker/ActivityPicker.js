@@ -31,6 +31,7 @@ function ActivityPicker({ setValue, value }) {
     }
     setSelected(() => {
       const newArray = [false, false, false, false]
+      if (!value) return newArray
       newArray[Number(temp)] = true
       return newArray
     })
