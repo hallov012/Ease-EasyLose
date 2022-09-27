@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -29,26 +30,36 @@ public class FoodServiceImpl implements FoodService {
   private final DailyMealLogRepository dailyMealLogRepository;
   private final FoodMapper foodMapper;
 
-  public List<FoodResponseDto> getFood(Long id, String name, String barcode) {
+  public List<FoodResponseDto> getFoodByName(Long id, String name) {
     User user = userRepository.getReferenceById(id);
     Specification<Food> spec = (root, query, builder) -> null;
-    if (name == null && barcode == null) {
+    if (name == null) {
       return null;
     }
-    if (name != null) {
-      spec = spec.and(FoodSpecification.containName(name, user));
-      //      spec = spec.and(FoodSpecification.myFoodUser(user));
-    } else if (barcode != null) {
-      spec = spec.and(FoodSpecification.equalBarcode(barcode));
-      spec = spec.and(FoodSpecification.myFoodUser(user));
-    }
-    Pageable limit = PageRequest.of(0, 10);
+    spec = spec.and(FoodSpecification.containName(name, user));
+    Pageable limit = PageRequest.of(0, 20, Direction.ASC, "name");
     List<FoodResponseDto> response =
         foodMapper.toDtoAll(foodRepository.findAll(spec, limit).toList());
     log.info("response for food : {}", response);
 
     return response;
   }
+
+  //  public List<FoodResponseDto> getFoodByBarcode(Long id, String barcode){
+  //    User user = userRepository.getReferenceById(id);
+  //    Specification<Food> spec = (root, query, builder) -> null;
+  //    if (barcode == null){
+  //      return null;
+  //    }
+  //    spec = spec.and(FoodSpecification.equalBarcode(barcode, user));
+  //    List<Food> list = foodRepository.findAll(spec);
+  //    if (list.isEmpty()){
+  //      // db에 없음
+  //      // API 검색 시작
+  //
+  //    }
+  //
+  //  }
 
   public List<FoodResponseDto> getRecentFood(Long id) {
     User user = userRepository.getReferenceById(id);

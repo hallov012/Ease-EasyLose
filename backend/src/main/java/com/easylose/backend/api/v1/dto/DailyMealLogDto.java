@@ -47,6 +47,8 @@ public class DailyMealLogDto {
   public static class DailyMealResultDto {
     private LocalDate date;
     private Map<MealType, List<DailyMealFoodDto>> details;
+    private Map<MealType, Map<String, Integer>> sums;
+    private DailyMealSumIntDto total;
   }
 
   @AllArgsConstructor
@@ -57,5 +59,41 @@ public class DailyMealLogDto {
   public static class DailyMealFoodDto {
     private Float count;
     private FoodResponseDto food;
+  }
+
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class DailyMealSumDto {
+    private Float calorie;
+    private Float carb;
+    private Float protein;
+    private Float fat;
+    private Float sugar;
+    private Float salt;
+    private Float cholesterol;
+    private Float saturatedFat;
+    private Float transFat;
+  }
+
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class DailyMealSumIntDto {
+    private Integer calorie;
+    private Integer carb;
+    private Integer protein;
+    private Integer fat;
+    private Integer sugar;
+    private Integer salt;
+    private Integer cholesterol;
+    private Integer saturatedFat;
+    private Integer transFat;
   }
 }
