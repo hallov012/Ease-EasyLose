@@ -10,6 +10,7 @@ import SelectBtn from "../../ChartPage/SelectBtn/SelectBtn"
 import {
   registerSearchList,
   registerRecentList,
+  initializeBasket,
 } from "../../../store/basketSlice"
 
 function AddSearchPage() {
@@ -19,7 +20,7 @@ function AddSearchPage() {
   const accessToken = useSelector((state) => state.user.accessToken)
   const [searchTerm, setSearchTerm] = useState("")
   const pickedList = useSelector((state) => state.basket.pickedList)
-  const selectedList = useSelector((state) => state.basket.selectedList)
+  const searchList = useSelector((state) => state.basket.searchList)
   const recentList = useSelector((state) => state.basket.recentList)
 
   const [term, setTerm] = useState(0)
@@ -56,7 +57,11 @@ function AddSearchPage() {
   return (
     <div style={{ marginTop: "9vh" }}>
       <div id="top_nav_area">
-        <TopHistoryNav></TopHistoryNav>
+        <TopHistoryNav
+          bonus={() => {
+            dispatch(initializeBasket())
+          }}
+        ></TopHistoryNav>
       </div>
       <div className={classes.container}>
         <div
@@ -112,7 +117,7 @@ function AddSearchPage() {
             )
           })}
           {term == 0
-            ? selectedList.map((item) => {
+            ? searchList.map((item) => {
                 return (
                   <ListItemCheckBox
                     selected={false}
@@ -134,7 +139,7 @@ function AddSearchPage() {
       </div>
       <div
         onClick={() => {
-          history.push("/add/basket", { from: location })
+          history.push("/add/basket")
         }}
         className={classes.addButtonContainer}
       >

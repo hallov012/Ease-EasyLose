@@ -44,6 +44,8 @@
   align-items: center;
   height: 5vh;
   border-top: solid black 1px;
+  position: absolute;
+  bottom: 16vh;
 }
 
 .addButtonContainer {
