@@ -1,6 +1,6 @@
-import classes from "./PickComplete.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
+import classes from "./PickComplete.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons"
 
 function PickComplete(props) {
   return (
@@ -38,14 +38,14 @@ function PickComplete(props) {
             color: "white",
           }}
           onClick={() => {
-            props.putUserInfo();
+            props.putUserInfo()
           }}
         >
           시작하기
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default PickComplete;
+export default PickComplete

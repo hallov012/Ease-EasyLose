@@ -1,18 +1,18 @@
-import classes from "./AddBasketPage.module.css";
-import AddButtonList from "../AddButtonList/AddButtonList";
-import TopNav from "../../TopNav/TopNav";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import classes from "./AddBasketPage.module.css"
+import AddButtonList from "../AddButtonList/AddButtonList"
+import TopNav from "../../TopNav/TopNav"
+import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux"
+import axios from "axios"
 
 function AddBasketPage() {
-  const accessToken = useSelector((state) => state.user.accessToken);
-  const history = useHistory();
-  const basketList = useSelector((state) => state.basket.basket);
-  const previousPage = history.location.state.from.pathname;
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const history = useHistory()
+  const basketList = useSelector((state) => state.basket.basket)
+  const previousPage = history.location.state.from.pathname
 
-  const mealtime = useSelector((state) => state.status.lastEntered);
-  const targetDate = useSelector((state) => state.daily.targetDate);
+  const mealtime = useSelector((state) => state.status.lastEntered)
+  const targetDate = useSelector((state) => state.daily.targetDate)
 
   const onClickHandler = () => {
     basketList.map((item) => {
@@ -29,26 +29,26 @@ function AddBasketPage() {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
         .then((response) => {
-          console.log(response);
+          console.log(response)
         })
-        .catch((error) => console.log(error));
-    });
-  };
+        .catch((error) => console.log(error))
+    })
+  }
 
   const sumCalorie = () => {
-    let sum = 0;
+    let sum = 0
     basketList.map((item) => {
-      sum += item.calorie;
-    });
-    return sum;
-  };
+      sum += item.calorie
+    })
+    return sum
+  }
   return (
     <div>
       <div id="top_nav_area">
         <TopNav arrow={[previousPage, ""]}></TopNav>
         {/* 링크 작업 해야됨 */}
       </div>
-      <div className={classes.container}>
+      <div style={{ marginTop: "9vh" }} className={classes.container}>
         <div>
           <div className={classes.title}>추가될 음식</div>
           {basketList.map((item, index) => {
@@ -60,7 +60,7 @@ function AddBasketPage() {
                 </div>
                 <div className={classes.calorie}>{item.calorie}kcal</div>
               </div>
-            );
+            )
           })}
         </div>
         <div className={classes.sum}>
@@ -76,7 +76,7 @@ function AddBasketPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  );
+  )
 }
 
-export default AddBasketPage;
+export default AddBasketPage
