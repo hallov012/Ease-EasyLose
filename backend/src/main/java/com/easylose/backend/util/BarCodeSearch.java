@@ -6,12 +6,12 @@ public class BarCodeSearch {
 
   public void search(String code) {
     this.barcode = code;
-    String url = System.getenv("BARCODE_URL");
+    String uri = System.getenv("BARCODE_URL");
     String keyId = System.getenv("KEY");
     String serviceId = System.getenv("SYSTEM_ID");
     String dataType = System.getenv("DATA_TYPE");
 
-    url = url + "/" + keyId + "/" + serviceId + "/" + dataType + "?";
+    //    URL url = new URL(uri + "/" + keyId + "/" + serviceId + "/" + dataType + "?" + barcode);
   }
   ;
 }
