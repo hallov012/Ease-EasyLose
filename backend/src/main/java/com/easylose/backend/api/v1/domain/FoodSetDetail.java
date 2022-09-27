@@ -1,5 +1,6 @@
 package com.easylose.backend.api.v1.domain;
 
+import com.easylose.backend.api.v1.enums.MealType;
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,6 +21,10 @@ public class FoodSetDetail {
 
   @Column(nullable = false)
   private Float count;
+
+  @Column(nullable = false, name = "meal_type")
+  @Enumerated(EnumType.STRING)
+  private MealType mealType;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "food_id")
