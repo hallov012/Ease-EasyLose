@@ -143,78 +143,80 @@ function SignUpPage() {
         <div id="top_nav_area">
           <TopNav text="" arrow={setArrow()}></TopNav>
         </div>
-        <SignUpHeader
-          title={temp.title}
-          done={temp.done}
-          subtitle={temp.subtitle}
-        ></SignUpHeader>
-        <Switch>
-          <Route path="/signup/gender">
-            <GenderPicker
-              value={userGender}
-              setGender={(value) => {
-                setUserGender(value);
-                // setUserInfo((current) => {
-                //   let newObject = { ...current };
-                //   newObject["gender"] = value;
-                //   return newObject;
-                // });
-              }}
-            ></GenderPicker>
-          </Route>
-          <Route path="/signup/height">
-            <HeightPicker
-              value={userHeight}
-              setHeight={(value) => {
-                setUserHeight(value);
-              }}
-            ></HeightPicker>
-          </Route>
-          <Route path="/signup/weight">
-            <WeightPicker
-              value={userWeight}
-              setWeight={(value) => {
-                setUserWeight(value);
-              }}
-            ></WeightPicker>
-          </Route>
-          <Route path="/signup/birth">
-            <BirthPicker
-              value={userBirth}
-              setBirth={(value) => {
-                setUserBirth(value);
-                // setUserInfo((current) => {
-                //   let newObject = { ...current };
-                //   newObject["birth"] = value;
-                //   return newObject;
-                // });
-              }}
-            ></BirthPicker>
-          </Route>
-          <Route path="/signup/activity">
-            <ActivityPicker
-              value={userActivity}
-              setValue={(value) => {
-                setUserActivity(value);
-              }}
-            ></ActivityPicker>
-          </Route>
-          <Route path="/signup/goal">
-            <GoalPicker
-              value={userGoal}
-              setValue={(value) => {
-                setUserGoal(value);
-              }}
-            ></GoalPicker>
-          </Route>
-          <Route path="/signup/complete">
-            <PickComplete
-              putUserInfo={() => {
-                putUserInfo();
-              }}
-            ></PickComplete>
-          </Route>
-        </Switch>
+        <div style={{ marginTop: "9vh" }}>
+          <SignUpHeader
+            title={temp.title}
+            done={temp.done}
+            subtitle={temp.subtitle}
+          ></SignUpHeader>
+          <Switch>
+            <Route path="/signup/gender">
+              <GenderPicker
+                value={userGender}
+                setGender={(value) => {
+                  setUserGender(value);
+                  // setUserInfo((current) => {
+                  //   let newObject = { ...current };
+                  //   newObject["gender"] = value;
+                  //   return newObject;
+                  // });
+                }}
+              ></GenderPicker>
+            </Route>
+            <Route path="/signup/height">
+              <HeightPicker
+                value={userHeight}
+                setHeight={(value) => {
+                  setUserHeight(value);
+                }}
+              ></HeightPicker>
+            </Route>
+            <Route path="/signup/weight">
+              <WeightPicker
+                value={userWeight}
+                setWeight={(value) => {
+                  setUserWeight(value);
+                }}
+              ></WeightPicker>
+            </Route>
+            <Route path="/signup/birth">
+              <BirthPicker
+                value={userBirth}
+                setBirth={(value) => {
+                  setUserBirth(value);
+                  // setUserInfo((current) => {
+                  //   let newObject = { ...current };
+                  //   newObject["birth"] = value;
+                  //   return newObject;
+                  // });
+                }}
+              ></BirthPicker>
+            </Route>
+            <Route path="/signup/activity">
+              <ActivityPicker
+                value={userActivity}
+                setValue={(value) => {
+                  setUserActivity(value);
+                }}
+              ></ActivityPicker>
+            </Route>
+            <Route path="/signup/goal">
+              <GoalPicker
+                value={userGoal}
+                setValue={(value) => {
+                  setUserGoal(value);
+                }}
+              ></GoalPicker>
+            </Route>
+            <Route path="/signup/complete">
+              <PickComplete
+                putUserInfo={() => {
+                  putUserInfo();
+                }}
+              ></PickComplete>
+            </Route>
+          </Switch>
+        </div>
       </div>
     );
   }

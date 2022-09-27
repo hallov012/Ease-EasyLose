@@ -12,7 +12,7 @@ function AddAmountPage() {
         <TopNav arrow={["/signup/gender", ""]}></TopNav>
         {/* 링크 작업 해야됨 */}
       </div>
-      <div className={classes.container}>
+      <div style={{ marginTop: "9vh" }} className={classes.container}>
         <div className={classes.info}>
           <div>1200 kcal</div>
         </div>

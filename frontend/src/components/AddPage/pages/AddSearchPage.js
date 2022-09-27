@@ -1,19 +1,20 @@
-import TopNav from "../../TopNav/TopNav";
-import ToggleButton from "../ToggleButton/ToggleButton";
-import { useHistory, useLocation } from "react-router-dom";
-import classes from "./AddSearchPage.module.css";
-import ListItemCheckBox from "../ListItemCheckBox/ListItemCheckBox";
-import AddButtonList from "../AddButtonList/AddButtonList";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import TopNav from "../../TopNav/TopNav"
+import ToggleButton from "../ToggleButton/ToggleButton"
+import { useHistory, useLocation } from "react-router-dom"
+import classes from "./AddSearchPage.module.css"
+import ListItemCheckBox from "../ListItemCheckBox/ListItemCheckBox"
+import AddButtonList from "../AddButtonList/AddButtonList"
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { useSelector } from "react-redux"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 function AddSearchPage() {
-  const location = useLocation();
-  const history = useHistory();
-  const accessToken = useSelector((state) => state.user.accessToken);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const location = useLocation()
+  const history = useHistory()
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [searchResult, setSearchResult] = useState([])
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -28,17 +29,17 @@ function AddSearchPage() {
         })
           .then((response) => setSearchResult(response.data))
           .catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
       }
-    }, 3000);
+    }, 3000)
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm]);
+    return () => clearTimeout(delayDebounceFn)
+  }, [searchTerm])
   return (
     <div style={{ marginTop: "9vh" }}>
       <div id="top_nav_area">
-        <TopNav arrow={[``, ""]}></TopNav>
+        <TopHistoryNav></TopHistoryNav>
       </div>
       <div className={classes.container}>
         <div
@@ -60,7 +61,7 @@ function AddSearchPage() {
           <input
             value={searchTerm}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
+              setSearchTerm(e.target.value)
             }}
             style={{
               width: "75vw",
@@ -82,12 +83,12 @@ function AddSearchPage() {
         {searchResult.map((item, index) => {
           return (
             <ListItemCheckBox key={index} foodInfo={item}></ListItemCheckBox>
-          );
+          )
         })}
       </div>
       <div
         onClick={() => {
-          history.push("/add/basket", { from: location });
+          history.push("/add/basket", { from: location })
         }}
         className={classes.addButtonContainer}
       >
@@ -95,7 +96,7 @@ function AddSearchPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  );
+  )
 }
 
-export default AddSearchPage;
+export default AddSearchPage

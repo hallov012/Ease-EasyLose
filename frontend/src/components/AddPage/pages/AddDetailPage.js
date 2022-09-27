@@ -1,21 +1,20 @@
-import classes from "./AddDetailPage.module.css";
-import TopNav from "../../TopNav/TopNav";
-import { useRef } from "react";
-import AddButtonList from "../AddButtonList/AddButtonList";
-import { useHistory } from "react-router-dom";
+import classes from "./AddDetailPage.module.css"
+import TopNav from "../../TopNav/TopNav"
+import { useRef } from "react"
+import AddButtonList from "../AddButtonList/AddButtonList"
+import { useHistory } from "react-router-dom"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 function AddDetailPage() {
-  const history = useHistory();
-  const foodInfo = history.location.state.foodInfo;
-  const previousPage = history.location.state.from.pathname;
-  console.log(history);
+  const history = useHistory()
+  const foodInfo = history.location.state.foodInfo
+  const previousPage = history.location.state.from.pathname
   return (
     <div>
       <div id="top_nav_area">
-        <TopNav arrow={[previousPage, ""]}></TopNav>
-        {/* 링크 작업 해야됨 */}
+        <TopHistoryNav></TopHistoryNav>
       </div>
-      <div className={classes.container}>
+      <div style={{ marginTop: "9vh" }} className={classes.container}>
         <div className={classes.header}>
           <div className={classes.name}>
             <div
@@ -117,7 +116,7 @@ function AddDetailPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  );
+  )
 }
 
-export default AddDetailPage;
+export default AddDetailPage
