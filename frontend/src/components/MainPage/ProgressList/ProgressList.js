@@ -2,7 +2,7 @@ import classes from "./ProgressList.module.css"
 
 import * as React from "react"
 import LinearProgress from "@mui/material/LinearProgress"
-// import { useState } from "react"
+import { useState, useEffect } from "react"
 import CircularProgress from "@mui/material/CircularProgress"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 
@@ -14,8 +14,14 @@ const theme = createTheme({
   },
 })
 
-function ProgressList() {
-  const progress_value = [60, 80, 50]
+function ProgressList(props) {
+  const [progress_value, setValue] = useState([0, 0, 0])
+  useEffect(() => {
+    if (props.percent !== [0, 0, 0]) {
+      setValue(props.percent)
+    }
+  }, [props.percent])
+
   return (
     <div className={classes.progress_box}>
       {/* 탄수화물 */}

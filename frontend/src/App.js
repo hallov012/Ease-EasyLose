@@ -21,13 +21,16 @@ function App() {
   const location = useLocation().pathname
   const tokens = JSON.parse(localStorage.getItem("tokens"))
   const dispatch = useDispatch()
-  if (tokens && tokens.accessToken && tokens.refreshToken) {
-    dispatch(registerAccessToken([tokens.accessToken, tokens.refreshToken]))
-  }
+
   const accessToken = useSelector((state) => state.user.accessToken)
   const userInfo = useSelector((state) => state.user.userInfo)
-
   const history = useHistory()
+
+  useEffect(() => {
+    if (tokens && tokens.accessToken && tokens.refreshToken) {
+      dispatch(registerAccessToken([tokens.accessToken, tokens.refreshToken]))
+    }
+  }, [])
 
   console.log(accessToken)
 
@@ -45,16 +48,6 @@ function App() {
         })
     }
   }, [accessToken])
-
-  useEffect(() => {
-    if (userInfo) {
-      if (userInfo.goal) {
-        history.push("/main")
-      } else {
-        history.push("/signup/gender")
-      }
-    }
-  }, [userInfo, dispatch, history])
 
   function renderBottomNav() {
     if (

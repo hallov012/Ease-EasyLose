@@ -12,16 +12,11 @@ import axios from "axios"
 function MainPage() {
   const dispatch = useDispatch()
   const accessToken = useSelector((state) => state.user.accessToken)
-  const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
-  const mealSumData = []
 
   if (userDailyDiet) {
-    const mealData = userDailyDiet[0].details
-    console.log(mealData.LUNCH)
+    const mealData = userDailyDiet[0]
   }
-
-  // const MealSumData = {}
 
   const [targetDate, setTartgetDate] = useState(undefined)
   useEffect(() => {
