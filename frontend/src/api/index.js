@@ -22,9 +22,10 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   async (res) => {
-    if (res.headers["Access-Token"]) {
-      localStorage.setItem("accessToken", res.headers["Access-Token"])
-      console.log(`accessToken was changed to ${res.headers["Access-Token"]}`)
+    console.log(res)
+    if (res.headers["access-token"]) {
+      localStorage.setItem("accessToken", res.headers["access-token"])
+      console.log(`accessToken was changed to ${res.headers["access-token"]}`)
     }
     return res
   },
