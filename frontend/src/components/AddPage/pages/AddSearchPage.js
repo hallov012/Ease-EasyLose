@@ -13,6 +13,8 @@ import {
   initializeBasket,
 } from "../../../store/basketSlice"
 
+import { instance } from "../../../api/index"
+
 function AddSearchPage() {
   const location = useLocation()
   const history = useHistory()
@@ -26,31 +28,47 @@ function AddSearchPage() {
   const [term, setTerm] = useState(0)
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "https://j7a704.p.ssafy.io/api/v1/food/recent",
-      headers: { Authorization: `Bearer ${accessToken}` },
-    })
+    instance
+      .get("/food/recent", {})
       .then((response) => {
         dispatch(registerRecentList(response.data))
       })
       .catch((error) => console.log(error))
+    // axios({
+    //   method: "get",
+    //   url: "https://j7a704.p.ssafy.io/api/v1/food/recent",
+    //   headers: { Authorization: `Bearer ${accessToken}` },
+    // })
+    //   .then((response) => {
+    //     dispatch(registerRecentList(response.data))
+    //   })
+    //   .catch((error) => console.log(error))
   }, [])
 
   const onClickHandler = () => {
     if (searchTerm) {
-      axios({
-        method: "get",
-        url: "https://j7a704.p.ssafy.io/api/v1/food",
-        params: {
-          name: searchTerm,
-        },
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+      instance
+        .get("/food", {
+          params: {
+            name: searchTerm,
+          },
+        })
         .then((response) => dispatch(registerSearchList(response.data)))
         .catch((error) => {
           console.log(error)
         })
+      // axios({
+      //   method: "get",
+      //   url: "https://j7a704.p.ssafy.io/api/v1/food",
+      //   params: {
+      //     name: searchTerm,
+      //   },
+      //   headers: { Authorization: `Bearer ${accessToken}` },
+      // })
+      //   .then((response) => dispatch(registerSearchList(response.data)))
+      //   .catch((error) => {
+      //     console.log(error)
+      //   })
     }
   }
 

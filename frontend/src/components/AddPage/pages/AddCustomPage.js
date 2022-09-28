@@ -4,6 +4,7 @@ import { useState } from "react"
 import axios from "axios"
 import { useSelector } from "react-redux"
 import TopHistoryNav from "../../TopNav/TopHistoryNav"
+import { instance } from "../../../api/index"
 
 function AddCustomPage() {
   const accessToken = useSelector((state) => state.user.accessToken)
@@ -21,31 +22,56 @@ function AddCustomPage() {
   const [foodSalt, setFoodSalt] = useState("")
 
   const onClickHandler = () => {
-    axios({
-      method: "post",
-      url: "https://j7a704.p.ssafy.io/api/v1/food",
-      data: {
-        foodType: "string",
-        name: foodName,
-        totalAmount: Number(foodAmount),
-        calorie: Number(foodCalorie),
-        carb: Number(foodCarb),
-        protein: Number(foodProtein),
-        fat: Number(foodFat),
-        sugar: Number(foodSugar),
-        salt: Number(foodSalt),
-        cholesterol: Number(foodCholesterol),
-        saturatedFat: Number(foodSaturatedFat),
-        transFat: Number(foodTransFat),
-      },
-      headers: { Authorization: `Bearer ${accessToken}` },
-    })
+    instance
+      .post(
+        "/food",
+        {
+          foodType: "string",
+          name: foodName,
+          totalAmount: Number(foodAmount),
+          calorie: Number(foodCalorie),
+          carb: Number(foodCarb),
+          protein: Number(foodProtein),
+          fat: Number(foodFat),
+          sugar: Number(foodSugar),
+          salt: Number(foodSalt),
+          cholesterol: Number(foodCholesterol),
+          saturatedFat: Number(foodSaturatedFat),
+          transFat: Number(foodTransFat),
+        },
+        {}
+      )
       .then((response) => {
         console.log(response)
       })
       .catch((error) => {
         console.log(error)
       })
+    // axios({
+    //   method: "post",
+    //   url: "https://j7a704.p.ssafy.io/api/v1/food",
+    //   data: {
+    //     foodType: "string",
+    //     name: foodName,
+    //     totalAmount: Number(foodAmount),
+    //     calorie: Number(foodCalorie),
+    //     carb: Number(foodCarb),
+    //     protein: Number(foodProtein),
+    //     fat: Number(foodFat),
+    //     sugar: Number(foodSugar),
+    //     salt: Number(foodSalt),
+    //     cholesterol: Number(foodCholesterol),
+    //     saturatedFat: Number(foodSaturatedFat),
+    //     transFat: Number(foodTransFat),
+    //   },
+    //   headers: { Authorization: `Bearer ${accessToken}` },
+    // })
+    //   .then((response) => {
+    //     console.log(response)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
 
   return (

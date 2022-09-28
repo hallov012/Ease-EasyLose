@@ -1,35 +1,60 @@
-// import axios from "axios";
-// import { store } from "../store/index.js";
+import axios from "axios"
 
-// // const accessToken = useSelector((state) => state.user.accessToken);
-// axios.defaults.baseURL = "https://j7a704.p.ssafy.io/api/v1";
+const instance = axios.create({
+  baseURL: "https://j7a704.p.ssafy.io/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
 
-// function listener() {
-//   let state = store.getState();
-//   console.log(`${state.accessToken} registered in axios`);
-//   axios.defaults.headers.common[
-//     "Authorization"
-//   ] = `Bearer ${state.accessToken}`;
-// }
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken")
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
-// store.subscribe(listener);
+instance.interceptors.response.use(
+  async (res) => {
+    if (res.headers["Access-Token"]) {
+      localStorage.setItem("accessToken", res.headers["Access-Token"])
+      console.log(`accessToken was changed to ${res.headers["Access-Token"]}`)
+    }
+    return res
+  },
+  async (err) => {
+    const originalConfig = err.config
 
-// const instance = axios.create({
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
+    if (err.response) {
+      // Access Token was expired
+      if (err.response.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true
 
-// export { instance };
+        try {
+          const refreshToken = localStorage.getItem("refreshToken")
+          const accessToken = localStorage.getItem("accessToken")
+          originalConfig.headers["Refresh-Token"] = refreshToken
+          originalConfig.headers["Authorization"] = `Bearer ${accessToken}`
 
-// const instance = axios.create({
-//   baseURL: "https://j7a704.p.ssafy.io/api/v1",
+          return instance(originalConfig)
+        } catch (_error) {
+          if (_error.response && _error.response.data) {
+            return Promise.reject(_error.response.data)
+          }
 
-//   // baseURL: "https://i7a407.p.ssafy.io/api",
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// });
+          return Promise.reject(_error)
+        }
+      }
+    }
 
-// export { instance };
+    return Promise.reject(err)
+  }
+)
+
+export { instance }
