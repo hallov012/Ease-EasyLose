@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import { initializeBasket } from "../../../store/basketSlice"
+import { instance } from "../../../api/index"
 
 function AddBasketPage() {
   const accessToken = useSelector((state) => state.user.accessToken)
@@ -18,21 +19,36 @@ function AddBasketPage() {
 
   async function registerPickedList() {
     await pickedList.map((item) => {
-      axios({
-        method: "post",
-        url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
-        data: {
-          date: targetDate,
-          mealType: mealtime,
-          count: item.count,
-          foodId: item.id,
-        },
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+      instance
+        .post(
+          "/dailymeal",
+          {
+            date: targetDate,
+            mealType: mealtime,
+            count: item.count,
+            foodId: item.id,
+          },
+          {}
+        )
         .then((response) => {
           console.log(response)
         })
         .catch((error) => console.log(error))
+      //   axios({
+      //     method: "post",
+      //     url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
+      //     data: {
+      //       date: targetDate,
+      //       mealType: mealtime,
+      //       count: item.count,
+      //       foodId: item.id,
+      //     },
+      //     headers: { Authorization: `Bearer ${accessToken}` },
+      //   })
+      //     .then((response) => {
+      //       console.log(response)
+      //     })
+      //     .catch((error) => console.log(error))
     })
   }
 

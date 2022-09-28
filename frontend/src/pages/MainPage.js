@@ -7,7 +7,7 @@ import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage"
 
 import { useDispatch, useSelector } from "react-redux"
 import { registerTargetDate, registerDailyDiet } from "../store/dailySlice"
-import axios from "axios"
+import { instance } from "../api/index"
 
 function MainPage() {
   const dispatch = useDispatch()
@@ -22,20 +22,29 @@ function MainPage() {
   const [targetDate, setTartgetDate] = useState(undefined)
   useEffect(() => {
     if (tempDate) {
-      dispatch(registerTargetDate(tempDate))
-      axios({
-        method: "get",
-        params: { date: tempDate },
-        url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+      instance
+        .get("/dailymeal", { params: { date: tempDate } })
         .then((response) => {
-          console.log(response.data)
+          console.log(response)
           dispatch(registerDailyDiet(response.data))
         })
         .catch((error) => {
           console.log(error)
         })
+      // dispatch(registerTargetDate(tempDate))
+      // axios({
+      //   method: "get",
+      //   params: { date: tempDate },
+      //   url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
+      //   headers: { Authorization: `Bearer ${accessToken}` },
+      // })
+      //   .then((response) => {
+      //     console.log(response)
+      //     dispatch(registerDailyDiet(response.data))
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //   })
     }
   }, [tempDate])
 
