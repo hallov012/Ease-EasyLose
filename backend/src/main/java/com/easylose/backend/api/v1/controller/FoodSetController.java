@@ -2,6 +2,7 @@ package com.easylose.backend.api.v1.controller;
 
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetResponseDto;
 import com.easylose.backend.api.v1.service.FoodSetService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,9 +40,10 @@ public class FoodSetController {
 
   @PostMapping("")
   @Operation(summary = "신규 모의식단 생성", description = "신규 모의식단 생성")
-  public ResponseEntity<FoodSetResponseDto> createFoodSet(@AuthenticationPrincipal Long id) {
+  public ResponseEntity<FoodSetResponseDto> createFoodSet(
+      @AuthenticationPrincipal Long id, @RequestBody FoodSetRequestDto body) {
 
-    FoodSetResponseDto response = foodSetService.createFoodSet(id);
+    FoodSetResponseDto response = foodSetService.createFoodSet(id, body);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
@@ -51,6 +53,17 @@ public class FoodSetController {
       @AuthenticationPrincipal Long id, @PathVariable Long foodset_id) {
 
     boolean response = foodSetService.deleteFoodSet(id, foodset_id);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @PutMapping("/{foodset_id}")
+  @Operation(summary = "모의식단 수정", description = "모의식단 수정")
+  public ResponseEntity<FoodSetResponseDto> updateFoodSet(
+      @AuthenticationPrincipal Long id,
+      @PathVariable Long foodset_id,
+      @RequestBody FoodSetRequestDto body) {
+
+    FoodSetResponseDto response = foodSetService.updateFoodSet(id, foodset_id, body);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

@@ -6,6 +6,7 @@ import com.easylose.backend.api.v1.domain.FoodSetDetail;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetResponseDto;
 import com.easylose.backend.api.v1.enums.MealType;
 import com.easylose.backend.api.v1.repository.FoodRepository;
@@ -64,4 +65,9 @@ public abstract class FoodSetMapper {
   @Mapping(source = "foodId", target = "food", qualifiedByName = "foodIdToFood")
   public abstract void updateFoodSetDetail(
       FoodSetDetailRequestDto dto, @MappingTarget FoodSetDetail foodSetDetail);
+
+  @BeanMapping(
+      nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+      nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+  public abstract void updateFoodSet(FoodSetRequestDto dto, @MappingTarget FoodSet foodSet);
 }

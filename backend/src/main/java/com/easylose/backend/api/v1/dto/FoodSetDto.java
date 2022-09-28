@@ -14,7 +14,17 @@ public class FoodSetDto {
   @ToString
   public static class FoodSetResponseDto {
     private Long id;
+    private String name;
     private Map<MealType, List<FoodSetDetailResponseDto>> details;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class FoodSetRequestDto {
+    private String name;
   }
 
   @AllArgsConstructor
