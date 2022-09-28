@@ -10,22 +10,13 @@ function SumProgressBar(props) {
   useEffect(() => {
     if (userDailyDiet) {
       const temp = { percent: [0, 0, 0], amount: [0, 0, 0] }
-      temp.percent[0] = Math.ceil(
-        ((userDailyDiet[0].total.carb * 4) / userDailyDiet[0].total.calorie) *
-          100
-      )
-      temp.percent[1] = Math.ceil(
-        ((userDailyDiet[0].total.protein * 4) /
-          userDailyDiet[0].total.calorie) *
-          100
-      )
-      temp.percent[2] = Math.ceil(
-        ((userDailyDiet[0].total.fat * 8) / userDailyDiet[0].total.calorie) *
-          100
-      )
       temp.amount[0] = userDailyDiet[0].total.carb
       temp.amount[1] = userDailyDiet[0].total.protein
       temp.amount[2] = userDailyDiet[0].total.fat
+      const total = temp.amount[0] + temp.amount[1] + temp.amount[2]
+      temp.percent[0] = Math.ceil((temp.amount[0] / total) * 100)
+      temp.percent[1] = Math.ceil((temp.amount[1] / total) * 100)
+      temp.percent[2] = Math.ceil((temp.amount[2] / total) * 100)
       setValue(temp)
     }
   }, [userDailyDiet])
