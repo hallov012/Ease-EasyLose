@@ -1,12 +1,13 @@
 package com.easylose.backend.api.v1.service;
 
-import com.easylose.backend.api.v1.dto.UserDto;
+import com.easylose.backend.api.v1.dto.UserDto.UserRequestDto;
+import com.easylose.backend.api.v1.dto.UserDto.UserResponseDto;
 
 public interface UserService {
 
-  UserDto.UserResponseDto getUser(Long id);
+  UserResponseDto getUser(Long id);
 
-  UserDto.UserResponseDto updateUser(Long id, UserDto.UserRequestDto userRequestDto);
+  UserResponseDto updateUser(Long id, UserRequestDto userRequestDto);
 
-  void deleteUser(Long id);
+  boolean deleteUser(Long id);
 }

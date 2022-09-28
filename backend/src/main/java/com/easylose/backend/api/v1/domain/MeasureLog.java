@@ -1,6 +1,5 @@
 package com.easylose.backend.api.v1.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.AccessLevel;
@@ -45,7 +44,6 @@ public class MeasureLog {
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  @JsonIgnore
   private User user;
 
   @CreatedDate

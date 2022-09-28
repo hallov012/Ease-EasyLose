@@ -1,7 +1,7 @@
 package com.easylose.backend.api.v1.dto;
 
-import com.easylose.backend.api.v1.domain.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import lombok.*;
 
 public class FoodDto {
@@ -46,8 +46,6 @@ public class FoodDto {
   public static class FoodUserDto {
     private String foodType;
     private String name;
-
-    @JsonIgnore private User user;
     private Float totalAmount;
     private Float calorie;
     private Float carb;
