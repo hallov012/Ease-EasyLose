@@ -25,8 +25,10 @@ function ProgressCircular(props) {
       } else {
         setValue(percent)
       }
+    } else {
+      setValue(0)
     }
-  })
+  }, [percent])
 
   return (
     <div className={classes.progress_box}>
