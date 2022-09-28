@@ -13,8 +13,6 @@ import { useState, useEffect } from "react"
 function MealSummaryPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
-  const [dietSum, setDeitSum] = useState(undefined)
-  const [foodList, setFoodList] = useState(undefined)
   const [value, setValue] = useState({
     dietSum: undefined,
     foodList: undefined,
@@ -50,7 +48,7 @@ function MealSummaryPage() {
           margin: "10vh 5vw 15vh",
         }}
       >
-        <MealNutrientInfo />
+        <MealNutrientInfo dietSum={value.dietSum} />
         <UserFoodList foodList={value.foodList} />
         <NutrientChart dietSum={value.dietSum} />
         <NutrientProgressBox />
