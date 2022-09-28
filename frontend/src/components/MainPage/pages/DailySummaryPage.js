@@ -12,7 +12,6 @@ function DailySummaryPage(props) {
   const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
   const [dietSum, setDeitSum] = useState(undefined)
-  console.log(dietSum)
 
   useEffect(() => {
     if (userDailyDiet) {
@@ -56,7 +55,7 @@ function DailySummaryPage(props) {
       >
         {/* <MealSelectBtnList /> */}
         <NutrientChart dietSum={dietSum} />
-        <NutrientProgressGraph />
+        <NutrientProgressGraph userInfo={userInfo} dietSum={dietSum} />
         <NutrientProgressBox />
         <UserInfoBox />
       </div>
