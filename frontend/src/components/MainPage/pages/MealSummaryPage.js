@@ -14,6 +14,11 @@ function MealSummaryPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
   const [dietSum, setDeitSum] = useState(undefined)
+  const [foodList, setFoodList] = useState(undefined)
+  const [value, setValue] = useState({
+    dietSum: undefined,
+    foodList: undefined,
+  })
 
   const params = useParams()
   const meal = {
@@ -28,9 +33,12 @@ function MealSummaryPage() {
 
   useEffect(() => {
     if (userDailyDiet) {
-      setDeitSum(userDailyDiet[0].sums[mealtime])
+      const temp = { dietSum: undefined, foodList: undefined }
+      temp.dietSum = userDailyDiet[0].sums[mealtime]
+      temp.foodList = userDailyDiet[0].details[mealtime]
+      setValue(temp)
     }
-  })
+  }, [userDailyDiet])
 
   return (
     <div>
@@ -43,8 +51,8 @@ function MealSummaryPage() {
         }}
       >
         <MealNutrientInfo />
-        <UserFoodList />
-        <NutrientChart dietSum={dietSum} />
+        <UserFoodList foodList={value.foodList} />
+        <NutrientChart dietSum={value.dietSum} />
         <NutrientProgressBox />
       </div>
     </div>
