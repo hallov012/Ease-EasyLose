@@ -1,26 +1,44 @@
-import TopNav from "../../TopNav/TopNav";
-import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo";
-import UserFoodList from "../UserFoodList/UserFoodList";
-import NutrientChart from "../NutrientChart/NutrientChart";
-import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox";
+import TopNav from "../../TopNav/TopNav"
+import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo"
+import UserFoodList from "../UserFoodList/UserFoodList"
+import NutrientChart from "../NutrientChart/NutrientChart"
+import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
 
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
 
-import { registerLastEntered } from "../../../store/statusSlice";
-import { useDispatch } from "react-redux";
+import { registerLastEntered } from "../../../store/statusSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { useState, useEffect } from "react"
 
 function MealSummaryPage() {
-  const params = useParams();
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+  const [dietSum, setDeitSum] = useState(undefined)
+  const [foodList, setFoodList] = useState(undefined)
+  const [value, setValue] = useState({
+    dietSum: undefined,
+    foodList: undefined,
+  })
+
+  const params = useParams()
   const meal = {
     BREAKFAST: "아침",
     LUNCH: "점심",
     DINNER: "저녁",
     SNACK: "간식",
-  };
-  const mealtime = params.mealtime;
+  }
+  const mealtime = params.mealtime
+  const dispatch = useDispatch()
+  dispatch(registerLastEntered(mealtime))
 
-  const dispatch = useDispatch();
-  dispatch(registerLastEntered(mealtime));
+  useEffect(() => {
+    if (userDailyDiet) {
+      const temp = { dietSum: undefined, foodList: undefined }
+      temp.dietSum = userDailyDiet[0].sums[mealtime]
+      temp.foodList = userDailyDiet[0].details[mealtime]
+      setValue(temp)
+    }
+  }, [userDailyDiet])
 
   return (
     <div>
@@ -33,11 +51,11 @@ function MealSummaryPage() {
         }}
       >
         <MealNutrientInfo />
-        <UserFoodList />
-        <NutrientChart />
+        <UserFoodList foodList={value.foodList} />
+        <NutrientChart dietSum={value.dietSum} />
         <NutrientProgressBox />
       </div>
     </div>
-  );
+  )
 }
-export default MealSummaryPage;
+export default MealSummaryPage

@@ -3,11 +3,23 @@ import MealSelectBtnList from "../MealSelectBtnList/MealSelectBtnList"
 import NutrientChart from "../NutrientChart/NutrientChart"
 import NutrientProgressGraph from "../NutrientProgressGraph/NutrientProgressGraph"
 import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
-import UserInfo from "../UserInfo/UserInfo"
+import UserInfoBox from "../UserInfoBox/UserInfoBox"
+import { useSelector } from "react-redux"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function DailySummaryPage(props) {
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+  const [dietSum, setDeitSum] = useState(undefined)
+  console.log(dietSum)
+
+  useEffect(() => {
+    if (userDailyDiet) {
+      setDeitSum(userDailyDiet[0].total)
+    }
+  })
+
   const date = props.date
   const [dateTitle, setDateTitle] = useState("")
   if (date && !dateTitle) {
@@ -42,11 +54,11 @@ function DailySummaryPage(props) {
           margin: "10vh 5vw 15vh",
         }}
       >
-        <MealSelectBtnList />
-        <NutrientChart />
+        {/* <MealSelectBtnList /> */}
+        <NutrientChart dietSum={dietSum} />
         <NutrientProgressGraph />
         <NutrientProgressBox />
-        <UserInfo />
+        <UserInfoBox />
       </div>
     </div>
   )
