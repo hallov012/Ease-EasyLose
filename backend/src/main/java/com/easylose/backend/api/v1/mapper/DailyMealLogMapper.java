@@ -51,19 +51,6 @@ public abstract class DailyMealLogMapper {
     Map<MealType, List<DailyMealFoodDto>> details = new HashMap<MealType, List<DailyMealFoodDto>>();
     Map<MealType, Map<String, Integer>> sums = new HashMap<MealType, Map<String, Integer>>();
 
-    DailyMealSumIntDto sumResultDto =
-        DailyMealSumIntDto.builder()
-            .calorie(0)
-            .carb(0)
-            .protein(0)
-            .fat(0)
-            .sugar(0)
-            .salt(0)
-            .cholesterol(0)
-            .saturatedFat(0)
-            .transFat(0)
-            .build();
-
     for (MealType mealType : MealType.values()) {
       details.put(mealType, new ArrayList<DailyMealFoodDto>());
 
@@ -130,25 +117,43 @@ public abstract class DailyMealLogMapper {
               "transFat",
               sums.get(dailyMealLog.getMealType()).get("transFat")
                   + Math.round(sumDto.getTransFat() * dailyMealLog.getCount()));
-      sumResultDto.setCalorie(
-          sums.get(dailyMealLog.getMealType()).get("calorie") + sumResultDto.getCalorie());
-      sumResultDto.setCarb(
-          sums.get(dailyMealLog.getMealType()).get("carb") + sumResultDto.getCarb());
-      sumResultDto.setProtein(
-          sums.get(dailyMealLog.getMealType()).get("protein") + sumResultDto.getProtein());
-      sumResultDto.setFat(sums.get(dailyMealLog.getMealType()).get("fat") + sumResultDto.getFat());
-      sumResultDto.setSugar(
-          sums.get(dailyMealLog.getMealType()).get("sugar") + sumResultDto.getSugar());
-      sumResultDto.setSalt(
-          sums.get(dailyMealLog.getMealType()).get("salt") + sumResultDto.getSalt());
-      sumResultDto.setCholesterol(
-          sums.get(dailyMealLog.getMealType()).get("cholesterol") + sumResultDto.getCholesterol());
-      sumResultDto.setSaturatedFat(
-          sums.get(dailyMealLog.getMealType()).get("saturatedFat")
-              + sumResultDto.getSaturatedFat());
-      sumResultDto.setTransFat(
-          sums.get(dailyMealLog.getMealType()).get("transFat") + sumResultDto.getTransFat());
     }
+
+    int calorie = 0;
+    int carb = 0;
+    int protein = 0;
+    int fat = 0;
+    int sugar = 0;
+    int salt = 0;
+    int cholesterol = 0;
+    int saturatedFat = 0;
+    int transFat = 0;
+
+    for (MealType mealType : MealType.values()) {
+      calorie += sums.get(mealType).get("calorie");
+      carb += sums.get(mealType).get("carb");
+      protein += sums.get(mealType).get("protein");
+      fat += sums.get(mealType).get("fat");
+      sugar += sums.get(mealType).get("sugar");
+      salt += sums.get(mealType).get("salt");
+      cholesterol += sums.get(mealType).get("cholesterol");
+      saturatedFat += sums.get(mealType).get("saturatedFat");
+      transFat += sums.get(mealType).get("transFat");
+    }
+
+    DailyMealSumIntDto sumResultDto =
+        DailyMealSumIntDto.builder()
+            .calorie(calorie)
+            .carb(carb)
+            .protein(protein)
+            .fat(fat)
+            .sugar(sugar)
+            .salt(salt)
+            .cholesterol(cholesterol)
+            .saturatedFat(saturatedFat)
+            .transFat(transFat)
+            .build();
+
     dto.total(sumResultDto);
     dto.sums(sums);
     dto.details(details);

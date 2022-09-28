@@ -37,14 +37,14 @@ public class FoodController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  //  @GetMapping("/barcode")
-  //  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
-  //  public String getFoodByBarcode(
-  //      @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
-  //    String response = foodService.getFoodByBarcode(id, barcode);
-  //    //    return ResponseEntity.status(HttpStatus.OK).body(response);
-  //    return response;
-  //  }
+  @GetMapping("/barcode")
+  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
+  public String getFoodByBarcode(
+      @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
+    String response = foodService.getFoodByBarcode(id, barcode);
+    //    return ResponseEntity.status(HttpStatus.OK).body(response);
+    return response;
+  }
 
   @GetMapping("/recent")
   @Operation(summary = "최근에 유저가 먹은 음식 리스트", description = "최근에 유저가 먹은 음식 중 상위 20개를 검색")

@@ -24,7 +24,7 @@ public class DailyMealLogController {
   private final DailyMealLogService dailyMealLogService;
 
   @GetMapping("")
-  @Operation(summary = "유저가 먹은 음식 조회", description = "유저가 특정 날짜에 먹은 음식 조회 / 날짜 입령 형식 : yyyy-mm-dd")
+  @Operation(summary = "유저가 먹은 음식 조회", description = "유저가 특정 날짜에 먹은 음식 조회 / 날짜 입력 형식 : yyyy-mm-dd")
   public ResponseEntity<List<DailyMealResultDto>> getDailyMealAll(
       @AuthenticationPrincipal Long id,
       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
