@@ -22,12 +22,19 @@
   justify-content: space-between;
   align-items: center;
   width: 20%;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 
 .item_title {
   font-size: 1.3rem;
   font-weight: bold;
+  display: block;
+
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
 }
 
 .item_subtitle {
@@ -37,4 +44,5 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  text-align: left;
 }

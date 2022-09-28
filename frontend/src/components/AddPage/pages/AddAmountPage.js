@@ -2,13 +2,13 @@ import classes from "./AddAmountPage.module.css"
 import { useState } from "react"
 import AddButtonList from "../AddButtonList/AddButtonList"
 
-import TopNav from "../../TopNav/TopNav"
 import { useHistory } from "react-router-dom"
 import { registerItem } from "../../../store/basketSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 import Slider from "@mui/material/Slider"
 import { styled } from "@mui/material/styles"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 const PrettoSlider = styled(Slider)({
   color: "#7c83fd",
@@ -73,7 +73,7 @@ function AddAmountPage() {
   return (
     <div>
       <div id="top_nav_area">
-        <TopNav arrow={["/add/search", ""]}></TopNav>
+        <TopHistoryNav></TopHistoryNav>
       </div>
       <div style={{ marginTop: "9vh" }} className={classes.container}>
         <div>{foodInfo.calorie * amount} kcal</div>

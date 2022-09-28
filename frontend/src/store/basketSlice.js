@@ -43,6 +43,9 @@ export const basketSlice = createSlice({
       state.searchList = []
       state.recentList = []
     },
+    initializeItem: (state) => {
+      state.pickedList = []
+    },
   },
 })
 
@@ -52,6 +55,7 @@ export const {
   registerItem,
   removeItem,
   initializeBasket,
+  initializeItem,
 } = basketSlice.actions
 
 export default basketSlice.reducer
