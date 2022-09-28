@@ -1,53 +1,60 @@
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { registerAccessToken, registerUserInfo } from "../store/userSlice";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { registerAccessToken, registerUserInfo } from "../store/userSlice"
+import { useHistory } from "react-router-dom"
+import axios from "axios"
+import { useEffect } from "react"
+import { instance } from "../api/index"
 
 function AuthPage() {
-  const location = useLocation();
-  const history = useHistory();
-  const dispatch = useDispatch();
+  const location = useLocation()
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   const tokens = location.search
     .replace("?accessToken=", "")
     .replace("refreshToken=", "")
-    .split("&");
+    .split("&")
 
-  const accessToken = useSelector((state) => state.user.accessToken);
-  const userInfo = useSelector((state) => state.user.userInfo);
+  localStorage.setItem("accessToken", tokens[0])
+  localStorage.setItem("refreshToken", tokens[1])
 
-  useEffect(() => {
-    dispatch(registerAccessToken(tokens));
-  }, [tokens, dispatch]);
-
-  useEffect(() => {
-    if (accessToken) {
-      axios
-        .get(`https://j7a704.p.ssafy.io/api/v1/user`, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((response) => {
-          dispatch(registerUserInfo(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [accessToken, dispatch]);
-
-  useEffect(() => {
-    if (userInfo) {
-      if (userInfo.goal) {
-        history.push("/main");
+  instance
+    .get("/user", {})
+    .then((response) => {
+      dispatch(registerUserInfo(response.data))
+      if (response.data.goal) {
+        history.push("/main")
       } else {
-        history.push("/signup/gender");
+        history.push("/signup/gender")
       }
-    }
-  }, [userInfo, dispatch, history]);
+    })
+    .catch((error) => console.log(error))
 
-  return <div></div>;
+  // localStorage.setItem(
+  //   "tokens",
+  //   JSON.stringify({ accessToken: tokens[0], refreshToken: tokens[1] })
+  // )
+  // useEffect(() => {
+  //   dispatch(registerAccessToken(tokens))
+  //   axios
+  //     .get(`https://j7a704.p.ssafy.io/api/v1/user`, {
+  //       headers: { Authorization: `Bearer ${tokens[0]}` },
+  //     })
+  //     .then((response) => {
+  //       dispatch(registerUserInfo(response.data))
+  //       if (response.data.goal) {
+  //         history.push("/main")
+  //       } else {
+  //         history.push("/signup/gender")
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }, [])
+
+  return <div></div>
 }
 
-export default AuthPage;
+export default AuthPage

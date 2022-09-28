@@ -1,14 +1,30 @@
 .container {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
+  height: 50vh;
+  margin: 0 7vw;
+  flex-direction: column;
+}
+
+.now_value {
+  display: flex;
+  align-items: center;
+}
+
+.now_value p {
+  margin: 0 0.3rem;
+}
+
+.now_value p:nth-child(2) {
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .addButtonContainer {
   width: 100vw;
   position: absolute;
-  bottom: 10vh;
+  bottom: 4vh;
   display: flex;
   justify-content: center;
   align-items: center;

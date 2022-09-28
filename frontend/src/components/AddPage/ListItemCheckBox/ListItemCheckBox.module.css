@@ -27,5 +27,10 @@
 
 .amount {
   color: var(--main-color);
-  margin-right: 10px;
+}
+
+.plusContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

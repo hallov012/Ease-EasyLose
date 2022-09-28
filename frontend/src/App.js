@@ -1,28 +1,61 @@
-import "./App.css";
+import "./App.css"
 
-import { Route, Switch, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import CalendarPage from "./pages/CalendarPage";
-import PlanPage from "./pages/PlanPage";
-import MainPage from "./pages/MainPage";
-import ChartPage from "./pages/ChartPage";
-import MyPage from "./pages/MyPage";
-import SignUpPage from "./pages/SignUpPage";
-import StartPage from "./pages/StartPage";
-import AuthPage from "./pages/AuthPage";
-import AddPage from "./pages/AddPage";
-import { useDispatch, useSelector } from "react-redux";
-import {} from "./store/userSlice";
-import store from "./store/store";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom"
+import { useEffect } from "react"
+import CalendarPage from "./pages/CalendarPage"
+import PlanPage from "./pages/PlanPage"
+import MainPage from "./pages/MainPage"
+import ChartPage from "./pages/ChartPage"
+import MyPage from "./pages/MyPage"
+import SignUpPage from "./pages/SignUpPage"
+import StartPage from "./pages/StartPage"
+import AuthPage from "./pages/AuthPage"
+import AddPage from "./pages/AddPage"
+import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
 
-import BottomNav from "./components/BottomNav/BottomNav";
-
-import { useState } from "react";
+import BottomNav from "./components/BottomNav/BottomNav"
+import { registerAccessToken, registerUserInfo } from "./store/userSlice"
+import { instance } from "./api"
 
 function App() {
-  const location = useLocation().pathname;
-  const accessToken = useSelector((state) => state.user.accessToken);
-  console.log(accessToken);
+  const location = useLocation().pathname
+  // const tokens = JSON.parse(localStorage.getItem("tokens"))
+  const dispatch = useDispatch()
+
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const history = useHistory()
+
+  // useEffect(() => {
+  //   if (tokens && tokens.accessToken && tokens.refreshToken) {
+  //     dispatch(registerAccessToken([tokens.accessToken, tokens.refreshToken]))
+  //   }
+  // }, [dispatch])
+
+  // console.log(accessToken)
+
+  useEffect(() => {
+    instance
+      .get("user", {})
+      .then((response) => {
+        console.log(response.data)
+        dispatch(registerUserInfo(response.data))
+      })
+      .catch((error) => console.log(error))
+    // if (accessToken) {
+    //   axios
+    //     .get(`https://j7a704.p.ssafy.io/api/v1/user`, {
+    //       headers: { Authorization: `Bearer ${accessToken}` },
+    //     })
+    //     .then((response) => {
+    //       dispatch(registerUserInfo(response.data))
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // }
+  }, [dispatch])
 
   function renderBottomNav() {
     if (
@@ -36,7 +69,7 @@ function App() {
         <div id="bottom_nav_area">
           <BottomNav />
         </div>
-      );
+      )
   }
 
   return (
@@ -73,7 +106,7 @@ function App() {
       </Switch>
       {renderBottomNav()}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

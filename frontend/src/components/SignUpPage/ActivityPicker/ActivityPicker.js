@@ -1,27 +1,41 @@
-import classes from "./Activity.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classes from "./Activity.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faPersonWalking,
   faChair,
   faRunning,
   faDumbbell,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+} from "@fortawesome/free-solid-svg-icons"
+import { useState, useEffect } from "react"
+import { useHistory } from "react-router-dom"
 
 function ActivityPicker({ setValue, value }) {
-  const history = useHistory();
-  const [selected, setSelected] = useState([false, false, false, false]);
+  const history = useHistory()
+  const [selected, setSelected] = useState([false, false, false, false])
 
   useEffect(() => {
-    if (value >= 0 && value < 4) {
-      setSelected(() => {
-        const newArray = [false, false, false, false];
-        newArray[Number(value)] = true;
-        return newArray;
-      });
+    let temp = 0
+    switch (value) {
+      case "LOWEST":
+        temp = 0
+        break
+      case "LOW":
+        temp = 1
+        break
+      case "HIGH":
+        temp = 2
+        break
+      case "HIGHEST":
+        temp = 3
+        break
     }
-  }, [value]);
+    setSelected(() => {
+      const newArray = [false, false, false, false]
+      if (!value) return newArray
+      newArray[Number(temp)] = true
+      return newArray
+    })
+  }, [value])
 
   const array = [
     {
@@ -40,7 +54,7 @@ function ActivityPicker({ setValue, value }) {
       explanation: "4시간 이상의 심한 활동",
       value: "HIGHEST",
     },
-  ];
+  ]
 
   return (
     <div className={classes.container}>
@@ -49,13 +63,13 @@ function ActivityPicker({ setValue, value }) {
           <div
             key={index}
             onClick={() => {
-              setValue(array[index].value);
+              setValue(array[index].value)
               setSelected(() => {
-                const newArray = [false, false, false, false];
-                newArray[index] = true;
-                return newArray;
-              });
-              history.push("/signup/goal");
+                const newArray = [false, false, false, false]
+                newArray[index] = true
+                return newArray
+              })
+              history.push("/signup/goal")
             }}
             className={
               selected[index] ? classes.pickedItem : classes.activityItem
@@ -72,10 +86,10 @@ function ActivityPicker({ setValue, value }) {
             </div>
             <span>{item.explanation}</span>
           </div>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
-export default ActivityPicker;
+export default ActivityPicker
