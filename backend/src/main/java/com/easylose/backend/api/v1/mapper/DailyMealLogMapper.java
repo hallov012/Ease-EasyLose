@@ -130,15 +130,24 @@ public abstract class DailyMealLogMapper {
               "transFat",
               sums.get(dailyMealLog.getMealType()).get("transFat")
                   + Math.round(sumDto.getTransFat() * dailyMealLog.getCount()));
-      sumResultDto.setCalorie(sums.get(dailyMealLog.getMealType()).get("calorie"));
-      sumResultDto.setCarb(sums.get(dailyMealLog.getMealType()).get("carb"));
-      sumResultDto.setProtein(sums.get(dailyMealLog.getMealType()).get("protein"));
-      sumResultDto.setFat(sums.get(dailyMealLog.getMealType()).get("fat"));
-      sumResultDto.setSugar(sums.get(dailyMealLog.getMealType()).get("sugar"));
-      sumResultDto.setSalt(sums.get(dailyMealLog.getMealType()).get("salt"));
-      sumResultDto.setCholesterol(sums.get(dailyMealLog.getMealType()).get("cholesterol"));
-      sumResultDto.setSaturatedFat(sums.get(dailyMealLog.getMealType()).get("saturatedFat"));
-      sumResultDto.setTransFat(sums.get(dailyMealLog.getMealType()).get("transFat"));
+      sumResultDto.setCalorie(
+          sums.get(dailyMealLog.getMealType()).get("calorie") + sumResultDto.getCalorie());
+      sumResultDto.setCarb(
+          sums.get(dailyMealLog.getMealType()).get("carb") + sumResultDto.getCarb());
+      sumResultDto.setProtein(
+          sums.get(dailyMealLog.getMealType()).get("protein") + sumResultDto.getProtein());
+      sumResultDto.setFat(sums.get(dailyMealLog.getMealType()).get("fat") + sumResultDto.getFat());
+      sumResultDto.setSugar(
+          sums.get(dailyMealLog.getMealType()).get("sugar") + sumResultDto.getSugar());
+      sumResultDto.setSalt(
+          sums.get(dailyMealLog.getMealType()).get("salt") + sumResultDto.getSalt());
+      sumResultDto.setCholesterol(
+          sums.get(dailyMealLog.getMealType()).get("cholesterol") + sumResultDto.getCholesterol());
+      sumResultDto.setSaturatedFat(
+          sums.get(dailyMealLog.getMealType()).get("saturatedFat")
+              + sumResultDto.getSaturatedFat());
+      sumResultDto.setTransFat(
+          sums.get(dailyMealLog.getMealType()).get("transFat") + sumResultDto.getTransFat());
     }
     dto.total(sumResultDto);
     dto.sums(sums);
