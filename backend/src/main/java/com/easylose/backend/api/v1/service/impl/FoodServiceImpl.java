@@ -10,6 +10,7 @@ import com.easylose.backend.api.v1.repository.FoodRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.specification.FoodSpecification;
 import com.easylose.backend.api.v1.service.FoodService;
+import com.easylose.backend.util.BarCodeSearch;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,21 +46,20 @@ public class FoodServiceImpl implements FoodService {
     return response;
   }
 
-  //  public List<FoodResponseDto> getFoodByBarcode(Long id, String barcode){
-  //    User user = userRepository.getReferenceById(id);
-  //    Specification<Food> spec = (root, query, builder) -> null;
-  //    if (barcode == null){
-  //      return null;
-  //    }
-  //    spec = spec.and(FoodSpecification.equalBarcode(barcode, user));
-  //    List<Food> list = foodRepository.findAll(spec);
-  //    if (list.isEmpty()){
-  //      // db에 없음
-  //      // API 검색 시작
-  //
-  //    }
-  //
-  //  }
+  public String getFoodByBarcode(Long id, String barcode) {
+    User user = userRepository.getReferenceById(id);
+    Specification<Food> spec = (root, query, builder) -> null;
+    if (barcode == null) {
+      return null;
+    }
+    spec = spec.and(FoodSpecification.equalBarcode(barcode, user));
+    List<Food> list = foodRepository.findAll(spec);
+    if (list.isEmpty()) {
+      BarCodeSearch result = new BarCodeSearch();
+      return result.search(barcode);
+    }
+    return null;
+  }
 
   public List<FoodResponseDto> getRecentFood(Long id) {
     User user = userRepository.getReferenceById(id);
