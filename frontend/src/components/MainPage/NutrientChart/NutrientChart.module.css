@@ -1,6 +1,9 @@
 .chart_box {
   margin-top: 1.5rem;
-  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 .chart_box span {
@@ -8,4 +11,8 @@
   float: left;
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
+}
+
+.alert {
+  font-size: 0.8rem;
 }

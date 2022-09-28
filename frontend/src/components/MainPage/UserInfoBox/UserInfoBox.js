@@ -1,6 +1,6 @@
-import classes from "./UserInfo.module.css"
+import classes from "./UserInfoBox.module.css"
 
-function UserInfo() {
+function UserInfoBox() {
   return (
     <div className={classes.info_area}>
       <div className={classes.top_area}>
@@ -27,4 +27,4 @@ function UserInfo() {
     </div>
   )
 }
-export default UserInfo
+export default UserInfoBox

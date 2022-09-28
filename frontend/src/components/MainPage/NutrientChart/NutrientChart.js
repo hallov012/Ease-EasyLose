@@ -1,9 +1,26 @@
 import classes from "./NutrientChart.module.css"
 import ReactApexChart from "react-apexcharts"
+import { useEffect, useState } from "react"
 
-function NutrientChart() {
+function NutrientChart(props) {
+  const dietSum = props.dietSum
+  const [value, setValue] = useState({ percent: [0, 0, 0], total: 0 })
+  console.log(value)
+  useEffect(() => {
+    if (dietSum) {
+      const totalSum = dietSum.carb + dietSum.protein + dietSum.fat
+      const temp = [0, 0, 0]
+      if (totalSum) {
+        temp[0] = Math.ceil((dietSum.carb / totalSum) * 100)
+        temp[1] = Math.ceil((dietSum.protein / totalSum) * 100)
+        temp[2] = Math.ceil((dietSum.fat / totalSum) * 100)
+        setValue({ percent: temp, total: totalSum })
+      }
+    }
+  }, [dietSum])
+
   const data = {
-    series: [30, 50, 20],
+    series: value.percent,
     options: {
       chart: {
         type: "donut",
@@ -39,7 +56,13 @@ function NutrientChart() {
   return (
     <div className={classes.chart_box}>
       <span>섭취 영양소 비율</span>
-      <div>
+      <div
+        className={classes.alert}
+        style={{ display: value.total ? "none" : "block" }}
+      >
+        아직 입력된 정보가 없어요!
+      </div>
+      <div style={{ display: value.total ? "block" : "none" }}>
         <ReactApexChart
           options={data.options}
           series={data.series}
