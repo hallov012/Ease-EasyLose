@@ -30,7 +30,7 @@ function App() {
     if (tokens && tokens.accessToken && tokens.refreshToken) {
       dispatch(registerAccessToken([tokens.accessToken, tokens.refreshToken]))
     }
-  }, [])
+  }, [dispatch])
 
   console.log(accessToken)
 
@@ -47,7 +47,7 @@ function App() {
           console.log(error)
         })
     }
-  }, [accessToken])
+  }, [accessToken, dispatch])
 
   function renderBottomNav() {
     if (
