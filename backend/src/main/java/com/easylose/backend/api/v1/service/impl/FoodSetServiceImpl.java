@@ -5,6 +5,7 @@ import com.easylose.backend.api.v1.domain.FoodSetDetail;
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetResponseDto;
 import com.easylose.backend.api.v1.mapper.FoodSetMapper;
 import com.easylose.backend.api.v1.repository.FoodSetDetailRepository;
@@ -31,17 +32,16 @@ public class FoodSetServiceImpl implements FoodSetService {
 
   public List<FoodSetResponseDto> getFoodSetAll(Long id) {
     List<FoodSet> foodSets = foodSetRepository.findByUserId(id);
-
     List<FoodSetResponseDto> foodSetDto = foodSetMapper.foodSetsToDto(foodSets);
 
     return foodSetDto;
   }
 
-  public FoodSetResponseDto createFoodSet(Long id) {
+  public FoodSetResponseDto createFoodSet(Long id, FoodSetRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
-
     FoodSet foodSet = FoodSet.builder().user(user).build();
 
+    foodSetMapper.updateFoodSet(requestDto, foodSet);
     foodSetRepository.save(foodSet);
 
     return foodSetMapper.foodSetToDto(foodSet);
@@ -49,8 +49,8 @@ public class FoodSetServiceImpl implements FoodSetService {
 
   public boolean deleteFoodSet(Long id, Long foodSetId) {
     User user = userRepository.getReferenceById(id);
-
     FoodSet foodSet = foodSetRepository.getReferenceById(foodSetId);
+
     if (foodSet.getUser() != user) {
       return false;
     }
@@ -58,6 +58,20 @@ public class FoodSetServiceImpl implements FoodSetService {
     foodSetRepository.delete(foodSet);
 
     return true;
+  }
+
+  public FoodSetResponseDto updateFoodSet(Long id, Long foodSetId, FoodSetRequestDto requestDto) {
+    User user = userRepository.getReferenceById(id);
+    FoodSet foodSet = foodSetRepository.getReferenceById(foodSetId);
+
+    if (foodSet.getUser() != user) {
+      return null;
+    }
+
+    foodSetMapper.updateFoodSet(requestDto, foodSet);
+    foodSetRepository.save(foodSet);
+
+    return foodSetMapper.foodSetToDto(foodSet);
   }
 
   public FoodSetDetailResponseDto createFoodSetDetail(

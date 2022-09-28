@@ -1,7 +1,5 @@
 package com.easylose.backend.api.v1.dto;
 
-
-
 import lombok.*;
 
 public class FoodDto {

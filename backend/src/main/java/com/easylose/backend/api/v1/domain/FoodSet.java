@@ -22,6 +22,8 @@ public class FoodSet {
 
   @Id @GeneratedValue private Long id;
 
+  private String name;
+
   @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "user_id")
   private User user;
