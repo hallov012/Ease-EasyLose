@@ -17,21 +17,6 @@ function DailyDietPage(props) {
     props.setValue(date)
   }, [date])
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     setProgressBarPercent([
-  //       Math.round(((userInfo.dailyCarb * 4) / userInfo.dailyCalorie) * 100),
-  //       Math.round(((userInfo.dailyProtein * 4) / userInfo.dailyCalorie) * 100),
-  //       Math.round(((userInfo.dailyFat * 8) / userInfo.dailyCalorie) * 100),
-  //     ])
-  //     setProgressBarAmount([
-  //       Math.round(userInfo.dailyCarb),
-  //       Math.round(userInfo.dailyProtein),
-  //       Math.round(userInfo.dailyFat),
-  //     ])
-  //   }
-  // }, [userInfo])
-
   return (
     <div>
       <div id="top_nav_area">
@@ -44,7 +29,7 @@ function DailyDietPage(props) {
       <div style={{ margin: "10vh 5vw" }}>
         <NutrientSummary userInfo={userInfo} userDailyDiet={userDailyDiet} />
         <SumProgressBar userDailyDiet={userDailyDiet} />
-        <MealCardList />
+        <MealCardList userInfo={userInfo} userDailyDiet={userDailyDiet} />
       </div>
     </div>
   )
