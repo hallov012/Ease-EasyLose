@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 function NutrientChart(props) {
   const dietSum = props.dietSum
   const [value, setValue] = useState({ percent: [0, 0, 0], total: 0 })
-  console.log(value)
+
   useEffect(() => {
     if (dietSum) {
       const totalSum = dietSum.carb + dietSum.protein + dietSum.fat
