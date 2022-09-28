@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService {
     return userMapper.userToResponseDto(user);
   }
 
-  public void deleteUser(Long id) {
+  public boolean deleteUser(Long id) {
     userRepository.deleteById(id);
+
+    return true;
   }
 }

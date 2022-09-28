@@ -74,26 +74,37 @@ public class FoodServiceImpl implements FoodService {
 
   public FoodResponseDto createFood(Long id, FoodUserDto dto) {
     User user = userRepository.getReferenceById(id);
-    dto.setUser(user);
-    return foodMapper.toDto(foodRepository.save(foodMapper.toEntity(dto)));
+    Food food = Food.builder().user(user).build();
+
+    foodMapper.updateFoodFromDto(dto, food);
+    foodRepository.save(food);
+
+    return foodMapper.toDto(food);
   }
 
-  @Override
   public FoodResponseDto updateFood(Long id, Long food_id, FoodUserDto dto) {
     User user = userRepository.getReferenceById(id);
     Food food = foodRepository.getReferenceById(food_id);
-    if (user == food.getUser()) {
-      foodMapper.updateFoodFromDto(dto, food);
+    if (user != food.getUser()) {
+      return null;
     }
-    return foodMapper.toDto(foodRepository.save(food));
+
+    foodMapper.updateFoodFromDto(dto, food);
+    foodRepository.save(food);
+
+    return foodMapper.toDto(food);
   }
 
-  @Override
-  public void deleteFood(Long id, Long food_id) {
+  public boolean deleteFood(Long id, Long food_id) {
     User user = userRepository.getReferenceById(id);
     Food food = foodRepository.getReferenceById(food_id);
-    if (user == food.getUser()) {
-      foodRepository.deleteById(food_id);
+
+    if (user != food.getUser()) {
+      return false;
     }
+
+    foodRepository.delete(food);
+
+    return true;
   }
 }

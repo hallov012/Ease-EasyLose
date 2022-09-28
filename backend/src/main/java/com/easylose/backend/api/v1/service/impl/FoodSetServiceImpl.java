@@ -11,7 +11,6 @@ import com.easylose.backend.api.v1.repository.FoodSetDetailRepository;
 import com.easylose.backend.api.v1.repository.FoodSetRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.service.FoodSetService;
-import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ public class FoodSetServiceImpl implements FoodSetService {
   // 단순 이렇게 "식단"만 보내는 것은 의미 없음
   // 식단의 디테일까지 같이 보낼 수 있도록 설계해야 함
 
-  public Collection<FoodSetResponseDto> getFoodSetAll(Long id) {
+  public List<FoodSetResponseDto> getFoodSetAll(Long id) {
     List<FoodSet> foodSets = foodSetRepository.findByUserId(id);
 
     List<FoodSetResponseDto> foodSetDto = foodSetMapper.foodSetsToDto(foodSets);
@@ -62,7 +61,7 @@ public class FoodSetServiceImpl implements FoodSetService {
   }
 
   public FoodSetDetailResponseDto createFoodSetDetail(
-      Long id, Long foodSetId, FoodSetDetailRequestDto body) {
+      Long id, Long foodSetId, FoodSetDetailRequestDto requestDto) {
 
     User user = userRepository.getReferenceById(id);
     FoodSet foodSet = foodSetRepository.getReferenceById(foodSetId);
@@ -73,7 +72,7 @@ public class FoodSetServiceImpl implements FoodSetService {
 
     FoodSetDetail foodSetDetail = FoodSetDetail.builder().foodSet(foodSet).build();
 
-    foodSetMapper.updateFoodSetDetail(body, foodSetDetail);
+    foodSetMapper.updateFoodSetDetail(requestDto, foodSetDetail);
 
     foodSetDetailRepository.save(foodSetDetail);
 
@@ -81,7 +80,7 @@ public class FoodSetServiceImpl implements FoodSetService {
   }
 
   public FoodSetDetailResponseDto updateFoodSetDetail(
-      Long id, Long foodSetId, Long foodSetDetailId, FoodSetDetailRequestDto body) {
+      Long id, Long foodSetId, Long foodSetDetailId, FoodSetDetailRequestDto requestDto) {
 
     User user = userRepository.getReferenceById(id);
     FoodSet foodSet = foodSetRepository.getReferenceById(foodSetId);
@@ -95,7 +94,7 @@ public class FoodSetServiceImpl implements FoodSetService {
       return null;
     }
 
-    foodSetMapper.updateFoodSetDetail(body, foodSetDetail);
+    foodSetMapper.updateFoodSetDetail(requestDto, foodSetDetail);
 
     foodSetDetailRepository.save(foodSetDetail);
 

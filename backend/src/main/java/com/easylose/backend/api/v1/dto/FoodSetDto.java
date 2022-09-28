@@ -4,7 +4,6 @@ import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.enums.MealType;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.*;
 import lombok.*;
 
 public class FoodSetDto {

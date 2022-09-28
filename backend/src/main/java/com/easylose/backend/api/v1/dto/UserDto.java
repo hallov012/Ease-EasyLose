@@ -4,7 +4,6 @@ import com.easylose.backend.api.v1.enums.ActivityLevel;
 import com.easylose.backend.api.v1.enums.Gender;
 import com.easylose.backend.api.v1.enums.Goal;
 import java.time.LocalDateTime;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

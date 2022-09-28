@@ -3,11 +3,11 @@ package com.easylose.backend.api.v1.service;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetResponseDto;
-import java.util.Collection;
+import java.util.List;
 
 public interface FoodSetService {
 
-  Collection<FoodSetResponseDto> getFoodSetAll(Long id);
+  List<FoodSetResponseDto> getFoodSetAll(Long id);
 
   FoodSetResponseDto createFoodSet(Long id);
 

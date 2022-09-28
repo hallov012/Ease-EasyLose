@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class DailyMealLogSpecification {
 
-  private DailyMealLog dailyMealLogFilter;
+  // private DailyMealLog dailyMealLogFilter;
 
   public static Specification<DailyMealLog> equalUserAndDate(User user, LocalDate date) {
     return (root, query, criteriaBuilder) ->
