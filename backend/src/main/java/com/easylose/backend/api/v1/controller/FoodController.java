@@ -38,11 +38,11 @@ public class FoodController {
 
   @GetMapping("/barcode")
   @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
-  public String getFoodByBarcode(
+  public ResponseEntity<Collection> getFoodByBarcode(
       @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
-    String response = foodService.getFoodByBarcode(id, barcode);
+    Collection response = foodService.getFoodByBarcode(id, barcode);
     //    return ResponseEntity.status(HttpStatus.OK).body(response);
-    return response;
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @GetMapping("/recent")
