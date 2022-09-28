@@ -13,6 +13,7 @@ function MainPage() {
   const dispatch = useDispatch()
   const accessToken = useSelector((state) => state.user.accessToken)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+  const tempDate = useSelector((state) => state.daily.targetDate)
 
   if (userDailyDiet) {
     const mealData = userDailyDiet[0]
@@ -20,22 +21,23 @@ function MainPage() {
 
   const [targetDate, setTartgetDate] = useState(undefined)
   useEffect(() => {
-    if (targetDate) {
-      dispatch(registerTargetDate(targetDate.format("YYYY-MM-DD")))
+    if (tempDate) {
+      dispatch(registerTargetDate(tempDate))
       axios({
         method: "get",
-        params: { date: targetDate.format("YYYY-MM-DD") },
+        params: { date: tempDate },
         url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
         headers: { Authorization: `Bearer ${accessToken}` },
       })
         .then((response) => {
+          console.log(response.data)
           dispatch(registerDailyDiet(response.data))
         })
         .catch((error) => {
           console.log(error)
         })
     }
-  }, [targetDate])
+  }, [tempDate])
 
   return (
     <div>

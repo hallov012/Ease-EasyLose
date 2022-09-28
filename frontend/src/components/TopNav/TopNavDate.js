@@ -8,14 +8,19 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons"
 import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { registerTargetDate } from "../../store/dailySlice"
 
 function TopNavDate(props) {
   const [value, setValue] = React.useState(dayjs(new Date()))
+  const dispatch = useDispatch()
   const handleChange = (newValue) => {
     setValue(newValue)
+    dispatch(registerTargetDate(newValue.format("YYYY-MM-DD")))
   }
   useEffect(() => {
     props.setValue(value)
+    dispatch(registerTargetDate(value.format("YYYY-MM-DD")))
   }, [value])
 
   return (
