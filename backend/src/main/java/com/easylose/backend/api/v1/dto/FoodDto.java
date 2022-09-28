@@ -2,7 +2,6 @@ package com.easylose.backend.api.v1.dto;
 
 import com.easylose.backend.api.v1.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.*;
 import lombok.*;
 
 public class FoodDto {
@@ -59,5 +58,14 @@ public class FoodDto {
     private Float cholesterol;
     private Float saturatedFat;
     private Float transFat;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class FoodBarCodeDto {
+    private String barcode;
   }
 }
