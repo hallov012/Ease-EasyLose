@@ -32,10 +32,19 @@ public class FoodController {
   @GetMapping("")
   @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
   public ResponseEntity<Collection> getFoodByName(
-      @AuthenticationPrincipal Long id, @RequestParam(required = false) String name) {
+      @AuthenticationPrincipal Long id, @RequestParam(required = true) String name) {
     Collection<FoodDto.FoodResponseDto> response = foodService.getFoodByName(id, name);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
+
+  //  @GetMapping("/barcode")
+  //  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
+  //  public String getFoodByBarcode(
+  //      @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
+  //    String response = foodService.getFoodByBarcode(id, barcode);
+  //    //    return ResponseEntity.status(HttpStatus.OK).body(response);
+  //    return response;
+  //  }
 
   @GetMapping("/recent")
   @Operation(summary = "최근에 유저가 먹은 음식 리스트", description = "최근에 유저가 먹은 음식 중 상위 20개를 검색")
@@ -49,7 +58,7 @@ public class FoodController {
   public ResponseEntity<FoodResponseDto> createFood(
       @AuthenticationPrincipal Long id, @RequestBody FoodUserDto dto) {
     FoodResponseDto response = foodService.createFood(id, dto);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   @PutMapping("{food_id}")
