@@ -76,7 +76,6 @@ function NutrientProgressBox() {
     },
   }
 
-  console.log(data.tooltip)
   return (
     <div className={`${classes.nutrient_box} box_shadow`}>
       <div className={classes.top_area}>

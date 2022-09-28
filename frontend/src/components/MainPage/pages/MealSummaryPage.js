@@ -1,26 +1,36 @@
-import TopNav from "../../TopNav/TopNav";
-import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo";
-import UserFoodList from "../UserFoodList/UserFoodList";
-import NutrientChart from "../NutrientChart/NutrientChart";
-import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox";
+import TopNav from "../../TopNav/TopNav"
+import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo"
+import UserFoodList from "../UserFoodList/UserFoodList"
+import NutrientChart from "../NutrientChart/NutrientChart"
+import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
 
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
 
-import { registerLastEntered } from "../../../store/statusSlice";
-import { useDispatch } from "react-redux";
+import { registerLastEntered } from "../../../store/statusSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { useState, useEffect } from "react"
 
 function MealSummaryPage() {
-  const params = useParams();
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+  const [dietSum, setDeitSum] = useState(undefined)
+
+  const params = useParams()
   const meal = {
     BREAKFAST: "아침",
     LUNCH: "점심",
     DINNER: "저녁",
     SNACK: "간식",
-  };
-  const mealtime = params.mealtime;
+  }
+  const mealtime = params.mealtime
+  const dispatch = useDispatch()
+  dispatch(registerLastEntered(mealtime))
 
-  const dispatch = useDispatch();
-  dispatch(registerLastEntered(mealtime));
+  useEffect(() => {
+    if (userDailyDiet) {
+      setDeitSum(userDailyDiet[0].sums[mealtime])
+    }
+  })
 
   return (
     <div>
@@ -34,10 +44,10 @@ function MealSummaryPage() {
       >
         <MealNutrientInfo />
         <UserFoodList />
-        <NutrientChart />
+        <NutrientChart dietSum={dietSum} />
         <NutrientProgressBox />
       </div>
     </div>
-  );
+  )
 }
-export default MealSummaryPage;
+export default MealSummaryPage
