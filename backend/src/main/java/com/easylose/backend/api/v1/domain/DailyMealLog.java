@@ -1,7 +1,6 @@
 package com.easylose.backend.api.v1.domain;
 
 import com.easylose.backend.api.v1.enums.MealType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
@@ -34,12 +33,10 @@ public class DailyMealLog {
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  @JsonIgnore
   private User user;
 
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "food_id")
-  @JsonIgnore
   private Food food;
 
   @CreatedDate

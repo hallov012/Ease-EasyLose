@@ -30,9 +30,10 @@ public class FoodSetController {
 
   @GetMapping("")
   @Operation(summary = "유저의 모의식단", description = "유저의 모의식단 전체 목록을 불러온다")
-  public ResponseEntity<Collection> getFoodSetAll(@AuthenticationPrincipal Long id) {
+  public ResponseEntity<Collection<FoodSetResponseDto>> getFoodSetAll(
+      @AuthenticationPrincipal Long id) {
 
-    Collection response = foodSetService.getFoodSetAll(id);
+    Collection<FoodSetResponseDto> response = foodSetService.getFoodSetAll(id);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

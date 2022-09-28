@@ -1,10 +1,7 @@
 package com.easylose.backend.api.v1.dto;
 
-import com.easylose.backend.api.v1.domain.Food;
-import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.enums.MealType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +20,6 @@ public class DailyMealLogDto {
     private MealType mealType;
     private Float count;
     private Long foodId;
-    @JsonIgnore private User user;
-    @JsonIgnore private Food food;
   }
 
   @AllArgsConstructor
