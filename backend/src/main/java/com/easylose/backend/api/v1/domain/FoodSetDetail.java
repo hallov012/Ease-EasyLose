@@ -1,6 +1,7 @@
 package com.easylose.backend.api.v1.domain;
 
 import com.easylose.backend.api.v1.enums.MealType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,6 +31,8 @@ public class FoodSetDetail {
   @JoinColumn(name = "food_id")
   private Food food;
 
-  @Column(name = "foodset_id")
-  private Long foodSetId;
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @JoinColumn(name = "foodset_id")
+  @JsonBackReference
+  private FoodSet foodSet;
 }
