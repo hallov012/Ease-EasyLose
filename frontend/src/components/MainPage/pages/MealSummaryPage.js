@@ -52,7 +52,7 @@ function MealSummaryPage(props) {
         <MealNutrientInfo dietSum={value.dietSum} />
         <UserFoodList foodList={value.foodList} />
         <NutrientChart dietSum={value.dietSum} />
-        <NutrientProgressBox />
+        <NutrientProgressBox userInfo={userInfo} dietSum={value.dietSum} />
       </div>
     </div>
   )
