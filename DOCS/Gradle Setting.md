@@ -40,3 +40,41 @@
 2. Project root directory에서 아까 설정해주었단 workspace 경로로 설정해준다.
    - `elipse-workspace\Hbase-Spring`
 3. 다른 설정은 프로젝트 생성시와 동일하다.
+
+# 외부 라이브러리 추가
+
+1. 구글링을 통해 설치하고자 하는 라이브러리를 검색한다.
+2. build.gradle에 dependencies 안에 추가 후 저장
+   ex)
+   ![image](https://user-images.githubusercontent.com/99601412/193048916-296c46a4-7c22-4544-bbbf-ea451c4e0cfe.png)
+
+   ```
+    implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation 'org.apache.hadoop:hadoop-client:2.7.7'
+    //implementation 'org.apache.hbase:hbase-client:3.0.0-alpha-3'
+    //implementation 'org.apache.hbase:hbase-shaded-client:3.0.0-alpha-3'
+    implementation 'org.apache.hbase:hbase-shaded-client:1.1.2'
+   ```
+
+3. 프로젝트 우클릭 > Gradle > Refresh Gradle Project
+4. 하단 우측에 설치 진행도를 기다리기!
+
+# 라이브러리가 포함된(Runnable jar) jar로 만들기
+
+- 다음 코드를 build.gradle에 포함시키고 빌드하기
+
+```java
+jar {
+	manifest{
+      // 'Main-Class':'패키지명':'Class명'
+		attributes 'Main-Class':'Another.ConnectSpring'
+	}
+	from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	//enabled = false
+}
+```
