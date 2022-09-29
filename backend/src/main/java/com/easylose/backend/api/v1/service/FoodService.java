@@ -15,5 +15,5 @@ public interface FoodService {
 
   FoodResponseDto updateFood(Long id, Long food_id, FoodUserDto dto);
 
-  boolean deleteFood(Long id, Long ood_id);
+  boolean deleteFood(Long id, Long food_id);
 }
