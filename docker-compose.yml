@@ -47,4 +47,10 @@ services:
     env_file:
       - .env
 
-  # hadoop:
+  hadoop:
+    build: ./hadoop
+    image: easylose/hadoop
+    expose:
+      - 16010
+    command: bash -c /home/hadoop/start_ease_hadoop.sh
+    tty: true
