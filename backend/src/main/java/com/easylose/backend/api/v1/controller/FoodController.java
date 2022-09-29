@@ -29,7 +29,7 @@ public class FoodController {
   private final FoodService foodService;
 
   @GetMapping("")
-  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
+  @Operation(summary = "음식명을 통한 음식 검색", description = "음식 명으로 음식 상세 정보를 검색한다.(최대 20개)")
   public ResponseEntity<Collection<FoodResponseDto>> getFoodByName(
       @AuthenticationPrincipal Long id, @RequestParam(required = true) String name) {
     Collection<FoodResponseDto> response = foodService.getFoodByName(id, name);
@@ -37,10 +37,10 @@ public class FoodController {
   }
 
   @GetMapping("/barcode")
-  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
-  public ResponseEntity<Collection> getFoodByBarcode(
+  @Operation(summary = "바코드를 통한 음식 검색", description = "바코드로 음식 상세 정보를 검색한다.(1개)")
+  public ResponseEntity<Collection<FoodResponseDto>> getFoodByBarcode(
       @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
-    Collection response = foodService.getFoodByBarcode(id, barcode);
+    Collection<FoodResponseDto> response = foodService.getFoodByBarcode(id, barcode);
     //    return ResponseEntity.status(HttpStatus.OK).body(response);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

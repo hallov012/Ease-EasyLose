@@ -33,7 +33,6 @@ public class FoodDto {
   @ToString
   public static class FoodRequestDto {
     private String name;
-    private String barcode;
   }
 
   @AllArgsConstructor

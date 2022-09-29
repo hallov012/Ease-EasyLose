@@ -52,6 +52,7 @@ public class DailyMealLogDto {
   @Setter
   @ToString
   public static class DailyMealFoodDto {
+    private Long id;
     private Float count;
     private FoodResponseDto food;
   }
