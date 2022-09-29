@@ -1,49 +1,49 @@
-import { useHistory, useLocation } from "react-router-dom";
-import classes from "./AddSearchPage.module.css";
-import ListItemCheckBox from "../ListItemCheckBox/ListItemCheckBox";
-import AddButtonList from "../AddButtonList/AddButtonList";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import TopHistoryNav from "../../TopNav/TopHistoryNav";
-import SelectBtn from "../../ChartPage/SelectBtn/SelectBtn";
+import { useHistory, useLocation } from "react-router-dom"
+import classes from "./AddSearchPage.module.css"
+import ListItemCheckBox from "../ListItemCheckBox/ListItemCheckBox"
+import AddButtonList from "../AddButtonList/AddButtonList"
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
+import SelectBtn from "../../ChartPage/SelectBtn/SelectBtn"
 import {
   registerSearchList,
   registerRecentList,
   initializeBasket,
   initializeItem,
-} from "../../../store/basketSlice";
-import { removeItem } from "../../../store/basketSlice";
+} from "../../../store/basketSlice"
+import { removeItem } from "../../../store/basketSlice"
 
-import { instance } from "../../../api/index";
+import { instance } from "../../../api/index"
 
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 
 function AddSearchPage() {
-  const location = useLocation();
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.user.accessToken);
-  const [searchTerm, setSearchTerm] = useState("");
-  const pickedList = useSelector((state) => state.basket.pickedList);
-  const searchList = useSelector((state) => state.basket.searchList);
-  const recentList = useSelector((state) => state.basket.recentList);
+  const location = useLocation()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const [searchTerm, setSearchTerm] = useState("")
+  const pickedList = useSelector((state) => state.basket.pickedList)
+  const searchList = useSelector((state) => state.basket.searchList)
+  const recentList = useSelector((state) => state.basket.recentList)
 
-  const mealtime = useSelector((state) => state.status.lastEntered);
-  const targetDate = useSelector((state) => state.daily.targetDate);
+  const mealtime = useSelector((state) => state.status.lastEntered)
+  const targetDate = useSelector((state) => state.daily.targetDate)
 
-  const MySwal = withReactContent(Swal);
+  const MySwal = withReactContent(Swal)
 
-  const [term, setTerm] = useState(0);
+  const [term, setTerm] = useState(0)
 
   useEffect(() => {
     instance
       .get("/food/recent", {})
       .then((response) => {
-        dispatch(registerRecentList(response.data));
+        dispatch(registerRecentList(response.data))
       })
-      .catch((error) => console.log(error));
-  }, []);
+      .catch((error) => console.log(error))
+  }, [])
 
   const onClickHandler = () => {
     if (searchTerm) {
@@ -55,10 +55,10 @@ function AddSearchPage() {
         })
         .then((response) => dispatch(registerSearchList(response.data)))
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
-  };
+  }
 
   async function registerPickedList() {
     await pickedList.map((item) => {
@@ -74,11 +74,11 @@ function AddSearchPage() {
           {}
         )
         .then((response) => {
-          console.log(response);
+          console.log(response)
         })
-        .catch((error) => console.log(error));
-    });
-    dispatch(initializeItem());
+        .catch((error) => console.log(error))
+    })
+    dispatch(initializeItem())
   }
 
   return (
@@ -86,7 +86,7 @@ function AddSearchPage() {
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {
-            dispatch(initializeBasket());
+            dispatch(initializeBasket())
           }}
         ></TopHistoryNav>
       </div>
@@ -102,7 +102,7 @@ function AddSearchPage() {
           <SelectBtn
             data={["음식 검색", "자주 먹은 음식"]}
             setValue={(value) => {
-              setTerm(value);
+              setTerm(value)
             }}
           ></SelectBtn>
         </div>
@@ -113,7 +113,7 @@ function AddSearchPage() {
           <input
             value={searchTerm}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
+              setSearchTerm(e.target.value)
             }}
             style={{
               width: "75vw",
@@ -134,7 +134,7 @@ function AddSearchPage() {
           </div>
         </div>
         <div style={{ overflow: "scroll", height: "60vh" }}>
-          {term == 0
+          {term === 0
             ? searchList.map((item) => {
                 return (
                   <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
@@ -144,7 +144,7 @@ function AddSearchPage() {
                       type={term}
                     ></ListItemCheckBox>
                   </div>
-                );
+                )
               })
             : recentList.map((item) => {
                 return (
@@ -155,7 +155,7 @@ function AddSearchPage() {
                       type={term}
                     ></ListItemCheckBox>
                   </div>
-                );
+                )
               })}
         </div>
       </div>
@@ -166,13 +166,13 @@ function AddSearchPage() {
               <div className={classes.pickedItem_title}>{item.name}</div>
               <div
                 onClick={() => {
-                  dispatch(removeItem(item));
+                  dispatch(removeItem(item))
                 }}
               >
                 <i className="fa-solid fa-x"></i>
               </div>
             </div>
-          );
+          )
         })}
       </div>
       <div
@@ -183,15 +183,15 @@ function AddSearchPage() {
               title: "선택한 음식이 없어요!",
               showConfirmButton: false,
               timer: 1500,
-            });
+            })
           } else {
-            registerPickedList();
+            registerPickedList()
             MySwal.fire({
               icon: "success",
               title: "성공적으로 등록했습니다!",
               showConfirmButton: false,
               timer: 1500,
-            });
+            })
           }
         }}
         className={classes.addButtonContainer}
@@ -200,7 +200,7 @@ function AddSearchPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  );
+  )
 }
 
-export default AddSearchPage;
+export default AddSearchPage

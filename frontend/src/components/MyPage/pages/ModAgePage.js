@@ -9,9 +9,9 @@ import { instance } from "../../../api/index"
 import { registerUserInfo } from "../../../store/userSlice"
 import { useHistory } from "react-router-dom"
 
-function ModHeightPage() {
+function ModAgePage() {
   const userInfo = useSelector((state) => state.user.userInfo)
-  const [height, setHeight] = useState(null)
+  const [age, setAge] = useState(null)
   const history = useHistory()
 
   const _userInfo = {
@@ -32,30 +32,32 @@ function ModHeightPage() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setHeight(userInfo.height)
+    setAge(userInfo.age)
   }, [userInfo])
 
   return (
     <div>
-      {height ? (
+      {age ? (
         <div>
           <div id="top_nav_area">
             <TopHistoryNav></TopHistoryNav>
           </div>
-          <div style={{ marginTop: "15vh", fontSize: "2.0rem" }}>키 수정</div>
+          <div style={{ marginTop: "15vh", fontSize: "2.0rem" }}>
+            (만)나이 수정
+          </div>
           <TheSlider
-            type={"height"}
-            range={[130, 210]}
-            value={height}
+            type={"age"}
+            range={[10, 80]}
+            value={age}
             setValue={(value) => {
-              setHeight(value)
+              setAge(value)
             }}
             term={0.5}
           />
           <div
             onClick={() => {
               instance
-                .put("/user", { ..._userInfo, height: height }, {})
+                .put("/user", { ..._userInfo, age: age }, {})
                 .then((response) => {
                   dispatch(registerUserInfo(response.data))
                   MySwal.fire({
@@ -77,4 +79,4 @@ function ModHeightPage() {
   )
 }
 
-export default ModHeightPage
+export default ModAgePage

@@ -54,51 +54,6 @@ function SignUpPage() {
       .catch((error) => {
         console.log(error)
       })
-    //   axios({
-    //     method: "get",
-    //     url: "https://j7a704.p.ssafy.io/api/v1/user",
-    //     headers: {
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   }).then((response) => {
-    //     dispatch(registerUserInfo(response.data))
-    //   })
-    //   history.push("/main")
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    // })
-    // axios
-    //   .put(
-    //     `https://j7a704.p.ssafy.io/api/v1/user`,
-    //     {
-    //       gender: userGender,
-    //       activityLevel: userActivity,
-    //       goal: userGoal,
-    //       weight: userWeight,
-    //       height: userHeight,
-    //       age: userAge,
-    //       isAutomatic: true,
-    //     },
-    //     {
-    //       headers: { Authorization: `Bearer ${accessToken}` },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     axios({
-    //       method: "get",
-    //       url: "https://j7a704.p.ssafy.io/api/v1/user",
-    //       headers: {
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }).then((response) => {
-    //       dispatch(registerUserInfo(response.data))
-    //     })
-    //     history.push("/main")
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
   }
 
   console.log(
