@@ -202,7 +202,6 @@ function AddCustomPage() {
       <div onClick={onClickHandler} className={classes.addButtonContainer}>
         <div className={classes.addButton}>저장하기</div>
       </div>
-      <AddButtonList></AddButtonList>
     </div>
   )
 }

@@ -1,6 +1,12 @@
 import "./App.css"
 
-import { Route, Switch, useHistory, useLocation } from "react-router-dom"
+import {
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  HashRouter,
+} from "react-router-dom"
 import { useEffect } from "react"
 import CalendarPage from "./pages/CalendarPage"
 import PlanPage from "./pages/PlanPage"
