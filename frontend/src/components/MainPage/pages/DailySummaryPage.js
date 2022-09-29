@@ -56,7 +56,7 @@ function DailySummaryPage(props) {
         {/* <MealSelectBtnList /> */}
         <NutrientChart dietSum={dietSum} />
         <NutrientProgressGraph userInfo={userInfo} dietSum={dietSum} />
-        <NutrientProgressBox />
+        <NutrientProgressBox userInfo={userInfo} dietSum={dietSum} />
         <UserInfoBox />
       </div>
     </div>

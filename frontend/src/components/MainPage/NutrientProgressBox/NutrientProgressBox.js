@@ -1,9 +1,42 @@
 import classes from "./NutrientProgressBox.module.css"
 import ReactApexChart from "react-apexcharts"
+import { useState, useEffect } from "react"
 
-function NutrientProgressBox() {
-  const plan = [1520, 160, 280, 100, 32, 2700, 300]
-  const now = [1100, 130, 320, 80, 16, 2400, 200]
+function NutrientProgressBox(props) {
+  const nutrient = [
+    "calorie",
+    "carb",
+    "protein",
+    "fat",
+    "sugar",
+    "salt",
+    "cholesterol",
+  ]
+  const [NutData, setNutData] = useState({
+    plan: Array.from({ length: 7 }, () => 0),
+    now: Array.from({ length: 7 }, () => 0),
+  })
+
+  useEffect(() => {
+    if (props.userInfo && props.dietSum) {
+      const temp = {
+        plan: [0, 0, 0, 0, 32, 2700, 300],
+        now: Array.from({ length: 7 }, () => 0),
+      }
+      temp.plan[0] = props.userInfo.dailyCalorie
+      temp.plan[1] = props.userInfo.dailyCarb
+      temp.plan[2] = props.userInfo.dailyProtein
+      temp.plan[3] = props.userInfo.dailyFat
+
+      const now_temp = Array.from({ length: 7 }, () => 0)
+      for (var i = 0; i < 7; i++) {
+        now_temp[i] = props.dietSum[nutrient[i]]
+      }
+      temp.now = now_temp
+      setNutData(temp)
+    }
+  }, [props.userInfo, props.dietSum])
+
   const title = [
     "열량 (kcal)",
     "탄수화물 (g)",
@@ -13,10 +46,11 @@ function NutrientProgressBox() {
     "나트륨 (mg)",
     "콜레스트롤 (mg)",
   ]
-  const dataSet = plan.map((value, idx) => {
+
+  const dataSet = NutData.plan.map((value, idx) => {
     return {
       x: title[idx],
-      y: Math.ceil((now[idx] / value) * 100),
+      y: Math.ceil((NutData.now[idx] / value) * 100),
       goals: [
         {
           name: "목표",
@@ -30,7 +64,7 @@ function NutrientProgressBox() {
     }
   })
 
-  const data = {
+  const [data, setData] = useState({
     series: [
       {
         name: "현재",
@@ -53,9 +87,7 @@ function NutrientProgressBox() {
       },
       colors: ["#7c83fd"],
       dataLabels: {
-        formatter: function (val, opt) {
-          return `${now[opt.dataPointIndex]} / ${plan[opt.dataPointIndex]}`
-        },
+        enabled: false,
       },
       legend: {
         show: false,
@@ -74,7 +106,38 @@ function NutrientProgressBox() {
         enabled: false,
       },
     },
-  }
+  })
+
+  useEffect(() => {
+    const temp = data
+    const temp_dataSet = NutData.plan.map((value, idx) => {
+      return {
+        x: title[idx],
+        y: Math.ceil((NutData.now[idx] / value) * 100),
+        goals: [
+          {
+            name: "목표",
+            value: 100,
+            strokeWidth: 6,
+            strokeHeight: 0,
+            strokeLineCap: "round",
+            strokeColor: "#00033f",
+          },
+        ],
+      }
+    })
+
+    temp.series[0].data = temp_dataSet
+    temp.options.dataLabels = {
+      formatter: function (val, opt) {
+        return `${NutData.now[opt.dataPointIndex]} / ${
+          NutData.plan[opt.dataPointIndex]
+        }`
+      },
+    }
+
+    setData(temp)
+  }, [NutData])
 
   return (
     <div className={`${classes.nutrient_box} box_shadow`}>
