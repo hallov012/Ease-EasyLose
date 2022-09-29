@@ -2,6 +2,7 @@ package com.easylose.backend.api.v1.service.impl;
 
 import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.domain.User;
+import com.easylose.backend.api.v1.dto.FoodDto.FoodBarCodeDto;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodUserDto;
 import com.easylose.backend.api.v1.mapper.FoodMapper;
@@ -11,6 +12,7 @@ import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.specification.FoodSpecification;
 import com.easylose.backend.api.v1.service.FoodService;
 import com.easylose.backend.util.BarCodeSearch;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,19 +48,39 @@ public class FoodServiceImpl implements FoodService {
     return response;
   }
 
-  public String getFoodByBarcode(Long id, String barcode) {
+  public List<FoodResponseDto> getFoodByBarcode(Long id, String barcode) {
     User user = userRepository.getReferenceById(id);
     Specification<Food> spec = (root, query, builder) -> null;
+    Pageable limit = PageRequest.of(0, 1, Direction.ASC, "name");
+
     if (barcode == null) {
       return null;
     }
     spec = spec.and(FoodSpecification.equalBarcode(barcode, user));
-    List<Food> list = foodRepository.findAll(spec);
-    if (list.isEmpty()) {
+    List<FoodResponseDto> dtoList =
+        foodMapper.toDtoAll(foodRepository.findAll(spec, limit).toList());
+    List<FoodResponseDto> response = new ArrayList<FoodResponseDto>();
+
+    if (dtoList.isEmpty()) {
       BarCodeSearch result = new BarCodeSearch();
-      return result.search(barcode);
+      String name = result.search(barcode);
+      if (name != null) {
+        Specification<Food> newSpec = (root, query, builder) -> null;
+        newSpec = newSpec.and(FoodSpecification.containName(name, user));
+        FoodBarCodeDto barCodeDto = FoodBarCodeDto.builder().barcode(barcode).build();
+        log.info("barcode dto :{}", barCodeDto);
+        Food food = foodRepository.findAll(newSpec, limit).toList().get(0);
+        if (food != null) {
+          foodMapper.updateFoodFromBarCodeDto(barCodeDto, food);
+          response.add(foodMapper.toDto(foodRepository.save(food)));
+        }
+      }
+    } else {
+      FoodResponseDto foodResponseDto = dtoList.get(0);
+      response.add(foodResponseDto);
+      log.info("barcode is existed");
     }
-    return null;
+    return response;
   }
 
   public List<FoodResponseDto> getRecentFood(Long id) {
@@ -74,26 +96,37 @@ public class FoodServiceImpl implements FoodService {
 
   public FoodResponseDto createFood(Long id, FoodUserDto dto) {
     User user = userRepository.getReferenceById(id);
-    dto.setUser(user);
-    return foodMapper.toDto(foodRepository.save(foodMapper.toEntity(dto)));
+    Food food = Food.builder().user(user).build();
+
+    foodMapper.updateFoodFromDto(dto, food);
+    foodRepository.save(food);
+
+    return foodMapper.toDto(food);
   }
 
-  @Override
   public FoodResponseDto updateFood(Long id, Long food_id, FoodUserDto dto) {
     User user = userRepository.getReferenceById(id);
     Food food = foodRepository.getReferenceById(food_id);
-    if (user == food.getUser()) {
-      foodMapper.updateFoodFromDto(dto, food);
+    if (user != food.getUser()) {
+      return null;
     }
-    return foodMapper.toDto(foodRepository.save(food));
+
+    foodMapper.updateFoodFromDto(dto, food);
+    foodRepository.save(food);
+
+    return foodMapper.toDto(food);
   }
 
-  @Override
-  public void deleteFood(Long id, Long food_id) {
+  public boolean deleteFood(Long id, Long food_id) {
     User user = userRepository.getReferenceById(id);
     Food food = foodRepository.getReferenceById(food_id);
-    if (user == food.getUser()) {
-      foodRepository.deleteById(food_id);
+
+    if (user != food.getUser()) {
+      return false;
     }
+
+    foodRepository.delete(food);
+
+    return true;
   }
 }

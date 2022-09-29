@@ -2,7 +2,7 @@ package com.easylose.backend.api.v1.service.impl;
 
 import com.easylose.backend.api.v1.domain.MeasureLog;
 import com.easylose.backend.api.v1.domain.User;
-import com.easylose.backend.api.v1.dto.MeasureLogDto.MeasureLogFormDto;
+import com.easylose.backend.api.v1.dto.MeasureLogDto.MeasureLogResponseDto;
 import com.easylose.backend.api.v1.mapper.MeasureLogMapper;
 import com.easylose.backend.api.v1.repository.MeasureLogRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
@@ -25,8 +25,7 @@ public class MeasureLogServiceImpl implements MeasureLogService {
   private final UserRepository userRepository;
   private final MeasureLogMapper measureLogMapper;
 
-  @Override
-  public List getMeasureLogAll(Long id, LocalDate start, LocalDate end) {
+  public List<MeasureLogResponseDto> getMeasureLogAll(Long id, LocalDate start, LocalDate end) {
     User user = userRepository.getReferenceById(id);
     LocalDateTime startDate = null;
     LocalDateTime endDate = null;
@@ -51,9 +50,10 @@ public class MeasureLogServiceImpl implements MeasureLogService {
       spec = spec.and(MeasureLogSpecification.betweenDate(startDate, endDate));
       spec = spec.and(MeasureLogSpecification.equalNutrient(false));
     }
-    List a = measureLogRepository.findAll(spec);
-    log.info("List: {}", a);
-    return a;
+    List<MeasureLog> measureLogs = measureLogRepository.findAll(spec);
+    log.info("List: {}", measureLogs);
+
+    return measureLogMapper.toResponseDtos(measureLogs);
   }
 
   //  @Override
@@ -87,18 +87,22 @@ public class MeasureLogServiceImpl implements MeasureLogService {
   //    return a;
   //  }
 
-  @Override
-  public void createMeasureLog(Long id) {
+  public MeasureLogResponseDto createMeasureLog(Long id) {
     User user = userRepository.getReferenceById(id);
-    MeasureLogFormDto formDto = new MeasureLogFormDto();
 
-    formDto.setWeight(user.getWeight());
-    formDto.setHeight(user.getHeight());
-    formDto.setUser(user);
-    formDto.setIsNutrient(false);
+    MeasureLog measureLog =
+        MeasureLog.builder()
+            .user(user)
+            .weight(user.getWeight())
+            .height(user.getHeight())
+            .isNutrient(false)
+            .build();
 
-    log.info("form dto : {}", formDto);
-    measureLogRepository.save(measureLogMapper.toEntity(formDto));
+    measureLogRepository.save(measureLog);
+
+    log.info("measureLog : {}", measureLog);
+
+    return measureLogMapper.toResponseDto(measureLog);
   }
 
   //  @Override

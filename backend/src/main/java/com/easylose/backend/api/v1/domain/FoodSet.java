@@ -1,8 +1,11 @@
 package com.easylose.backend.api.v1.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import lombok.*;
+import lombok.Builder.Default;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity // Entity 선언
@@ -19,11 +22,14 @@ public class FoodSet {
 
   @Id @GeneratedValue private Long id;
 
+  private String name;
+
   @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToMany(cascade = CascadeType.PERSIST)
-  @JoinColumn(name = "foodset_id")
-  private Set<FoodSetDetail> details;
+  @OneToMany(mappedBy = "foodSet", orphanRemoval = true)
+  @JsonManagedReference
+  @Default
+  private Set<FoodSetDetail> details = new HashSet<FoodSetDetail>();
 }

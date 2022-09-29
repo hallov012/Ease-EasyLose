@@ -1,6 +1,5 @@
 package com.easylose.backend.api.v1.controller;
 
-import com.easylose.backend.api.v1.dto.FoodDto;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.dto.FoodDto.FoodUserDto;
 import com.easylose.backend.api.v1.service.FoodService;
@@ -31,24 +30,25 @@ public class FoodController {
 
   @GetMapping("")
   @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
-  public ResponseEntity<Collection> getFoodByName(
+  public ResponseEntity<Collection<FoodResponseDto>> getFoodByName(
       @AuthenticationPrincipal Long id, @RequestParam(required = true) String name) {
-    Collection<FoodDto.FoodResponseDto> response = foodService.getFoodByName(id, name);
+    Collection<FoodResponseDto> response = foodService.getFoodByName(id, name);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  //  @GetMapping("/barcode")
-  //  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
-  //  public String getFoodByBarcode(
-  //      @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
-  //    String response = foodService.getFoodByBarcode(id, barcode);
-  //    //    return ResponseEntity.status(HttpStatus.OK).body(response);
-  //    return response;
-  //  }
+  @GetMapping("/barcode")
+  @Operation(summary = "음식 상세 정보", description = "음식 명으로 음식 상세 정보를 검색한다")
+  public ResponseEntity<Collection> getFoodByBarcode(
+      @AuthenticationPrincipal Long id, @RequestParam(required = true) String barcode) {
+    Collection response = foodService.getFoodByBarcode(id, barcode);
+    //    return ResponseEntity.status(HttpStatus.OK).body(response);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
 
   @GetMapping("/recent")
   @Operation(summary = "최근에 유저가 먹은 음식 리스트", description = "최근에 유저가 먹은 음식 중 상위 20개를 검색")
-  public ResponseEntity<Collection> getRecentFood(@AuthenticationPrincipal Long id) {
+  public ResponseEntity<Collection<FoodResponseDto>> getRecentFood(
+      @AuthenticationPrincipal Long id) {
     Collection<FoodResponseDto> response = foodService.getRecentFood(id);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
@@ -72,8 +72,9 @@ public class FoodController {
 
   @DeleteMapping("{food_id}")
   @Operation(summary = "유저 커스텀 음식 삭제", description = "요청을 보내는 유저의 커스텀 음식을 삭제한다")
-  public ResponseEntity deleteFood(@AuthenticationPrincipal Long id, @PathVariable Long food_id) {
-    foodService.deleteFood(id, food_id);
-    return ResponseEntity.status(HttpStatus.OK).body(null);
+  public ResponseEntity<Boolean> deleteFood(
+      @AuthenticationPrincipal Long id, @PathVariable Long food_id) {
+    boolean response = foodService.deleteFood(id, food_id);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }

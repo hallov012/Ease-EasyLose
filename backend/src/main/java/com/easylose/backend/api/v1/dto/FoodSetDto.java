@@ -1,9 +1,9 @@
 package com.easylose.backend.api.v1.dto;
 
+import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.enums.MealType;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.*;
 import lombok.*;
 
 public class FoodSetDto {
@@ -14,7 +14,17 @@ public class FoodSetDto {
   @ToString
   public static class FoodSetResponseDto {
     private Long id;
+    private String name;
     private Map<MealType, List<FoodSetDetailResponseDto>> details;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class FoodSetRequestDto {
+    private String name;
   }
 
   @AllArgsConstructor
@@ -25,7 +35,7 @@ public class FoodSetDto {
   public static class FoodSetDetailResponseDto {
     private Long id;
     private Float count;
-    private FoodDto.FoodResponseDto food;
+    private FoodResponseDto food;
   }
 
   @AllArgsConstructor
@@ -33,7 +43,9 @@ public class FoodSetDto {
   @Getter
   @Setter
   @ToString
-  public static class FoodSetRequestDto {
+  public static class FoodSetDetailRequestDto {
     private MealType mealType;
+    private Long foodId;
+    private Float count;
   }
 }
