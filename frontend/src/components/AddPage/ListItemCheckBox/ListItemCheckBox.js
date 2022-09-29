@@ -1,22 +1,23 @@
-import { useLocation, useHistory } from "react-router-dom"
-import classes from "./ListItemCheckBox.module.css"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useLocation, useHistory } from "react-router-dom";
+import classes from "./ListItemCheckBox.module.css";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
-function ListItemCheckBox({ foodInfo, selected }) {
-  const location = useLocation()
-  const history = useHistory()
-  const [added, setAdded] = useState(selected)
-  const dispatch = useDispatch()
+function ListItemCheckBox({ foodInfo, selected, type }) {
+  const location = useLocation();
+  const history = useHistory();
+  const [added, setAdded] = useState(selected);
+  const dispatch = useDispatch();
 
   const onClickHandler = () => {
     if (added) {
-      setAdded(false)
+      setAdded(false);
     } else {
-      history.push("/add/amount", { foodInfo: foodInfo })
-      setAdded(true)
+      history.push("/add/amount", { foodInfo: foodInfo, type: type });
+      setAdded(true);
     }
-  }
+  };
 
   return (
     <div
@@ -30,12 +31,15 @@ function ListItemCheckBox({ foodInfo, selected }) {
       <div className={classes.right}>
         <div
           onClick={() => {
-            history.push("/add/detail", { foodInfo: foodInfo })
+            history.push("/add/detail", { foodInfo: foodInfo });
           }}
         >
           <i className="fa-regular fa-circle-question"></i>
         </div>
-        <div onClick={onClickHandler}>
+        <div
+          style={{ color: "var(--main-color)", fontSize: "1.8rem" }}
+          onClick={onClickHandler}
+        >
           <i className="fa-regular fa-square-plus"></i>
         </div>
       </div>
@@ -105,7 +109,7 @@ function ListItemCheckBox({ foodInfo, selected }) {
     //     </div>
     //   </div>
     // </div>
-  )
+  );
 }
 
-export default ListItemCheckBox
+export default ListItemCheckBox;

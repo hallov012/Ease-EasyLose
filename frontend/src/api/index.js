@@ -22,7 +22,6 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   async (res) => {
-    console.log(res)
     if (res.headers["access-token"]) {
       localStorage.setItem("accessToken", res.headers["access-token"])
       console.log(`accessToken was changed to ${res.headers["access-token"]}`)

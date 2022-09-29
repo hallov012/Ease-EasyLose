@@ -1,11 +1,11 @@
-import classes from "./AddBarcodePage.module.css"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import Html5QrcodePlugin from "../BarcodeComponent/Html5QrcodeScannerPlugin"
+import classes from "./AddBarcodePage.module.css";
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import Html5QrcodePlugin from "../BarcodeComponent/Html5QrcodeScannerPlugin";
 
 function AddBarcodePage() {
   function onScanSuccess(decodedText, decodedResult) {
     // handle the scanned code as you like, for example:
-    console.log(`Code matched = ${decodedText}`, decodedResult)
+    console.log(`Code matched = ${decodedText}`, decodedResult);
   }
 
   return (
@@ -15,14 +15,14 @@ function AddBarcodePage() {
       </div>
       <div className={classes.container}>
         <Html5QrcodePlugin
-          fps={30}
+          fps={60}
           qrbox={{ width: 300, height: 150 }}
           disableFlip={false}
           qrCodeSuccessCallback={onScanSuccess}
         ></Html5QrcodePlugin>
       </div>
     </div>
-  )
+  );
 }
 
-export default AddBarcodePage
+export default AddBarcodePage;
