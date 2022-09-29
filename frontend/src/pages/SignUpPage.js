@@ -194,13 +194,14 @@ function SignUpPage() {
                 setValue={(value) => {
                   setUserGoal(value)
                 }}
-                putUserInfo={() => {
-                  putUserInfo()
-                }}
               ></GoalPicker>
             </Route>
             <Route path="/signup/complete">
-              <PickComplete></PickComplete>
+              <PickComplete
+                putUserInfo={() => {
+                  putUserInfo()
+                }}
+              ></PickComplete>
             </Route>
           </Switch>
         </div>

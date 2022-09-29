@@ -3,9 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons"
 import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { useEffect } from "react"
 
-function PickComplete(props) {
+function PickComplete({ putUserInfo }) {
   const history = useHistory()
+  useEffect(() => {
+    putUserInfo()
+  })
   const userInfo = useSelector((state) => state.user.userInfo)
   console.log(userInfo)
   return (
