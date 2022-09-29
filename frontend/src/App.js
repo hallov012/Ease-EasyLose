@@ -15,47 +15,23 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 
 import BottomNav from "./components/BottomNav/BottomNav"
-import { registerAccessToken, registerUserInfo } from "./store/userSlice"
+import { registerUserInfo } from "./store/userSlice"
 import { instance } from "./api"
 
 function App() {
   const location = useLocation().pathname
-  // const tokens = JSON.parse(localStorage.getItem("tokens"))
   const dispatch = useDispatch()
-
-  const accessToken = useSelector((state) => state.user.accessToken)
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const history = useHistory()
-
-  // useEffect(() => {
-  //   if (tokens && tokens.accessToken && tokens.refreshToken) {
-  //     dispatch(registerAccessToken([tokens.accessToken, tokens.refreshToken]))
-  //   }
-  // }, [dispatch])
-
-  // console.log(accessToken)
+  console.log("app render")
 
   useEffect(() => {
+    console.log("in app get user api")
     instance
-      .get("user", {})
+      .get("/user", {})
       .then((response) => {
-        console.log(response.data)
         dispatch(registerUserInfo(response.data))
       })
       .catch((error) => console.log(error))
-    // if (accessToken) {
-    //   axios
-    //     .get(`https://j7a704.p.ssafy.io/api/v1/user`, {
-    //       headers: { Authorization: `Bearer ${accessToken}` },
-    //     })
-    //     .then((response) => {
-    //       dispatch(registerUserInfo(response.data))
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
-  }, [dispatch])
+  }, [])
 
   function renderBottomNav() {
     if (
@@ -82,6 +58,9 @@ function App() {
         <Route path="/signup">
           <SignUpPage></SignUpPage>
         </Route>
+        <Route path="/mypage">
+          <MyPage></MyPage>
+        </Route>
         <Route path="/main">
           <MainPage></MainPage>
         </Route>
@@ -94,9 +73,7 @@ function App() {
         <Route path="/chart">
           <ChartPage></ChartPage>
         </Route>
-        <Route path="/mypage">
-          <MyPage></MyPage>
-        </Route>
+
         <Route path="/add">
           <AddPage></AddPage>
         </Route>

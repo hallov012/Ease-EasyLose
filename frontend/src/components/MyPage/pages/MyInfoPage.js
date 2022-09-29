@@ -1,6 +1,8 @@
-import classes from "./MyInfoPage.module.css";
+import { useSelector } from "react-redux"
+import classes from "./MyInfoPage.module.css"
 
-function MyInfoPage({ userInfo }) {
+function MyInfoPage() {
+  const userInfo = useSelector((state) => state.user.userInfo)
   return (
     <div className={classes.container}>
       <div className={classes.title}>마이페이지</div>
@@ -16,7 +18,7 @@ function MyInfoPage({ userInfo }) {
           <div className={classes.userinfo}>
             <div className={classes.user_info_item}>
               <div>나이</div>
-              <div>{userInfo.birthdate}</div>
+              <div>{userInfo.age}</div>
             </div>
             <div className={classes.user_info_item}>
               <div>체중</div>
@@ -62,7 +64,7 @@ function MyInfoPage({ userInfo }) {
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
       </div>
     </div>
-  );
+  )
 }
 
-export default MyInfoPage;
+export default MyInfoPage

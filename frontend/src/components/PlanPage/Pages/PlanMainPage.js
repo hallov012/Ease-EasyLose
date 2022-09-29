@@ -8,11 +8,11 @@ import classes from "./PlanMainPage.module.css"
 function PlanMainPage() {
   const [term, setTerm] = useState(0)
   const dispatch = useDispatch()
-  //   const oneMealList = useSelector((state) => state.plan.oneMealList)
-  //   const dailyMealList = useSelector((state) => state.plan.dailyMealList)
+  const oneMealList = useSelector((state) => state.plan.oneMealList)
+  const dailyMealList = useSelector((state) => state.plan.dailyMealList)
 
-  const oneMealList = [1, 2]
-  const dailyMealList = [1, 2]
+  // const oneMealList = [1, 2]
+  // const dailyMealList = [1, 2]
 
   useEffect(() => {}, [])
 

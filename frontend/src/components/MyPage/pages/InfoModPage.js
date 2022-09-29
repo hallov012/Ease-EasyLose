@@ -1,20 +1,21 @@
-import classes from "./InfoModPage.module.css";
-import TopNav from "../../TopNav/TopNav";
-import NutrientChart from "../../MainPage/NutrientChart/NutrientChart";
-import { NavLink } from "react-router-dom";
+import classes from "./InfoModPage.module.css"
+import NutrientChart from "../../MainPage/NutrientChart/NutrientChart"
+import { NavLink } from "react-router-dom"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 function InfoModPage({ userInfo }) {
+  console.log(userInfo)
   return (
     <div>
       <div id="top_nav_area">
-        <TopNav text="" arrow={["/mypage", ""]}></TopNav>
+        <TopHistoryNav></TopHistoryNav>
       </div>
       <div className={classes.container}>
         <div className={classes.mod_list}>
           <div className={classes.mod_item}>
             <div>나이</div>
             <div className={classes.value_and_button}>
-              <div>{userInfo.birthdate}세</div>
+              <div>{userInfo.age}세</div>
               <div style={{ marginLeft: "2vw" }}>
                 <i className="fa-solid fa-chevron-right"></i>
               </div>
@@ -85,7 +86,7 @@ function InfoModPage({ userInfo }) {
         </NavLink>
       </div>
     </div>
-  );
+  )
 }
 
-export default InfoModPage;
+export default InfoModPage
