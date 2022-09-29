@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#b1e1ff",
+      main: "rgb(248, 40, 72, .5)",
     },
   },
 })
@@ -24,75 +24,71 @@ function ProgressList(props) {
 
   return (
     <div className={classes.progress_box}>
-      {/* 탄수화물 */}
-      <div className={classes.progress_item}>
-        <div className={classes.nutrient_text}>탄수화물</div>
-        <div className={classes.linear_progress}>
-          <LinearProgress
-            variant="determinate"
-            value={progress_value[0]}
-            color="inherit"
-          />
-        </div>
-        <div className={classes.circular_progress}>
-          <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        {/* 탄수화물 */}
+        <div className={classes.progress_item}>
+          <div className={classes.nutrient_text}>탄수화물</div>
+          <div className={classes.linear_progress}>
+            <LinearProgress
+              variant="determinate"
+              value={progress_value[0] <= 100 ? progress_value[0] : 100}
+              color={progress_value[0] <= 100 ? "inherit" : "primary"}
+            />
+          </div>
+          <div className={classes.circular_progress}>
             <CircularProgress
               variant="determinate"
-              value={progress_value[0]}
-              color="inherit"
+              value={progress_value[0] <= 100 ? progress_value[0] : 100}
+              color={progress_value[0] <= 100 ? "inherit" : "primary"}
               thickness="2.5"
             />
-          </ThemeProvider>
-          <span className={classes.percent_text}>{progress_value[0]}%</span>
-          <div className={classes.inner_circle}></div>
+            <span className={classes.percent_text}>{progress_value[0]}%</span>
+            <div className={classes.inner_circle}></div>
+          </div>
         </div>
-      </div>
-      {/* 단백질 */}
-      <div className={classes.progress_item}>
-        <div className={classes.nutrient_text}>단백질</div>
-        <div className={classes.linear_progress}>
-          <LinearProgress
-            variant="determinate"
-            value={progress_value[1]}
-            color="inherit"
-          />
-        </div>
-        <div className={classes.circular_progress}>
-          <ThemeProvider theme={theme}>
+        {/* 단백질 */}
+        <div className={classes.progress_item}>
+          <div className={classes.nutrient_text}>단백질</div>
+          <div className={classes.linear_progress}>
+            <LinearProgress
+              variant="determinate"
+              value={progress_value[1] <= 100 ? progress_value[1] : 100}
+              color={progress_value[1] <= 100 ? "inherit" : "primary"}
+            />
+          </div>
+          <div className={classes.circular_progress}>
             <CircularProgress
               variant="determinate"
-              value={progress_value[1]}
-              color="inherit"
+              value={progress_value[1] <= 100 ? progress_value[1] : 100}
+              color={progress_value[1] <= 100 ? "inherit" : "primary"}
               thickness="2.5"
             />
-          </ThemeProvider>
-          <span className={classes.percent_text}>{progress_value[1]}%</span>
-          <div className={classes.inner_circle}></div>
+            <span className={classes.percent_text}>{progress_value[1]}%</span>
+            <div className={classes.inner_circle}></div>
+          </div>
         </div>
-      </div>
-      {/* 지방 */}
-      <div className={classes.progress_item}>
-        <div className={classes.nutrient_text}>지방</div>
-        <div className={classes.linear_progress}>
-          <LinearProgress
-            variant="determinate"
-            value={progress_value[2]}
-            color="inherit"
-          />
-        </div>
-        <div className={classes.circular_progress}>
-          <ThemeProvider theme={theme}>
+        {/* 지방 */}
+        <div className={classes.progress_item}>
+          <div className={classes.nutrient_text}>지방</div>
+          <div className={classes.linear_progress}>
+            <LinearProgress
+              variant="determinate"
+              value={progress_value[2] <= 100 ? progress_value[2] : 100}
+              color={progress_value[2] <= 100 ? "inherit" : "primary"}
+            />
+          </div>
+          <div className={classes.circular_progress}>
             <CircularProgress
               variant="determinate"
-              value={progress_value[2]}
-              color="inherit"
+              value={progress_value[2] <= 100 ? progress_value[2] : 100}
+              color={progress_value[2] <= 100 ? "inherit" : "primary"}
               thickness="2.5"
             />
-          </ThemeProvider>
-          <span className={classes.percent_text}>{progress_value[2]}%</span>
-          <div className={classes.inner_circle}></div>
+            <span className={classes.percent_text}>{progress_value[2]}%</span>
+            <div className={classes.inner_circle}></div>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     </div>
   )
 }

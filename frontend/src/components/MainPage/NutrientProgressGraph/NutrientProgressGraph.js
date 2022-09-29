@@ -1,7 +1,23 @@
 import classes from "./NutrientProgressGraph.module.css"
 import ReactApexChart from "react-apexcharts"
+import { useState, useEffect } from "react"
 
-function NutrientProgressGraph() {
+function NutrientProgressGraph(props) {
+  const userInfo = props.userInfo
+  const dietSum = props.dietSum
+  const [value, setValue] = useState([0, 0, 0, 0])
+
+  useEffect(() => {
+    if (userInfo && dietSum) {
+      const temp = [0, 0, 0, 0]
+      temp[0] = Math.ceil((dietSum.calorie / userInfo.dailyCalorie) * 100)
+      temp[1] = Math.ceil((dietSum.carb / userInfo.dailyCarb) * 100)
+      temp[2] = Math.ceil((dietSum.protein / userInfo.dailyProtein) * 100)
+      temp[3] = Math.ceil((dietSum.fat / userInfo.dailyFat) * 100)
+      setValue(temp)
+    }
+  }, [userInfo, dietSum])
+
   const data = {
     series: [
       {
@@ -10,7 +26,7 @@ function NutrientProgressGraph() {
       },
       {
         name: "현재",
-        data: [76, 85, 101, 98],
+        data: value,
       },
     ],
     responsive: [

@@ -41,7 +41,7 @@ function MealCardItem(props) {
           <span>{value.percent}%</span>
           <LinearProgress
             variant="determinate"
-            value={value.percent}
+            value={value.percent > 100 ? 100 : value.percent}
             color="inherit"
           />
         </div>

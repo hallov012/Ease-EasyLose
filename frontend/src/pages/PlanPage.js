@@ -1,13 +1,26 @@
-import TopNavDate from "../components/TopNav/TopNavDate"
+import { useEffect } from "react"
+import { Route } from "react-router-dom"
+import PlanMainPage from "../components/PlanPage/Pages/PlanMainPage"
+import { instance } from "../api/index"
+import { useDispatch } from "react-redux"
+import { registerDailyMealList, registerOneMealList } from "../store/planSlice"
 
 function PlanPage() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    instance
+      .get("/foodset", {})
+      .then((response) => {
+        dispatch(registerDailyMealList(response.data))
+      })
+      .catch((error) => console.log(error))
+  }, [])
+
   return (
     <div>
-      <div id="top_nav_area">
-        {/* <TopNav text={"2022.09.15 (목)"} arrow={[0, 1]} /> */}
-        {/* <TopNavDate /> */}
-      </div>
-      <h1>Welcome to PlanPage</h1>
+      <Route path="/plan" exact>
+        <PlanMainPage></PlanMainPage>
+      </Route>
     </div>
   )
 }

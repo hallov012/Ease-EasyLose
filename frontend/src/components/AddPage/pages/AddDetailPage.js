@@ -1,13 +1,14 @@
-import classes from "./AddDetailPage.module.css"
-import TopNav from "../../TopNav/TopNav"
-import { useRef } from "react"
-import AddButtonList from "../AddButtonList/AddButtonList"
-import { useHistory } from "react-router-dom"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
+import classes from "./AddDetailPage.module.css";
+import TopNav from "../../TopNav/TopNav";
+import { useRef } from "react";
+import AddButtonList from "../AddButtonList/AddButtonList";
+import { useHistory } from "react-router-dom";
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
 
 function AddDetailPage() {
-  const history = useHistory()
-  const foodInfo = history.location.state.foodInfo
+  const history = useHistory();
+  const foodInfo = history.location.state.foodInfo;
+  console.log(foodInfo);
   return (
     <div>
       <div id="top_nav_area">
@@ -25,20 +26,12 @@ function AddDetailPage() {
               {foodInfo.name}
             </div>
           </div>
-          <div
-            style={{
-              fontSize: 40,
-              color: "var(--main-color)",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <i class="fa-regular fa-circle-check"></i>
-          </div>
         </div>
         <div>
           <div className={classes.header2}>
-            <div style={{ fontSize: 14, marginBottom: "1vh" }}>1회분</div>
+            <div style={{ fontSize: 14, marginBottom: "1vh" }}>
+              {foodInfo.total_amount}
+            </div>
             <div style={{ fontSize: 18, fontWeight: 700 }}>영양정보</div>
           </div>
           <div className={classes.itemList}>
@@ -115,7 +108,7 @@ function AddDetailPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  )
+  );
 }
 
-export default AddDetailPage
+export default AddDetailPage;
