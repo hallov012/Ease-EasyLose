@@ -13,11 +13,12 @@ import { useState, useEffect } from "react"
 function MealSummaryPage(props) {
   const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+
   const [value, setValue] = useState({
     dietSum: undefined,
     foodList: undefined,
   })
-  console.log(props.userDailyDiet)
+  // console.log(props.userDailyDiet)
 
   const params = useParams()
   const meal = {
@@ -26,15 +27,17 @@ function MealSummaryPage(props) {
     DINNER: "저녁",
     SNACK: "간식",
   }
-  const mealtime = params.mealtime
   const dispatch = useDispatch()
-  dispatch(registerLastEntered(mealtime))
+
+  useEffect(() => {
+    dispatch(registerLastEntered(params.mealtime))
+  }, [params, dispatch])
 
   useEffect(() => {
     if (userDailyDiet) {
       const temp = { dietSum: undefined, foodList: undefined }
-      temp.dietSum = userDailyDiet[0].sums[mealtime]
-      temp.foodList = userDailyDiet[0].details[mealtime]
+      temp.dietSum = userDailyDiet[0].sums[params.mealtime]
+      temp.foodList = userDailyDiet[0].details[params.mealtime]
       setValue(temp)
     }
   }, [userDailyDiet])
@@ -42,7 +45,7 @@ function MealSummaryPage(props) {
   return (
     <div>
       <div id="top_nav_area">
-        <TopNav text={meal[mealtime]} arrow={["/main", 0]} />
+        <TopNav text={meal[params.mealtime]} arrow={["/main", 0]} />
       </div>
       <div
         style={{

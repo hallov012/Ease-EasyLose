@@ -6,42 +6,40 @@ import DailySummaryPage from "../components/MainPage/pages/DailySummaryPage"
 import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage"
 
 import { useDispatch, useSelector } from "react-redux"
-import { registerTargetDate, registerDailyDiet } from "../store/dailySlice"
+import { registerDailyDiet } from "../store/dailySlice"
 import { instance } from "../api/index"
+
+import dateFormat, { masks } from "dateformat"
 
 function MainPage() {
   const dispatch = useDispatch()
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
-  const tempDate = useSelector((state) => state.daily.targetDate)
+  const target_date = JSON.parse(
+    useSelector((state) => state.status.targetDate)
+  )
 
-  console.log(tempDate)
-
-  if (userDailyDiet) {
-    const mealData = userDailyDiet[0]
-  }
-
-  const [targetDate, setTartgetDate] = useState(undefined)
   useEffect(() => {
-    if (tempDate) {
+    if (target_date) {
       instance
-        .get("/dailymeal", { params: { date: tempDate } })
+        .get("/dailymeal", {
+          params: { date: dateFormat(target_date, "yyyy-mm-dd") },
+        })
         .then((response) => {
-          console.log(response)
           dispatch(registerDailyDiet(response.data))
         })
         .catch((error) => {
           console.log(error)
         })
     }
-  }, [tempDate, dispatch])
+  }, [target_date, dispatch])
 
   return (
     <div>
       <Route path="/main" exact>
-        <DailyDietPage setValue={(value) => setTartgetDate(value)} />
+        <DailyDietPage />
       </Route>
       <Route path="/main/summary" exact>
-        <DailySummaryPage date={targetDate} />
+        <DailySummaryPage />
       </Route>
       <Route path="/main/meal/:mealtime">
         <MealSummaryPage userDailyDiet={userDailyDiet} />
