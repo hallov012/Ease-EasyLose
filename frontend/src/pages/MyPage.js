@@ -1,10 +1,12 @@
-import TopNavDate from "../components/TopNav/TopNavDate"
 import { Route } from "react-router-dom"
 import MyInfoPage from "../components/MyPage/pages/MyInfoPage"
 import InfoModPage from "../components/MyPage/pages/InfoModPage"
 import { useSelector } from "react-redux"
 import ModWeightPage from "../components/MyPage/pages/ModWeightPage"
 import ModHeightPage from "../components/MyPage/pages/ModHeightPage"
+import ModAgePage from "../components/MyPage/pages/ModAgePage"
+import ModGoalPage from "../components/MyPage/pages/ModGoalPage"
+import ModActivityLevelPage from "../components/MyPage/pages/ModActivityLevelPage"
 function MyPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   console.log("mypage" + userInfo)
@@ -16,15 +18,21 @@ function MyPage() {
       <Route path="/mypage/mod" exact>
         <InfoModPage></InfoModPage>
       </Route>
-      <Route></Route>
-      <Route></Route>
-      {/* <Route path="/mypage/mod/weight">
-        <ModWeightPage weight={userInfo.weight}></ModWeightPage>
+      <Route path="/mypage/mod/goal">
+        <ModGoalPage></ModGoalPage>
+      </Route>
+      <Route path="/mypage/mod/age">
+        <ModAgePage></ModAgePage>
+      </Route>
+      <Route path="/mypage/mod/weight">
+        <ModWeightPage></ModWeightPage>
       </Route>
       <Route path="/mypage/mod/height">
-        <ModHeightPage height={userInfo.height}></ModHeightPage>
-      </Route> */}
-      <Route></Route>
+        <ModHeightPage></ModHeightPage>
+      </Route>
+      <Route path="/mypage/mod/activity">
+        <ModActivityLevelPage></ModActivityLevelPage>
+      </Route>
     </div>
   )
 }

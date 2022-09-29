@@ -1,29 +1,82 @@
-import classes from "./ModWeightPage.module.css";
-import TopNav from "../../TopNav/TopNav";
-import { useState } from "react";
+import classes from "./ModHeightPage.module.css"
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
+import TheSlider from "../../SignUpPage/TheSlider/TheSlider"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+import { instance } from "../../../api/index"
+import { registerUserInfo } from "../../../store/userSlice"
+import { useHistory } from "react-router-dom"
 
-function ModWeightPage({ weight }) {
-  const [_weight, _setWeight] = useState(weight);
+function ModWeightPage() {
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const [weight, setWeight] = useState(null)
+  const history = useHistory()
+
+  const _userInfo = {
+    gender: userInfo.gender,
+    age: userInfo.age,
+    height: userInfo.height,
+    weight: userInfo.weight,
+    activityLevel: userInfo.activityLevel,
+    goal: userInfo.goal,
+    dailyCalorie: userInfo.dailyCalorie,
+    dailyCarb: userInfo.dailyCarb,
+    dailyProtein: userInfo.dailyProtein,
+    dailyFat: userInfo.dailyFat,
+    isAutomatic: true,
+  }
+
+  const MySwal = withReactContent(Swal)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setWeight(userInfo.weight)
+  }, [userInfo])
 
   return (
     <div>
-      <div id="top_nav_area">
-        <TopNav text="" arrow={["/mypage/mod", ""]}></TopNav>
-      </div>
-      <div className={classes.container}>
-        <div>몸무게 수정</div>
-        <div>맞춤 추천을 위한 정보를 요청드립니다!</div>
+      {weight ? (
         <div>
-          <input
-            value={_weight}
-            onChange={(e) => {
-              _setWeight(e.target.value);
+          <div id="top_nav_area">
+            <TopHistoryNav></TopHistoryNav>
+          </div>
+          <div style={{ marginTop: "15vh", fontSize: "2.0rem" }}>
+            몸무게 수정
+          </div>
+          <TheSlider
+            type={"weight"}
+            range={[30, 120]}
+            value={weight}
+            setValue={(value) => {
+              setWeight(value)
             }}
-          ></input>
+            term={0.5}
+          />
+          <div
+            onClick={() => {
+              instance
+                .put("/user", { ..._userInfo, weight: weight }, {})
+                .then((response) => {
+                  dispatch(registerUserInfo(response.data))
+                  MySwal.fire({
+                    icon: "success",
+                    title: "성공적으로 수정되었습니다!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  })
+                  history.goBack()
+                })
+            }}
+            className={classes.addButtonContainer}
+          >
+            <div className={classes.addButton}>수정하기</div>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
-  );
+  )
 }
 
-export default ModWeightPage;
+export default ModWeightPage

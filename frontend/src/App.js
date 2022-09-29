@@ -24,14 +24,14 @@ function App() {
   console.log("app render")
 
   useEffect(() => {
-    console.log("in app get user api")
     instance
       .get("/user", {})
       .then((response) => {
+        console.log("dispatch!!")
         dispatch(registerUserInfo(response.data))
       })
       .catch((error) => console.log(error))
-  }, [])
+  }, [dispatch])
 
   function renderBottomNav() {
     if (
@@ -73,7 +73,6 @@ function App() {
         <Route path="/chart">
           <ChartPage></ChartPage>
         </Route>
-
         <Route path="/add">
           <AddPage></AddPage>
         </Route>

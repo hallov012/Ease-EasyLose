@@ -13,8 +13,6 @@ function MainPage() {
   const dispatch = useDispatch()
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
   const tempDate = useSelector((state) => state.daily.targetDate)
-  const userInfo = useSelector((state) => state.user.userInfo)
-  console.log("main" + userInfo)
 
   console.log(tempDate)
 
