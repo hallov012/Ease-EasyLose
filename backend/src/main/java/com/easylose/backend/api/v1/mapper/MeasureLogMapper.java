@@ -4,16 +4,13 @@ import com.easylose.backend.api.v1.domain.MeasureLog;
 import com.easylose.backend.api.v1.dto.MeasureLogDto.MeasureLogResponseDto;
 import java.util.List;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface MeasureLogMapper {
+public abstract class MeasureLogMapper {
 
-  MeasureLogMapper INSTANCE = Mappers.getMapper(MeasureLogMapper.class);
+  public abstract MeasureLogResponseDto toResponseDto(MeasureLog measureLog);
 
-  MeasureLogResponseDto toResponseDto(MeasureLog measureLog);
+  public abstract List<MeasureLogResponseDto> toResponseDtoAll(List<MeasureLog> measureLogs);
 
-  List<MeasureLogResponseDto> toResponseDtoAll(List<MeasureLog> measureLogs);
-  //  MeasureLog fromNutrientToEntity(final NutrientLogFormDto formDto);
-
+  //  public List<AnalysisResponseDto> toAnalysisDtoAll(List<DailyMealLog> dailyMealLogs)
 }

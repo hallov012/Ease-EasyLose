@@ -52,11 +52,11 @@ public class AnalysisController {
   //  @Operation(
   //      summary = "유저 섭취 영양소 분석",
   //      description = "시작일자와 종료일자 사이의 일일 섭취 영양소 전송 / 날짜 입력 형식 : yyyy-mm-dd")
-  //  public ResponseEntity<Collection<MeasureLogResponseDto>> getDailyRecord(
+  //  public ResponseEntity<Collection<AnalysisResponseDto>> getDailyHistory(
   //      @AuthenticationPrincipal Long id,
   //      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
   //      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
-  //    Collection<MeasureLogResponseDto> response = analysisService.getDailyRecord(id, start, end);
+  //    Collection<AnalysisResponseDto> response = analysisService.getDailyHistory(id, start, end);
   //    return ResponseEntity.status(HttpStatus.OK).body(response);
   //  }
 }

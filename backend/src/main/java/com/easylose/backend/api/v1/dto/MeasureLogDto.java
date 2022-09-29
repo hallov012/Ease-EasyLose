@@ -1,5 +1,6 @@
 package com.easylose.backend.api.v1.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,24 @@ public class MeasureLogDto {
     private Integer dailyCarb;
     private Integer dailyProtein;
     private Integer dailyFat;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class AnalysisResponseDto {
+    private LocalDate date;
+
+    private float totalCalorie;
+    private float totalCarb;
+    private float totalProtein;
+    private float totalFat;
+
+    private float dailyCalorie;
+    private float dailyCarb;
+    private float dailyProtein;
+    private float dailyFat;
   }
 }
