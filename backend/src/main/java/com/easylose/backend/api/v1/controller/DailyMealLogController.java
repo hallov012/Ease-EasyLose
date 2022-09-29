@@ -55,22 +55,11 @@ public class DailyMealLogController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  @DeleteMapping("/{dailymeal_id}")
+  @DeleteMapping("/{dailyMeal_id}")
   @Operation(summary = "유저가 먹은 음식 삭제", description = "유저가 먹은 음식 삭제")
   public ResponseEntity<Boolean> deleteDailyMeal(
       @AuthenticationPrincipal Long id, @PathVariable Long dailyMeal_id) {
     boolean response = dailyMealLogService.deleteDailyMeal(id, dailyMeal_id);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
-
-  //  @GetMapping("/calender}")
-  //  @ApiOperation(value = "유저가 먹은 음식 월별 조회", notes = "유저가 먹은 음식 월별 조회 / 날짜 입력 형식 : yyyy-mm")
-  //  public ResponseEntity<Collection> getDailyMealCalender(
-  //      @AuthenticationPrincipal Long id,
-  //      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
-  //    Collection<DailyMealResponseDto> response = dailyMealLogService.getDailyMealCalender(id,
-  // date);
-  //    log.info("response : {}", response);
-  //    return ResponseEntity.status(HttpStatus.OK).body(response);
-  //  }
 }
