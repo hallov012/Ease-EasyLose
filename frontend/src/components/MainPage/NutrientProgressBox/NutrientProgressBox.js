@@ -63,8 +63,7 @@ function NutrientProgressBox(props) {
       ],
     }
   })
-
-  const [data, setData] = useState({
+  const data = {
     series: [
       {
         name: "현재",
@@ -88,6 +87,11 @@ function NutrientProgressBox(props) {
       colors: ["#7c83fd"],
       dataLabels: {
         enabled: false,
+        // formatter: function (val, opt) {
+        //   return `${NutData.now[opt.dataPointIndex]} / ${
+        //     NutData.plan[opt.dataPointIndex]
+        //   }`
+        // },
       },
       legend: {
         show: false,
@@ -106,38 +110,7 @@ function NutrientProgressBox(props) {
         enabled: false,
       },
     },
-  })
-
-  useEffect(() => {
-    const temp = data
-    const temp_dataSet = NutData.plan.map((value, idx) => {
-      return {
-        x: title[idx],
-        y: Math.ceil((NutData.now[idx] / value) * 100),
-        goals: [
-          {
-            name: "목표",
-            value: 100,
-            strokeWidth: 6,
-            strokeHeight: 0,
-            strokeLineCap: "round",
-            strokeColor: "#00033f",
-          },
-        ],
-      }
-    })
-
-    temp.series[0].data = temp_dataSet
-    temp.options.dataLabels = {
-      formatter: function (val, opt) {
-        return `${NutData.now[opt.dataPointIndex]} / ${
-          NutData.plan[opt.dataPointIndex]
-        }`
-      },
-    }
-
-    setData(temp)
-  }, [NutData])
+  }
 
   return (
     <div className={`${classes.nutrient_box} box_shadow`}>
