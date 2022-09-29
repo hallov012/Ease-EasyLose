@@ -27,7 +27,7 @@ function TopNavDate() {
       <LocalizationProvider dateAdapter={AdapterDayjs} className="date">
         <MobileDatePicker
           value={target_date ? target_date : new Date()}
-          inputFormat="YYYY. MM. DD (dd)"
+          inputFormat="YYYY. MM. DD (ddd)"
           onChange={handleChange}
           renderInput={(params) => <TextField {...params} />}
         />
