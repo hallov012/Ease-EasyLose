@@ -10,13 +10,14 @@ import { registerLastEntered } from "../../../store/statusSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 
-function MealSummaryPage() {
+function MealSummaryPage(props) {
   const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
   const [value, setValue] = useState({
     dietSum: undefined,
     foodList: undefined,
   })
+  console.log(props.userDailyDiet)
 
   const params = useParams()
   const meal = {

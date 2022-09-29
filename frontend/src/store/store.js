@@ -1,8 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import basketSlice from "./basketSlice";
-import dailySlice from "./dailySlice";
-import statusSlice from "./statusSlice";
-import userSlice from "./userSlice";
+import { configureStore } from "@reduxjs/toolkit"
+import basketSlice from "./basketSlice"
+import dailySlice from "./dailySlice"
+import statusSlice from "./statusSlice"
+import userSlice from "./userSlice"
+import planSlice from "./planSlice"
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     daily: dailySlice,
     basket: basketSlice,
     status: statusSlice,
+    plan: planSlice,
   },
-});
+})

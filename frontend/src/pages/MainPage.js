@@ -11,9 +11,10 @@ import { instance } from "../api/index"
 
 function MainPage() {
   const dispatch = useDispatch()
-  const accessToken = useSelector((state) => state.user.accessToken)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
   const tempDate = useSelector((state) => state.daily.targetDate)
+
+  console.log(tempDate)
 
   if (userDailyDiet) {
     const mealData = userDailyDiet[0]
@@ -31,22 +32,8 @@ function MainPage() {
         .catch((error) => {
           console.log(error)
         })
-      // dispatch(registerTargetDate(tempDate))
-      // axios({
-      //   method: "get",
-      //   params: { date: tempDate },
-      //   url: "https://j7a704.p.ssafy.io/api/v1/dailymeal",
-      //   headers: { Authorization: `Bearer ${accessToken}` },
-      // })
-      //   .then((response) => {
-      //     console.log(response)
-      //     dispatch(registerDailyDiet(response.data))
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
     }
-  }, [tempDate])
+  }, [tempDate, dispatch])
 
   return (
     <div>
@@ -57,7 +44,7 @@ function MainPage() {
         <DailySummaryPage date={targetDate} />
       </Route>
       <Route path="/main/meal/:mealtime">
-        <MealSummaryPage />
+        <MealSummaryPage userDailyDiet={userDailyDiet} />
       </Route>
     </div>
   )
