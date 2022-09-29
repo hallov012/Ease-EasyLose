@@ -20,14 +20,14 @@ function PlanMainPage() {
     <div className={classes.container}>
       <div style={{ width: "90vw" }}>
         <SelectBtn
-          data={["한끼 모음", "하루 식단 모음"]}
+          data={["하루 식단 모음", "한끼 모음"]}
           setValue={(value) => {
             setTerm(value)
           }}
         ></SelectBtn>
       </div>
       <div className={classes.itemContainer}>
-        {term === 0
+        {term === 1
           ? oneMealList.map((item) => {
               return (
                 <div style={{ width: "90vw", height: "10vh" }}>
@@ -43,6 +43,8 @@ function PlanMainPage() {
               )
             })}
       </div>
+      <div className={`${classes.add_btn} gradient_color__horizon box_shadow`}>
+        추가하기</div>
     </div>
   )
 }
