@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import classes from "./GoalPicker.module.css"
 import { useHistory } from "react-router-dom"
 
-function GoalPicker({ setValue, value }) {
+function GoalPicker({ setValue, value, putUserInfo }) {
   const history = useHistory()
   const [selected, setSelected] = useState([false, false, false])
   useEffect(() => {
@@ -60,6 +60,7 @@ function GoalPicker({ setValue, value }) {
                 newArray[index] = true
                 return newArray
               })
+              putUserInfo()
               history.push("/signup/complete")
             }}
             className={selected[index] ? classes.pickedItem : classes.goalItem}

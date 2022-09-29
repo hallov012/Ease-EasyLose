@@ -1,8 +1,13 @@
 import classes from "./PickComplete.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons"
+import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 function PickComplete(props) {
+  const history = useHistory()
+  const userInfo = useSelector((state) => state.user.userInfo)
+  console.log(userInfo)
   return (
     <div className={classes.container}>
       <FontAwesomeIcon icon={faUserCheck} size="5x"></FontAwesomeIcon>
@@ -38,7 +43,7 @@ function PickComplete(props) {
             color: "white",
           }}
           onClick={() => {
-            props.putUserInfo()
+            history.push("/main")
           }}
         >
           시작하기
