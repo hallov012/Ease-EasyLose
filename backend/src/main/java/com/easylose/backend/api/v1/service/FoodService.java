@@ -7,7 +7,7 @@ import java.util.List;
 public interface FoodService {
   List<FoodResponseDto> getFoodByName(Long id, String name);
 
-  Collection getFoodByBarcode(Long id, String barcode);
+  List<FoodResponseDto> getFoodByBarcode(Long id, String barcode);
 
   List<FoodResponseDto> getRecentFood(Long id);
 
