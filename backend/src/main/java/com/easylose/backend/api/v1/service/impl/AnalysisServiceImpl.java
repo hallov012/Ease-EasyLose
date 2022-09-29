@@ -32,6 +32,7 @@ public class AnalysisServiceImpl implements AnalysisService {
   private final MeasureLogRepository measureLogRepository;
   private final UserRepository userRepository;
 
+  //  private final DailyMealLogRepository dailyMealLogRepository;
   private final WeightLogRepository weightLogRepository;
   private final MeasureLogMapper measureLogMapper;
   private final WeightLogMapper weightLogMapper;
@@ -81,4 +82,12 @@ public class AnalysisServiceImpl implements AnalysisService {
     WeightLog weightLog = WeightLog.builder().weight(user.getWeight()).user(user).build();
     return weightLogMapper.toResponseDto(weightLogRepository.save(weightLog));
   }
+
+  //  @Override
+  //  public List<AnalysisResponseDto> getDailyHistory(Long id, LocalDate start, LocalDate end) {
+  //    User user = userRepository.getReferenceById(id);
+  //    List<DailyMealLog> dailyMealLogs =
+  //        dailyMealLogRepository.findByUserDateBetween(user, start, end);
+  //    return measureLogMapper.toAnalysisDtoAll(dailyMealLogs);
+  //  }
 }
