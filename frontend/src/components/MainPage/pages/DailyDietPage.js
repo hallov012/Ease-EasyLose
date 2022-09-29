@@ -3,28 +3,18 @@ import NutrientSummary from "../NutrientSummary/NutrientSummary"
 import SumProgressBar from "../SumProgressBar/SumProgressBar"
 import MealCardList from "../MealCardList/MealCardList"
 
-import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 
-function DailyDietPage(props) {
+function DailyDietPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
-
-  const [date, setDate] = useState(undefined)
-  const [progressBarPercent, setProgressBarPercent] = useState([33, 33, 33])
-  const [progressBarAmount, setProgressBarAmount] = useState([50, 50, 50])
-  useEffect(() => {
-    props.setValue(date)
-  }, [date])
+  // const [progressBarPercent, setProgressBarPercent] = useState([33, 33, 33])
+  // const [progressBarAmount, setProgressBarAmount] = useState([50, 50, 50])
 
   return (
     <div>
       <div id="top_nav_area">
-        <TopNavDate
-          setValue={(value) => {
-            setDate(value)
-          }}
-        />
+        <TopNavDate />
       </div>
       <div style={{ margin: "10vh 5vw" }}>
         <NutrientSummary userInfo={userInfo} userDailyDiet={userDailyDiet} />
