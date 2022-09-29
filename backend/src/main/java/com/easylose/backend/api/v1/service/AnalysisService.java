@@ -14,4 +14,6 @@ public interface AnalysisService {
   MeasureLogResponseDto createMeasureLog(Long id);
 
   WeightResponseDto createWeightLog(Long id);
+
+  //  List<AnalysisResponseDto> getDailyHistory(Long id, LocalDate start, LocalDate end);
 }

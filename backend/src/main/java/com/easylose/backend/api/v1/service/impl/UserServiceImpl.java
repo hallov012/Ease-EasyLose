@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     boolean measureLog = false;
     boolean weight = false;
-    if (!user.getWeight().equals(requestDto.getWeight())) {
+    if (user.getWeight() == null || !user.getWeight().equals(requestDto.getWeight())) {
       weight = true;
     }
     if (user.getDailyCalorie() == null
