@@ -90,6 +90,7 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
     User user = userRepository.getReferenceById(id);
     DailyMealLog dailyMealLog = dailyMealLogRepository.getReferenceById(dailyMeal_id);
 
+    log.info("daily : {}", dailyMealLog);
     if (user != dailyMealLog.getUser()) {
       return false;
     }

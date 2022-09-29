@@ -7,19 +7,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-public class MeasureLogDto {
-
+public class WeightLogDto {
   @AllArgsConstructor
   @Builder
   @Getter
   @Setter
   @ToString
-  public static class MeasureLogResponseDto {
+  public static class WeightResponseDto {
     private Long id;
     private LocalDateTime createdAt;
-    private Integer dailyCalorie;
-    private Integer dailyCarb;
-    private Integer dailyProtein;
-    private Integer dailyFat;
+    private Float weight;
   }
 }

@@ -9,8 +9,12 @@ import org.springframework.data.jpa.domain.Specification;
 @Slf4j
 public class MeasureLogSpecification {
 
-  public static Specification<MeasureLog> equalUser(User user) {
-    return (root, query, builder) -> builder.equal(root.get("user"), user);
+  public static Specification<MeasureLog> equalUserAndDate(
+      User user, LocalDateTime start, LocalDateTime end) {
+    return (root, query, builder) ->
+        builder.and(
+            builder.equal(root.get("user"), user),
+            builder.between(root.get("createdAt"), start, end));
   }
 
   public static Specification<MeasureLog> betweenDate(
@@ -20,9 +24,5 @@ public class MeasureLogSpecification {
       log.info("{} {} {}", startDate, endDate, root.get("createdAt"));
       return builder.between(root.get("createdAt"), startDate, endDate);
     };
-  }
-
-  public static Specification<MeasureLog> equalNutrient(Boolean isN) {
-    return (root, query, builder) -> builder.equal(root.get("isNutrient"), isN);
   }
 }
