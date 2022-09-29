@@ -28,7 +28,7 @@ public class AnalysisController {
   @GetMapping("/weight")
   @Operation(
       summary = "유저 몸무게 변화 추이",
-      description = "시작일자와 종료일자 입력 시 해당 기간 내 유저의 변화한 키/몸무게를 알 수 있다. / 날짜 입령 형식 : yyyy-mm-dd")
+      description = "유저 생성날짜 ~ 입력 날짜 사이의 모든 몸무게 변화 로그 전송 / 날짜 입력 형식 : yyyy-mm-dd")
   public ResponseEntity<Collection<WeightResponseDto>> getWeightLog(
       @AuthenticationPrincipal Long id,
       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
@@ -36,7 +36,10 @@ public class AnalysisController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  @GetMapping("/daily")
+  @GetMapping("/dailyLog")
+  @Operation(
+      summary = "유저 데일리 기준 영양소 변화",
+      description = "시작일자와 종료일자 사이의 유저의 데일리 기준 영양소 변화 로그 전송 / 날짜 입력 형식 : yyyy-mm-dd")
   public ResponseEntity<Collection<MeasureLogResponseDto>> getMeasureLog(
       @AuthenticationPrincipal Long id,
       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
@@ -44,4 +47,16 @@ public class AnalysisController {
     Collection<MeasureLogResponseDto> response = analysisService.getMeasureLog(id, start, end);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
+
+  //  @GetMapping("/daily")
+  //  @Operation(
+  //      summary = "유저 섭취 영양소 분석",
+  //      description = "시작일자와 종료일자 사이의 일일 섭취 영양소 전송 / 날짜 입력 형식 : yyyy-mm-dd")
+  //  public ResponseEntity<Collection<MeasureLogResponseDto>> getDailyRecord(
+  //      @AuthenticationPrincipal Long id,
+  //      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
+  //      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
+  //    Collection<MeasureLogResponseDto> response = analysisService.getDailyRecord(id, start, end);
+  //    return ResponseEntity.status(HttpStatus.OK).body(response);
+  //  }
 }
