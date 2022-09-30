@@ -10,6 +10,7 @@ import com.easylose.backend.api.v1.service.CalendarService;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CalendarServiceImpl implements CalendarService {
   private final UserRepository userRepository;
   private final CalendarMapper calendarMapper;
 
-  public List<CalendarResponseDto> getCalendar(Long id, YearMonth yearMonth) {
+  public Map<LocalDate, CalendarResponseDto> getCalendar(Long id, YearMonth yearMonth) {
     User user = userRepository.getReferenceById(id);
     LocalDate startDate = yearMonth.atDay(1);
     LocalDate endDate = yearMonth.plusMonths(1).atDay(1).minusDays(1);

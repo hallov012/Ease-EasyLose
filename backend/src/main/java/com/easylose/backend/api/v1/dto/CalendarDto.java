@@ -1,6 +1,5 @@
 package com.easylose.backend.api.v1.dto;
 
-import java.time.LocalDate;
 import lombok.*;
 
 public class CalendarDto {
@@ -11,7 +10,6 @@ public class CalendarDto {
   @Setter
   @ToString
   public static class CalendarResponseDto {
-    private LocalDate date;
     private float score;
 
     private float totalCalorie;
