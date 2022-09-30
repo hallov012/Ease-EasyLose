@@ -6,6 +6,9 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Typography from "@mui/material/Typography";
 import Zoom from "@mui/material/Zoom";
+import { useDispatch } from "react-redux";
+import { removeDailyMealItem } from "../../../store/planSlice";
+import { instance } from "../../../api";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -19,6 +22,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 function ListItem({ data }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
   const handleTooltipClose = () => {
@@ -28,11 +32,23 @@ function ListItem({ data }) {
   const handleTooltipOpen = () => {
     setOpen(true);
   };
+
+  const handelDelete = (event) => {
+    event.preventDefault();
+    instance
+      .delete(`/foodset/${data.id}`, {})
+      .then((response) => {
+        dispatch(removeDailyMealItem(data));
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <div className={classes.container}>
       <div className={classes.left}>
         <div className={classes.item_title}>{data.name}</div>
-        <div className={classes.item_subtitle}>총 칼로리: 1300kcal</div>
+        <div className={classes.item_subtitle}>
+          총 칼로리: {data.total.calorie}kcal
+        </div>
       </div>
       <div className={classes.right}>
         <ClickAwayListener onClickAway={handleTooltipClose}>
@@ -58,13 +74,13 @@ function ListItem({ data }) {
                     }}
                   >
                     <div>
-                      <b>탄수화물</b> <span>100g</span>
+                      <b>탄수화물</b> <span>{data.total.carb}g</span>
                     </div>
                     <div>
-                      <b>단백질</b> <span>100g</span>
+                      <b>단백질</b> <span>{data.total.protein}g</span>
                     </div>
                     <div>
-                      <b>지방</b> <span>100g</span>
+                      <b>지방</b> <span>{data.total.fat}g</span>
                     </div>
                   </div>
                 </React.Fragment>
@@ -79,7 +95,7 @@ function ListItem({ data }) {
             </HtmlTooltip>
           </div>
         </ClickAwayListener>
-        <div>
+        <div onClick={handelDelete}>
           <i class="fa-solid fa-trash-can"></i>
         </div>
       </div>
