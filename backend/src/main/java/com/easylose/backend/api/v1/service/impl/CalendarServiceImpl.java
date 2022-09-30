@@ -23,13 +23,13 @@ public class CalendarServiceImpl implements CalendarService {
   private final UserRepository userRepository;
   private final CalendarMapper calendarMapper;
 
-  public List<CalendarResponseDto> getCalendar(Long id, YearMonth date) {
+  public List<CalendarResponseDto> getCalendar(Long id, YearMonth yearMonth) {
     User user = userRepository.getReferenceById(id);
-    LocalDate startDate = date.atDay(1);
-    LocalDate endDate = date.plusMonths(1).atDay(1).minusDays(1);
+    LocalDate startDate = yearMonth.atDay(1);
+    LocalDate endDate = yearMonth.plusMonths(1).atDay(1).minusDays(1);
 
     List<DailyMealLog> dailyMealLogs = dailyMealLogRepository.findByDateBetween(startDate, endDate);
 
-    return calendarMapper.toCalendarDtos(user, dailyMealLogs);
+    return calendarMapper.toCalendarDtos(user, dailyMealLogs, yearMonth);
   }
 }
