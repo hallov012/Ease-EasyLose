@@ -15,11 +15,4 @@ public class DailyMealLogSpecification {
             criteriaBuilder.equal(root.get("user"), user),
             criteriaBuilder.equal(root.get("date"), date));
   }
-
-  //  public static Specification<DailyMealLog> equalUserAndBetweenDates(User user, LocalDate start,
-  // LocalDate end){
-  //    return (root, query, builder) -> builder.and(
-  //        builder.equal(root.get("user"), user), builder.between(root.get("date"), start, end)
-  //    );
-  //  }
 }

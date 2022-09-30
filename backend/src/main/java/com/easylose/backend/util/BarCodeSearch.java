@@ -1,40 +1,30 @@
 package com.easylose.backend.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
+@Component
 public class BarCodeSearch {
 
-  private String barcode;
+  private @Value("${barcode.uri}") String uri;
+  private @Value("${barcode.key}") String keyId;
+  private @Value("${barcode.service-id}") String serviceId;
+  private @Value("${barcode.data-type}") String dataType;
 
-  public String search(String code) {
-    this.barcode = code;
-    String uri = System.getenv("BARCODE_URL");
-    String keyId = System.getenv("KEY");
-    String serviceId = System.getenv("SERVICE_ID");
-    String dataType = System.getenv("DATA_TYPE");
-    uri += "/" + keyId + "/" + serviceId + "/" + dataType + "/1/1000/BAR_CD=" + barcode;
+  public String search(String barcode) {
     try {
-      URL url = new URL(uri);
+      URL url =
+          new URL(
+              uri + "/" + keyId + "/" + serviceId + "/" + dataType + "/1/1000/BAR_CD=" + barcode);
       log.info("url : {}", url.toString());
 
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -56,50 +46,28 @@ public class BarCodeSearch {
       }
       br.close();
 
-      Map map = jsonToMap(response.toString());
-
-      ArrayList res = (ArrayList) map.get("row");
-      LinkedHashMap finalMap = (LinkedHashMap) res.get(0);
-      String name = (String) finalMap.get("PRDLST_NM");
+      String name = getProductListName(response.toString());
 
       log.info("name : {}", name);
+
       return name;
     } catch (Exception e) {
-      log.info("error : {}", e);
+      log.info("error : {}", e.getMessage());
       return null;
     }
   }
 
-  public static Map jsonToMap(String response) {
-    Map map = new HashMap<>();
-    JSONObject json = JSONObject.fromObject(response);
-    for (Object k : json.keySet()) {
-      Object v = json.get(k);
-      //          ，
-      if (v instanceof JSONArray) {
-        List list = new ArrayList();
-        Iterator it = ((JSONArray) v).iterator();
-        while (it.hasNext()) {
-          JSONObject json2 = (JSONObject) it.next();
-          list.add(jsonToMap(json2.toString()));
-        }
-        map.put(k.toString(), list);
-      } else {
-        map.put(k.toString(), v);
-      }
-    }
-    Map ans = null;
-    JSONObject jsonObj = (JSONObject) map.get(System.getenv("SERVICE_ID"));
-
+  public String getProductListName(String response) {
     try {
-      ans = new ObjectMapper().readValue(jsonObj.toString(), Map.class);
+      return (String)
+          JSONObject.fromObject(response)
+              .getJSONObject(serviceId)
+              .getJSONArray("row")
+              .getJSONObject(0)
+              .get("PRDLST_NM");
 
-    } catch (JsonMappingException e) {
-      throw new RuntimeException(e);
-    } catch (JsonProcessingException e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
-    return ans;
   }
 }
