@@ -8,6 +8,7 @@ import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetResponseDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetSumDto;
 import com.easylose.backend.api.v1.enums.MealType;
 import com.easylose.backend.api.v1.repository.FoodRepository;
 import java.util.ArrayList;
@@ -37,16 +38,27 @@ public abstract class FoodSetMapper {
 
     Map<MealType, List<FoodSetDetailResponseDto>> details =
         new HashMap<MealType, List<FoodSetDetailResponseDto>>();
+    Map<MealType, FoodSetSumDto> sums = new HashMap<MealType, FoodSetSumDto>();
+    FoodSetSumDto total = FoodSetSumDto.builder().build();
 
     for (MealType mealType : MealType.values()) {
       details.put(mealType, new ArrayList<FoodSetDetailResponseDto>());
+      sums.put(mealType, FoodSetSumDto.builder().build());
     }
 
     for (FoodSetDetail detail : foodSet.getDetails()) {
-      details.get(detail.getMealType()).add(foodSetDetailToDto(detail));
+      MealType mealType = detail.getMealType();
+      details.get(mealType).add(foodSetDetailToDto(detail));
+      sums.get(mealType).addFromDetail(detail);
+    }
+
+    for (MealType mealType : MealType.values()) {
+      total.addFromDto(sums.get(mealType));
     }
 
     foodSetDto.details(details);
+    foodSetDto.sums(sums);
+    foodSetDto.total(total);
 
     return foodSetDto.build();
   }
