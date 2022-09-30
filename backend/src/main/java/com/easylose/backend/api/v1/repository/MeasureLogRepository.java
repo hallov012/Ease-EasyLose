@@ -11,5 +11,8 @@ public interface MeasureLogRepository
 
   MeasureLog findTopByUserAndCreatedAtLessThanOrderByCreatedAtDesc(User user, LocalDateTime date);
 
+  MeasureLog findTopByUserAndCreatedAtLessThanEqualOrderByCreatedAtDesc(
+      User user, LocalDateTime date);
+
   MeasureLog findTopByUser(User user);
 }
