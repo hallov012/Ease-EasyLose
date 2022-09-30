@@ -19,3 +19,9 @@ springdoc:
     path: /documentation/swagger-ui.html
   api-docs:
     path: /documentation/v3/api-docs
+
+barcode:
+  uri: "${BARCODE_URI}"
+  key: "${BARCODE_KEY}"
+  service-id: "${BARCODE_SERVICE_ID}"
+  data-type: "${BARCODE_DATA_TYPE}"
