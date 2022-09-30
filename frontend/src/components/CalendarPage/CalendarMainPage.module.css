@@ -1,0 +1,73 @@
+.top_nav_item_list {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: 1fr 8fr 1fr;
+}
+
+.top_nav_item {
+  width: 100%;
+  cursor: default;
+}
+
+.top_nav_item__box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top_nav_item__box div {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.top_nav_item__arrow {
+  cursor: pointer;
+}
+
+.top_nav_item__text {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 81vh;
+  margin-top: 9vh;
+}
+
+.information {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 90vw;
+  height: 10vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.graphcontainer {
+  width: 90vw;
+  height: 30vh;
+}
+
+.recommend_title {
+  width: 90vw;
+  height: 3vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.graph_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+}

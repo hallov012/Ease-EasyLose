@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
 import "./CalendarMainPage.css"
+import classes from "./CalendarMainPage.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 import {
   addDays,
   startOfMonth,
@@ -13,18 +16,146 @@ import {
   subMonths,
 } from "date-fns"
 import { instance } from "../../api/index"
+import ReactApexChart from "react-apexcharts"
+import RecommendListItem from "./RecommendListItem/RecommendListItem"
 
 function CalendarMainPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [monthData, setMonthData] = useState([])
+  const [monthData, setMonthData] = useState({})
   const [detailClicked, setDetailClicked] = useState(false)
+  const [detailData, setDetailData] = useState(undefined)
+  const [state, setState] = useState({
+    options: {
+      chart: {
+        id: "basic-bar",
+      },
+      xaxis: {
+        categories: ["칼로리", "탄수화물", "단백질", "지방"],
+      },
+    },
+    series: [
+      {
+        name: "series-1",
+        data: [0, 0, 0, 0],
+      },
+    ],
+  })
+  const [recommendList, setRecommendList] = useState([1, 2, 3, 4, 5])
+
+  useEffect(() => {
+    if (detailData) {
+      setState({
+        options: {
+          colors: [
+            Math.round(
+              ((detailData.totalCalorie - detailData.dailyCalorie) /
+                detailData.dailyCalorie) *
+                100 +
+                100
+            ) > 100
+              ? "#2c00e9"
+              : "#f90000",
+            Math.round(
+              ((detailData.totalCarb - detailData.dailyCarb) /
+                detailData.dailyCarb) *
+                100 +
+                100
+            ) > 100
+              ? "#2c00e9"
+              : "#f90000",
+            Math.round(
+              ((detailData.totalProtein - detailData.dailyProtein) /
+                detailData.dailyProtein) *
+                100 +
+                100
+            ) > 100
+              ? "#2c00e9"
+              : "#f90000",
+            Math.round(
+              ((detailData.totalFat - detailData.dailyFat) /
+                detailData.dailyFat) *
+                100 +
+                100
+            ) > 100
+              ? "#2c00e9"
+              : "#f90000",
+          ],
+          chart: {
+            id: "basic-bar",
+            toolbar: {
+              show: false,
+            },
+          },
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              borderRadius: 5,
+              columnWidth: "50%",
+              distributed: true,
+            },
+          },
+          legend: {
+            show: false,
+          },
+          yaxis: {
+            labels: {
+              formatter: function (y) {
+                return y.toFixed(0) + "%"
+              },
+            },
+          },
+          xaxis: {
+            categories: ["칼로리", "탄수화물", "단백질", "지방"],
+          },
+          dataLabels: {
+            enabled: false,
+          },
+        },
+        series: [
+          {
+            name: "diff",
+            data: [
+              Math.round(
+                ((detailData.totalCalorie - detailData.dailyCalorie) /
+                  detailData.dailyCalorie) *
+                  100 +
+                  100
+              ),
+              Math.round(
+                ((detailData.totalCarb - detailData.dailyCarb) /
+                  detailData.dailyCarb) *
+                  100 +
+                  100
+              ),
+              Math.round(
+                ((detailData.totalProtein - detailData.dailyProtein) /
+                  detailData.dailyProtein) *
+                  100 +
+                  100
+              ),
+              Math.round(
+                ((detailData.totalFat - detailData.dailyFat) /
+                  detailData.dailyFat) *
+                  100 +
+                  100
+              ),
+            ],
+          },
+        ],
+      })
+    }
+  }, [detailData])
+
+  console.log(detailData)
 
   useEffect(() => {
     instance
-      .get("/calendar/", { params: { date: format(currentMonth, "yyyy-MM") } })
+      .get("/calendar/", {
+        params: { year_month: format(currentMonth, "yyyy-MM") },
+      })
       .then((response) => {
-        const array = response.data
+        setMonthData(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -80,14 +211,14 @@ function CalendarMainPage() {
   }
 
   function showEmotion(score) {
-    if (score > 90) {
+    if (score > 80) {
       return <i class="fa-solid fa-face-laugh-squint"></i>
-    } else if (score > 80) {
+    } else if (score > 60) {
       return <i class="fa-solid fa-face-smile"></i>
-    } else if (score > 70) {
+    } else if (score > 40) {
       return <i class="fa-solid fa-face-meh"></i>
     } else {
-      ;<i class="fa-solid fa-face-dizzy"></i>
+      return <i class="fa-solid fa-face-dizzy"></i>
     }
   }
 
@@ -123,11 +254,22 @@ function CalendarMainPage() {
             }}
             key={day}
             onClick={(e) => {
-              onDateClick(cloneDay)
+              if (monthData[format(cloneDay, "yyyy-MM-dd")]) {
+                setDetailClicked(true)
+                setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
+              }
             }}
           >
             <span className="number">{formattedDate}</span>
-            <div style={{ fontSize: 30 }}></div>
+            <div style={{ fontSize: 30 }}>
+              {monthData
+                ? monthData[format(cloneDay, "yyyy-MM-dd")]
+                  ? showEmotion(
+                      monthData[format(cloneDay, "yyyy-MM-dd")].score * 100
+                    )
+                  : null
+                : null}
+            </div>
           </div>
         )
         day = addDays(day, 1)
@@ -146,7 +288,65 @@ function CalendarMainPage() {
   return (
     <div>
       {detailClicked ? (
-        <div></div>
+        <div>
+          <div id="top_nav_area">
+            <div className={classes.top_nav_item_list}>
+              <div className={classes.top_nav_item}>
+                <div
+                  className={`${classes.top_nav_item__box} ${classes.top_nav_item__arrow}`}
+                  style={{ display: "flex" }}
+                  onClick={() => {
+                    setDetailClicked(false)
+                  }}
+                >
+                  <FontAwesomeIcon icon={faAngleLeft} size="xl" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {detailData ? (
+            <div className={classes.container}>
+              <div className={classes.information}>
+                <div style={{ fontSize: "4.0rem", fontWeight: "bold" }}>
+                  {Math.round(detailData.score * 100)}{" "}
+                  <span style={{ fontSize: "1.5rem" }}>점</span>
+                </div>
+                <div>좀 더 노력하세요...!</div>
+              </div>
+              <div className={classes.graphcontainer}>
+                <div className={classes.graph_title}>
+                  <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+                    목표 대비 섭취량
+                  </div>
+                </div>
+
+                <ReactApexChart
+                  options={state.options}
+                  series={state.series}
+                  type="bar"
+                  width={"100%"}
+                ></ReactApexChart>
+              </div>
+              <div style={{ width: "90vw", height: "35vh" }}>
+                <div className={classes.recommend_title}>
+                  <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+                    부족한 영양소 보충을 위한 리스트입니다!
+                  </div>
+                </div>
+                <div style={{ overflow: "scroll", height: "32vh" }}>
+                  {recommendList.map((item) => {
+                    return (
+                      <div style={{ width: "90vw", height: "10vh" }}>
+                        <RecommendListItem></RecommendListItem>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
       ) : (
         <div className="my-calendar-container">
           <div className="my-calendar">

@@ -52,7 +52,7 @@ function ModAgePage() {
             setValue={(value) => {
               setAge(value)
             }}
-            term={0.5}
+            term={1}
           />
           <div
             onClick={() => {

@@ -3,14 +3,11 @@ import TopHistoryNav from "../../TopNav/TopHistoryNav"
 import Html5QrcodePlugin from "../BarcodeComponent/Html5QrcodeScannerPlugin"
 import { useEffect, useState } from "react"
 import { instance } from "../../../api/index"
-import axios from "axios"
 import { useDispatch } from "react-redux"
 import { registerItem } from "../../../store/basketSlice"
 import { useHistory } from "react-router-dom"
-import AddButtonList from "../AddButtonList/AddButtonList"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
 
 function AddBarcodePage() {
   const dispatch = useDispatch()
@@ -40,6 +37,8 @@ function AddBarcodePage() {
               confirmButtonText: "입력 완료",
               showLoaderOnConfirm: true,
               cancelButtonText: "취소",
+              inputPlaceholder: "몇 인분 드시나요?",
+              inputValue: 1,
               preConfirm: (count) => {
                 if (isNaN(count))
                   Swal.showValidationMessage(`숫자를 입력해주세요!`)
@@ -69,27 +68,6 @@ function AddBarcodePage() {
             history.goBack()
           }
         })
-      // axios
-      //   .get(
-      //     `https://openapi.foodsafetykorea.go.kr/api/sample/C005/json/1/5/BAR_CD=${lastResult}`,
-      //     {}
-      //   )
-      //   .then((response) => {
-      //     instance
-      //       .get("/food", {
-      //         params: { name: response.data["C005"]["row"][0]["PRDLST_NM"] },
-      //       })
-      //       .then((response) => {
-      //         console.log("catch success!")
-      //         dispatch(registerItem(response.data[0]))
-      //         history.goBack()
-      //         // console.log(response.data[0])
-      //       })
-      //       .catch((error) => {
-      //         console.log(error)
-      //       })
-      //   })
-      //   .catch((error) => console.log(error))
     }
   }, [lastResult])
 

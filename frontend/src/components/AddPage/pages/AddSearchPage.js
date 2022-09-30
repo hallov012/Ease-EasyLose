@@ -55,7 +55,9 @@ function AddSearchPage() {
             name: searchTerm,
           },
         })
-        .then((response) => dispatch(registerSearchList(response.data)))
+        .then((response) => {
+          dispatch(registerSearchList(response.data))
+        })
         .catch((error) => {
           console.log(error)
         })
@@ -218,10 +220,10 @@ function AddSearchPage() {
             <div key={item.id} className={classes.pickedItem}>
               <div style={{ width: "85%" }}>
                 <div className={classes.pickedItem_title}>{item.name}</div>
-                <div className={classes.pickedItem_sub}>{`${
+                <div className={classes.pickedItem_sub}>{`${Math.round(
                   item.calorie
-                } kcal X ${item.count} 개 = ${
-                  item.calorie * item.count
+                )} kcal X ${item.count} 개 = ${
+                  Math.round(item.calorie) * item.count
                 } kcal`}</div>
               </div>
               <div
