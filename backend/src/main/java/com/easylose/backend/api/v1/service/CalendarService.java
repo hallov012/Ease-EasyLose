@@ -5,5 +5,5 @@ import java.time.YearMonth;
 import java.util.List;
 
 public interface CalendarService {
-  List<CalendarResponseDto> getCalendar(Long id, YearMonth date);
+  List<CalendarResponseDto> getCalendar(Long id, YearMonth yearMonth);
 }
