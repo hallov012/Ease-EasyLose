@@ -1,6 +1,7 @@
-import classes from "./ListItem.module.css"
+import classes from "./ListItem.module.css";
 
-function ListItem() {
+function ListItem({ data }) {
+  console.log("000", data);
   return (
     <div className={classes.container}>
       <div className={classes.left}>
@@ -18,7 +19,7 @@ function ListItem() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ListItem
+export default ListItem;
