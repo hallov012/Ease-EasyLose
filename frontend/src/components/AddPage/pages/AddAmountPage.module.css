@@ -50,3 +50,12 @@
   font-size: 30px;
   padding-right: 4vw;
 }
+
+.text {
+  font-size: 2rem;
+  margin-bottom: 1vh;
+}
+
+.icon {
+  font-size: 50px;
+}
