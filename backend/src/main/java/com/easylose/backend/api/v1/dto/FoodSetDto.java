@@ -2,6 +2,7 @@ package com.easylose.backend.api.v1.dto;
 
 import com.easylose.backend.api.v1.dto.FoodDto.FoodResponseDto;
 import com.easylose.backend.api.v1.enums.MealType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import java.util.Map;
 import lombok.*;
@@ -25,6 +26,7 @@ public class FoodSetDto {
   @ToString
   public static class FoodSetRequestDto {
     private String name;
+    @JsonIgnore private Object _placeholder;
   }
 
   @AllArgsConstructor

@@ -33,6 +33,7 @@ public abstract class FoodSetMapper {
     FoodSetResponseDto.FoodSetResponseDtoBuilder foodSetDto = FoodSetResponseDto.builder();
 
     foodSetDto.id(foodSet.getId());
+    foodSetDto.name(foodSet.getName());
 
     Map<MealType, List<FoodSetDetailResponseDto>> details =
         new HashMap<MealType, List<FoodSetDetailResponseDto>>();

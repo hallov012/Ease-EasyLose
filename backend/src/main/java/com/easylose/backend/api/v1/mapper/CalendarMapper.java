@@ -6,6 +6,7 @@ import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.dto.CalendarDto.CalendarResponseDto;
 import com.easylose.backend.api.v1.repository.MeasureLogRepository;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,23 +18,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class CalendarMapper {
   @Autowired private MeasureLogRepository measureLogRepository;
 
-  public List<CalendarResponseDto> toCalendarDtos(User user, List<DailyMealLog> dailyMealLogs) {
+  public List<CalendarResponseDto> toCalendarDtos(
+      User user, List<DailyMealLog> dailyMealLogs, YearMonth yearMonth) {
     List<CalendarResponseDto> responseDtos = new ArrayList<CalendarResponseDto>();
 
     Map<LocalDate, List<DailyMealLog>> intermMap = new HashMap<LocalDate, List<DailyMealLog>>();
+    for (int i = 0; i < yearMonth.lengthOfMonth(); i++) {
+      intermMap.put(yearMonth.atDay(1).plusDays(i), new ArrayList<DailyMealLog>());
+    }
 
     for (DailyMealLog dailyMealLog : dailyMealLogs) {
-      LocalDate date = dailyMealLog.getDate();
-      if (!intermMap.containsKey(date)) {
-        intermMap.put(date, new ArrayList<DailyMealLog>());
-      }
-
-      intermMap.get(date).add(dailyMealLog);
+      intermMap.get(dailyMealLog.getDate()).add(dailyMealLog);
     }
 
     for (Map.Entry<LocalDate, List<DailyMealLog>> entry : intermMap.entrySet()) {
       LocalDate date = entry.getKey();
       List<DailyMealLog> intermDailyMealLogs = entry.getValue();
+
+      // if (intermDailyMealLogs.isEmpty()) {
+      //   responseDtos.add()
+      //   continue;
+      // }
 
       float totalCalorie = 0;
       float totalCarb = 0;
