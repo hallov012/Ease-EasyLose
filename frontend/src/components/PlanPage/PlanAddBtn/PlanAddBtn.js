@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { instance } from "../../../api/index";
+import { useDispatch } from "react-redux";
+import { registerDailyMealList } from "../../../store/planSlice";
 
 import classes from "./PlanAddBtn.module.css";
 
@@ -23,12 +25,14 @@ const style = {
 };
 
 function PlanAddBtn() {
+  const dispatch = useDispatch();
   const [inputName, setName] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleChange = (event) => setName(event.target.value);
-  const handleAdd = () => {
+  const handleAdd = (event) => {
+    event.preventDefault();
     instance
       .post(
         "/foodset",
@@ -38,7 +42,14 @@ function PlanAddBtn() {
         {}
       )
       .then((response) => {
-        console.log("생성!");
+        instance
+          .get("/foodset")
+          .then((response) => {
+            dispatch(registerDailyMealList(response.data));
+          })
+          .catch((error) => console.log(error));
+        setName("");
+        setOpen(false);
       })
       .catch((error) => {
         console.log(error);
