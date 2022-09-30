@@ -55,6 +55,16 @@ hbase > create 'food_recommend', 'foods_num'
 - get 실행 시 잘 작동 됨
 - 총 1187 row 존재
 
+## HBase에서 데이터 export
+- hadoop, hbase 시작
+- hbase shell에서 scan이 잘 되는지 확인 하기
+    - 잘 안 된다면 error handling에 적혀 있는대로 에러 해결하고 진행
+- 그냥 shell(hbase shell 아님)에 `$HBASE_HOME/bin/hbase org.apache.hadoop.hbase.mapreduce.Export food_recommend food_recommend_csv` 입력
+    - $HBASE_HOME/bin/hbase org.apache.hadoop.hbase.mapreduce.Export [테이블 이름] [export할 dir 이름]
+- 현재 hbase가 hdfs 가 아니라 local 파일 시스템에 연결되어 있으므로 local에 ~/food_recommend_csv 라는 dir 만들어짐
+    - 내부에 있는 map 결과파일이 결과물
+    - 정제하여 `food_recommend.json`으로 만듦
+    
 ## 참조
 - [TableMapper, TableReducer 참조](https://sujee.net/2011/04/10/hbase-map-reduce-example/)
 - [apache Put API document](https://hbase.apache.org/apidocs/org/apache/hadoop/hbase/client/Put.html)
