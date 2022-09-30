@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -33,10 +35,12 @@ public class DailyMealLog {
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private User user;
 
-  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "food_id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private Food food;
 
   @CreatedDate
