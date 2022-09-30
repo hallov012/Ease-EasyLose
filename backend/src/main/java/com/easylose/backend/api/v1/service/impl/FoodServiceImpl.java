@@ -32,6 +32,7 @@ public class FoodServiceImpl implements FoodService {
   private final UserRepository userRepository;
   private final DailyMealLogRepository dailyMealLogRepository;
   private final FoodMapper foodMapper;
+  private final BarCodeSearch barCodeSearch;
 
   public List<FoodResponseDto> getFoodByName(Long id, String name) {
     User user = userRepository.getReferenceById(id);
@@ -62,15 +63,15 @@ public class FoodServiceImpl implements FoodService {
     List<FoodResponseDto> response = new ArrayList<FoodResponseDto>();
 
     if (dtoList.isEmpty()) {
-      BarCodeSearch result = new BarCodeSearch();
-      String name = result.search(barcode);
+      String name = barCodeSearch.search(barcode);
       if (name != null) {
         Specification<Food> newSpec = (root, query, builder) -> null;
         newSpec = newSpec.and(FoodSpecification.containName(name, user));
         FoodBarCodeDto barCodeDto = FoodBarCodeDto.builder().barcode(barcode).build();
         log.info("barcode dto :{}", barCodeDto);
-        Food food = foodRepository.findAll(newSpec, limit).toList().get(0);
-        if (food != null) {
+        List<Food> foodList = foodRepository.findAll(newSpec, limit).toList();
+        if (!foodList.isEmpty()) {
+          Food food = foodList.get(0);
           foodMapper.updateFoodFromBarCodeDto(barCodeDto, food);
           response.add(foodMapper.toDto(foodRepository.save(food)));
         }
@@ -78,7 +79,7 @@ public class FoodServiceImpl implements FoodService {
     } else {
       FoodResponseDto foodResponseDto = dtoList.get(0);
       response.add(foodResponseDto);
-      log.info("barcode is existed");
+      log.info("barcode already exist");
     }
     return response;
   }
