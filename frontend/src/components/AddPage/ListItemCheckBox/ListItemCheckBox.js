@@ -26,7 +26,9 @@ function ListItemCheckBox({ foodInfo, selected, type }) {
     >
       <div className={classes.left}>
         <div className={classes.item_title}>{foodInfo.name}</div>
-        <div className={classes.item_subtitle}>{foodInfo.calorie}kcal</div>
+        <div className={classes.item_subtitle}>
+          {Math.round(foodInfo.calorie)}kcal
+        </div>
       </div>
       <div className={classes.right}>
         <div

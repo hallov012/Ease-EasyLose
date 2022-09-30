@@ -77,7 +77,7 @@ function AddAmountPage() {
         <TopHistoryNav></TopHistoryNav>
       </div>
       <div style={{ marginTop: "9vh" }} className={classes.container}>
-        <div className={classes.text}>{foodInfo.calorie} kcal</div>
+        <div className={classes.text}>{Math.round(foodInfo.calorie)} kcal</div>
         <div className={classes.text}>
           <i className="fa-solid fa-xmark"></i>
         </div>
@@ -88,7 +88,7 @@ function AddAmountPage() {
         <div style={{ color: "gray" }} className={classes.text}>
           총{" "}
           <span style={{ color: "black" }}>
-            {foodInfo.calorie * amount} kcal
+            {Math.round(foodInfo.calorie) * amount} kcal
           </span>{" "}
           섭취 예정
         </div>

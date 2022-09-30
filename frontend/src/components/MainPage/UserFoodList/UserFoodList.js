@@ -33,8 +33,8 @@ function UserFoodList(props) {
                 <div className={classes.left}>
                   <div className={classes.item_title}>{item.food.name}</div>
                   <div className={classes.item_subtitle}>
-                    {item.food.calorie}kcal X {item.count}개 (
-                    {item.food.calorie * item.count}kcal)
+                    {Math.round(item.food.calorie)}kcal X {item.count}개 (
+                    {Math.round(item.food.calorie) * item.count}kcal)
                   </div>
                 </div>
                 <div className={classes.right}>
