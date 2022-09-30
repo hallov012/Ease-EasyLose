@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,9 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class CalendarMapper {
   @Autowired private MeasureLogRepository measureLogRepository;
 
-  public List<CalendarResponseDto> toCalendarDtos(
+  public Map<LocalDate, CalendarResponseDto> toCalendarDtos(
       User user, List<DailyMealLog> dailyMealLogs, YearMonth yearMonth) {
-    List<CalendarResponseDto> responseDtos = new ArrayList<CalendarResponseDto>();
 
     Map<LocalDate, List<DailyMealLog>> intermMap = new HashMap<LocalDate, List<DailyMealLog>>();
     for (int i = 0; i < yearMonth.lengthOfMonth(); i++) {
@@ -31,14 +31,17 @@ public abstract class CalendarMapper {
       intermMap.get(dailyMealLog.getDate()).add(dailyMealLog);
     }
 
+    Map<LocalDate, CalendarResponseDto> responseDtos =
+        new TreeMap<LocalDate, CalendarResponseDto>();
+
     for (Map.Entry<LocalDate, List<DailyMealLog>> entry : intermMap.entrySet()) {
       LocalDate date = entry.getKey();
       List<DailyMealLog> intermDailyMealLogs = entry.getValue();
 
-      // if (intermDailyMealLogs.isEmpty()) {
-      //   responseDtos.add()
-      //   continue;
-      // }
+      if (intermDailyMealLogs.isEmpty()) {
+        responseDtos.put(date, null);
+        continue;
+      }
 
       float totalCalorie = 0;
       float totalCarb = 0;
@@ -60,23 +63,31 @@ public abstract class CalendarMapper {
         lastMeasureLog = measureLogRepository.findTopByUser(user);
       }
 
+      float dailyCalorie = lastMeasureLog.getDailyCalorie();
+      float dailyCarb = lastMeasureLog.getDailyCarb();
+      float dailyProtein = lastMeasureLog.getDailyProtein();
+      float dailyFat = lastMeasureLog.getDailyFat();
+
+      float score = 1;
+      score -= Math.abs((totalCarb - dailyCarb) / dailyCarb) / 3;
+      score -= Math.abs((totalProtein - dailyProtein) / dailyProtein) / 3;
+      score -= Math.abs((totalFat - dailyFat) / dailyFat) / 3;
+
       CalendarResponseDto calendarResponseDto =
           CalendarResponseDto.builder()
-              .date(date)
+              .score(score)
               .totalCalorie(totalCalorie)
               .totalCarb(totalCarb)
               .totalProtein(totalProtein)
               .totalFat(totalFat)
-              .dailyCalorie(lastMeasureLog.getDailyCalorie())
-              .dailyCarb(lastMeasureLog.getDailyCarb())
-              .dailyProtein(lastMeasureLog.getDailyProtein())
-              .dailyFat(lastMeasureLog.getDailyFat())
+              .dailyCalorie(dailyCalorie)
+              .dailyCarb(dailyCarb)
+              .dailyProtein(dailyProtein)
+              .dailyFat(dailyFat)
               .build();
 
-      responseDtos.add(calendarResponseDto);
+      responseDtos.put(date, calendarResponseDto);
     }
-
-    responseDtos.sort((a, b) -> a.getDate().compareTo(b.getDate()));
 
     return responseDtos;
   }
