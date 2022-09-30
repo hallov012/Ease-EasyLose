@@ -20,7 +20,7 @@ services:
   db:
     image: mariadb:latest
     expose:
-      - 3306
+      - ${MYSQL_PORT}
     volumes:
       - ./db/conf.d:/etc/mysql/conf.d
       - ./db/data:/var/lib/mysql
@@ -34,6 +34,7 @@ services:
     expose:
       - 8080
     command: java -jar ./app.jar
+    entrypoint: ./wait-for-it.sh db:${MYSQL_PORT}
     depends_on:
       - db
     env_file:
