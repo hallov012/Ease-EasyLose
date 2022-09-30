@@ -3,24 +3,24 @@ package com.easylose.backend.api.v1.service.impl;
 import com.easylose.backend.api.v1.domain.MeasureLog;
 import com.easylose.backend.api.v1.domain.User;
 import com.easylose.backend.api.v1.domain.WeightLog;
+import com.easylose.backend.api.v1.dto.MeasureLogDto.AnalysisResponseDto;
 import com.easylose.backend.api.v1.dto.MeasureLogDto.MeasureLogResponseDto;
 import com.easylose.backend.api.v1.dto.WeightLogDto.WeightResponseDto;
+import com.easylose.backend.api.v1.mapper.DailyMealLogMapper;
 import com.easylose.backend.api.v1.mapper.MeasureLogMapper;
 import com.easylose.backend.api.v1.mapper.WeightLogMapper;
+import com.easylose.backend.api.v1.repository.DailyMealLogRepository;
 import com.easylose.backend.api.v1.repository.MeasureLogRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.WeightLogRepository;
-import com.easylose.backend.api.v1.repository.specification.MeasureLogSpecification;
 import com.easylose.backend.api.v1.repository.specification.WeightLogSpecification;
 import com.easylose.backend.api.v1.service.AnalysisService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +32,11 @@ public class AnalysisServiceImpl implements AnalysisService {
   private final MeasureLogRepository measureLogRepository;
   private final UserRepository userRepository;
 
-  //  private final DailyMealLogRepository dailyMealLogRepository;
+  private final DailyMealLogRepository dailyMealLogRepository;
   private final WeightLogRepository weightLogRepository;
   private final MeasureLogMapper measureLogMapper;
   private final WeightLogMapper weightLogMapper;
+  private final DailyMealLogMapper dailyMealLogMapper;
 
   public List<WeightResponseDto> getWeightLog(Long id, LocalDate date) {
     User user = userRepository.getReferenceById(id);
@@ -50,18 +51,28 @@ public class AnalysisServiceImpl implements AnalysisService {
   }
 
   @Override
-  public List<MeasureLogResponseDto> getMeasureLog(Long id, LocalDate start, LocalDate end) {
+  public List<AnalysisResponseDto> getDailyChart(Long id, LocalDate date) {
     User user = userRepository.getReferenceById(id);
-    Specification<MeasureLog> spec = (root, query, build) -> null;
-    LocalDateTime startDate = start.atTime(0, 0, 0);
-    LocalDateTime endDate = end.atTime(23, 59, 59);
-    Pageable limit = PageRequest.of(0, 10, Direction.ASC, "createdAt");
-    if (user != null) {
-      spec = spec.and(MeasureLogSpecification.equalUserAndDate(user, startDate, endDate));
-      return measureLogMapper.toResponseDtoAll(measureLogRepository.findAll(spec));
+    List<AnalysisResponseDto> response = new ArrayList<AnalysisResponseDto>();
+    if (date.atTime(23, 59, 59).isBefore(user.getCreatedAt())) {
+      return null;
     }
-
-    return null;
+    for (int i = 6; i >= 0; i--) {
+      LocalDate start = date.minusDays(i);
+      LocalDateTime dateTime = start.atTime(23, 59, 59);
+      if (user.getCreatedAt().isAfter(start.atStartOfDay())) {
+        dateTime = date.atTime(23, 59, 59);
+      }
+      log.info("datetime : {}", dateTime);
+      MeasureLogResponseDto totalDto =
+          measureLogMapper.toResponseDto(
+              measureLogRepository.findTopByUserAndCreatedAtLessThanEqualOrderByCreatedAtDesc(
+                  user, dateTime));
+      response.add(
+          measureLogMapper.toAnalysisDto(
+              dailyMealLogRepository.findAllByDate(start), start, totalDto));
+    }
+    return response;
   }
 
   public MeasureLogResponseDto createMeasureLog(Long id) {
@@ -82,12 +93,4 @@ public class AnalysisServiceImpl implements AnalysisService {
     WeightLog weightLog = WeightLog.builder().weight(user.getWeight()).user(user).build();
     return weightLogMapper.toResponseDto(weightLogRepository.save(weightLog));
   }
-
-  //  @Override
-  //  public List<AnalysisResponseDto> getDailyHistory(Long id, LocalDate start, LocalDate end) {
-  //    User user = userRepository.getReferenceById(id);
-  //    List<DailyMealLog> dailyMealLogs =
-  //        dailyMealLogRepository.findByUserDateBetween(user, start, end);
-  //    return measureLogMapper.toAnalysisDtoAll(dailyMealLogs);
-  //  }
 }

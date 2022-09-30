@@ -32,14 +32,14 @@ public class MeasureLogDto {
   public static class AnalysisResponseDto {
     private LocalDate date;
 
-    private float totalCalorie;
-    private float totalCarb;
-    private float totalProtein;
-    private float totalFat;
+    private int calorie;
+    private int carb;
+    private int protein;
+    private int fat;
 
-    private float dailyCalorie;
-    private float dailyCarb;
-    private float dailyProtein;
-    private float dailyFat;
+    private int dailyCalorie;
+    private int dailyCarb;
+    private int dailyProtein;
+    private int dailyFat;
   }
 }

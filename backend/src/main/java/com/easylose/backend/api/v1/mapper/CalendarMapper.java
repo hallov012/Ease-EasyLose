@@ -68,10 +68,11 @@ public abstract class CalendarMapper {
       float dailyProtein = lastMeasureLog.getDailyProtein();
       float dailyFat = lastMeasureLog.getDailyFat();
 
-      float score = 1;
-      score -= Math.abs((totalCarb - dailyCarb) / dailyCarb) / 3;
-      score -= Math.abs((totalProtein - dailyProtein) / dailyProtein) / 3;
-      score -= Math.abs((totalFat - dailyFat) / dailyFat) / 3;
+      float score = 3;
+      score -= Math.min(1, Math.abs(1 - totalCarb / dailyCarb));
+      score -= Math.min(1, Math.abs(1 - totalProtein / dailyProtein));
+      score -= Math.min(1, Math.abs(1 - totalFat / dailyFat));
+      score /= 3;
 
       CalendarResponseDto calendarResponseDto =
           CalendarResponseDto.builder()
