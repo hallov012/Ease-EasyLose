@@ -19,6 +19,8 @@ import { instance } from "../../../api/index"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 
+import dateFormat, { masks } from "dateformat"
+
 function AddSearchPage() {
   const location = useLocation()
   const history = useHistory()
@@ -30,7 +32,9 @@ function AddSearchPage() {
   const recentList = useSelector((state) => state.basket.recentList)
 
   const mealtime = useSelector((state) => state.status.lastEntered)
-  const targetDate = useSelector((state) => state.daily.targetDate)
+  const target_date = JSON.parse(
+    useSelector((state) => state.status.targetDate)
+  )
 
   const MySwal = withReactContent(Swal)
 
@@ -66,7 +70,7 @@ function AddSearchPage() {
         .post(
           "/dailymeal",
           {
-            date: targetDate,
+            date: dateFormat(target_date, "yyyy-mm-dd"),
             mealType: mealtime,
             count: item.count,
             foodId: item.id,

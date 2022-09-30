@@ -1,5 +1,5 @@
 import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from "html5-qrcode"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 const qrcodeRegionId = "html5qr-code-full-region"
 
@@ -65,5 +65,58 @@ class Html5QrcodePlugin extends React.Component {
     )
   }
 }
+
+// function Html5QrcodePlugin(props) {
+//   const qrcodeRegionId = "html5qr-code-full-region"
+
+//   const formatsToSupport = [
+//     Html5QrcodeSupportedFormats.EAN_13,
+//     Html5QrcodeSupportedFormats.EAN_8,
+//     Html5QrcodeSupportedFormats.UPC_A,
+//     Html5QrcodeSupportedFormats.UPC_E,
+//     Html5QrcodeSupportedFormats.UPC_EAN_EXTENSION,
+//     Html5QrcodeSupportedFormats.ITF,
+//   ]
+
+//   const [obj, setObj] = useState(undefined)
+
+//   useEffect(() => {
+//     setObj(
+//       new Html5QrcodeScanner(
+//         qrcodeRegionId,
+//         {
+//           fps: props.fps,
+//           qrbox: props.qrbox,
+//           aspectRatio: props.aspectRatio,
+//           disableFlip: props.disableFlip,
+//           rememberLastUsedCamera: true,
+//           formatsToSupport: formatsToSupport,
+//         },
+//         true
+//       )
+//     )
+//     return () => {
+//       if (obj) {
+//         obj.clear()
+//         console.log("video clear")
+//       }
+//     }
+//   }, [])
+
+//   useEffect(() => {
+//     if (obj) {
+//       obj.render(
+//         (response) => {
+//           console.log(response)
+//         },
+//         (error) => {
+//           console.log(error)
+//         }
+//       )
+//     }
+//   }, [obj])
+
+//   return <div id={qrcodeRegionId}></div>
+// }
 
 export default Html5QrcodePlugin

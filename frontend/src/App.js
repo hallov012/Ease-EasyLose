@@ -1,6 +1,12 @@
 import "./App.css"
 
-import { Route, Switch, useHistory, useLocation } from "react-router-dom"
+import {
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  HashRouter,
+} from "react-router-dom"
 import { useEffect } from "react"
 import CalendarPage from "./pages/CalendarPage"
 import PlanPage from "./pages/PlanPage"
@@ -17,17 +23,24 @@ import axios from "axios"
 import BottomNav from "./components/BottomNav/BottomNav"
 import { registerUserInfo } from "./store/userSlice"
 import { instance } from "./api"
+import { registerTargetDate } from "./store/statusSlice"
 
 function App() {
   const location = useLocation().pathname
   const dispatch = useDispatch()
-  console.log("app render")
+
+  const temp = JSON.parse(localStorage.getItem("target_date"))
+  if (temp) {
+    dispatch(registerTargetDate(JSON.stringify(temp)))
+  } else {
+    localStorage.setItem("target_date", JSON.stringify(new Date()))
+    dispatch(registerTargetDate(JSON.stringify(new Date())))
+  }
 
   useEffect(() => {
     instance
       .get("/user", {})
       .then((response) => {
-        console.log("dispatch!!")
         dispatch(registerUserInfo(response.data))
       })
       .catch((error) => console.log(error))

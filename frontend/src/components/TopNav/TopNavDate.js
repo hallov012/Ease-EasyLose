@@ -8,27 +8,26 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { registerTargetDate } from "../../store/dailySlice"
+import { useDispatch, useSelector } from "react-redux"
+import { registerTargetDate } from "../../store/statusSlice"
 
-function TopNavDate(props) {
-  const [value, setValue] = React.useState(dayjs(new Date()))
+function TopNavDate() {
+  const target_date = JSON.parse(
+    useSelector((state) => state.status.targetDate)
+  )
+  // const [value, setValue] = React.useState(dayjs(new Date()))
   const dispatch = useDispatch()
-  const handleChange = (newValue) => {
-    setValue(newValue)
-    dispatch(registerTargetDate(newValue.format("YYYY-MM-DD")))
+  const handleChange = (value) => {
+    localStorage.setItem("target_date", JSON.stringify(value))
+    dispatch(registerTargetDate(JSON.stringify(value)))
   }
-  useEffect(() => {
-    props.setValue(value)
-    dispatch(registerTargetDate(value.format("YYYY-MM-DD")))
-  }, [value])
 
   return (
     <div className={classes.date__input}>
       <LocalizationProvider dateAdapter={AdapterDayjs} className="date">
         <MobileDatePicker
-          value={value}
-          inputFormat="YYYY. MM. DD (dd)"
+          value={target_date ? target_date : new Date()}
+          inputFormat="YYYY. MM. DD (ddd)"
           onChange={handleChange}
           renderInput={(params) => <TextField {...params} />}
         />

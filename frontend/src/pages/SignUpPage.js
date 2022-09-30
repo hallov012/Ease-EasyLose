@@ -49,7 +49,6 @@ function SignUpPage() {
             dispatch(registerUserInfo(response.data))
           })
           .catch((error) => console.log(error))
-        history.push("/main")
       })
       .catch((error) => {
         console.log(error)
@@ -149,12 +148,6 @@ function SignUpPage() {
               ></GenderPicker>
             </Route>
             <Route path="/signup/height">
-              {/* <HeightPicker
-                value={userHeight}
-                setHeight={(value) => {
-                  setUserHeight(value)
-                }}
-              ></HeightPicker> */}
               <TheSlider
                 type={"height"}
                 range={[130, 210]}
@@ -166,12 +159,6 @@ function SignUpPage() {
               />
             </Route>
             <Route path="/signup/weight">
-              {/* <WeightPicker
-                value={userWeight}
-                setWeight={(value) => {
-                  setUserWeight(value)
-                }}
-              ></WeightPicker> */}
               <TheSlider
                 type={"weight"}
                 range={[30, 120]}
@@ -183,17 +170,6 @@ function SignUpPage() {
               />
             </Route>
             <Route path="/signup/age">
-              {/* <BirthPicker
-                value={userBirth}
-                setBirth={(value) => {
-                  setUserBirth(value)
-                  // setUserInfo((current) => {
-                  //   let newObject = { ...current };
-                  //   newObject["birth"] = value;
-                  //   return newObject;
-                  // });
-                }}
-              ></BirthPicker> */}
               <TheSlider
                 type={"age"}
                 range={[10, 80]}
