@@ -9,7 +9,6 @@ import ModGoalPage from "../components/MyPage/pages/ModGoalPage"
 import ModActivityLevelPage from "../components/MyPage/pages/ModActivityLevelPage"
 function MyPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
-  console.log("mypage" + userInfo)
   return (
     <div>
       <Route path="/mypage" exact>

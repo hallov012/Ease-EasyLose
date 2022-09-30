@@ -8,38 +8,88 @@ import { useDispatch } from "react-redux"
 import { registerItem } from "../../../store/basketSlice"
 import { useHistory } from "react-router-dom"
 import AddButtonList from "../AddButtonList/AddButtonList"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
 
 function AddBarcodePage() {
   const dispatch = useDispatch()
   const history = useHistory()
   const [lastResult, setLastResult] = useState("")
+  const MySwal = withReactContent(Swal)
   function onScanSuccess(decodedText, decodedResult) {
     if (decodedText !== lastResult) setLastResult(decodedText)
   }
   useEffect(() => {
     if (lastResult) {
       console.log(lastResult)
-      axios
-        .get(
-          `https://openapi.foodsafetykorea.go.kr/api/sample/C005/json/1/5/BAR_CD=${lastResult}`,
-          {}
-        )
+      instance
+        .get("/food/barcode", { params: { barcode: lastResult } })
         .then((response) => {
-          instance
-            .get("/food", {
-              params: { name: response.data["C005"]["row"][0]["PRDLST_NM"] },
+          if (response.data[0]) {
+            console.log("catch success!")
+
+            MySwal.fire({
+              icon: "success",
+              title: `${response.data[0].name}가 성공적으로 인식되었습니다!`,
+              input: "text",
+              inputAttributes: {
+                autocapitalize: "off",
+              },
+              showCancelButton: true,
+              confirmButtonText: "입력 완료",
+              showLoaderOnConfirm: true,
+              cancelButtonText: "취소",
+              preConfirm: (count) => {
+                if (isNaN(count))
+                  Swal.showValidationMessage(`숫자를 입력해주세요!`)
+                else return count
+              },
+            }).then((result) => {
+              if (result.isConfirmed) {
+                console.log(result)
+                dispatch(
+                  registerItem({
+                    ...response.data[0],
+                    count: Number(result.value),
+                    listType: 2,
+                  })
+                )
+              }
             })
-            .then((response) => {
-              console.log("catch success!")
-              dispatch(registerItem(response.data[0]))
-              history.goBack()
-              // console.log(response.data[0])
+            history.goBack()
+          } else {
+            MySwal.fire({
+              icon: "error",
+              title: `죄송합니다!
+              바코드와 연계된 제품이 없습니다.`,
+              showConfirmButton: false,
+              timer: 1500,
             })
-            .catch((error) => {
-              console.log(error)
-            })
+            history.goBack()
+          }
         })
-        .catch((error) => console.log(error))
+      // axios
+      //   .get(
+      //     `https://openapi.foodsafetykorea.go.kr/api/sample/C005/json/1/5/BAR_CD=${lastResult}`,
+      //     {}
+      //   )
+      //   .then((response) => {
+      //     instance
+      //       .get("/food", {
+      //         params: { name: response.data["C005"]["row"][0]["PRDLST_NM"] },
+      //       })
+      //       .then((response) => {
+      //         console.log("catch success!")
+      //         dispatch(registerItem(response.data[0]))
+      //         history.goBack()
+      //         // console.log(response.data[0])
+      //       })
+      //       .catch((error) => {
+      //         console.log(error)
+      //       })
+      //   })
+      //   .catch((error) => console.log(error))
     }
   }, [lastResult])
 
@@ -58,6 +108,11 @@ function AddBarcodePage() {
           //   console.log(error)
           // }}
         ></Html5QrcodePlugin>
+      </div>
+      <div className={classes.bcontainer}>
+        <div className={classes.icon}>
+          <i class="fa-solid fa-barcode fa-fw"></i>
+        </div>
       </div>
     </div>
   )

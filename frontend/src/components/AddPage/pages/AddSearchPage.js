@@ -22,10 +22,8 @@ import withReactContent from "sweetalert2-react-content"
 import dateFormat, { masks } from "dateformat"
 
 function AddSearchPage() {
-  const location = useLocation()
   const history = useHistory()
   const dispatch = useDispatch()
-  const accessToken = useSelector((state) => state.user.accessToken)
   const [searchTerm, setSearchTerm] = useState("")
   const pickedList = useSelector((state) => state.basket.pickedList)
   const searchList = useSelector((state) => state.basket.searchList)
@@ -104,14 +102,14 @@ function AddSearchPage() {
           }}
         >
           <SelectBtn
-            data={["음식 검색", "자주 먹은 음식"]}
+            data={["최근 추가 음식", "음식 검색"]}
             setValue={(value) => {
               setTerm(value)
             }}
           ></SelectBtn>
         </div>
         <div
-          style={{ display: term == 0 ? "flex" : "none" }}
+          style={{ display: term === 1 ? "flex" : "none" }}
           className={classes.scontainer}
         >
           <input
@@ -138,8 +136,56 @@ function AddSearchPage() {
           </div>
         </div>
         <div style={{ overflow: "scroll", height: "60vh" }}>
-          {term === 0
-            ? searchList.map((item) => {
+          {term === 1 ? (
+            searchList.length === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100vw",
+                  height: "100%",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingRight: "20vw",
+                    }}
+                  >
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-carrot fa-fw"></i>
+                    </div>
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-champagne-glasses fa-fw"></i>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: "1.5rem" }}>
+                    다양한 식품들이 준비되어 있어요!
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingLeft: "20vw",
+                    }}
+                  >
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-fish fa-fw"></i>
+                    </div>
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-bowl-rice fa-fw"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              searchList.map((item) => {
                 return (
                   <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
                     <ListItemCheckBox
@@ -150,25 +196,36 @@ function AddSearchPage() {
                   </div>
                 )
               })
-            : recentList.map((item) => {
-                return (
-                  <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
-                    <ListItemCheckBox
-                      selected={false}
-                      foodInfo={item}
-                      type={term}
-                    ></ListItemCheckBox>
-                  </div>
-                )
-              })}
+            )
+          ) : (
+            recentList.map((item) => {
+              return (
+                <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
+                  <ListItemCheckBox
+                    selected={false}
+                    foodInfo={item}
+                    type={term}
+                  ></ListItemCheckBox>
+                </div>
+              )
+            })
+          )}
         </div>
       </div>
       <div className={classes.pickedList}>
         {pickedList.map((item) => {
           return (
             <div key={item.id} className={classes.pickedItem}>
-              <div className={classes.pickedItem_title}>{item.name}</div>
+              <div style={{ width: "85%" }}>
+                <div className={classes.pickedItem_title}>{item.name}</div>
+                <div className={classes.pickedItem_sub}>{`${
+                  item.calorie
+                } kcal X ${item.count} 개 = ${
+                  item.calorie * item.count
+                } kcal`}</div>
+              </div>
               <div
+                style={{ fontSize: "1.5rem" }}
                 onClick={() => {
                   dispatch(removeItem(item))
                 }}
@@ -196,6 +253,7 @@ function AddSearchPage() {
               showConfirmButton: false,
               timer: 1500,
             })
+            history.goBack()
           }
         }}
         className={classes.addButtonContainer}
