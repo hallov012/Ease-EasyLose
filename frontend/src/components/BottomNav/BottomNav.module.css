@@ -20,7 +20,8 @@
   justify-content: center;
   align-items: center;
   padding: 5px 20px 5px;
-  position: relative;
+  position: fixed;
+  bottom: 0;
 }
 
 .navbar__item {
@@ -62,5 +63,5 @@
   transition-delay: 0.1s;
   display: inline-block;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }

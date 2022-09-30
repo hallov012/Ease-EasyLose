@@ -38,7 +38,9 @@ function PlanMainPage() {
             })
           : dailyMealList.map((item) => {
               return (
-                <div style={{ width: "90vw", height: "10vh" }}>
+                <div
+                  style={{ width: "90vw", height: "10vh", marginBottom: "1vh" }}
+                >
                   <ListItem data={item}></ListItem>
                 </div>
               );
