@@ -50,6 +50,9 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
   public DailyMealResponseDto createDailyMeal(Long id, DailyMealRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
     Food food = foodRepository.getReferenceById(requestDto.getFoodId());
+    if (requestDto.getMealType() == null || requestDto.getDate() == null) {
+      return null;
+    }
 
     if (food.getUser() != null && food.getUser() != user) {
       return null;
