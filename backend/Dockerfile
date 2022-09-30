@@ -4,4 +4,3 @@ WORKDIR /code
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 RUN cp ./build/libs/*SNAPSHOT.jar ./app.jar
-RUN chmod +x ./wait-for-it.sh
