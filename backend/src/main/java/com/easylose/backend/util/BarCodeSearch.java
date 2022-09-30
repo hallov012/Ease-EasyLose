@@ -25,13 +25,14 @@ import net.sf.json.JSONObject;
 public class BarCodeSearch {
 
   private String barcode;
+  private String uri = "https://openapi.foodsafetykorea.go.kr/api";
+  private String keyId = "sample";
+  private String serviceId = "C005";
+  private String dataType = "json";
 
   public String search(String code) {
     this.barcode = code;
-    String uri = System.getenv("BARCODE_URL");
-    String keyId = System.getenv("KEY");
-    String serviceId = System.getenv("SERVICE_ID");
-    String dataType = System.getenv("DATA_TYPE");
+
     uri += "/" + keyId + "/" + serviceId + "/" + dataType + "/1/1000/BAR_CD=" + barcode;
     try {
       URL url = new URL(uri);
