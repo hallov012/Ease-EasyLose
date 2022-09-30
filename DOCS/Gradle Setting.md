@@ -61,7 +61,7 @@
 
 # 라이브러리가 포함된(Runnable jar) jar로 만들기
 
-- 다음 코드를 build.gradle에 포함시키고 빌드하기
+- 다음 코드를 build.gradle에 포함시키고 빌드하기.
 
 ```java
 jar {
