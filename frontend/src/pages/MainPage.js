@@ -20,7 +20,8 @@ function MainPage() {
 
   const temp = JSON.parse(localStorage.getItem("target_date"))
   if (temp) {
-    if (isNaN(temp)) dispatch(registerTargetDate(JSON.stringify(temp)))
+    if (typeof temp !== "number")
+      dispatch(registerTargetDate(JSON.stringify(temp)))
     else {
       localStorage.setItem("target_date", JSON.stringify(new Date()))
       dispatch(registerTargetDate(JSON.stringify(new Date())))

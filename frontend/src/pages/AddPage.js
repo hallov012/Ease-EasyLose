@@ -6,6 +6,7 @@ import AddDetailPage from "../components/AddPage/pages/AddDetailPage"
 import AddSearchPage from "../components/AddPage/pages/AddSearchPage"
 import { useDispatch } from "react-redux"
 import { registerLastEntered, registerTargetDate } from "../store/statusSlice"
+import AddBundlePage from "../components/AddPage/pages/AddBundlePage"
 
 function AddPage() {
   const dispatch = useDispatch()
@@ -40,6 +41,9 @@ function AddPage() {
       </Route>
       <Route path="/add/barcode">
         <AddBarcodePage></AddBarcodePage>
+      </Route>
+      <Route path="/add/bundle">
+        <AddBundlePage></AddBundlePage>
       </Route>
     </div>
   )
