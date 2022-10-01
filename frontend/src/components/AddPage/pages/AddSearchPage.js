@@ -29,8 +29,6 @@ function AddSearchPage() {
   const searchList = useSelector((state) => state.basket.searchList)
   const recentList = useSelector((state) => state.basket.recentList)
 
-  const [come, setCome] = useState(true)
-
   const mealtime = useSelector((state) => state.status.lastEntered)
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
@@ -67,7 +65,7 @@ function AddSearchPage() {
   }
 
   async function registerPickedList() {
-    if (come) {
+    if (typeof target_date !== "number") {
       await pickedList.map((item) => {
         instance
           .post(
@@ -86,6 +84,12 @@ function AddSearchPage() {
           .catch((error) => console.log(error))
       })
     } else {
+      instance
+        .post(`/foodset/${target_date}`, {}, {})
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => console.log(error))
     }
     dispatch(initializeItem())
   }
