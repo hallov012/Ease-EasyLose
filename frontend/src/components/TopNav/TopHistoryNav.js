@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 
-function TopHistoryNav({ bonus = () => {} }) {
+function TopHistoryNav({ bonus = () => {}, text = "" }) {
   const history = useHistory()
   return (
     <div className={classes.top_nav_item_list}>
@@ -18,6 +18,15 @@ function TopHistoryNav({ bonus = () => {} }) {
         >
           <FontAwesomeIcon icon={faAngleLeft} size="xl" />
         </div>
+        {text ? (
+          <div
+            className={`${classes.top_nav_item} ${classes.top_nav_item__text}`}
+          >
+            <div className={classes.top_nav_item__box}>
+              <div>{text}</div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   )
