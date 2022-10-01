@@ -14,6 +14,11 @@ import NutrientChart from "../../MainPage/NutrientChart/NutrientChart";
 import NutrientProgressBox from "../../MainPage/NutrientProgressBox/NutrientProgressBox";
 
 function PlanMealSummaryPage() {
+  const chartColor = {
+    carbColor: "#a369e5",
+    proteinColor: "#242f9b",
+    fatColor: "#7c83fd",
+  };
   const dispatch = useDispatch();
   const history = useHistory();
   const temp = JSON.parse(localStorage.getItem("target_date"));
@@ -67,7 +72,10 @@ function PlanMealSummaryPage() {
           >
             <MealNutrientInfo dietSum={dailyMeal[0].sums[params.mealtime]} />
             <UserFoodList foodList={dailyMeal[0].details[params.mealtime]} />
-            <NutrientChart dietSum={dailyMeal[0].sums[params.mealtime]} />
+            <NutrientChart
+              dietSum={dailyMeal[0].sums[params.mealtime]}
+              colorSet={chartColor}
+            />
             <NutrientProgressBox
               userInfo={userInfo}
               dietSum={dailyMeal[0].sums[params.mealtime]}
