@@ -1,47 +1,47 @@
-import TopNav from "../../TopNav/TopNav"
-import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo"
-import UserFoodList from "../UserFoodList/UserFoodList"
-import NutrientChart from "../NutrientChart/NutrientChart"
-import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
+import TopNav from "../../TopNav/TopNav";
+import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo";
+import UserFoodList from "../UserFoodList/UserFoodList";
+import NutrientChart from "../NutrientChart/NutrientChart";
+import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox";
 
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
-import { registerLastEntered } from "../../../store/statusSlice"
-import { useDispatch, useSelector } from "react-redux"
-import { useState, useEffect } from "react"
+import { registerLastEntered } from "../../../store/statusSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 function MealSummaryPage(props) {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
 
   const [value, setValue] = useState({
     dietSum: undefined,
     foodList: undefined,
-  })
+  });
   // console.log(props.userDailyDiet)
 
-  const params = useParams()
+  const params = useParams();
   const meal = {
     BREAKFAST: "아침",
     LUNCH: "점심",
     DINNER: "저녁",
     SNACK: "간식",
-  }
-  const dispatch = useDispatch()
+  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    localStorage.setItem("mealtime", params.mealtime)
-    dispatch(registerLastEntered(params.mealtime))
-  }, [params, dispatch])
+    localStorage.setItem("mealtime", params.mealtime);
+    dispatch(registerLastEntered(params.mealtime));
+  }, [params, dispatch]);
 
   useEffect(() => {
     if (userDailyDiet) {
-      const temp = { dietSum: undefined, foodList: undefined }
-      temp.dietSum = userDailyDiet[0].sums[params.mealtime]
-      temp.foodList = userDailyDiet[0].details[params.mealtime]
-      setValue(temp)
+      const temp = { dietSum: undefined, foodList: undefined };
+      temp.dietSum = userDailyDiet[0].sums[params.mealtime];
+      temp.foodList = userDailyDiet[0].details[params.mealtime];
+      setValue(temp);
     }
-  }, [userDailyDiet])
+  }, [userDailyDiet]);
 
   return (
     <div>
@@ -59,6 +59,6 @@ function MealSummaryPage(props) {
         <NutrientProgressBox userInfo={userInfo} dietSum={value.dietSum} />
       </div>
     </div>
-  )
+  );
 }
-export default MealSummaryPage
+export default MealSummaryPage;
