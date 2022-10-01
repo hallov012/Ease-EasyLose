@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.css"
 
 import {
   Route,
@@ -6,45 +6,45 @@ import {
   useHistory,
   useLocation,
   HashRouter,
-} from "react-router-dom";
-import { useEffect } from "react";
-import CalendarPage from "./pages/CalendarPage";
-import PlanPage from "./pages/PlanPage";
-import MainPage from "./pages/MainPage";
-import ChartPage from "./pages/ChartPage";
-import MyPage from "./pages/MyPage";
-import SignUpPage from "./pages/SignUpPage";
-import StartPage from "./pages/StartPage";
-import AuthPage from "./pages/AuthPage";
-import AddPage from "./pages/AddPage";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+} from "react-router-dom"
+import { useEffect } from "react"
+import CalendarPage from "./pages/CalendarPage"
+import PlanPage from "./pages/PlanPage"
+import MainPage from "./pages/MainPage"
+import ChartPage from "./pages/ChartPage"
+import MyPage from "./pages/MyPage"
+import SignUpPage from "./pages/SignUpPage"
+import StartPage from "./pages/StartPage"
+import AuthPage from "./pages/AuthPage"
+import AddPage from "./pages/AddPage"
+import { useDispatch, useSelector } from "react-redux"
+// import axios from "axios"
 
-import BottomNav from "./components/BottomNav/BottomNav";
-import { registerUserInfo } from "./store/userSlice";
-import { instance } from "./api";
-import { registerTargetDate } from "./store/statusSlice";
+import BottomNav from "./components/BottomNav/BottomNav"
+import { registerUserInfo } from "./store/userSlice"
+import { instance } from "./api"
+// import { registerTargetDate } from "./store/statusSlice"
 
 function App() {
-  const location = useLocation().pathname;
-  const dispatch = useDispatch();
+  const location = useLocation().pathname
+  const dispatch = useDispatch()
 
-  const temp = JSON.parse(localStorage.getItem("target_date"));
-  if (temp) {
-    dispatch(registerTargetDate(JSON.stringify(temp)));
-  } else {
-    localStorage.setItem("target_date", JSON.stringify(new Date()));
-    dispatch(registerTargetDate(JSON.stringify(new Date())));
-  }
+  // const temp = JSON.parse(localStorage.getItem("target_date"))
+  // if (temp) {
+  //   dispatch(registerTargetDate(JSON.stringify(temp)))
+  // } else {
+  //   localStorage.setItem("target_date", JSON.stringify(new Date()))
+  //   dispatch(registerTargetDate(JSON.stringify(new Date())))
+  // }
 
   useEffect(() => {
     instance
       .get("/user", {})
       .then((response) => {
-        dispatch(registerUserInfo(response.data));
+        dispatch(registerUserInfo(response.data))
       })
-      .catch((error) => console.log(error));
-  }, [dispatch]);
+      .catch((error) => console.log(error))
+  }, [dispatch])
 
   function renderBottomNav() {
     if (
@@ -58,7 +58,7 @@ function App() {
         <div id="bottom_nav_area">
           <BottomNav />
         </div>
-      );
+      )
   }
 
   return (
@@ -95,7 +95,7 @@ function App() {
       </Switch>
       {renderBottomNav()}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

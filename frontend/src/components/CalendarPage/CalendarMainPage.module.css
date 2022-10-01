@@ -31,6 +31,29 @@
   font-weight: 500;
 }
 
+.date__input {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.date__input input {
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+  width: 100vw;
+  height: 50px;
+  padding: 0;
+  z-index: 10;
+  color: var(--text-color);
+  cursor: pointer;
+  font-family: Arita-dotum-Medium;
+}
+
+.date__input fieldset {
+  border: none;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -43,10 +66,11 @@
 
 .information {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 90vw;
-  height: 10vh;
+  height: 16vh;
   padding-left: 5vw;
   padding-right: 5vw;
 }
@@ -70,4 +94,14 @@
   justify-content: space-between;
   align-items: center;
   width: 90vw;
+}
+
+.info_item {
+  font-size: 4rem;
+  font-weight: bold;
+  width: 25vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1vh;
 }

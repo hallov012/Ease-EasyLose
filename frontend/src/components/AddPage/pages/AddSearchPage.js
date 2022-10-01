@@ -29,6 +29,8 @@ function AddSearchPage() {
   const searchList = useSelector((state) => state.basket.searchList)
   const recentList = useSelector((state) => state.basket.recentList)
 
+  const [come, setCome] = useState(true)
+
   const mealtime = useSelector((state) => state.status.lastEntered)
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
@@ -65,23 +67,26 @@ function AddSearchPage() {
   }
 
   async function registerPickedList() {
-    await pickedList.map((item) => {
-      instance
-        .post(
-          "/dailymeal",
-          {
-            date: dateFormat(target_date, "yyyy-mm-dd"),
-            mealType: mealtime,
-            count: item.count,
-            foodId: item.id,
-          },
-          {}
-        )
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => console.log(error))
-    })
+    if (come) {
+      await pickedList.map((item) => {
+        instance
+          .post(
+            "/dailymeal",
+            {
+              date: dateFormat(target_date, "yyyy-mm-dd"),
+              mealType: mealtime,
+              count: item.count,
+              foodId: item.id,
+            },
+            {}
+          )
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => console.log(error))
+      })
+    } else {
+    }
     dispatch(initializeItem())
   }
 

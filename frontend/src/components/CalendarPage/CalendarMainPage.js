@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./CalendarMainPage.css"
 import classes from "./CalendarMainPage.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import {
   addDays,
   startOfMonth,
@@ -18,6 +18,7 @@ import {
 import { instance } from "../../api/index"
 import ReactApexChart from "react-apexcharts"
 import RecommendListItem from "./RecommendListItem/RecommendListItem"
+import CountUp from "react-countup"
 
 function CalendarMainPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -25,6 +26,7 @@ function CalendarMainPage() {
   const [monthData, setMonthData] = useState({})
   const [detailClicked, setDetailClicked] = useState(false)
   const [detailData, setDetailData] = useState(undefined)
+  const [limit, setLimit] = useState(0)
   const [state, setState] = useState({
     options: {
       chart: {
@@ -45,6 +47,7 @@ function CalendarMainPage() {
 
   useEffect(() => {
     if (detailData) {
+      setLimit(Math.round(detailData.score * 100))
       setState({
         options: {
           colors: [
@@ -147,8 +150,6 @@ function CalendarMainPage() {
     }
   }, [detailData])
 
-  console.log(detailData)
-
   useEffect(() => {
     instance
       .get("/calendar/", {
@@ -175,21 +176,33 @@ function CalendarMainPage() {
     const dateFormat = "MMMM yyyy"
 
     return (
-      <>
-        <button onClick={(e) => prevMonth(e)}>
-          <div className="icon">
-            <i className="fas fa-angle-left"></i>
+      <div className={classes.top_nav_item_list}>
+        <div className={classes.top_nav_item}>
+          <div
+            className={`${classes.top_nav_item__box} ${classes.top_nav_item__arrow}`}
+            style={{ display: "flex" }}
+            onClick={(e) => prevMonth(e)}
+          >
+            <FontAwesomeIcon icon={faAngleLeft} size="xl" />
           </div>
-        </button>
-
-        <span>{format(currentMonth, dateFormat)}</span>
-
-        <button onClick={(e) => nextMonth(e)}>
-          <div className="icon">
-            <i className="fas fa-angle-right"></i>
+        </div>
+        <div
+          className={`${classes.top_nav_item} ${classes.top_nav_item__text}`}
+        >
+          <div className={classes.top_nav_item__box}>
+            <div>{format(currentMonth, dateFormat)}</div>
           </div>
-        </button>
-      </>
+        </div>
+        <div className={classes.top_nav_item}>
+          <div
+            className={`${classes.top_nav_item__box} ${classes.top_nav_item__arrow}`}
+            style={{ display: "flex" }}
+            onClick={(e) => nextMonth(e)}
+          >
+            <FontAwesomeIcon icon={faAngleRight} size="xl" />
+          </div>
+        </div>
+      </div>
     )
   }
 
@@ -297,6 +310,24 @@ function CalendarMainPage() {
                   style={{ display: "flex" }}
                   onClick={() => {
                     setDetailClicked(false)
+                    setDetailData(null)
+                    setLimit(0)
+                    setState({
+                      options: {
+                        chart: {
+                          id: "basic-bar",
+                        },
+                        xaxis: {
+                          categories: ["칼로리", "탄수화물", "단백질", "지방"],
+                        },
+                      },
+                      series: [
+                        {
+                          name: "series-1",
+                          data: [0, 0, 0, 0],
+                        },
+                      ],
+                    })
                   }}
                 >
                   <FontAwesomeIcon icon={faAngleLeft} size="xl" />
@@ -308,40 +339,44 @@ function CalendarMainPage() {
           {detailData ? (
             <div className={classes.container}>
               <div className={classes.information}>
-                <div style={{ fontSize: "4.0rem", fontWeight: "bold" }}>
-                  {Math.round(detailData.score * 100)}{" "}
-                  <span style={{ fontSize: "1.5rem" }}>점</span>
+                <div className={classes.info_item}>
+                  <CountUp end={limit} useEasing={true} />{" "}
+                  <span style={{ fontSize: "1.5rem", marginBottom: "1vh" }}>
+                    점
+                  </span>
                 </div>
-                <div>좀 더 노력하세요...!</div>
+                <div>멘트멘트멘트멘트멘트멘트</div>
               </div>
-              <div className={classes.graphcontainer}>
-                <div className={classes.graph_title}>
-                  <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
-                    목표 대비 섭취량
+              <div>
+                <div className={classes.graphcontainer}>
+                  <div className={classes.graph_title}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+                      목표 대비 섭취량
+                    </div>
                   </div>
-                </div>
 
-                <ReactApexChart
-                  options={state.options}
-                  series={state.series}
-                  type="bar"
-                  width={"100%"}
-                ></ReactApexChart>
-              </div>
-              <div style={{ width: "90vw", height: "35vh" }}>
-                <div className={classes.recommend_title}>
-                  <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
-                    부족한 영양소 보충을 위한 리스트입니다!
-                  </div>
+                  <ReactApexChart
+                    options={state.options}
+                    series={state.series}
+                    type="bar"
+                    height={"90%"}
+                  ></ReactApexChart>
                 </div>
-                <div style={{ overflow: "scroll", height: "32vh" }}>
-                  {recommendList.map((item) => {
-                    return (
-                      <div style={{ width: "90vw", height: "10vh" }}>
-                        <RecommendListItem></RecommendListItem>
-                      </div>
-                    )
-                  })}
+                <div style={{ width: "90vw", height: "35vh" }}>
+                  <div className={classes.recommend_title}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+                      부족한 영양소 보충을 위한 리스트입니다!
+                    </div>
+                  </div>
+                  <div style={{ overflow: "scroll", height: "32vh" }}>
+                    {recommendList.map((item) => {
+                      return (
+                        <div style={{ width: "90vw", height: "10vh" }}>
+                          <RecommendListItem></RecommendListItem>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -350,10 +385,12 @@ function CalendarMainPage() {
       ) : (
         <div className="my-calendar-container">
           <div className="my-calendar">
-            <div className="my-calendar-header">{renderHeader()}</div>
-            <div className="my-calendar-body">
-              {renderDays()}
-              {monthData ? renderCells() : null}
+            <div id="top_nav_area">{renderHeader()}</div>
+            <div style={{ marginTop: "9vh" }}>
+              <div className="my-calendar-body">
+                {renderDays()}
+                {monthData ? renderCells() : null}
+              </div>
             </div>
           </div>
         </div>
