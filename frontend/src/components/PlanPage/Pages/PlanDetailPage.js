@@ -35,6 +35,7 @@ function PlanDetailPage() {
       setDailyMeal(dailyMealList.filter(isPlan));
     }
   }, [planId, dailyMealList]);
+
   return (
     <div className={classes.plan_page}>
       {dailyMeal.length ? (

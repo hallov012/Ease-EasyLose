@@ -10,7 +10,6 @@ function DailyDietPage() {
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
   // const [progressBarPercent, setProgressBarPercent] = useState([33, 33, 33])
   // const [progressBarAmount, setProgressBarAmount] = useState([50, 50, 50])
-
   return (
     <div>
       <div id="top_nav_area">
