@@ -5,6 +5,8 @@ import NutrientSummary from "../../../components/MainPage/NutrientSummary/Nutrie
 import SumProgressBar from "../../../components/MainPage/SumProgressBar/SumProgressBar";
 import MealCardList from "../../../components/MainPage/MealCardList/MealCardList";
 
+import classes from "./PlanPage.module.css";
+
 function PlanDetailPage() {
   const userInfo = useSelector((state) => state.user.userInfo);
   const planId = useSelector((state) => state.plan.planId);
@@ -23,7 +25,7 @@ function PlanDetailPage() {
 
   console.log(dailyMeal);
   return (
-    <div>
+    <div className={classes.plan_page}>
       {dailyMeal ? (
         <div>
           <div id="top_nav_area">

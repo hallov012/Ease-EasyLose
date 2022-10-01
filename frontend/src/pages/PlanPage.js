@@ -21,7 +21,7 @@ function PlanPage() {
   }, []);
 
   return (
-    <div className={classes.plan_page}>
+    <div>
       <Route path="/plan" exact>
         <PlanMainPage></PlanMainPage>
       </Route>
