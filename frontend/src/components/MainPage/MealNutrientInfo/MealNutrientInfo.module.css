@@ -3,6 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   padding: 0.5rem 0.8rem;
   border-radius: 5px;
+  color: var(--inner-text-color);
 }
 
 .info_item {
