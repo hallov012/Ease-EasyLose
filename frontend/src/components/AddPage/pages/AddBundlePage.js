@@ -2,16 +2,6 @@ import classes from "./AddBundlePage.module.css"
 import TopHistoryNav from "../../TopNav/TopHistoryNav"
 import ListSubheader from "@mui/material/ListSubheader"
 import List from "@mui/material/List"
-import ListItemButton from "@mui/material/ListItemButton"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
-import Collapse from "@mui/material/Collapse"
-import InboxIcon from "@mui/icons-material/MoveToInbox"
-import DraftsIcon from "@mui/icons-material/Drafts"
-import SendIcon from "@mui/icons-material/Send"
-import ExpandLess from "@mui/icons-material/ExpandLess"
-import ExpandMore from "@mui/icons-material/ExpandMore"
-import StarBorder from "@mui/icons-material/StarBorder"
 import { useEffect, useState } from "react"
 import { instance } from "../../../api/index"
 import BundleListItem from "../BundleListItem/BundleListItem"
@@ -46,7 +36,16 @@ function AddBundlePage() {
             aria-labelledby="nested-list-subheader"
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
-                식단 목록
+                <div
+                  style={{
+                    marginTop: "2vh",
+                    fontWeight: "bold",
+                    fontSize: "1.5rem",
+                    color: "black",
+                  }}
+                >
+                  식단 목록
+                </div>
               </ListSubheader>
             }
           >

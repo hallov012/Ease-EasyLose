@@ -10,6 +10,8 @@ import Collapse from "@mui/material/Collapse"
 import ExpandLess from "@mui/icons-material/ExpandLess"
 import ExpandMore from "@mui/icons-material/ExpandMore"
 
+import Typography from "@mui/material/Typography"
+
 function BundleListItem({ item }) {
   const [open, setOpen] = useState(false)
   const mealtime = ["BREAKFAST", "LUNCH", "DINNER", "SNACK"]
@@ -19,7 +21,13 @@ function BundleListItem({ item }) {
   return (
     <div>
       <ListItemButton onClick={handleClick}>
-        <ListItemText primary={item.name} />
+        <ListItemText
+          primary={
+            <Typography style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+              {item.name}
+            </Typography>
+          }
+        />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
