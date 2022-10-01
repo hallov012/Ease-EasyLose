@@ -3,6 +3,8 @@ package com.easylose.backend.api.v1.service.impl;
 import com.easylose.backend.api.v1.domain.FoodSet;
 import com.easylose.backend.api.v1.domain.FoodSetDetail;
 import com.easylose.backend.api.v1.domain.User;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailCreateRequestDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailCreateResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
@@ -12,6 +14,7 @@ import com.easylose.backend.api.v1.repository.FoodSetDetailRepository;
 import com.easylose.backend.api.v1.repository.FoodSetRepository;
 import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.service.FoodSetService;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,8 +77,8 @@ public class FoodSetServiceImpl implements FoodSetService {
     return foodSetMapper.foodSetToDto(foodSet);
   }
 
-  public FoodSetDetailResponseDto createFoodSetDetail(
-      Long id, Long foodSetId, FoodSetDetailRequestDto requestDto) {
+  public FoodSetDetailCreateResponseDto createFoodSetDetail(
+      Long id, Long foodSetId, FoodSetDetailCreateRequestDto requestDto) {
 
     User user = userRepository.getReferenceById(id);
     FoodSet foodSet = foodSetRepository.getReferenceById(foodSetId);
@@ -84,13 +87,24 @@ public class FoodSetServiceImpl implements FoodSetService {
       return null;
     }
 
-    FoodSetDetail foodSetDetail = FoodSetDetail.builder().foodSet(foodSet).build();
+    FoodSetDetailCreateResponseDto.FoodSetDetailCreateResponseDtoBuilder builder =
+        FoodSetDetailCreateResponseDto.builder();
+    builder.foodSetId(foodSetId);
+    builder.mealType(requestDto.getMealType());
 
-    foodSetMapper.updateFoodSetDetail(requestDto, foodSetDetail);
+    List<FoodSetDetailResponseDto> foods = new ArrayList<FoodSetDetailResponseDto>();
 
-    foodSetDetailRepository.save(foodSetDetail);
+    for (FoodSetDetailRequestDto requestFoodDto : requestDto.getFoods()) {
+      FoodSetDetail foodSetDetail = FoodSetDetail.builder().foodSet(foodSet).build();
+      foodSetMapper.updateFoodSetDetail(requestDto, foodSetDetail);
+      foodSetMapper.updateFoodSetDetail(requestFoodDto, foodSetDetail);
+      foodSetDetailRepository.save(foodSetDetail);
+      foods.add(foodSetMapper.foodSetDetailToDto(foodSetDetail));
+    }
 
-    return foodSetMapper.foodSetDetailToDto(foodSetDetail);
+    builder.foods(foods);
+
+    return builder.build();
   }
 
   public FoodSetDetailResponseDto updateFoodSetDetail(

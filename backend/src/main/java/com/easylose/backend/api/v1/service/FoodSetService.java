@@ -1,5 +1,7 @@
 package com.easylose.backend.api.v1.service;
 
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailCreateRequestDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailCreateResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
@@ -16,8 +18,8 @@ public interface FoodSetService {
 
   FoodSetResponseDto updateFoodSet(Long id, Long foodSetDetailId, FoodSetRequestDto body);
 
-  FoodSetDetailResponseDto createFoodSetDetail(
-      Long id, Long foodSetId, FoodSetDetailRequestDto body);
+  FoodSetDetailCreateResponseDto createFoodSetDetail(
+      Long id, Long foodSetId, FoodSetDetailCreateRequestDto body);
 
   FoodSetDetailResponseDto updateFoodSetDetail(
       Long id, Long foodSetId, Long foodSetDetailId, FoodSetDetailRequestDto body);

@@ -1,5 +1,7 @@
 package com.easylose.backend.api.v1.controller;
 
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailCreateRequestDto;
+import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailCreateResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailRequestDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetDetailResponseDto;
 import com.easylose.backend.api.v1.dto.FoodSetDto.FoodSetRequestDto;
@@ -69,12 +71,13 @@ public class FoodSetController {
 
   @PostMapping("/{foodset_id}")
   @Operation(summary = "모의식단에 항목 추가", description = "모의식단에 항목 추가")
-  public ResponseEntity<FoodSetDetailResponseDto> createFoodSetDetail(
+  public ResponseEntity<FoodSetDetailCreateResponseDto> createFoodSetDetail(
       @AuthenticationPrincipal Long id,
       @PathVariable Long foodset_id,
-      @RequestBody FoodSetDetailRequestDto body) {
+      @RequestBody FoodSetDetailCreateRequestDto body) {
 
-    FoodSetDetailResponseDto response = foodSetService.createFoodSetDetail(id, foodset_id, body);
+    FoodSetDetailCreateResponseDto response =
+        foodSetService.createFoodSetDetail(id, foodset_id, body);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

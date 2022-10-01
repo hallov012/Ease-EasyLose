@@ -1,5 +1,7 @@
 package com.easylose.backend.api.v1.service;
 
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealCreateRequestDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealCreateResponseDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResultDto;
@@ -11,7 +13,7 @@ public interface DailyMealLogService {
 
   //  List<DailyMealResponseDto> getDailyMealCalender(Long id, LocalDate date);
 
-  DailyMealResponseDto createDailyMeal(Long id, DailyMealRequestDto requestDto);
+  DailyMealCreateResponseDto createDailyMeal(Long id, DailyMealCreateRequestDto requestDto);
 
   DailyMealResponseDto updateDailyMeal(Long id, Long dailyMeal_id, DailyMealRequestDto requestDto);
 

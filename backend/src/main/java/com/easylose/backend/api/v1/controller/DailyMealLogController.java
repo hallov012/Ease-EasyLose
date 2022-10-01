@@ -1,5 +1,7 @@
 package com.easylose.backend.api.v1.controller;
 
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealCreateRequestDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealCreateResponseDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResultDto;
@@ -37,9 +39,9 @@ public class DailyMealLogController {
       summary = "유저가 먹은 음식 생성",
       description =
           "유저가 특정 날짜에 먹은 음식 로그 데이터를 생성한다. / 날짜 입령 형식 : yyyy-mm-dd / mealType : [BREAKFAST, LUNCH, DINNER, SNACK]")
-  public ResponseEntity<DailyMealResponseDto> createDailyMeal(
-      @AuthenticationPrincipal Long id, @RequestBody DailyMealRequestDto requestDto) {
-    DailyMealResponseDto response = dailyMealLogService.createDailyMeal(id, requestDto);
+  public ResponseEntity<DailyMealCreateResponseDto> createDailyMeal(
+      @AuthenticationPrincipal Long id, @RequestBody DailyMealCreateRequestDto requestDto) {
+    DailyMealCreateResponseDto response = dailyMealLogService.createDailyMeal(id, requestDto);
     log.info("response : {}", response);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }

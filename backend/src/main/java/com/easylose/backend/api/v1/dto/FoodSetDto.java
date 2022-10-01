@@ -50,9 +50,29 @@ public class FoodSetDto {
   @Setter
   @ToString
   public static class FoodSetDetailRequestDto {
-    private MealType mealType;
     private Long foodId;
     private Float count;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class FoodSetDetailCreateResponseDto {
+    private Long foodSetId;
+    private MealType mealType;
+    private List<FoodSetDetailResponseDto> foods;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class FoodSetDetailCreateRequestDto {
+    private MealType mealType;
+    private List<FoodSetDetailRequestDto> foods;
   }
 
   @AllArgsConstructor
