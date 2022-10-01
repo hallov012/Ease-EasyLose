@@ -13,8 +13,6 @@ function PlanMainPage() {
   const oneMealList = useSelector((state) => state.plan.oneMealList);
   const dailyMealList = useSelector((state) => state.plan.dailyMealList);
 
-  console.log(dailyMealList);
-
   useEffect(() => {}, []);
 
   return (

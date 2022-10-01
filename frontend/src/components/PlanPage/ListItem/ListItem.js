@@ -7,8 +7,9 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Typography from "@mui/material/Typography";
 import Zoom from "@mui/material/Zoom";
 import { useDispatch } from "react-redux";
-import { removeDailyMealItem } from "../../../store/planSlice";
+import { removeDailyMealItem, registerPlanId } from "../../../store/planSlice";
 import { instance } from "../../../api";
+import { NavLink, useHistory } from "react-router-dom";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -23,6 +24,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 
 function ListItem({ data }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
 
   const handleTooltipClose = () => {
@@ -42,9 +44,15 @@ function ListItem({ data }) {
       })
       .catch((error) => console.log(error));
   };
+
+  const handleId = (event) => {
+    event.preventDefault();
+    dispatch(registerPlanId(data.id));
+    history.push(`/plan/${data.id}`);
+  };
   return (
     <div className={classes.container}>
-      <div className={classes.left}>
+      <div onClick={handleId} className={classes.left}>
         <div className={classes.item_title}>{data.name}</div>
         <div className={classes.item_subtitle}>
           총 칼로리: {data.total.calorie}kcal
