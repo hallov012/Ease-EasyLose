@@ -30,6 +30,7 @@ function MealSummaryPage(props) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    localStorage.setItem("mealtime", params.mealtime)
     dispatch(registerLastEntered(params.mealtime))
   }, [params, dispatch])
 

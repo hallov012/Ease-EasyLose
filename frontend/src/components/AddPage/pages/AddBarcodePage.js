@@ -28,7 +28,7 @@ function AddBarcodePage() {
 
             MySwal.fire({
               icon: "success",
-              title: `${response.data[0].name}가 성공적으로 인식되었습니다!`,
+              title: `${response.data[0].name}이(가) 성공적으로 인식되었습니다!`,
               input: "text",
               inputAttributes: {
                 autocapitalize: "off",

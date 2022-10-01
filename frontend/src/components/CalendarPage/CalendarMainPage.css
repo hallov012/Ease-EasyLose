@@ -34,7 +34,7 @@
 .my-calendar .my-calendar-header button {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-weight: bold;
   color: #fff;
   cursor: pointer;
   outline: none;

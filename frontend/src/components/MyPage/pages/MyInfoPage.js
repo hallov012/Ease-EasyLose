@@ -3,12 +3,26 @@ import { useHistory } from "react-router-dom"
 import classes from "./MyInfoPage.module.css"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
 
 function MyInfoPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   const history = useHistory()
 
   const MySwal = withReactContent(Swal)
+
+  function showGoal(goal) {
+    if (goal === "DIET") return "체중 감량을 목표로 합니다"
+    else if (goal === "KEEP") return "체중 유지를 목표로 합니다"
+    else return "체중 증가를 목표로 합니다"
+  }
+
+  function showActivity(act) {
+    if (act === "LOWEST") return "30분 이하의 아주 가벼운 활동"
+    else if (act === "LOW") return "1~2시간 사이의 가벼운 활동"
+    else if (act === "HIGH") return "2~4시간 사이의 보통 활동"
+    else return "4시간 이상의 심한 활동"
+  }
 
   return (
     <div>
@@ -50,12 +64,14 @@ function MyInfoPage() {
               <div className={classes.activity_and_goal}>
                 <i className="fa-solid fa-person-running"></i>
                 <div style={{ marginLeft: "2vw" }}>
-                  {userInfo.activityLevel}
+                  {showActivity(userInfo.activityLevel)}
                 </div>
               </div>
               <div className={classes.activity_and_goal}>
                 <i className="fa-solid fa-seedling"></i>
-                <div style={{ marginLeft: "2vw" }}>{userInfo.goal}</div>
+                <div style={{ marginLeft: "2vw" }}>
+                  {showGoal(userInfo.goal)}
+                </div>
               </div>
             </div>
             <div className={classes.itemList}>
