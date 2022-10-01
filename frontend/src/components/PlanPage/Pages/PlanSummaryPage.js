@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerPlanId } from "../../../store/planSlice";
 
-function PlanSummaryPage() {
+function PlanSummaryPage({ colorSet }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const temp = JSON.parse(localStorage.getItem("target_date"));
@@ -50,14 +50,16 @@ function PlanSummaryPage() {
               margin: "10vh 5vw 15vh",
             }}
           >
-            <NutrientChart dietSum={dailyMeal[0].total} />
+            <NutrientChart dietSum={dailyMeal[0].total} colorSet={colorSet} />
             <NutrientProgressGraph
               userInfo={userInfo}
               dietSum={dailyMeal[0].total}
+              colorSet={colorSet}
             />
             <NutrientProgressBox
               userInfo={userInfo}
               dietSum={dailyMeal[0].total}
+              colorSet={colorSet}
             />
             <UserInfoBox userInfo={userInfo} />
           </div>

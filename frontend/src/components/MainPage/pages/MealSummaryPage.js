@@ -11,11 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
 function MealSummaryPage(props) {
-  const chartColor = {
-    carbColor: "#afb4ff",
-    proteinColor: "#7c83fd",
-    fatColor: "#b1e1ff",
-  };
   const userInfo = useSelector((state) => state.user.userInfo);
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
 
@@ -60,8 +55,12 @@ function MealSummaryPage(props) {
       >
         <MealNutrientInfo dietSum={value.dietSum} />
         <UserFoodList foodList={value.foodList} />
-        <NutrientChart dietSum={value.dietSum} colorSet={chartColor} />
-        <NutrientProgressBox userInfo={userInfo} dietSum={value.dietSum} />
+        <NutrientChart dietSum={value.dietSum} colorSet={props.colorSet} />
+        <NutrientProgressBox
+          userInfo={userInfo}
+          dietSum={value.dietSum}
+          colorSet={props.colorSet}
+        />
       </div>
     </div>
   );

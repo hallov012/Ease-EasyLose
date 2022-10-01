@@ -9,7 +9,7 @@ import dateFormat, { masks } from "dateformat";
 
 import { useState, useEffect } from "react";
 
-function DailySummaryPage() {
+function DailySummaryPage({ colorSet }) {
   const userInfo = useSelector((state) => state.user.userInfo);
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
   const target_date = dateFormat(
@@ -40,10 +40,17 @@ function DailySummaryPage() {
           margin: "10vh 5vw 15vh",
         }}
       >
-        {/* <MealSelectBtnList /> */}
-        <NutrientChart dietSum={dietSum} />
-        <NutrientProgressGraph userInfo={userInfo} dietSum={dietSum} />
-        <NutrientProgressBox userInfo={userInfo} dietSum={dietSum} />
+        <NutrientChart dietSum={dietSum} colorSet={colorSet} />
+        <NutrientProgressGraph
+          userInfo={userInfo}
+          dietSum={dietSum}
+          colorSet={colorSet}
+        />
+        <NutrientProgressBox
+          userInfo={userInfo}
+          dietSum={dietSum}
+          colorSet={colorSet}
+        />
         <UserInfoBox userInfo={userInfo} />
       </div>
     </div>

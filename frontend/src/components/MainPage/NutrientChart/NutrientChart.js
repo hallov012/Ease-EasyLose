@@ -37,7 +37,11 @@ function NutrientChart(props) {
         show: true,
         customLegendItems: ["탄수화물", "단백질", "지방"],
         markers: {
-          fillColors: ["#afb4ff", "#7c83fd", "#b1e1ff"],
+          fillColors: [
+            `${colorSet.carbColor}`,
+            `${colorSet.proteinColor}`,
+            `${colorSet.fatColor}`,
+          ],
           width: 18,
           height: 18,
           radius: 12,

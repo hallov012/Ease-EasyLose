@@ -12,6 +12,11 @@ import PlanMealSummaryPage from "../components/PlanPage/Pages/PlanMealSummaryPag
 import classes from "../components/PlanPage/Pages/PlanPage.module.css";
 
 function PlanPage() {
+  const colorSet = {
+    carbColor: "#a369e5",
+    proteinColor: "#242f9b",
+    fatColor: "#7c83fd",
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     instance
@@ -31,10 +36,10 @@ function PlanPage() {
         <PlanDetailPage></PlanDetailPage>
       </Route>
       <Route path="/plan/:planId/summary" exact>
-        <PlanSummaryPage></PlanSummaryPage>
+        <PlanSummaryPage colorSet={colorSet}></PlanSummaryPage>
       </Route>
       <Route path="/plan/:planId/meal/:mealtime">
-        <PlanMealSummaryPage></PlanMealSummaryPage>
+        <PlanMealSummaryPage colorSet={colorSet}></PlanMealSummaryPage>
       </Route>
     </div>
   );
