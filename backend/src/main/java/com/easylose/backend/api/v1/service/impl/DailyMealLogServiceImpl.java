@@ -3,6 +3,9 @@ package com.easylose.backend.api.v1.service.impl;
 import com.easylose.backend.api.v1.domain.DailyMealLog;
 import com.easylose.backend.api.v1.domain.Food;
 import com.easylose.backend.api.v1.domain.User;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealCreateRequestDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealCreateResponseDto;
+import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealFoodDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealRequestDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResponseDto;
 import com.easylose.backend.api.v1.dto.DailyMealLogDto.DailyMealResultDto;
@@ -13,6 +16,7 @@ import com.easylose.backend.api.v1.repository.UserRepository;
 import com.easylose.backend.api.v1.repository.specification.DailyMealLogSpecification;
 import com.easylose.backend.api.v1.service.DailyMealLogService;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -47,23 +51,37 @@ public class DailyMealLogServiceImpl implements DailyMealLogService {
     return Collections.singletonList(response);
   }
 
-  public DailyMealResponseDto createDailyMeal(Long id, DailyMealRequestDto requestDto) {
+  public DailyMealCreateResponseDto createDailyMeal(Long id, DailyMealCreateRequestDto requestDto) {
     User user = userRepository.getReferenceById(id);
-    Food food = foodRepository.getReferenceById(requestDto.getFoodId());
+    DailyMealCreateResponseDto.DailyMealCreateResponseDtoBuilder responseDto =
+        DailyMealCreateResponseDto.builder();
     if (requestDto.getMealType() == null || requestDto.getDate() == null) {
       return null;
     }
 
-    if (food.getUser() != null && food.getUser() != user) {
-      return null;
+    responseDto.date(requestDto.getDate()).mealType(requestDto.getMealType());
+
+    List<DailyMealFoodDto> foods = new ArrayList<DailyMealFoodDto>();
+
+    for (DailyMealRequestDto requestFoodDto : requestDto.getFoods()) {
+      Food food = foodRepository.getReferenceById(requestFoodDto.getFoodId());
+
+      if (food.getUser() != null && food.getUser() != user) {
+        continue;
+      }
+
+      DailyMealLog dailyMealLog =
+          DailyMealLog.builder().user(user).food(food).count(requestFoodDto.getCount()).build();
+
+      dailyMealLogMapper.updateDailyMealLogFromRequestDto(requestDto, dailyMealLog);
+      dailyMealLogRepository.save(dailyMealLog);
+
+      foods.add(dailyMealLogMapper.toDailyMealFoodDto(dailyMealLog));
     }
 
-    DailyMealLog dailyMealLog = DailyMealLog.builder().user(user).food(food).build();
+    responseDto.foods(foods);
 
-    dailyMealLogMapper.updateDailyMealLogFromRequestDto(requestDto, dailyMealLog);
-    dailyMealLogRepository.save(dailyMealLog);
-
-    return dailyMealLogMapper.dailyMealLogToDto(dailyMealLog);
+    return responseDto.build();
   }
 
   public DailyMealResponseDto updateDailyMeal(
