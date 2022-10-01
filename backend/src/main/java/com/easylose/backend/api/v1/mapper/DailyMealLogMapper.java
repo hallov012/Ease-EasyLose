@@ -27,6 +27,12 @@ public abstract class DailyMealLogMapper {
   public abstract void updateDailyMealLogFromRequestDto(
       DailyMealLogDto.DailyMealRequestDto dto, @MappingTarget DailyMealLog dailyMealLog);
 
+  @BeanMapping(
+      nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+      nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+  public abstract void updateDailyMealLogFromRequestDto(
+      DailyMealLogDto.DailyMealCreateRequestDto dto, @MappingTarget DailyMealLog dailyMealLog);
+
   public abstract DailyMealLog toEntity(final DailyMealRequestDto dto);
 
   public abstract DailyMealResponseDto dailyMealLogToDto(final DailyMealLog dailyMeallog);
@@ -159,4 +165,6 @@ public abstract class DailyMealLogMapper {
     dto.details(details);
     return dto.build();
   }
+
+  public abstract DailyMealFoodDto toDailyMealFoodDto(DailyMealLog dailyMealLog);
 }

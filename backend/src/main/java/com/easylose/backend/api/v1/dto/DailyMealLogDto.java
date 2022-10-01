@@ -14,10 +14,29 @@ public class DailyMealLogDto {
   @Getter
   @Setter
   @ToString
-  public static class DailyMealRequestDto {
-
+  public static class DailyMealCreateRequestDto {
     private LocalDate date;
     private MealType mealType;
+    private List<DailyMealRequestDto> foods;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class DailyMealCreateResponseDto {
+    private LocalDate date;
+    private MealType mealType;
+    private List<DailyMealFoodDto> foods;
+  }
+
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  @Setter
+  @ToString
+  public static class DailyMealRequestDto {
     private Float count;
     private Long foodId;
   }
@@ -28,6 +47,7 @@ public class DailyMealLogDto {
   @Setter
   @ToString
   public static class DailyMealResponseDto {
+    private Long id;
     private LocalDate date;
     private MealType mealType;
     private Float count;
