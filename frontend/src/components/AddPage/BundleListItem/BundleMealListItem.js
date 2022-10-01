@@ -9,7 +9,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore"
 import { useState } from "react"
 
 function BundleMealListItem({ type, foodList }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const handleClick = () => {
     setOpen(!open)
   }

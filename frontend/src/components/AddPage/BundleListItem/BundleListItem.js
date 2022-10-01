@@ -11,7 +11,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess"
 import ExpandMore from "@mui/icons-material/ExpandMore"
 
 function BundleListItem({ item }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const mealtime = ["BREAKFAST", "LUNCH", "DINNER", "SNACK"]
   const handleClick = () => {
     setOpen(!open)

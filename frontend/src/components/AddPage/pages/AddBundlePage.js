@@ -17,7 +17,7 @@ import { instance } from "../../../api/index"
 import BundleListItem from "../BundleListItem/BundleListItem"
 
 function AddBundlePage() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [bundleData, setBundleData] = useState([])
   const handleClick = () => {
     setOpen(!open)

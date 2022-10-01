@@ -101,6 +101,7 @@ function AddSearchPage() {
           bonus={() => {
             dispatch(initializeBasket())
           }}
+          text="테스트입니다"
         ></TopHistoryNav>
       </div>
       <div className={classes.container}>
