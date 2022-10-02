@@ -21,14 +21,14 @@ public abstract class MeasureLogMapper {
       List<DailyMealLog> dailyMealLogs, LocalDate date, MeasureLogResponseDto total) {
     AnalysisResponseDto responseDto =
         AnalysisResponseDto.builder()
-            .calorie(total.getDailyCalorie())
-            .carb(total.getDailyCarb())
-            .protein(total.getDailyProtein())
-            .fat(total.getDailyFat())
-            .dailyCalorie(0)
-            .dailyCarb(0)
-            .dailyProtein(0)
-            .dailyFat(0)
+            .calorie(0)
+            .carb(0)
+            .protein(0)
+            .fat(0)
+            .dailyCalorie(total.getDailyCalorie())
+            .dailyCarb(total.getDailyCarb())
+            .dailyProtein(total.getDailyProtein())
+            .dailyFat(total.getDailyFat())
             .date(date)
             .build();
     if (dailyMealLogs.isEmpty()) {
@@ -46,10 +46,10 @@ public abstract class MeasureLogMapper {
       dailyFat += dailyMealLog.getFood().getFat() * dailyMealLog.getCount();
     }
 
-    responseDto.setDailyCalorie(dailyCalorie);
-    responseDto.setDailyCarb(dailyCarb);
-    responseDto.setDailyProtein(dailyProtein);
-    responseDto.setDailyFat(dailyFat);
+    responseDto.setCalorie(dailyCalorie);
+    responseDto.setCarb(dailyCarb);
+    responseDto.setProtein(dailyProtein);
+    responseDto.setFat(dailyFat);
 
     return responseDto;
   }
