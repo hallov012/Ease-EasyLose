@@ -68,7 +68,7 @@ public class AnalysisServiceImpl implements AnalysisService {
                   user, dateTime));
       response.add(
           measureLogMapper.toAnalysisDto(
-              dailyMealLogRepository.findAllByDate(start), start, totalDto));
+              dailyMealLogRepository.findByUserAndDate(user, start), start, totalDto));
     }
     return response;
   }
