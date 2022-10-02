@@ -42,6 +42,7 @@ function AddBundlePage() {
                     fontWeight: "bold",
                     fontSize: "1.5rem",
                     color: "black",
+                    fontFamily: "Arita-dotum-Medium",
                   }}
                 >
                   식단 목록

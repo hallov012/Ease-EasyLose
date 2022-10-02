@@ -1,59 +1,61 @@
-import { Route, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Route, useHistory } from "react-router-dom"
+import { useEffect, useState } from "react"
 
-import DailyDietPage from "../components/MainPage/pages/DailyDietPage";
-import DailySummaryPage from "../components/MainPage/pages/DailySummaryPage";
-import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage";
+import DailyDietPage from "../components/MainPage/pages/DailyDietPage"
+import DailySummaryPage from "../components/MainPage/pages/DailySummaryPage"
+import MealSummaryPage from "../components/MainPage/pages/MealSummaryPage"
 
-import { useDispatch, useSelector } from "react-redux";
-import { registerDailyDiet } from "../store/dailySlice";
-import { instance } from "../api/index";
+import { useDispatch, useSelector } from "react-redux"
+import { registerDailyDiet } from "../store/dailySlice"
+import { instance } from "../api/index"
 
-import dateFormat, { masks } from "dateformat";
+import dateFormat, { masks } from "dateformat"
 
-import { registerTargetDate } from "../store/statusSlice";
+import { registerTargetDate } from "../store/statusSlice"
 
 function MainPage() {
   const colorSet = {
     carbColor: "#afb4ff",
     proteinColor: "#7c83fd",
     fatColor: "#b1e1ff",
-  };
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
-
-  const temp = JSON.parse(localStorage.getItem("target_date"));
-  if (temp) {
-    if (typeof temp !== "number")
-      dispatch(registerTargetDate(JSON.stringify(temp)));
-    else {
-      localStorage.setItem("target_date", JSON.stringify(new Date()));
-      dispatch(registerTargetDate(JSON.stringify(new Date())));
-    }
-  } else {
-    localStorage.setItem("target_date", JSON.stringify(new Date()));
-    dispatch(registerTargetDate(JSON.stringify(new Date())));
   }
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+
+  useEffect(() => {
+    const temp = JSON.parse(localStorage.getItem("target_date"))
+    if (temp) {
+      if (typeof temp !== "number")
+        dispatch(registerTargetDate(JSON.stringify(temp)))
+      else {
+        localStorage.setItem("target_date", JSON.stringify(new Date()))
+        dispatch(registerTargetDate(JSON.stringify(new Date())))
+      }
+    } else {
+      localStorage.setItem("target_date", JSON.stringify(new Date()))
+      dispatch(registerTargetDate(JSON.stringify(new Date())))
+    }
+  }, [])
 
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
-  );
+  )
 
   useEffect(() => {
-    if (target_date.includes("-")) {
+    if (typeof target_date !== "number") {
       instance
         .get("/dailymeal", {
           params: { date: dateFormat(target_date, "yyyy-mm-dd") },
         })
         .then((response) => {
-          dispatch(registerDailyDiet(response.data));
+          dispatch(registerDailyDiet(response.data))
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
-  }, [target_date, dispatch]);
+  }, [target_date, dispatch])
 
   return (
     <div>
@@ -67,7 +69,7 @@ function MainPage() {
         <MealSummaryPage userDailyDiet={userDailyDiet} colorSet={colorSet} />
       </Route>
     </div>
-  );
+  )
 }
 
-export default MainPage;
+export default MainPage

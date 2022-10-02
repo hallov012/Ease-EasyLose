@@ -45,6 +45,13 @@ function BundleMealListItem({ type, foodList }) {
     history.goBack()
   }
 
+  function showType(type) {
+    if (type === "BREAKFAST") return "아침"
+    else if (type === "LUNCH") return "점심"
+    else if (type === "DINNER") return "저녁"
+    else return "간식"
+  }
+
   return (
     <div>
       <ListItemButton
@@ -54,8 +61,14 @@ function BundleMealListItem({ type, foodList }) {
       >
         <ListItemText
           primary={
-            <Typography style={{ color: "gray", fontSize: "1.1rem" }}>
-              {type}
+            <Typography
+              style={{
+                color: "gray",
+                fontSize: "1.1rem",
+                fontFamily: "Arita-dotum-Medium",
+              }}
+            >
+              {showType(type)}
             </Typography>
           }
         />
@@ -80,7 +93,11 @@ function BundleMealListItem({ type, foodList }) {
       >
         <Box sx={style}>
           <Typography
-            style={{ fontSize: "1.3rem", fontWeight: "bold" }}
+            style={{
+              fontSize: "1.3rem",
+              fontWeight: "bold",
+              fontFamily: "Arita-dotum-Medium",
+            }}
             id="modal-modal-title"
             variant="h6"
             component="h2"
@@ -123,6 +140,7 @@ function BundleMealListItem({ type, foodList }) {
                             textOverflow: "ellipsis",
                             overflow: "hidden",
                             textAlign: "left",
+                            fontFamily: "Arita-dotum-Medium",
                           }}
                         >
                           {foodInfo.food.name}
@@ -136,6 +154,7 @@ function BundleMealListItem({ type, foodList }) {
                           justifyContent: "space-evenly",
                           height: "100%",
                           width: "60%",
+                          fontFamily: "Arita-dotum-Medium",
                         }}
                       >
                         <div>{`${Math.round(foodInfo.food.calorie)} kcal X ${
@@ -170,8 +189,9 @@ function BundleMealListItem({ type, foodList }) {
                   borderRadius: "10px",
 
                   color: "white",
-                  backgroundColor: "rgb(48, 133, 214)",
+                  backgroundColor: "var(--main-color)",
                   fontSize: "1.1rem",
+                  fontFamily: "Arita-dotum-Medium",
                 }}
               >
                 추가하기
@@ -184,9 +204,10 @@ function BundleMealListItem({ type, foodList }) {
                   borderRadius: "10px",
                   width: "45%",
                   height: "5vh",
-                  color: "white",
-                  backgroundColor: "rgb(221, 51, 51)",
+                  color: "black",
+                  backgroundColor: "var(--gray-color)",
                   fontSize: "1.1rem",
+                  fontFamily: "Arita-dotum-Medium",
                 }}
                 onClick={handleClose}
               >

@@ -5,6 +5,7 @@ export const statusSlice = createSlice({
   initialState: {
     lastEntered: null,
     targetDate: null,
+    searchOrRecent: 0,
   },
   reducers: {
     registerLastEntered: (state, action) => {
@@ -13,9 +14,16 @@ export const statusSlice = createSlice({
     registerTargetDate: (state, action) => {
       state.targetDate = action.payload
     },
+    registerSearchOrRecent: (state, action) => {
+      state.searchOrRecent = action.payload
+    },
   },
 })
 
-export const { registerLastEntered, registerTargetDate } = statusSlice.actions
+export const {
+  registerLastEntered,
+  registerTargetDate,
+  registerSearchOrRecent,
+} = statusSlice.actions
 
 export default statusSlice.reducer

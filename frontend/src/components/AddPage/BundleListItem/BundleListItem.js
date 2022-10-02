@@ -23,7 +23,13 @@ function BundleListItem({ item }) {
       <ListItemButton onClick={handleClick}>
         <ListItemText
           primary={
-            <Typography style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+            <Typography
+              style={{
+                fontSize: "1.1rem",
+                fontWeight: "bold",
+                fontFamily: "Arita-dotum-Medium",
+              }}
+            >
               {item.name}
             </Typography>
           }
@@ -33,12 +39,14 @@ function BundleListItem({ item }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {mealtime.map((type, index) => {
-            return (
-              <BundleMealListItem
-                type={type}
-                foodList={item.details[`${mealtime[index]}`]}
-              ></BundleMealListItem>
-            )
+            if (item.details[`${mealtime[index]}`].length !== 0) {
+              return (
+                <BundleMealListItem
+                  type={type}
+                  foodList={item.details[`${mealtime[index]}`]}
+                ></BundleMealListItem>
+              )
+            }
           })}
         </List>
       </Collapse>
