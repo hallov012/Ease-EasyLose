@@ -4,6 +4,7 @@ import classes from "./MyInfoPage.module.css"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
+import { instance } from "../../../api"
 
 function MyInfoPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
@@ -108,6 +109,38 @@ function MyInfoPage() {
           >
             <div>로그아웃</div>
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </div>
+          <div
+            onClick={() => {
+              MySwal.fire({
+                title: "정말 탈퇴하시겠습니까?",
+                text: "가지고 있던 기록들이 모두 사라집니다.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "탈퇴하겠습니다!",
+                cancelButtonText: "취소",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  instance
+                    .delete("/user", {})
+                    .then((response) => console.log(response.data))
+                    .catch((error) => console.log(error))
+                  MySwal.fire({
+                    icon: "success",
+                    title: "성공적으로 탈퇴되었습니다!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  })
+                  history.push("/")
+                }
+              })
+            }}
+            className={classes.box_logout}
+          >
+            <div>회원탈퇴</div>
+            <i className="fa-solid fa-ghost"></i>
           </div>
         </div>
       ) : null}

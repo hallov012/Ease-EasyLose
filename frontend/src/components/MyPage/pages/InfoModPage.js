@@ -6,7 +6,13 @@ import { useSelector } from "react-redux"
 
 function InfoModPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
+  console.log(userInfo)
   const history = useHistory()
+  const colorSet = {
+    carbColor: "#afb4ff",
+    proteinColor: "#7c83fd",
+    fatColor: "#b1e1ff",
+  }
 
   return (
     <div>
@@ -27,7 +33,7 @@ function InfoModPage() {
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
-                    <i class="fa-solid fa-pen"></i>
+                    <i className="fa-solid fa-pen"></i>
                   </div>
                 </div>
               </div>
@@ -41,7 +47,7 @@ function InfoModPage() {
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
-                    <i class="fa-solid fa-pen"></i>
+                    <i className="fa-solid fa-pen"></i>
                   </div>
                 </div>
               </div>
@@ -55,7 +61,7 @@ function InfoModPage() {
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
-                    <i class="fa-solid fa-pen"></i>
+                    <i className="fa-solid fa-pen"></i>
                   </div>
                 </div>
               </div>
@@ -69,7 +75,7 @@ function InfoModPage() {
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
-                    <i class="fa-solid fa-pen"></i>
+                    <i className="fa-solid fa-pen"></i>
                   </div>
                 </div>
               </div>
@@ -83,13 +89,20 @@ function InfoModPage() {
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
-                    <i class="fa-solid fa-pen"></i>
+                    <i className="fa-solid fa-pen"></i>
                   </div>
                 </div>
               </div>
             </div>
             <div className={classes.chart}>
-              <NutrientChart></NutrientChart>
+              <NutrientChart
+                dietSum={{
+                  carb: userInfo.dailyCarb,
+                  protein: userInfo.dailyProtein,
+                  fat: userInfo.dailyFat,
+                }}
+                colorSet={colorSet}
+              ></NutrientChart>
               <div className={classes.itemList}>
                 <div className={classes.item}>
                   <div>칼로리</div>
@@ -108,6 +121,16 @@ function InfoModPage() {
                   <div>{userInfo.dailyFat}g</div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div>
+            <div
+              className={classes.initialize_percent_button}
+              onClick={() => {
+                history.push("/mypage/mod/nut")
+              }}
+            >
+              섭취 기준 수정 <i className="fa-solid fa-pen"></i>
             </div>
           </div>
         </div>

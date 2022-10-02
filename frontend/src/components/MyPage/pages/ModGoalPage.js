@@ -67,7 +67,15 @@ function ModGoalPage() {
           <div id="top_nav_area">
             <TopHistoryNav></TopHistoryNav>
           </div>
-          <div style={{ marginTop: "15vh", fontSize: "2.0rem" }}>목표 수정</div>
+          <div
+            style={{
+              marginTop: "15vh",
+              fontSize: "2.0rem",
+              fontWeight: "bold",
+            }}
+          >
+            목표 수정
+          </div>
           <div className={classes.container}>
             {array.map((item, index) => {
               return (
