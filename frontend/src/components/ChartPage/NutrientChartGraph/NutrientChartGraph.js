@@ -6,14 +6,11 @@ function NutrientChartGraph({ nutData }) {
   const dataset = { extra: [], carb: [], protein: [], fat: [], date: [] };
   for (const daily of nutData) {
     const extraValue =
-      daily.dailyCalorie -
-      daily.dailyCarb * 4 -
-      daily.dailyProtein * 4 -
-      daily.dailyFat * 8;
+      daily.calorie - daily.carb * 4 - daily.protein * 4 - daily.fat * 8;
     dataset.extra.push(extraValue);
-    dataset.carb.push(daily.dailyCarb * 4);
-    dataset.protein.push(daily.dailyProtein * 4);
-    dataset.fat.push(daily.dailyFat * 8);
+    dataset.carb.push(daily.carb * 4);
+    dataset.protein.push(daily.protein * 4);
+    dataset.fat.push(daily.fat * 8);
     dataset.date.push(daily.date.substr(5).replace("-", "/"));
   }
 
