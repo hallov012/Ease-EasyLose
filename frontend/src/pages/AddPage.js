@@ -7,23 +7,27 @@ import AddSearchPage from "../components/AddPage/pages/AddSearchPage"
 import { useDispatch } from "react-redux"
 import { registerLastEntered, registerTargetDate } from "../store/statusSlice"
 import AddBundlePage from "../components/AddPage/pages/AddBundlePage"
+import { useEffect } from "react"
 
 function AddPage() {
   const dispatch = useDispatch()
   const history = useHistory()
-  const temp = JSON.parse(localStorage.getItem("target_date"))
-  if (temp) {
-    dispatch(registerTargetDate(JSON.stringify(temp)))
-  } else {
-    history.push("/main")
-  }
 
-  const _temp = localStorage.getItem("mealtime")
-  if (_temp) {
-    dispatch(registerLastEntered(_temp))
-  } else {
-    history.push("/main")
-  }
+  useEffect(() => {
+    const temp = JSON.parse(localStorage.getItem("target_date"))
+    if (temp) {
+      dispatch(registerTargetDate(JSON.stringify(temp)))
+    } else {
+      history.push("/main")
+    }
+
+    const _temp = localStorage.getItem("mealtime")
+    if (_temp) {
+      dispatch(registerLastEntered(_temp))
+    } else {
+      history.push("/main")
+    }
+  }, [])
 
   return (
     <div>

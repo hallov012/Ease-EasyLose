@@ -18,6 +18,7 @@ import { instance } from "../../../api/index"
 
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+import { registerSearchOrRecent } from "../../../store/statusSlice"
 
 import dateFormat, { masks } from "dateformat"
 
@@ -28,15 +29,16 @@ function AddSearchPage() {
   const pickedList = useSelector((state) => state.basket.pickedList)
   const searchList = useSelector((state) => state.basket.searchList)
   const recentList = useSelector((state) => state.basket.recentList)
+  const searchOrRecent = useSelector((state) => state.status.searchOrRecent)
 
   const mealtime = useSelector((state) => state.status.lastEntered)
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
   )
 
-  const MySwal = withReactContent(Swal)
+  console.log(searchOrRecent)
 
-  const [term, setTerm] = useState(0)
+  const MySwal = withReactContent(Swal)
 
   useEffect(() => {
     instance
@@ -103,6 +105,7 @@ function AddSearchPage() {
         <TopHistoryNav
           bonus={() => {
             dispatch(initializeBasket())
+            dispatch(registerSearchOrRecent(0))
           }}
         ></TopHistoryNav>
       </div>
@@ -118,12 +121,13 @@ function AddSearchPage() {
           <SelectBtn
             data={["최근 추가 음식", "음식 검색"]}
             setValue={(value) => {
-              setTerm(value)
+              dispatch(registerSearchOrRecent(value))
             }}
+            def={searchOrRecent}
           ></SelectBtn>
         </div>
         <div
-          style={{ display: term === 1 ? "flex" : "none" }}
+          style={{ display: searchOrRecent === 1 ? "flex" : "none" }}
           className={classes.scontainer}
         >
           <input
@@ -150,7 +154,7 @@ function AddSearchPage() {
           </div>
         </div>
         <div style={{ overflow: "scroll", height: "60vh" }}>
-          {term === 1 ? (
+          {searchOrRecent === 1 ? (
             searchList.length === 0 ? (
               <div
                 style={{
@@ -205,7 +209,7 @@ function AddSearchPage() {
                     <ListItemCheckBox
                       selected={false}
                       foodInfo={item}
-                      type={term}
+                      type={searchOrRecent}
                     ></ListItemCheckBox>
                   </div>
                 )
@@ -218,7 +222,7 @@ function AddSearchPage() {
                   <ListItemCheckBox
                     selected={false}
                     foodInfo={item}
-                    type={term}
+                    type={searchOrRecent}
                   ></ListItemCheckBox>
                 </div>
               )
