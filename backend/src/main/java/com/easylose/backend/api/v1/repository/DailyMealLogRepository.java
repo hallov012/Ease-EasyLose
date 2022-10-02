@@ -15,7 +15,7 @@ public interface DailyMealLogRepository
   @Query("SELECT DISTINCT d.food FROM DailyMealLog d WHERE d.user = ?1")
   List<Food> findDistinctFoodByUser(User user, Pageable pageable);
 
-  List<DailyMealLog> findByDateBetween(LocalDate start, LocalDate end);
+  List<DailyMealLog> findByUserAndDateBetween(User user, LocalDate start, LocalDate end);
 
-  List<DailyMealLog> findAllByDate(LocalDate date);
+  List<DailyMealLog> findByUserAndDate(User user, LocalDate date);
 }
