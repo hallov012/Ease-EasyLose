@@ -202,6 +202,11 @@ function AddCustomPage() {
       <div onClick={onClickHandler} className={classes.addButtonContainer}>
         <div className={classes.addButton}>저장하기</div>
       </div>
+      <div className={classes.bcontainer}>
+        <div className={classes.icon}>
+          <i class="fa-solid fa-folder-plus fa-fw"></i>
+        </div>
+      </div>
     </div>
   )
 }

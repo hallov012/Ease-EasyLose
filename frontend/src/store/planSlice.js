@@ -5,6 +5,7 @@ export const planSlice = createSlice({
   initialState: {
     oneMealList: [],
     dailyMealList: [],
+    planId: -1,
   },
   reducers: {
     registerOneMealList: (state, action) => {
@@ -12,6 +13,9 @@ export const planSlice = createSlice({
     },
     registerDailyMealList: (state, action) => {
       state.dailyMealList = action.payload
+    },
+    registerPlanId: (state, action) => {
+      state.planId = action.payload
     },
     removeOneMealItem: (state, action) => {
       state.oneMealList = state.oneMealList.filter((item) => {
@@ -29,6 +33,7 @@ export const planSlice = createSlice({
 export const {
   registerOneMealList,
   registerDailyMealList,
+  registerPlanId,
   removeOneMealItem,
   removeDailyMealItem,
 } = planSlice.actions

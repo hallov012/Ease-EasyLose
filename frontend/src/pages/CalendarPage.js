@@ -1,6 +1,5 @@
-import { Route } from "react-router-dom";
-import CalendarMainPage from "../components/CalendarPage/CalendarMainPage";
-import TopNavDate from "../components/TopNav/TopNavDate";
+import { Route } from "react-router-dom"
+import CalendarMainPage from "../components/CalendarPage/CalendarMainPage"
 
 function CalendarPage() {
   return (
@@ -9,7 +8,7 @@ function CalendarPage() {
         <CalendarMainPage></CalendarMainPage>
       </Route>
     </div>
-  );
+  )
 }
 
-export default CalendarPage;
+export default CalendarPage

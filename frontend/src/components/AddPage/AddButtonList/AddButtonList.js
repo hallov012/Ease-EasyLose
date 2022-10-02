@@ -12,7 +12,7 @@ function AddButtonList() {
         <i class="fa-solid fa-barcode fa-fw"></i>
       </NavLink>
       <NavLink
-        to="/add/import"
+        to="/add/bundle"
         className={classes.icon}
         activeClassName={classes.activeicon}
       >

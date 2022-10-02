@@ -1,0 +1,29 @@
+.bcontainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 8vh;
+  background-color: var(--main-color);
+  bottom: 0;
+  position: absolute;
+}
+
+.icon {
+  font-size: 2rem;
+  margin: 5px;
+  color: white;
+}
+
+.container {
+  margin-top: 9vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+}
+
+.list_container {
+  width: 90vw;
+}

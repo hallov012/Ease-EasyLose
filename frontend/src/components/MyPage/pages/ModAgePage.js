@@ -42,7 +42,13 @@ function ModAgePage() {
           <div id="top_nav_area">
             <TopHistoryNav></TopHistoryNav>
           </div>
-          <div style={{ marginTop: "15vh", fontSize: "2.0rem" }}>
+          <div
+            style={{
+              marginTop: "15vh",
+              fontSize: "2.0rem",
+              fontWeight: "bold",
+            }}
+          >
             (만)나이 수정
           </div>
           <TheSlider
@@ -52,7 +58,7 @@ function ModAgePage() {
             setValue={(value) => {
               setAge(value)
             }}
-            term={0.5}
+            term={1}
           />
           <div
             onClick={() => {

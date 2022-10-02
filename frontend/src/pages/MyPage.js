@@ -7,9 +7,9 @@ import ModHeightPage from "../components/MyPage/pages/ModHeightPage"
 import ModAgePage from "../components/MyPage/pages/ModAgePage"
 import ModGoalPage from "../components/MyPage/pages/ModGoalPage"
 import ModActivityLevelPage from "../components/MyPage/pages/ModActivityLevelPage"
+import ModNutPage from "../components/MyPage/pages/ModNutPage"
 function MyPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
-  console.log("mypage" + userInfo)
   return (
     <div>
       <Route path="/mypage" exact>
@@ -32,6 +32,9 @@ function MyPage() {
       </Route>
       <Route path="/mypage/mod/activity">
         <ModActivityLevelPage></ModActivityLevelPage>
+      </Route>
+      <Route path="/mypage/mod/nut">
+        <ModNutPage></ModNutPage>
       </Route>
     </div>
   )

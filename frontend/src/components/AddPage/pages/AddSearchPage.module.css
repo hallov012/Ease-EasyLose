@@ -52,8 +52,8 @@
 }
 
 .pickedItem {
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 4vw;
+  padding-right: 4vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -61,12 +61,22 @@
   border-radius: 5px;
   width: 90vw;
   font-size: 1.2rem;
-  height: 4vh;
+  height: 8vh;
   margin-top: 1vh;
   color: white;
 }
 
 .pickedItem_title {
+  display: block;
+
+  width: 80%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
+}
+
+.pickedItem_sub {
   display: block;
 
   width: 80%;

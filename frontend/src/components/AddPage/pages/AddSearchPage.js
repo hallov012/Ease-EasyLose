@@ -18,27 +18,27 @@ import { instance } from "../../../api/index"
 
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+import { registerSearchOrRecent } from "../../../store/statusSlice"
 
 import dateFormat, { masks } from "dateformat"
 
 function AddSearchPage() {
-  const location = useLocation()
   const history = useHistory()
   const dispatch = useDispatch()
-  const accessToken = useSelector((state) => state.user.accessToken)
   const [searchTerm, setSearchTerm] = useState("")
   const pickedList = useSelector((state) => state.basket.pickedList)
   const searchList = useSelector((state) => state.basket.searchList)
   const recentList = useSelector((state) => state.basket.recentList)
+  const searchOrRecent = useSelector((state) => state.status.searchOrRecent)
 
   const mealtime = useSelector((state) => state.status.lastEntered)
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
   )
 
-  const MySwal = withReactContent(Swal)
+  console.log(searchOrRecent)
 
-  const [term, setTerm] = useState(0)
+  const MySwal = withReactContent(Swal)
 
   useEffect(() => {
     instance
@@ -57,32 +57,46 @@ function AddSearchPage() {
             name: searchTerm,
           },
         })
-        .then((response) => dispatch(registerSearchList(response.data)))
+        .then((response) => {
+          dispatch(registerSearchList(response.data))
+        })
         .catch((error) => {
           console.log(error)
         })
     }
   }
 
-  async function registerPickedList() {
-    await pickedList.map((item) => {
+  function registerPickedList() {
+    if (typeof target_date !== "number") {
+      const obj = {
+        date: dateFormat(target_date, "yyyy-mm-dd"),
+        mealType: mealtime,
+        foods: [],
+      }
+      pickedList.map((item) => {
+        obj.foods = [...obj.foods, { count: item.count, foodId: item.id }]
+      })
       instance
-        .post(
-          "/dailymeal",
-          {
-            date: dateFormat(target_date, "yyyy-mm-dd"),
-            mealType: mealtime,
-            count: item.count,
-            foodId: item.id,
-          },
-          {}
-        )
+        .post("/dailymeal", obj, {})
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error))
+      dispatch(initializeItem())
+    } else {
+      const obj = {
+        mealType: mealtime,
+        foods: [],
+      }
+      pickedList.map((item) => {
+        obj.foods = [...obj.foods, { count: item.count, foodId: item.id }]
+      })
+      instance
+        .post(`/foodset/${target_date}`, obj, {})
         .then((response) => {
-          console.log(response)
+          console.log(response.data)
         })
         .catch((error) => console.log(error))
-    })
-    dispatch(initializeItem())
+      dispatch(initializeItem())
+    }
   }
 
   return (
@@ -91,6 +105,7 @@ function AddSearchPage() {
         <TopHistoryNav
           bonus={() => {
             dispatch(initializeBasket())
+            dispatch(registerSearchOrRecent(0))
           }}
         ></TopHistoryNav>
       </div>
@@ -104,14 +119,15 @@ function AddSearchPage() {
           }}
         >
           <SelectBtn
-            data={["음식 검색", "자주 먹은 음식"]}
+            data={["최근 추가 음식", "음식 검색"]}
             setValue={(value) => {
-              setTerm(value)
+              dispatch(registerSearchOrRecent(value))
             }}
+            def={searchOrRecent}
           ></SelectBtn>
         </div>
         <div
-          style={{ display: term == 0 ? "flex" : "none" }}
+          style={{ display: searchOrRecent === 1 ? "flex" : "none" }}
           className={classes.scontainer}
         >
           <input
@@ -138,37 +154,96 @@ function AddSearchPage() {
           </div>
         </div>
         <div style={{ overflow: "scroll", height: "60vh" }}>
-          {term === 0
-            ? searchList.map((item) => {
+          {searchOrRecent === 1 ? (
+            searchList.length === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100vw",
+                  height: "100%",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingRight: "20vw",
+                    }}
+                  >
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-carrot fa-fw"></i>
+                    </div>
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-champagne-glasses fa-fw"></i>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: "1.5rem" }}>
+                    다양한 식품들이 준비되어 있어요!
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingLeft: "20vw",
+                    }}
+                  >
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-fish fa-fw"></i>
+                    </div>
+                    <div style={{ fontSize: 50, margin: "1vh" }}>
+                      <i className="fa-solid fa-bowl-rice fa-fw"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              searchList.map((item) => {
                 return (
                   <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
                     <ListItemCheckBox
                       selected={false}
                       foodInfo={item}
-                      type={term}
+                      type={searchOrRecent}
                     ></ListItemCheckBox>
                   </div>
                 )
               })
-            : recentList.map((item) => {
-                return (
-                  <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
-                    <ListItemCheckBox
-                      selected={false}
-                      foodInfo={item}
-                      type={term}
-                    ></ListItemCheckBox>
-                  </div>
-                )
-              })}
+            )
+          ) : (
+            recentList.map((item) => {
+              return (
+                <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
+                  <ListItemCheckBox
+                    selected={false}
+                    foodInfo={item}
+                    type={searchOrRecent}
+                  ></ListItemCheckBox>
+                </div>
+              )
+            })
+          )}
         </div>
       </div>
       <div className={classes.pickedList}>
         {pickedList.map((item) => {
           return (
             <div key={item.id} className={classes.pickedItem}>
-              <div className={classes.pickedItem_title}>{item.name}</div>
+              <div style={{ width: "85%" }}>
+                <div className={classes.pickedItem_title}>{item.name}</div>
+                <div className={classes.pickedItem_sub}>{`${Math.round(
+                  item.calorie
+                )} kcal X ${item.count} 개 = ${
+                  Math.round(item.calorie) * item.count
+                } kcal`}</div>
+              </div>
               <div
+                style={{ fontSize: "1.5rem" }}
                 onClick={() => {
                   dispatch(removeItem(item))
                 }}
@@ -196,6 +271,7 @@ function AddSearchPage() {
               showConfirmButton: false,
               timer: 1500,
             })
+            history.goBack()
           }
         }}
         className={classes.addButtonContainer}

@@ -1,55 +1,35 @@
-import TopNav from "../../TopNav/TopNav"
-import MealSelectBtnList from "../MealSelectBtnList/MealSelectBtnList"
-import NutrientChart from "../NutrientChart/NutrientChart"
-import NutrientProgressGraph from "../NutrientProgressGraph/NutrientProgressGraph"
-import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox"
-import UserInfoBox from "../UserInfoBox/UserInfoBox"
-import { useSelector } from "react-redux"
-import dateFormat, { masks } from "dateformat"
+import TopNav from "../../TopNav/TopNav";
+import MealSelectBtnList from "../MealSelectBtnList/MealSelectBtnList";
+import NutrientChart from "../NutrientChart/NutrientChart";
+import NutrientProgressGraph from "../NutrientProgressGraph/NutrientProgressGraph";
+import NutrientProgressBox from "../NutrientProgressBox/NutrientProgressBox";
+import UserInfoBox from "../UserInfoBox/UserInfoBox";
+import { useSelector } from "react-redux";
+import dateFormat, { masks } from "dateformat";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
-function DailySummaryPage() {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const userDailyDiet = useSelector((state) => state.daily.dailyDiet)
+function DailySummaryPage({ colorSet }) {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
   const target_date = dateFormat(
     JSON.parse(useSelector((state) => state.status.targetDate)),
     "yyyy. mm. dd (ddd)"
-  )
-  const [dietSum, setDeitSum] = useState(undefined)
+  );
+  const [dietSum, setDeitSum] = useState(undefined);
 
   useEffect(() => {
     if (userDailyDiet) {
-      setDeitSum(userDailyDiet[0].total)
+      setDeitSum(userDailyDiet[0].total);
     }
-  }, [userDailyDiet])
+  }, [userDailyDiet]);
 
   useEffect(() => {
-    setDateTitle(target_date)
-  }, [target_date])
+    setDateTitle(target_date);
+  }, [target_date]);
 
-  const [dateTitle, setDateTitle] = useState("")
-  // if (date && !dateTitle) {
-  // const month = {
-  //   Jan: "01",
-  //   Feb: "02",
-  //   Mar: "03",
-  //   Apr: "04",
-  //   May: "05",
-  //   Jun: "06",
-  //   Jul: "07",
-  //   Aug: "08",
-  //   Sep: "09",
-  //   Oct: "10",
-  //   Nov: "11",
-  //   Dec: "12",
-  // }
-  // const dateList = date.split(" ")
-  // const monthString = dateList[1]
-  // // const monthNum = month[monthString]
-  // const dateString = `${dateList[0]}. ${dateList[1]}. ${dateList[2]} (${dateList[3]})`
-  // setDateTitle(dateString)
-  // }
+  const [dateTitle, setDateTitle] = useState("");
+
   return (
     <div>
       <div id="top_nav_area">
@@ -60,13 +40,20 @@ function DailySummaryPage() {
           margin: "10vh 5vw 15vh",
         }}
       >
-        {/* <MealSelectBtnList /> */}
-        <NutrientChart dietSum={dietSum} />
-        <NutrientProgressGraph userInfo={userInfo} dietSum={dietSum} />
-        <NutrientProgressBox userInfo={userInfo} dietSum={dietSum} />
+        <NutrientChart dietSum={dietSum} colorSet={colorSet} />
+        <NutrientProgressGraph
+          userInfo={userInfo}
+          dietSum={dietSum}
+          colorSet={colorSet}
+        />
+        <NutrientProgressBox
+          userInfo={userInfo}
+          dietSum={dietSum}
+          colorSet={colorSet}
+        />
         <UserInfoBox userInfo={userInfo} />
       </div>
     </div>
-  )
+  );
 }
-export default DailySummaryPage
+export default DailySummaryPage;

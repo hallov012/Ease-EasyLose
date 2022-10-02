@@ -1,23 +1,25 @@
-import classes from "./NutrientChart.module.css"
-import ReactApexChart from "react-apexcharts"
-import { useEffect, useState } from "react"
+import classes from "./NutrientChart.module.css";
+import ReactApexChart from "react-apexcharts";
+import { useEffect, useState } from "react";
 
 function NutrientChart(props) {
-  const dietSum = props.dietSum
-  const [value, setValue] = useState({ percent: [0, 0, 0], total: 0 })
+  const dietSum = props.dietSum;
+  const [value, setValue] = useState({ percent: [0, 0, 0], total: 0 });
 
   useEffect(() => {
     if (dietSum) {
-      const totalSum = dietSum.carb + dietSum.protein + dietSum.fat
-      const temp = [0, 0, 0]
+      const totalSum = dietSum.carb + dietSum.protein + dietSum.fat;
+      const temp = [0, 0, 0];
       if (totalSum) {
-        temp[0] = Math.ceil((dietSum.carb / totalSum) * 100)
-        temp[1] = Math.ceil((dietSum.protein / totalSum) * 100)
-        temp[2] = Math.ceil((dietSum.fat / totalSum) * 100)
-        setValue({ percent: temp, total: totalSum })
+        temp[0] = Math.ceil((dietSum.carb / totalSum) * 100);
+        temp[1] = Math.ceil((dietSum.protein / totalSum) * 100);
+        temp[2] = Math.ceil((dietSum.fat / totalSum) * 100);
+        setValue({ percent: temp, total: totalSum });
       }
     }
-  }, [dietSum])
+  }, [dietSum]);
+
+  const colorSet = props.colorSet;
 
   const data = {
     series: value.percent,
@@ -26,12 +28,20 @@ function NutrientChart(props) {
         type: "donut",
       },
       labels: ["탄수화물", "단백질", "지방"],
-      colors: ["#afb4ff", "#7c83fd", "#b1e1ff"],
+      colors: [
+        `${colorSet.carbColor}`,
+        `${colorSet.proteinColor}`,
+        `${colorSet.fatColor}`,
+      ],
       legend: {
         show: true,
         customLegendItems: ["탄수화물", "단백질", "지방"],
         markers: {
-          fillColors: ["#afb4ff", "#7c83fd", "#b1e1ff"],
+          fillColors: [
+            `${colorSet.carbColor}`,
+            `${colorSet.proteinColor}`,
+            `${colorSet.fatColor}`,
+          ],
           width: 18,
           height: 18,
           radius: 12,
@@ -52,7 +62,7 @@ function NutrientChart(props) {
         },
       ],
     },
-  }
+  };
   return (
     <div className={classes.chart_box}>
       <span>섭취 영양소 비율</span>
@@ -70,6 +80,6 @@ function NutrientChart(props) {
         />
       </div>
     </div>
-  )
+  );
 }
-export default NutrientChart
+export default NutrientChart;

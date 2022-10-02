@@ -1,22 +1,23 @@
-import classes from "./NutrientProgressGraph.module.css"
-import ReactApexChart from "react-apexcharts"
-import { useState, useEffect } from "react"
+import classes from "./NutrientProgressGraph.module.css";
+import ReactApexChart from "react-apexcharts";
+import { useState, useEffect } from "react";
 
 function NutrientProgressGraph(props) {
-  const userInfo = props.userInfo
-  const dietSum = props.dietSum
-  const [value, setValue] = useState([0, 0, 0, 0])
+  const colorSet = props.colorSet;
+  const userInfo = props.userInfo;
+  const dietSum = props.dietSum;
+  const [value, setValue] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
     if (userInfo && dietSum) {
-      const temp = [0, 0, 0, 0]
-      temp[0] = Math.ceil((dietSum.calorie / userInfo.dailyCalorie) * 100)
-      temp[1] = Math.ceil((dietSum.carb / userInfo.dailyCarb) * 100)
-      temp[2] = Math.ceil((dietSum.protein / userInfo.dailyProtein) * 100)
-      temp[3] = Math.ceil((dietSum.fat / userInfo.dailyFat) * 100)
-      setValue(temp)
+      const temp = [0, 0, 0, 0];
+      temp[0] = Math.ceil((dietSum.calorie / userInfo.dailyCalorie) * 100);
+      temp[1] = Math.ceil((dietSum.carb / userInfo.dailyCarb) * 100);
+      temp[2] = Math.ceil((dietSum.protein / userInfo.dailyProtein) * 100);
+      temp[3] = Math.ceil((dietSum.fat / userInfo.dailyFat) * 100);
+      setValue(temp);
     }
-  }, [userInfo, dietSum])
+  }, [userInfo, dietSum]);
 
   const data = {
     series: [
@@ -47,7 +48,7 @@ function NutrientProgressGraph(props) {
           show: false,
         },
       },
-      colors: ["#7c83fd", "#afb4ff"],
+      colors: [`${colorSet.proteinColor}`, `${colorSet.carbColor}`],
       plotOptions: {
         bar: {
           horizontal: false,
@@ -78,12 +79,12 @@ function NutrientProgressGraph(props) {
       tooltip: {
         y: {
           formatter: function (val) {
-            return val + "%"
+            return val + "%";
           },
         },
       },
     },
-  }
+  };
   return (
     <div className={classes.chart_box}>
       <div className={classes.top_area}>
@@ -107,6 +108,6 @@ function NutrientProgressGraph(props) {
         />
       </div>
     </div>
-  )
+  );
 }
-export default NutrientProgressGraph
+export default NutrientProgressGraph;

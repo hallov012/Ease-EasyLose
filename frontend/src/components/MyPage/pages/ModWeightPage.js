@@ -42,7 +42,13 @@ function ModWeightPage() {
           <div id="top_nav_area">
             <TopHistoryNav></TopHistoryNav>
           </div>
-          <div style={{ marginTop: "15vh", fontSize: "2.0rem" }}>
+          <div
+            style={{
+              marginTop: "15vh",
+              fontSize: "2.0rem",
+              fontWeight: "bold",
+            }}
+          >
             몸무게 수정
           </div>
           <TheSlider

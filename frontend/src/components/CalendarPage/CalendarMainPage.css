@@ -18,7 +18,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: #fecb89;
+  background-color: var(--gray-color);
+  height: 7vh;
 }
 .my-calendar .my-calendar-header span {
   display: flex;
@@ -28,12 +29,12 @@
   background-color: transparent;
 }
 .my-calendar .my-calendar-header .icon {
-  color: #b9ac92;
+  color: black;
 }
 .my-calendar .my-calendar-header button {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-weight: bold;
   color: #fff;
   cursor: pointer;
   outline: none;
@@ -68,17 +69,17 @@
   cursor: pointer;
 }
 .my-calendar .my-calendar-body .week:not(.day-labels) .day:hover {
-  background: #fbe6d4;
-  color: #b9ac92;
+  background: #e6e6fa;
+  color: black;
 }
 .my-calendar .my-calendar-body .week:not(.day-labels) .day.is-selected {
-  background-color: #ffa931;
+  background-color: var(--sub-color);
   color: #fff;
 }
 .my-calendar .my-calendar-body .week:not(.day-labels) .day.is-today {
   font-weight: bold;
-  background: #fecb89;
-  color: #b9ac92;
+  background: var(--main-color);
+  color: black;
 }
 .my-calendar
   .my-calendar-body
