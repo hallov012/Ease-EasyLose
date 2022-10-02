@@ -39,6 +39,7 @@ public class UserController {
   @DeleteMapping("")
   @Operation(summary = "로그인 한 유저 정보 삭제", description = "로그인 한 유저 정보를 삭제한다.")
   public ResponseEntity<Boolean> deleteUser(@AuthenticationPrincipal Long id) {
+
     boolean response = userService.deleteUser(id);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

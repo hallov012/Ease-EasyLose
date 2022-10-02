@@ -18,4 +18,6 @@ public interface DailyMealLogRepository
   List<DailyMealLog> findByDateBetween(LocalDate start, LocalDate end);
 
   List<DailyMealLog> findAllByDate(LocalDate date);
+
+  boolean deleteAllByUser(User user);
 }
