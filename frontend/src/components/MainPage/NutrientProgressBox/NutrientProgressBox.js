@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 function NutrientProgressBox(props) {
   const colorSet = props.colorSet;
-  console.log(colorSet);
   const nutrient = [
     "calorie",
     "carb",

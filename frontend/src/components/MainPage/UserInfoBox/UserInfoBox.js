@@ -1,8 +1,7 @@
-import classes from "./UserInfoBox.module.css"
-import { NavLink } from "react-router-dom"
+import classes from "./UserInfoBox.module.css";
+import { NavLink } from "react-router-dom";
 
 function UserInfoBox(props) {
-  console.log(props.userInfo)
   return (
     <div className={classes.info_area}>
       <div className={classes.top_area}>
@@ -29,6 +28,6 @@ function UserInfoBox(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default UserInfoBox
+export default UserInfoBox;

@@ -1,13 +1,20 @@
-import classes from "./WeightGraph.module.css"
+import classes from "./WeightGraph.module.css";
 
-import ReactApexChart from "react-apexcharts"
+import ReactApexChart from "react-apexcharts";
+import dateFormat, { masks } from "dateformat";
 
-function WeightGraph() {
+function WeightGraph({ weightData }) {
+  const dataset = { weight: [], date: [] };
+  for (const log of weightData) {
+    dataset.weight.push(log.weight);
+    dataset.date.push(dateFormat(log.date, "mm/dd"));
+  }
+
   const data = {
     series: [
       {
         name: "몸무게(kg)",
-        data: [54, 55, 54.5, 54, 53, 53.2, 54],
+        data: dataset.weight,
       },
     ],
     options: {
@@ -44,10 +51,17 @@ function WeightGraph() {
         },
       },
       xaxis: {
-        categories: ["9/12", "9/13", "9/14", "9/15", "9/16", "9/17", "9/18"],
+        categories: dataset.date,
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val + "kg";
+          },
+        },
       },
     },
-  }
+  };
   return (
     <div className={classes.graph_box}>
       <div className={classes.text}>몸무게(kg) 변화</div>
@@ -58,6 +72,6 @@ function WeightGraph() {
         height={"100%"}
       />
     </div>
-  )
+  );
 }
-export default WeightGraph
+export default WeightGraph;
