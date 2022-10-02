@@ -19,10 +19,8 @@ services:
 
   db:
     image: mariadb:latest
-    # expose:
-    #   - ${MYSQL_PORT}
-    ports:
-      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    expose:
+      - ${MYSQL_PORT}
     volumes:
       - ./db/conf.d:/etc/mysql/conf.d
       - ./db/data:/var/lib/mysql
