@@ -54,16 +54,14 @@ public class AnalysisServiceImpl implements AnalysisService {
   public List<AnalysisResponseDto> getDailyChart(Long id, LocalDate date) {
     User user = userRepository.getReferenceById(id);
     List<AnalysisResponseDto> response = new ArrayList<AnalysisResponseDto>();
-    if (date.atTime(23, 59, 59).isBefore(user.getCreatedAt())) {
-      return null;
-    }
     for (int i = 6; i >= 0; i--) {
       LocalDate start = date.minusDays(i);
       LocalDateTime dateTime = start.atTime(23, 59, 59);
       if (user.getCreatedAt().isAfter(start.atStartOfDay())) {
-        dateTime = date.atTime(23, 59, 59);
+        dateTime = user.getCreatedAt().plusHours(1);
       }
       log.info("datetime : {}", dateTime);
+
       MeasureLogResponseDto totalDto =
           measureLogMapper.toResponseDto(
               measureLogRepository.findTopByUserAndCreatedAtLessThanEqualOrderByCreatedAtDesc(
