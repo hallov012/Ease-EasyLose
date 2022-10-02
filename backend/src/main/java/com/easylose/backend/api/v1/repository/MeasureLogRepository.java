@@ -14,7 +14,5 @@ public interface MeasureLogRepository
   MeasureLog findTopByUserAndCreatedAtLessThanEqualOrderByCreatedAtDesc(
       User user, LocalDateTime date);
 
-  boolean deleteAllByUser(User user);
-
   MeasureLog findTopByUser(User user);
 }
