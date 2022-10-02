@@ -10,6 +10,9 @@ import { useDispatch } from "react-redux";
 import { registerDailyMealList } from "../../../store/planSlice";
 import { NavLink } from "react-router-dom";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,8 +63,10 @@ function PlanNav({ title, planId }) {
       {planId ? (
         <div className={classes.nav_area}>
           <NavLink to="/plan">
-            <div className={classes.edit_btn}>
-              <i class="fa-solid fa-chevron-left"></i>
+            <div
+              className={`${classes.top_nav_item__box} ${classes.top_nav_item__arrow}`}
+            >
+              <FontAwesomeIcon icon={faAngleLeft} size="xl" />
             </div>
           </NavLink>
           <div className={classes.top_nav_item__text}>{title}</div>

@@ -43,3 +43,20 @@
   border: none;
   background: var(--sub-color);
 }
+
+.top_nav_item__box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top_nav_item__box div {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.top_nav_item__arrow {
+  cursor: pointer;
+}
