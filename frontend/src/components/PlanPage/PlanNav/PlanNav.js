@@ -8,6 +8,7 @@ import { useState } from "react";
 import { instance } from "../../../api/index";
 import { useDispatch } from "react-redux";
 import { registerDailyMealList } from "../../../store/planSlice";
+import { NavLink } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -58,7 +59,11 @@ function PlanNav({ title, planId }) {
     <div>
       {planId ? (
         <div className={classes.nav_area}>
-          <div></div>
+          <NavLink to="/plan">
+            <div className={classes.edit_btn}>
+              <i class="fa-solid fa-chevron-left"></i>
+            </div>
+          </NavLink>
           <div className={classes.top_nav_item__text}>{title}</div>
           <div>
             <div className={classes.edit_btn} onClick={handleOpen}>
