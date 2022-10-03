@@ -45,6 +45,17 @@ function CalendarMainPage() {
   })
   const [recommendList, setRecommendList] = useState([1, 2, 3, 4, 5])
 
+  function previousToday(rsvDate) {
+    let now = new Date()
+    if (rsvDate) {
+      now = format(currentMonth, "yyyy-MM-dd")
+
+      if (rsvDate < now) {
+        return true
+      }
+    }
+  }
+
   useEffect(() => {
     if (detailData) {
       setLimit(Math.round(detailData.score * 100))
@@ -267,7 +278,10 @@ function CalendarMainPage() {
             }}
             key={day}
             onClick={(e) => {
-              if (monthData[format(cloneDay, "yyyy-MM-dd")]) {
+              if (
+                monthData[format(cloneDay, "yyyy-MM-dd")] &&
+                previousToday(format(cloneDay, "yyyy-MM-dd"))
+              ) {
                 setDetailClicked(true)
                 setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
               }
@@ -276,7 +290,8 @@ function CalendarMainPage() {
             <span className="number">{formattedDate}</span>
             <div style={{ fontSize: 30 }}>
               {monthData
-                ? monthData[format(cloneDay, "yyyy-MM-dd")]
+                ? monthData[format(cloneDay, "yyyy-MM-dd")] &&
+                  previousToday(format(cloneDay, "yyyy-MM-dd"))
                   ? showEmotion(
                       monthData[format(cloneDay, "yyyy-MM-dd")].score * 100
                     )

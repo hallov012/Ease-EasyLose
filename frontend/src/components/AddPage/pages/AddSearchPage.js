@@ -76,7 +76,7 @@ function AddSearchPage() {
       })
       instance
         .post("/dailymeal", obj, {})
-        .then((response) => console.log(response.data))
+        .then((response) => console.log())
         .catch((error) => console.log(error))
       dispatch(initializeItem())
     } else {
