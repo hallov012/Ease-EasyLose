@@ -1,0 +1,9 @@
+.icon {
+  height: 0px;
+  font-size: 40vw;
+  z-index: -10;
+  left: 30vw;
+  top: 20vh;
+  position: absolute;
+  opacity: 0.1;
+}
