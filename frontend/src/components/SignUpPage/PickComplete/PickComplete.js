@@ -31,14 +31,15 @@ function PickComplete({ putUserInfo }) {
         style={{ width: "50vw" }}
       />
       <div className={classes.text}>
-        <div>가입이 완료 되었습니다!</div>
+        <div>회원님이 입력한 정보를 토대로</div>
         <div>다음과 같이 일일 영양소가 추천되었습니다.</div>
+        <div>Ease와 함께 목표를 향한 여정을 시작해보세요!</div>
       </div>
       {userInfo ? (
         <div className={classes.itemList}>
           <div className={classes.item}>
             <div>칼로리</div>
-            <div>{userInfo.dailyCalorie}cal</div>
+            <div>{userInfo.dailyCalorie}kcal</div>
           </div>
           <div className={classes.item}>
             <div>탄수화물</div>
@@ -55,7 +56,12 @@ function PickComplete({ putUserInfo }) {
         </div>
       ) : null}
       <div>
-        <div className={classes.button} onClick={() => {}}>
+        <div
+          className={classes.button}
+          onClick={() => {
+            history.push("/mypage/mod/nut");
+          }}
+        >
           일일 영양소 수정하기
         </div>
         <div
