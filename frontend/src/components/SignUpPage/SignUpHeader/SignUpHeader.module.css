@@ -6,13 +6,16 @@
 }
 
 .title {
-  font-size: 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
   /* padding-top: 5vh;
   padding-bottom: 5vh; */
-  height: 15vh;
+  height: 7vh;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
 }
 
 .progressbar {
@@ -31,4 +34,39 @@
   height: 5vh;
   opacity: 50;
   padding-left: 10px;
+}
+
+.loader i {
+  font-size: 30px;
+  -webkit-animation: thunderstone-icon-move 5s ease-in-out infinite;
+  animation: thunderstone-icon-move 5s ease-in-out infinite;
+}
+
+@-webkit-keyframes thunderstone-icon-move {
+  50% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes thunderstone-icon-move {
+  50% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+.shadow {
+  width: 50px;
+  height: 5px;
+  background: #000;
+  opacity: 0.1;
+  position: relative;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow 0.5s linear infinite;
+}
+
+.loader {
+  margin-top: 5vh;
 }
