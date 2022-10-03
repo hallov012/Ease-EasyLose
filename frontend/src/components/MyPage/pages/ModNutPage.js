@@ -1,15 +1,16 @@
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import classes from "./ModNutPage.module.css";
-import { registerUserInfo } from "../../../store/userSlice";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import { useSelector } from "react-redux";
-import TopNav from "../../TopNav/TopNav";
-import { instance } from "../../../api/index";
-import { useEffect, useState } from "react";
-import Slider from "@mui/material/Slider";
-import { styled } from "@mui/material/styles";
+import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+import classes from "./ModNutPage.module.css"
+import { registerUserInfo } from "../../../store/userSlice"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+import { useSelector } from "react-redux"
+import TopNav from "../../TopNav/TopNav"
+import { instance } from "../../../api/index"
+import { useEffect, useState } from "react"
+import Slider from "@mui/material/Slider"
+import { styled } from "@mui/material/styles"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 const PrettoSlider = styled(Slider)({
   color: "#7c83fd",
@@ -48,36 +49,36 @@ const PrettoSlider = styled(Slider)({
       transform: "rotate(45deg)",
     },
   },
-});
+})
 
-const minDistance = 10;
+const minDistance = 10
 
 function ModNutPage() {
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const [calorie, setCalorie] = useState(0);
-  const [boundary, setBoundary] = useState([20, 37]);
-  const [carb, setCarb] = useState(0);
-  const [protein, setProtein] = useState(0);
-  const [fat, setFat] = useState(0);
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const [calorie, setCalorie] = useState(0)
+  const [boundary, setBoundary] = useState([20, 37])
+  const [carb, setCarb] = useState(0)
+  const [protein, setProtein] = useState(0)
+  const [fat, setFat] = useState(0)
 
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (userInfo) {
-      setCalorie(userInfo.dailyCalorie);
-      setCarb(userInfo.dailyCarb);
-      setProtein(userInfo.dailyProtein);
-      setFat(userInfo.dailyFat);
+      setCalorie(userInfo.dailyCalorie)
+      setCarb(userInfo.dailyCarb)
+      setProtein(userInfo.dailyProtein)
+      setFat(userInfo.dailyFat)
       const b1 = Math.round(
         ((userInfo.dailyCarb * 4) / userInfo.dailyCalorie) * 100
-      );
+      )
       const b2 =
         b1 +
-        Math.round(((userInfo.dailyProtein * 4) / userInfo.dailyCalorie) * 100);
-      setBoundary([b1, b2]);
+        Math.round(((userInfo.dailyProtein * 4) / userInfo.dailyCalorie) * 100)
+      setBoundary([b1, b2])
     }
-  }, [userInfo]);
+  }, [userInfo])
 
   const _userInfo = {
     gender: userInfo.gender,
@@ -91,7 +92,7 @@ function ModNutPage() {
     dailyProtein: userInfo.dailyProtein,
     dailyFat: userInfo.dailyFat,
     isAutomatic: true,
-  };
+  }
 
   function initializePercent() {
     MySwal.fire({
@@ -115,53 +116,53 @@ function ModNutPage() {
             {}
           )
           .then((response) => {
-            dispatch(registerUserInfo(response.data));
+            dispatch(registerUserInfo(response.data))
             MySwal.fire({
               icon: "success",
               title: "성공적으로 수정되었습니다!",
               showConfirmButton: false,
               timer: 1500,
-            });
-            history.goBack();
-          });
+            })
+            history.goBack()
+          })
       }
-    });
+    })
   }
 
-  const MySwal = withReactContent(Swal);
+  const MySwal = withReactContent(Swal)
 
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
-      return;
+      return
     }
 
     if (activeThumb === 0) {
       setBoundary([
         Math.min(newValue[0], boundary[1] - minDistance),
         boundary[1],
-      ]);
+      ])
     } else {
       setBoundary([
         boundary[0],
         Math.max(newValue[1], boundary[0] + minDistance),
-      ]);
+      ])
     }
-  };
+  }
 
   useEffect(() => {
-    setCarb(Math.round((calorie * boundary[0]) / 100 / 4));
-    setProtein(Math.round((calorie * (boundary[1] - boundary[0])) / 100 / 4));
-    setFat(Math.round((calorie * (100 - boundary[1])) / 100 / 8));
-  }, [boundary, calorie]);
+    setCarb(Math.round((calorie * boundary[0]) / 100 / 4))
+    setProtein(Math.round((calorie * (boundary[1] - boundary[0])) / 100 / 4))
+    setFat(Math.round((calorie * (100 - boundary[1])) / 100 / 8))
+  }, [boundary, calorie])
 
-  console.log(`${carb}/${protein}/${fat}`);
+  console.log(`${carb}/${protein}/${fat}`)
 
   return (
     <div>
       {calorie ? (
         <div>
           <div id="top_nav_area">
-            <TopNav arrow={["/mypage/mod", ""]} />
+            <TopHistoryNav></TopHistoryNav>
           </div>
           <div
             style={{
@@ -196,7 +197,7 @@ function ModNutPage() {
                 min={1000}
                 max={4000}
                 onChange={(e) => {
-                  setCalorie(e.target.value);
+                  setCalorie(e.target.value)
                 }}
               />
             </div>
@@ -222,7 +223,7 @@ function ModNutPage() {
                 onChange={handleChange1}
                 valueLabelDisplay="on"
                 getAriaValueText={(value) => {
-                  return value;
+                  return value
                 }}
                 disableSwap
               />
@@ -251,15 +252,15 @@ function ModNutPage() {
                   {}
                 )
                 .then((response) => {
-                  dispatch(registerUserInfo(response.data));
+                  dispatch(registerUserInfo(response.data))
                   MySwal.fire({
                     icon: "success",
                     title: "성공적으로 수정되었습니다!",
                     showConfirmButton: false,
                     timer: 1500,
-                  });
-                  history.goBack();
-                });
+                  })
+                  history.goBack()
+                })
             }}
             className={classes.addButtonContainer}
           >
@@ -268,7 +269,7 @@ function ModNutPage() {
         </div>
       ) : null}
     </div>
-  );
+  )
 }
 
-export default ModNutPage;
+export default ModNutPage

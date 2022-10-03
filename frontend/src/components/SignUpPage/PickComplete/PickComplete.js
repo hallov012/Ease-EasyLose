@@ -59,7 +59,7 @@ function PickComplete({ putUserInfo }) {
         <div
           className={classes.button}
           onClick={() => {
-            history.push("/mypage/mod/nut")
+            history.push("/mypage/mod/nut", { from: "signup" })
           }}
         >
           일일 영양소 수정하기

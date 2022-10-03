@@ -85,3 +85,12 @@
   overflow: hidden;
   text-align: left;
 }
+
+.scroll {
+  overflow: scroll;
+  height: 60vh;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
