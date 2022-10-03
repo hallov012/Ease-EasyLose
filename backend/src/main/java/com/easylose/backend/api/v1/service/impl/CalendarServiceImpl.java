@@ -29,7 +29,8 @@ public class CalendarServiceImpl implements CalendarService {
     LocalDate startDate = yearMonth.atDay(1);
     LocalDate endDate = yearMonth.plusMonths(1).atDay(1).minusDays(1);
 
-    List<DailyMealLog> dailyMealLogs = dailyMealLogRepository.findByUserAndDateBetween(user, startDate, endDate);
+    List<DailyMealLog> dailyMealLogs =
+        dailyMealLogRepository.findByUserAndDateBetween(user, startDate, endDate);
 
     return calendarMapper.toCalendarDtos(user, dailyMealLogs, yearMonth);
   }
