@@ -1,36 +1,60 @@
 import classes from "./NutrientChartGraph.module.css";
+import { useEffect, useState } from "react";
 
 import ReactApexChart from "react-apexcharts";
 
 function NutrientChartGraph({ nutData }) {
-  const dataset = { extra: [], carb: [], protein: [], fat: [], date: [] };
-  for (const daily of nutData) {
-    const extraValue =
-      daily.calorie - daily.carb * 4 - daily.protein * 4 - daily.fat * 8;
-    dataset.extra.push(extraValue);
-    dataset.carb.push(daily.carb * 4);
-    dataset.protein.push(daily.protein * 4);
-    dataset.fat.push(daily.fat * 8);
-    dataset.date.push(daily.date.substr(5).replace("-", "/"));
-  }
+  const [value, setValue] = useState({
+    extra: Array.from({ length: 7 }, () => 0),
+    carb: Array.from({ length: 7 }, () => 0),
+    protein: Array.from({ length: 7 }, () => 0),
+    fat: Array.from({ length: 7 }, () => 0),
+    date: Array.from({ length: 7 }, () => 0),
+  });
+
+  // for (const daily of nutData) {
+  //   const extraValue =
+  //     daily.calorie - daily.carb * 4 - daily.protein * 4 - daily.fat * 8;
+  //   dataset.extra.push(extraValue);
+  //   dataset.carb.push(daily.carb * 4);
+  //   dataset.protein.push(daily.protein * 4);
+  //   dataset.fat.push(daily.fat * 8);
+  //   dataset.date.push(daily.date.substr(5).replace("-", "/"));
+  // }
+  useEffect(() => {
+    if (nutData) {
+      const dataset = { extra: [], carb: [], protein: [], fat: [], date: [] };
+      for (const i in nutData) {
+        const daily = nutData[i];
+        const extraValue =
+          daily.calorie - daily.carb * 4 - daily.protein * 4 - daily.fat * 8;
+        dataset.extra.push(extraValue);
+        dataset.carb.push(daily.carb * 4);
+        dataset.protein.push(daily.protein * 4);
+        dataset.fat.push(daily.fat * 8);
+        dataset.date.push(daily.date.substr(5).replace("-", "/"));
+      }
+      setValue(dataset);
+    }
+  }, [nutData]);
 
   const data = {
     series: [
       {
         name: "그 외",
-        data: dataset.extra,
+        data: value.extra,
       },
       {
         name: "탄수화물",
-        data: dataset.carb,
+        data: value.carb,
       },
       {
         name: "단백질",
-        data: dataset.protein,
+        data: value.protein,
       },
       {
         name: "지방",
-        data: dataset.fat,
+        data: value.fat,
       },
     ],
     options: {
@@ -54,7 +78,7 @@ function NutrientChartGraph({ nutData }) {
       },
       xaxis: {
         type: "category",
-        categories: dataset.date,
+        categories: value.date,
       },
       legend: {
         show: false,
