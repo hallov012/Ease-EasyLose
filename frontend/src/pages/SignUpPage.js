@@ -1,31 +1,31 @@
-import TopNav from "../components/TopNav/TopNav";
-import { Route, Switch, useLocation } from "react-router-dom";
-import SignUpHeader from "../components/SignUpPage/SignUpHeader/SignUpHeader";
-import { useEffect, useState } from "react";
-import GenderPicker from "../components/SignUpPage/GenderPicker/GenderPicker";
-import BirthPicker from "../components/SignUpPage/BirthPicker/BirthPicker";
-import HeightPicker from "../components/SignUpPage/HeightPicker/HeightPicker";
-import WeightPicker from "../components/SignUpPage/WeightPicker/WeightPicker";
-import ActivityPicker from "../components/SignUpPage/ActivityPicker/ActivityPicker";
-import GoalPicker from "../components/SignUpPage/GoalPicker/GoalPicker";
-import PickComplete from "../components/SignUpPage/PickComplete/PickComplete";
-import TheSlider from "../components/SignUpPage/TheSlider/TheSlider";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUserInfo } from "../store/userSlice";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { instance } from "../api/index";
+import TopNav from "../components/TopNav/TopNav"
+import { Route, Switch, useLocation } from "react-router-dom"
+import SignUpHeader from "../components/SignUpPage/SignUpHeader/SignUpHeader"
+import { useEffect, useState } from "react"
+import GenderPicker from "../components/SignUpPage/GenderPicker/GenderPicker"
+import BirthPicker from "../components/SignUpPage/BirthPicker/BirthPicker"
+import HeightPicker from "../components/SignUpPage/HeightPicker/HeightPicker"
+import WeightPicker from "../components/SignUpPage/WeightPicker/WeightPicker"
+import ActivityPicker from "../components/SignUpPage/ActivityPicker/ActivityPicker"
+import GoalPicker from "../components/SignUpPage/GoalPicker/GoalPicker"
+import PickComplete from "../components/SignUpPage/PickComplete/PickComplete"
+import TheSlider from "../components/SignUpPage/TheSlider/TheSlider"
+import { useDispatch, useSelector } from "react-redux"
+import { registerUserInfo } from "../store/userSlice"
+import { useHistory } from "react-router-dom"
+import axios from "axios"
+import { instance } from "../api/index"
 function SignUpPage() {
-  const location = useLocation().pathname.replace("/signup", "");
-  const [userGender, setUserGender] = useState("");
-  const [userAge, setUserAge] = useState(20);
-  const [userWeight, setUserWeight] = useState(50);
-  const [userHeight, setUserHeight] = useState(165);
-  const [userActivity, setUserActivity] = useState("");
-  const [userGoal, setUserGoal] = useState("");
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.user.accessToken);
+  const location = useLocation().pathname.replace("/signup", "")
+  const [userGender, setUserGender] = useState("")
+  const [userAge, setUserAge] = useState(20)
+  const [userWeight, setUserWeight] = useState(50)
+  const [userHeight, setUserHeight] = useState(165)
+  const [userActivity, setUserActivity] = useState("")
+  const [userGoal, setUserGoal] = useState("")
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const accessToken = useSelector((state) => state.user.accessToken)
 
   function putUserInfo() {
     instance
@@ -46,56 +46,56 @@ function SignUpPage() {
         instance
           .get("/user", {})
           .then((response) => {
-            dispatch(registerUserInfo(response.data));
+            dispatch(registerUserInfo(response.data))
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error))
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
 
   console.log(
     `${userGender}/${userAge}/${userWeight}kg/${userHeight}cm/${userActivity}/${userGoal}`
-  );
+  )
 
-  const informationMap = new Map();
+  const informationMap = new Map()
   informationMap.set("/gender", {
     title: "성별",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "0",
     icon: "fa-solid fa-venus-mars",
-  });
+  })
   informationMap.set("/age", {
     title: "나이",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "16",
     icon: "fa-solid fa-cake-candles",
-  });
+  })
   informationMap.set("/height", {
     title: "키",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "32",
     icon: "fa-solid fa-ruler-vertical",
-  });
+  })
   informationMap.set("/weight", {
     title: "몸무게",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "48",
     icon: "fa-solid fa-weight-scale",
-  });
+  })
   informationMap.set("/activity", {
     title: "활동량",
     subtitle: "하루 활동량을 기준으로 선택해주세요!",
     done: "64",
     icon: "fa-solid fa-person-running",
-  });
+  })
   informationMap.set("/goal", {
     title: "목표",
     subtitle: "선택하실 목표에 맞게 영양 비율을 추천해드립니다!",
     done: "80",
     icon: "fa-solid fa-child-reaching",
-  });
+  })
   // informationMap.set("/verify", {
   //   title: "입력 확인",
   //   subtitle: "보다 정확한 추천을 위해 입력 내역을 확인해주세요!",
@@ -106,28 +106,28 @@ function SignUpPage() {
     title: "수고하셨습니다!",
     subtitle: "",
     done: "100",
-  });
+  })
 
   function setArrow() {
     if (location === "/gender") {
-      return ["", ""];
+      return ["", ""]
     } else if (location === "/activity") {
-      return ["/signup/weight", ""];
+      return ["/signup/weight", ""]
     } else if (location === "/goal") {
-      return ["/signup/activity", ""];
+      return ["/signup/activity", ""]
     } else if (location === "/height") {
-      return ["/signup/age", ""];
+      return ["/signup/age", ""]
     } else if (location === "/weight") {
-      return ["/signup/height", ""];
+      return ["/signup/height", ""]
     } else if (location === "/age") {
-      return ["/signup/gender", ""];
+      return ["/signup/gender", ""]
     } else {
-      return ["", ""];
+      return ["", ""]
     }
   }
 
   function renderSignUpPage() {
-    const temp = informationMap.get(location);
+    const temp = informationMap.get(location)
     return (
       <div>
         <div id="top_nav_area">
@@ -145,7 +145,7 @@ function SignUpPage() {
               <GenderPicker
                 value={userGender}
                 setGender={(value) => {
-                  setUserGender(value);
+                  setUserGender(value)
                   // setUserInfo((current) => {
                   //   let newObject = { ...current };
                   //   newObject["gender"] = value;
@@ -160,7 +160,7 @@ function SignUpPage() {
                 range={[130, 210]}
                 value={userHeight}
                 setValue={(value) => {
-                  setUserHeight(value);
+                  setUserHeight(value)
                 }}
                 term={0.5}
               />
@@ -171,7 +171,7 @@ function SignUpPage() {
                 range={[30, 120]}
                 value={userWeight}
                 setValue={(value) => {
-                  setUserWeight(value);
+                  setUserWeight(value)
                 }}
                 term={0.5}
               />
@@ -182,7 +182,7 @@ function SignUpPage() {
                 range={[10, 80]}
                 value={userAge}
                 setValue={(value) => {
-                  setUserAge(value);
+                  setUserAge(value)
                 }}
                 term={1}
               />
@@ -191,7 +191,7 @@ function SignUpPage() {
               <ActivityPicker
                 value={userActivity}
                 setValue={(value) => {
-                  setUserActivity(value);
+                  setUserActivity(value)
                 }}
               ></ActivityPicker>
             </Route>
@@ -199,24 +199,24 @@ function SignUpPage() {
               <GoalPicker
                 value={userGoal}
                 setValue={(value) => {
-                  setUserGoal(value);
+                  setUserGoal(value)
                 }}
               ></GoalPicker>
             </Route>
             <Route path="/signup/complete">
               <PickComplete
                 putUserInfo={() => {
-                  putUserInfo();
+                  if (userGoal !== "") putUserInfo()
                 }}
               ></PickComplete>
             </Route>
           </Switch>
         </div>
       </div>
-    );
+    )
   }
 
-  return <div>{renderSignUpPage()}</div>;
+  return <div>{renderSignUpPage()}</div>
 }
 
-export default SignUpPage;
+export default SignUpPage

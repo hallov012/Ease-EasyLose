@@ -123,18 +123,19 @@ function MyInfoPage() {
                 cancelButtonText: "취소",
               }).then((result) => {
                 if (result.isConfirmed) {
-                  localStorage.clear()
                   instance
                     .delete("/user", {})
-                    .then((response) => console.log())
+                    .then((response) => {
+                      MySwal.fire({
+                        icon: "success",
+                        title: "성공적으로 탈퇴되었습니다!",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      })
+                      localStorage.clear()
+                      history.push("/")
+                    })
                     .catch((error) => console.log(error))
-                  MySwal.fire({
-                    icon: "success",
-                    title: "성공적으로 탈퇴되었습니다!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  })
-                  history.push("/")
                 }
               })
             }}

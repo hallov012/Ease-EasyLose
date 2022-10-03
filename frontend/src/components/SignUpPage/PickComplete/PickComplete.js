@@ -1,24 +1,24 @@
-import classes from "./PickComplete.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import classes from "./PickComplete.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons"
+import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 
-import Loader from "../Loader/Loader";
-import Confetti from "../Confetti/Confetti";
-import logo from "../../../assets/Logo/logo_background.png";
+import Loader from "../Loader/Loader"
+import Confetti from "../Confetti/Confetti"
+import logo from "../../../assets/Logo/logo_background.png"
 
 function PickComplete({ putUserInfo }) {
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(true)
   setInterval(() => {
-    setLoad(false);
-  }, 5000);
-  const history = useHistory();
+    setLoad(false)
+  }, 5000)
+  const history = useHistory()
   useEffect(() => {
-    putUserInfo();
-  });
-  const userInfo = useSelector((state) => state.user.userInfo);
+    putUserInfo()
+  }, [])
+  const userInfo = useSelector((state) => state.user.userInfo)
   return (
     <div className={`${classes.container} gradient_color__vertical`}>
       {load ? <Loader /> : null}
@@ -59,7 +59,7 @@ function PickComplete({ putUserInfo }) {
         <div
           className={classes.button}
           onClick={() => {
-            history.push("/mypage/mod/nut");
+            history.push("/mypage/mod/nut")
           }}
         >
           일일 영양소 수정하기
@@ -71,14 +71,14 @@ function PickComplete({ putUserInfo }) {
               "linear-gradient(90deg,var(--main-color) 44%,var(--light-color) 88%)",
           }}
           onClick={() => {
-            history.push("/main");
+            history.push("/main")
           }}
         >
           시작하기
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default PickComplete;
+export default PickComplete
