@@ -123,6 +123,7 @@ function MyInfoPage() {
                 cancelButtonText: "취소",
               }).then((result) => {
                 if (result.isConfirmed) {
+                  localStorage.clear()
                   instance
                     .delete("/user", {})
                     .then((response) => console.log())
