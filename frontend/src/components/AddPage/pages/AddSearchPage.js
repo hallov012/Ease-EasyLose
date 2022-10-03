@@ -36,8 +36,6 @@ function AddSearchPage() {
     useSelector((state) => state.status.targetDate)
   )
 
-  console.log(searchOrRecent)
-
   const MySwal = withReactContent(Swal)
 
   useEffect(() => {
@@ -150,7 +148,7 @@ function AddSearchPage() {
             }}
             onClick={onClickHandler}
           >
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </div>
         </div>
         <div style={{ overflow: "scroll", height: "60vh" }}>

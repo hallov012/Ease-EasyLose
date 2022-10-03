@@ -89,7 +89,7 @@ function AddBarcodePage() {
       </div>
       <div className={classes.bcontainer}>
         <div className={classes.icon}>
-          <i class="fa-solid fa-barcode fa-fw"></i>
+          <i className="fa-solid fa-barcode fa-fw"></i>
         </div>
       </div>
     </div>

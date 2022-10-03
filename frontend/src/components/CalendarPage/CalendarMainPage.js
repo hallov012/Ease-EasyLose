@@ -225,13 +225,13 @@ function CalendarMainPage() {
 
   function showEmotion(score) {
     if (score > 80) {
-      return <i class="fa-solid fa-face-laugh-squint"></i>
+      return <i className="fa-solid fa-face-laugh-squint"></i>
     } else if (score > 60) {
-      return <i class="fa-solid fa-face-smile"></i>
+      return <i className="fa-solid fa-face-smile"></i>
     } else if (score > 40) {
-      return <i class="fa-solid fa-face-meh"></i>
+      return <i className="fa-solid fa-face-meh"></i>
     } else {
-      return <i class="fa-solid fa-face-dizzy"></i>
+      return <i className="fa-solid fa-face-dizzy"></i>
     }
   }
 
@@ -369,9 +369,12 @@ function CalendarMainPage() {
                     </div>
                   </div>
                   <div style={{ overflow: "scroll", height: "32vh" }}>
-                    {recommendList.map((item) => {
+                    {recommendList.map((item, index) => {
                       return (
-                        <div style={{ width: "90vw", height: "10vh" }}>
+                        <div
+                          key={index}
+                          style={{ width: "90vw", height: "10vh" }}
+                        >
                           <RecommendListItem></RecommendListItem>
                         </div>
                       )

@@ -69,7 +69,6 @@
   cursor: pointer;
 }
 .my-calendar .my-calendar-body .week:not(.day-labels) .day:hover {
-  background: #e6e6fa;
   color: black;
 }
 .my-calendar .my-calendar-body .week:not(.day-labels) .day.is-selected {

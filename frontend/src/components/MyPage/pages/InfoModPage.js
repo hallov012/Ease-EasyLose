@@ -6,7 +6,6 @@ import { useSelector } from "react-redux"
 
 function InfoModPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
-  console.log(userInfo)
   const history = useHistory()
   const colorSet = {
     carbColor: "#afb4ff",

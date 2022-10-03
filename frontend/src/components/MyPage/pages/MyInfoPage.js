@@ -44,7 +44,7 @@ function MyInfoPage() {
             </div>
             <div className={classes.boxinfo}>
               <div className={classes.boxicon}>
-                <i class="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user"></i>
               </div>
               <div className={classes.userinfo}>
                 <div className={classes.user_info_item}>
@@ -108,7 +108,7 @@ function MyInfoPage() {
             className={classes.box_logout}
           >
             <div>로그아웃</div>
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <i className="fa-solid fa-arrow-right-from-bracket"></i>
           </div>
           <div
             onClick={() => {
@@ -125,7 +125,7 @@ function MyInfoPage() {
                 if (result.isConfirmed) {
                   instance
                     .delete("/user", {})
-                    .then((response) => console.log(response.data))
+                    .then((response) => console.log())
                     .catch((error) => console.log(error))
                   MySwal.fire({
                     icon: "success",

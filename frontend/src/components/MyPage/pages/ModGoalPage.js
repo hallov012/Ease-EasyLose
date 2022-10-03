@@ -12,7 +12,6 @@ function ModGoalPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   const [goal, setGoal] = useState(null)
   const [selected, setSelected] = useState([false, false, false])
-  console.log(userInfo)
   const history = useHistory()
 
   const _userInfo = {

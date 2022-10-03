@@ -9,21 +9,21 @@ function AddButtonList() {
         className={classes.icon}
         activeClassName={classes.activeicon}
       >
-        <i class="fa-solid fa-barcode fa-fw"></i>
+        <i className="fa-solid fa-barcode fa-fw"></i>
       </NavLink>
       <NavLink
         to="/add/bundle"
         className={classes.icon}
         activeClassName={classes.activeicon}
       >
-        <i class="fa-solid fa-file-import fa-fw"></i>
+        <i className="fa-solid fa-file-import fa-fw"></i>
       </NavLink>
       <NavLink
         to="/add/custom"
         className={classes.icon}
         activeClassName={classes.activeicon}
       >
-        <i class="fa-solid fa-folder-plus fa-fw"></i>
+        <i className="fa-solid fa-folder-plus fa-fw"></i>
       </NavLink>
     </div>
   )

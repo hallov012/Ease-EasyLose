@@ -105,7 +105,7 @@ function ListItem({ data }) {
           </div>
         </ClickAwayListener>
         <div onClick={handelDelete}>
-          <i class="fa-solid fa-trash-can"></i>
+          <i className="fa-solid fa-trash-can"></i>
         </div>
       </div>
     </div>
