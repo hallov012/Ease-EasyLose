@@ -94,12 +94,12 @@
 .amount_text span {
   font-weight: bold;
   background: var(--sub-color);
-  width: 12vw;
-  height: 12vw;
+  height: 50%;
+  aspect-ratio: 1/1;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10vw;
+  border-radius: 50%;
   margin-right: 1vw;
   font-size: 1.3rem;
   color: white;

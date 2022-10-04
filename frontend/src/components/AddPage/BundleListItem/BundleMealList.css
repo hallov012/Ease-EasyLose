@@ -1,0 +1,8 @@
+.noScroll {
+  overflow: scroll;
+  height: 50vh;
+}
+
+.noScroll::-webkit-scrollbar {
+  display: none;
+}
