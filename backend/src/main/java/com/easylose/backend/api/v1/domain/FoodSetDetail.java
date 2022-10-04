@@ -36,6 +36,7 @@ public class FoodSetDetail {
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "foodset_id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonBackReference
   private FoodSet foodSet;
 }
