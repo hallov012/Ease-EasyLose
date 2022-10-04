@@ -66,7 +66,7 @@ function ChartPage() {
       <div id="top_nav_area">
         <TopNavDate />
       </div>
-      <div style={{ margin: "11vh 5vw" }}>
+      <div style={{ margin: "11vh 5%" }}>
         <div
           style={{
             height: "70vh",

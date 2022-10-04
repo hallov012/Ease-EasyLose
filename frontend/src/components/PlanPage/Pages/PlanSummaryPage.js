@@ -47,7 +47,7 @@ function PlanSummaryPage({ colorSet }) {
           </div>
           <div
             style={{
-              margin: "10vh 5vw 15vh",
+              margin: "10vh 5% 15vh",
             }}
           >
             <NutrientChart dietSum={dailyMeal[0].total} colorSet={colorSet} />
