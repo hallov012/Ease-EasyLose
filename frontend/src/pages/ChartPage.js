@@ -7,36 +7,35 @@ import { instance } from "../api/index";
 import SelectBtn from "../components/ChartPage/SelectBtn/SelectBtn";
 import WeightGraph from "../components/ChartPage/WeightGraph/WeightGraph";
 import NutrientChartGraph from "../components/ChartPage/NutrientChartGraph/NutrientChartGraph";
-
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  ConstructionOutlined,
-  ContactSupportOutlined,
-} from "@mui/icons-material";
 
 function ChartPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [nutData, setNutData] = useState(undefined);
   const [weightData, setWeightData] = useState(undefined);
   const temp = JSON.parse(localStorage.getItem("target_date"));
-  if (temp) {
-    if (typeof temp !== "number")
-      dispatch(registerTargetDate(JSON.stringify(temp)));
-    else {
+  useEffect(() => {
+    if (temp) {
+      if (typeof temp !== "number")
+        dispatch(registerTargetDate(JSON.stringify(temp)));
+      else {
+        localStorage.setItem("target_date", JSON.stringify(new Date()));
+        dispatch(registerTargetDate(JSON.stringify(new Date())));
+      }
+    } else {
       localStorage.setItem("target_date", JSON.stringify(new Date()));
       dispatch(registerTargetDate(JSON.stringify(new Date())));
     }
-  } else {
-    localStorage.setItem("target_date", JSON.stringify(new Date()));
-    dispatch(registerTargetDate(JSON.stringify(new Date())));
-  }
+  }, []);
 
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
   );
 
   useEffect(() => {
-    if (target_date.includes("-")) {
+    if (typeof temp !== "number") {
       // 영양소 정보
       instance
         .get("/analysis/dailyChart", {
@@ -75,7 +74,7 @@ function ChartPage() {
             gridTemplateRows: "1fr 1fr",
           }}
         >
-          {nutData ? <NutrientChartGraph nutData={nutData} /> : null}
+          <NutrientChartGraph nutData={nutData} />
           {weightData ? <WeightGraph weightData={weightData} /> : null}
         </div>
       </div>

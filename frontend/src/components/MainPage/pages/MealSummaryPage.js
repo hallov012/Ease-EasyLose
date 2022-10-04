@@ -1,3 +1,4 @@
+import classes from "./MealSummary.module.css";
 import TopNav from "../../TopNav/TopNav";
 import MealNutrientInfo from "../MealNutrientInfo/MealNutrientInfo";
 import UserFoodList from "../UserFoodList/UserFoodList";
@@ -13,7 +14,6 @@ import { useState, useEffect } from "react";
 function MealSummaryPage(props) {
   const userInfo = useSelector((state) => state.user.userInfo);
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
-
   const [value, setValue] = useState({
     dietSum: undefined,
     foodList: undefined,
@@ -22,10 +22,10 @@ function MealSummaryPage(props) {
 
   const params = useParams();
   const meal = {
-    BREAKFAST: "아침",
-    LUNCH: "점심",
-    DINNER: "저녁",
-    SNACK: "간식",
+    BREAKFAST: { title: "아침", icon: "fa-cloud-sun" },
+    LUNCH: { title: "점심", icon: "fa-sun" },
+    DINNER: { title: "저녁", icon: "fa-moon" },
+    SNACK: { title: "간식", icon: "fa-cookie-bite" },
   };
   const dispatch = useDispatch();
 
@@ -46,7 +46,10 @@ function MealSummaryPage(props) {
   return (
     <div>
       <div id="top_nav_area">
-        <TopNav text={meal[params.mealtime]} arrow={["/main", 0]} />
+        <TopNav text={meal[params.mealtime].title} arrow={["/main", ""]} />
+      </div>
+      <div className={classes.icon}>
+        <i className={`fa-solid ${meal[params.mealtime].icon}`}></i>
       </div>
       <div
         style={{

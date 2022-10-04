@@ -45,6 +45,17 @@ function CalendarMainPage() {
   })
   const [recommendList, setRecommendList] = useState([1, 2, 3, 4, 5])
 
+  function previousToday(rsvDate) {
+    let now = new Date()
+    if (rsvDate) {
+      now = format(currentMonth, "yyyy-MM-dd")
+
+      if (rsvDate < now) {
+        return true
+      }
+    }
+  }
+
   useEffect(() => {
     if (detailData) {
       setLimit(Math.round(detailData.score * 100))
@@ -225,13 +236,13 @@ function CalendarMainPage() {
 
   function showEmotion(score) {
     if (score > 80) {
-      return <i class="fa-solid fa-face-laugh-squint"></i>
+      return <i className="fa-solid fa-face-laugh-squint"></i>
     } else if (score > 60) {
-      return <i class="fa-solid fa-face-smile"></i>
+      return <i className="fa-solid fa-face-smile"></i>
     } else if (score > 40) {
-      return <i class="fa-solid fa-face-meh"></i>
+      return <i className="fa-solid fa-face-meh"></i>
     } else {
-      return <i class="fa-solid fa-face-dizzy"></i>
+      return <i className="fa-solid fa-face-dizzy"></i>
     }
   }
 
@@ -267,7 +278,10 @@ function CalendarMainPage() {
             }}
             key={day}
             onClick={(e) => {
-              if (monthData[format(cloneDay, "yyyy-MM-dd")]) {
+              if (
+                monthData[format(cloneDay, "yyyy-MM-dd")] &&
+                previousToday(format(cloneDay, "yyyy-MM-dd"))
+              ) {
                 setDetailClicked(true)
                 setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
               }
@@ -276,7 +290,8 @@ function CalendarMainPage() {
             <span className="number">{formattedDate}</span>
             <div style={{ fontSize: 30 }}>
               {monthData
-                ? monthData[format(cloneDay, "yyyy-MM-dd")]
+                ? monthData[format(cloneDay, "yyyy-MM-dd")] &&
+                  previousToday(format(cloneDay, "yyyy-MM-dd"))
                   ? showEmotion(
                       monthData[format(cloneDay, "yyyy-MM-dd")].score * 100
                     )
@@ -369,9 +384,12 @@ function CalendarMainPage() {
                     </div>
                   </div>
                   <div style={{ overflow: "scroll", height: "32vh" }}>
-                    {recommendList.map((item) => {
+                    {recommendList.map((item, index) => {
                       return (
-                        <div style={{ width: "90vw", height: "10vh" }}>
+                        <div
+                          key={index}
+                          style={{ width: "90vw", height: "10vh" }}
+                        >
                           <RecommendListItem></RecommendListItem>
                         </div>
                       )

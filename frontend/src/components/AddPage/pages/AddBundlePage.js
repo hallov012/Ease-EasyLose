@@ -17,7 +17,6 @@ function AddBundlePage() {
     instance
       .get("/foodset", {})
       .then((response) => {
-        console.log(response.data)
         setBundleData(response.data)
       })
       .catch((error) => console.log(error))
@@ -51,27 +50,12 @@ function AddBundlePage() {
             }
           >
             {bundleData.length
-              ? bundleData.map((item) => {
-                  return <BundleListItem item={item}></BundleListItem>
+              ? bundleData.map((item, index) => {
+                  return (
+                    <BundleListItem key={index} item={item}></BundleListItem>
+                  )
                 })
               : null}
-            {/* <ListItemButton>
-              <ListItemText primary="Sent mail" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Drafts" />
-            </ListItemButton>
-            <ListItemButton onClick={handleClick}>
-              <ListItemText primary="Inbox" />
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Starred" />
-                </ListItemButton>
-              </List>
-            </Collapse> */}
           </List>
         </div>
       </div>

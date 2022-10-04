@@ -64,31 +64,37 @@ function SignUpPage() {
     title: "성별",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "0",
+    icon: "fa-solid fa-venus-mars",
   })
   informationMap.set("/age", {
     title: "나이",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "16",
+    icon: "fa-solid fa-cake-candles",
   })
   informationMap.set("/height", {
     title: "키",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "32",
+    icon: "fa-solid fa-ruler-vertical",
   })
   informationMap.set("/weight", {
     title: "몸무게",
     subtitle: "맞춤 추천을 위한 정보를 요청드립니다!",
     done: "48",
+    icon: "fa-solid fa-weight-scale",
   })
   informationMap.set("/activity", {
     title: "활동량",
     subtitle: "하루 활동량을 기준으로 선택해주세요!",
     done: "64",
+    icon: "fa-solid fa-person-running",
   })
   informationMap.set("/goal", {
     title: "목표",
     subtitle: "선택하실 목표에 맞게 영양 비율을 추천해드립니다!",
     done: "80",
+    icon: "fa-solid fa-child-reaching",
   })
   // informationMap.set("/verify", {
   //   title: "입력 확인",
@@ -132,6 +138,7 @@ function SignUpPage() {
             title={temp.title}
             done={temp.done}
             subtitle={temp.subtitle}
+            icon={temp.icon}
           ></SignUpHeader>
           <Switch>
             <Route path="/signup/gender">
@@ -199,7 +206,7 @@ function SignUpPage() {
             <Route path="/signup/complete">
               <PickComplete
                 putUserInfo={() => {
-                  putUserInfo()
+                  if (userGoal !== "") putUserInfo()
                 }}
               ></PickComplete>
             </Route>

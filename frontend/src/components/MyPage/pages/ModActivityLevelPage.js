@@ -1,25 +1,25 @@
-import classes from "./ModActivityLevelPage.module.css"
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
-import { instance } from "../../../api/index"
-import { registerUserInfo } from "../../../store/userSlice"
-import { useHistory } from "react-router-dom"
+import classes from "./ModActivityLevelPage.module.css";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { instance } from "../../../api/index";
+import { registerUserInfo } from "../../../store/userSlice";
+import { useHistory } from "react-router-dom";
 import {
   faPersonWalking,
   faChair,
   faRunning,
   faDumbbell,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ModActivityLevelPage() {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const [act, setAct] = useState(null)
-  const [selected, setSelected] = useState([false, false, false, false])
-  const history = useHistory()
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [act, setAct] = useState(null);
+  const [selected, setSelected] = useState([false, false, false, false]);
+  const history = useHistory();
 
   const _userInfo = {
     gender: userInfo.gender,
@@ -33,21 +33,21 @@ function ModActivityLevelPage() {
     dailyProtein: userInfo.dailyProtein,
     dailyFat: userInfo.dailyFat,
     isAutomatic: true,
-  }
+  };
 
-  const MySwal = withReactContent(Swal)
-  const dispatch = useDispatch()
+  const MySwal = withReactContent(Swal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setAct(userInfo.activityLevel)
+    setAct(userInfo.activityLevel);
     if (userInfo.activityLevel === "LOWEST")
-      setSelected([true, false, false, false])
+      setSelected([true, false, false, false]);
     else if (userInfo.activityLevel === "LOW")
-      setSelected([false, true, false, false])
+      setSelected([false, true, false, false]);
     else if (userInfo.activityLevel === "HIGH")
-      setSelected([false, false, true, false])
-    else setSelected([false, false, false, true])
-  }, [userInfo])
+      setSelected([false, false, true, false]);
+    else setSelected([false, false, false, true]);
+  }, [userInfo]);
 
   const array = [
     {
@@ -66,7 +66,7 @@ function ModActivityLevelPage() {
       explanation: "4시간 이상의 심한 활동",
       value: "HIGHEST",
     },
-  ]
+  ];
 
   return (
     <div>
@@ -90,12 +90,12 @@ function ModActivityLevelPage() {
                 <div
                   key={index}
                   onClick={() => {
-                    setAct(array[index].value)
+                    setAct(array[index].value);
                     setSelected(() => {
-                      const newArray = [false, false, false, false]
-                      newArray[index] = true
-                      return newArray
-                    })
+                      const newArray = [false, false, false, false];
+                      newArray[index] = true;
+                      return newArray;
+                    });
                   }}
                   className={
                     selected[index] ? classes.pickedItem : classes.activityItem
@@ -115,7 +115,7 @@ function ModActivityLevelPage() {
                   </div>
                   <span>{item.explanation}</span>
                 </div>
-              )
+              );
             })}
           </div>
           <div
@@ -123,15 +123,15 @@ function ModActivityLevelPage() {
               instance
                 .put("/user", { ..._userInfo, activityLevel: act }, {})
                 .then((response) => {
-                  dispatch(registerUserInfo(response.data))
+                  dispatch(registerUserInfo(response.data));
                   MySwal.fire({
                     icon: "success",
-                    title: "성공적으로 수정되었습니다!",
+                    text: "성공적으로 수정되었습니다!",
                     showConfirmButton: false,
                     timer: 1500,
-                  })
-                  history.goBack()
-                })
+                  });
+                  history.goBack();
+                });
             }}
             className={classes.addButtonContainer}
           >
@@ -140,7 +140,7 @@ function ModActivityLevelPage() {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default ModActivityLevelPage
+export default ModActivityLevelPage;

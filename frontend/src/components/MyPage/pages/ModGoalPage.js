@@ -1,19 +1,18 @@
-import classes from "./ModGoalPage.module.css"
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
-import { instance } from "../../../api/index"
-import { registerUserInfo } from "../../../store/userSlice"
-import { useHistory } from "react-router-dom"
+import classes from "./ModGoalPage.module.css";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { instance } from "../../../api/index";
+import { registerUserInfo } from "../../../store/userSlice";
+import { useHistory } from "react-router-dom";
 
 function ModGoalPage() {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const [goal, setGoal] = useState(null)
-  const [selected, setSelected] = useState([false, false, false])
-  console.log(userInfo)
-  const history = useHistory()
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [goal, setGoal] = useState(null);
+  const [selected, setSelected] = useState([false, false, false]);
+  const history = useHistory();
 
   const _userInfo = {
     gender: userInfo.gender,
@@ -27,17 +26,17 @@ function ModGoalPage() {
     dailyProtein: userInfo.dailyProtein,
     dailyFat: userInfo.dailyFat,
     isAutomatic: true,
-  }
+  };
 
-  const MySwal = withReactContent(Swal)
-  const dispatch = useDispatch()
+  const MySwal = withReactContent(Swal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setGoal(userInfo.goal)
-    if (userInfo.goal === "KEEP") setSelected([true, false, false])
-    else if (userInfo.goal === "DIET") setSelected([false, true, false])
-    else setSelected([false, false, true])
-  }, [userInfo])
+    setGoal(userInfo.goal);
+    if (userInfo.goal === "KEEP") setSelected([true, false, false]);
+    else if (userInfo.goal === "DIET") setSelected([false, true, false]);
+    else setSelected([false, false, true]);
+  }, [userInfo]);
 
   const array = [
     {
@@ -58,7 +57,7 @@ function ModGoalPage() {
       subexp: "탄수화물 40%, 단백질 40%, 지방 20%",
       value: "BULK",
     },
-  ]
+  ];
 
   return (
     <div>
@@ -82,12 +81,12 @@ function ModGoalPage() {
                 <div
                   key={index}
                   onClick={() => {
-                    setGoal(array[index].value)
+                    setGoal(array[index].value);
                     setSelected(() => {
-                      const newArray = [false, false, false]
-                      newArray[index] = true
-                      return newArray
-                    })
+                      const newArray = [false, false, false];
+                      newArray[index] = true;
+                      return newArray;
+                    });
                   }}
                   className={
                     selected[index] ? classes.pickedItem : classes.goalItem
@@ -107,7 +106,7 @@ function ModGoalPage() {
                     <div>{item.subexp}</div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
           <div
@@ -115,15 +114,15 @@ function ModGoalPage() {
               instance
                 .put("/user", { ..._userInfo, goal: goal }, {})
                 .then((response) => {
-                  dispatch(registerUserInfo(response.data))
+                  dispatch(registerUserInfo(response.data));
                   MySwal.fire({
                     icon: "success",
-                    title: "성공적으로 수정되었습니다!",
+                    text: "성공적으로 수정되었습니다!",
                     showConfirmButton: false,
                     timer: 1500,
-                  })
-                  history.goBack()
-                })
+                  });
+                  history.goBack();
+                });
             }}
             className={classes.addButtonContainer}
           >
@@ -132,7 +131,7 @@ function ModGoalPage() {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default ModGoalPage
+export default ModGoalPage;

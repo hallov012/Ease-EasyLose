@@ -74,17 +74,6 @@ function BundleMealListItem({ type, foodList }) {
         />
         <AddCircleOutlineIcon style={{ color: "gray" }} />
       </ListItemButton>
-      {/* <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {foodList.map((food) => {
-            return (
-              <ListItemButton>
-                <ListItemText primary={food.food.name}></ListItemText>
-              </ListItemButton>
-            )
-          })}
-        </List>
-      </Collapse> */}
       <Modal
         open={open}
         onClose={handleClose}

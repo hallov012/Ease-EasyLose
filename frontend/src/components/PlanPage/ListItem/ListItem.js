@@ -1,15 +1,17 @@
-import classes from "./ListItem.module.css"
+import classes from "./ListItem.module.css";
 
-import * as React from "react"
-import { styled } from "@mui/material/styles"
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
-import ClickAwayListener from "@mui/material/ClickAwayListener"
-import Typography from "@mui/material/Typography"
-import Zoom from "@mui/material/Zoom"
-import { useDispatch } from "react-redux"
-import { removeDailyMealItem, registerPlanId } from "../../../store/planSlice"
-import { instance } from "../../../api"
-import { NavLink, useHistory } from "react-router-dom"
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Typography from "@mui/material/Typography";
+import Zoom from "@mui/material/Zoom";
+import { useDispatch } from "react-redux";
+import { removeDailyMealItem, registerPlanId } from "../../../store/planSlice";
+import { instance } from "../../../api";
+import { NavLink, useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -20,37 +22,50 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: "#afb4ff",
   },
-}))
+}));
 
 function ListItem({ data }) {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const [open, setOpen] = React.useState(false)
+  const MySwal = withReactContent(Swal);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [open, setOpen] = React.useState(false);
 
   const handleTooltipClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const handleTooltipOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handelDelete = (event) => {
-    event.preventDefault()
-    instance
-      .delete(`/foodset/${data.id}`, {})
-      .then((response) => {
-        dispatch(removeDailyMealItem(data))
-      })
-      .catch((error) => console.log(error))
-  }
+    MySwal.fire({
+      text: "항목을 삭제하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#7c83fd",
+      cancelButtonColor: "#00033f",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        event.preventDefault();
+        instance
+          .delete(`/foodset/${data.id}`, {})
+          .then((response) => {
+            dispatch(removeDailyMealItem(data));
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
 
   const handleId = (event) => {
-    event.preventDefault()
-    localStorage.setItem("target_date", JSON.stringify(data.id))
-    dispatch(registerPlanId(data.id))
-    history.push(`/plan/${data.id}`)
-  }
+    event.preventDefault();
+    localStorage.setItem("target_date", JSON.stringify(data.id));
+    dispatch(registerPlanId(data.id));
+    history.push(`/plan/${data.id}`);
+  };
   return (
     <div className={classes.container}>
       <div onClick={handleId} className={classes.left}>
@@ -105,11 +120,11 @@ function ListItem({ data }) {
           </div>
         </ClickAwayListener>
         <div onClick={handelDelete}>
-          <i class="fa-solid fa-trash-can"></i>
+          <i className="fa-solid fa-trash-can"></i>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ListItem
+export default ListItem;

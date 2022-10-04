@@ -1,30 +1,29 @@
-import classes from "./InfoModPage.module.css"
-import NutrientChart from "../../MainPage/NutrientChart/NutrientChart"
-import { useHistory } from "react-router-dom"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import { useSelector } from "react-redux"
+import classes from "./InfoModPage.module.css";
+import NutrientChart from "../../MainPage/NutrientChart/NutrientChart";
+import { useHistory } from "react-router-dom";
+import TopNav from "../../TopNav/TopNav";
+import { useSelector } from "react-redux";
 
 function InfoModPage() {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  console.log(userInfo)
-  const history = useHistory()
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const history = useHistory();
   const colorSet = {
     carbColor: "#afb4ff",
     proteinColor: "#7c83fd",
     fatColor: "#b1e1ff",
-  }
+  };
 
   function showGoal(goal) {
-    if (goal === "DIET") return "체중 감량을 목표로 합니다"
-    else if (goal === "KEEP") return "체중 유지를 목표로 합니다"
-    else return "체중 증가를 목표로 합니다"
+    if (goal === "DIET") return "체중 감량을 목표로 합니다";
+    else if (goal === "KEEP") return "체중 유지를 목표로 합니다";
+    else return "체중 증가를 목표로 합니다";
   }
 
   function showActivity(act) {
-    if (act === "LOWEST") return "30분 이하의 아주 가벼운 활동"
-    else if (act === "LOW") return "1~2시간 사이의 가벼운 활동"
-    else if (act === "HIGH") return "2~4시간 사이의 보통 활동"
-    else return "4시간 이상의 심한 활동"
+    if (act === "LOWEST") return "30분 이하의 아주 가벼운 활동";
+    else if (act === "LOW") return "1~2시간 사이의 가벼운 활동";
+    else if (act === "HIGH") return "2~4시간 사이의 보통 활동";
+    else return "4시간 이상의 심한 활동";
   }
 
   return (
@@ -32,7 +31,7 @@ function InfoModPage() {
       {userInfo ? (
         <div>
           <div id="top_nav_area">
-            <TopHistoryNav></TopHistoryNav>
+            <TopNav arrow={["/mypage", ""]}></TopNav>
           </div>
           <div className={classes.container}>
             <div className={classes.mod_list}>
@@ -42,7 +41,7 @@ function InfoModPage() {
                   <div>{userInfo.age}세</div>
                   <div
                     onClick={() => {
-                      history.push("/mypage/mod/age")
+                      history.push("/mypage/mod/age");
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
@@ -56,7 +55,7 @@ function InfoModPage() {
                   <div>{userInfo.weight}kg</div>
                   <div
                     onClick={() => {
-                      history.push("/mypage/mod/weight")
+                      history.push("/mypage/mod/weight");
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
@@ -70,7 +69,7 @@ function InfoModPage() {
                   <div>{userInfo.height}cm</div>
                   <div
                     onClick={() => {
-                      history.push("/mypage/mod/height")
+                      history.push("/mypage/mod/height");
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
@@ -84,7 +83,7 @@ function InfoModPage() {
                   <div>{showActivity(userInfo.activityLevel)}</div>
                   <div
                     onClick={() => {
-                      history.push("/mypage/mod/activity")
+                      history.push("/mypage/mod/activity");
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
@@ -98,7 +97,7 @@ function InfoModPage() {
                   <div>{showGoal(userInfo.goal)}</div>
                   <div
                     onClick={() => {
-                      history.push("/mypage/mod/goal")
+                      history.push("/mypage/mod/goal");
                     }}
                     style={{ marginLeft: "3vw" }}
                   >
@@ -140,7 +139,7 @@ function InfoModPage() {
             <div
               className={classes.initialize_percent_button}
               onClick={() => {
-                history.push("/mypage/mod/nut")
+                history.push("/mypage/mod/nut");
               }}
             >
               섭취 기준 수정 <i className="fa-solid fa-pen"></i>
@@ -149,7 +148,7 @@ function InfoModPage() {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default InfoModPage
+export default InfoModPage;

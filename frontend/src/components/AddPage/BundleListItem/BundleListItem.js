@@ -42,6 +42,7 @@ function BundleListItem({ item }) {
             if (item.details[`${mealtime[index]}`].length !== 0) {
               return (
                 <BundleMealListItem
+                  key={index}
                   type={type}
                   foodList={item.details[`${mealtime[index]}`]}
                 ></BundleMealListItem>

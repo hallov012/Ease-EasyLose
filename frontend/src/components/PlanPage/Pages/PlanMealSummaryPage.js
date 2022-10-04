@@ -17,13 +17,15 @@ function PlanMealSummaryPage({ colorSet }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const temp = JSON.parse(localStorage.getItem("target_date"));
-  if (temp) {
-    if (typeof temp === "number") {
-      dispatch(registerPlanId(temp));
+  useEffect(() => {
+    if (temp) {
+      if (typeof temp === "number") {
+        dispatch(registerPlanId(temp));
+      }
+    } else {
+      history.push("/plan");
     }
-  } else {
-    history.push("/plan");
-  }
+  }, []);
 
   const userInfo = useSelector((state) => state.user.userInfo);
   const planId = useSelector((state) => state.plan.planId);
@@ -42,10 +44,10 @@ function PlanMealSummaryPage({ colorSet }) {
 
   const params = useParams();
   const meal = {
-    BREAKFAST: "아침",
-    LUNCH: "점심",
-    DINNER: "저녁",
-    SNACK: "간식",
+    BREAKFAST: { title: "아침", icon: "fa-cloud-sun" },
+    LUNCH: { title: "점심", icon: "fa-sun" },
+    DINNER: { title: "저녁", icon: "fa-moon" },
+    SNACK: { title: "간식", icon: "fa-cookie-bite" },
   };
 
   useEffect(() => {
@@ -58,7 +60,10 @@ function PlanMealSummaryPage({ colorSet }) {
       {dailyMeal.length ? (
         <div>
           <div id="top_nav_area">
-            <TopHistoryNav text={`${meal[params.mealtime]}`} />
+            <TopHistoryNav text={`${meal[params.mealtime].title}`} />
+          </div>
+          <div className={classes.icon}>
+            <i className={`fa-solid ${meal[params.mealtime].icon}`}></i>
           </div>
           <div
             style={{
