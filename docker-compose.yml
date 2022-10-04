@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:stable
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/certbot:/var/www/certbot
+    restart: always
+    env_file:
+      - .env
+
+  db:
+    image: mariadb:latest
+    expose:
+      - ${MYSQL_PORT}
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=${MYSQL_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build: ./backend
+    image: easylose/backend
+    expose:
+      - 8080
+    command: java -jar ./app.jar
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    env_file:
+      - .env
+
+  frontend:
+    build: ./frontend
+    image: easylose/frontend
+    expose:
+      - 80
+    env_file:
+      - .env
+
+  hadoop:
+    build: ./hadoop
+    image: easylose/hadoop
+    expose:
+      - 16010
+    command: bash -c /home/hadoop/start_ease_hadoop.sh
+    tty: true

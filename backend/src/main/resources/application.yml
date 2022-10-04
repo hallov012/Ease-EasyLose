@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    show-sql: true
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: "jdbc:mariadb://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
+    username: "${MYSQL_USER}"
+    password: "${MYSQL_PASSWORD}"
+    driver-class-name: org.mariadb.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+  profiles:
+    include: oauth
+
+springdoc:
+  swagger-ui:
+    path: /documentation/swagger-ui.html
+  api-docs:
+    path: /documentation/v3/api-docs
+
+barcode:
+  uri: "${BARCODE_URI}"
+  key: "${BARCODE_KEY}"
+  service-id: "${BARCODE_SERVICE_ID}"
+  data-type: "${BARCODE_DATA_TYPE}"
