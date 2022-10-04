@@ -8,14 +8,14 @@ import { registerDailyDiet } from "../../../store/dailySlice"
 import dateFormat, { masks } from "dateformat"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+import { registerDailyMealList } from "../../../store/planSlice"
 
 function UserFoodList(props) {
   const history = useHistory()
   const location = useLocation()
   const [foodItems, setFoodItems] = useState(<div></div>)
-  const target_date = dateFormat(
-    JSON.parse(useSelector((state) => state.status.targetDate)),
-    "yyyy-mm-dd"
+  const target_date = JSON.parse(
+    useSelector((state) => state.status.targetDate)
   )
   const MySwal = withReactContent(Swal)
   const dispatch = useDispatch()
@@ -58,25 +58,51 @@ function UserFoodList(props) {
                         cancelButtonText: "취소",
                       }).then((result) => {
                         if (result.isConfirmed) {
-                          instance
-                            .delete(`/dailymeal/${item.id}`, {})
-                            .then((response) => {
-                              instance
-                                .get("/dailymeal", {
-                                  params: { date: target_date },
+                          if (typeof target_date !== "number") {
+                            instance
+                              .delete(`/dailymeal/${item.id}`, {})
+                              .then((response) => {
+                                instance
+                                  .get("/dailymeal", {
+                                    params: {
+                                      date: dateFormat(
+                                        target_date,
+                                        "yyyy-MM-dd"
+                                      ),
+                                    },
+                                  })
+                                  .then((response) => {
+                                    dispatch(registerDailyDiet(response.data))
+                                  })
+                                  .catch((error) => console.log(error))
+                                MySwal.fire({
+                                  icon: "success",
+                                  title: "성공적으로 삭제되었습니다!",
+                                  showConfirmButton: false,
+                                  timer: 1500,
                                 })
-                                .then((response) => {
-                                  dispatch(registerDailyDiet(response.data))
+                              })
+                              .catch((error) => console.log(error))
+                          } else {
+                            instance
+                              .delete(`/foodset/${target_date}/${item.id}`, {})
+                              .then((response) => {
+                                instance
+                                  .get("/foodset", {})
+                                  .then((response) => {
+                                    dispatch(
+                                      registerDailyMealList(response.data)
+                                    )
+                                  })
+                                  .catch((error) => console.log(error))
+                                MySwal.fire({
+                                  icon: "success",
+                                  title: "성공적으로 삭제되었습니다!",
+                                  showConfirmButton: false,
+                                  timer: 1500,
                                 })
-                                .catch((error) => console.log(error))
-                            })
-                            .catch((error) => console.log(error))
-                          MySwal.fire({
-                            icon: "success",
-                            title: "성공적으로 삭제되었습니다!",
-                            showConfirmButton: false,
-                            timer: 1500,
-                          })
+                              })
+                          }
                         }
                       })
                     }}
