@@ -40,12 +40,33 @@ public class FoodServiceImpl implements FoodService {
     if (name == null) {
       return null;
     }
-    spec = spec.and(FoodSpecification.containName(name, user));
-    Pageable limit = PageRequest.of(0, 20);
+    spec = spec.and(FoodSpecification.equalUser(user));
+    Pageable limit = PageRequest.of(0, 10, Direction.ASC, "name");
+    Specification<Food> spec2 = (root, query, builder) -> null;
+    Specification<Food> spec3 = (root, query, builder) -> null;
+
+    spec2 = spec.and(FoodSpecification.containName(name));
+    spec3 = spec.and(FoodSpecification.haveName(name));
+
+    log.info("specs {} {}", spec2, spec3);
+
     List<FoodResponseDto> response =
-        foodMapper.toDtoAll(foodRepository.findAll(spec, limit).toList());
-    //    List<FoodResponseDto> response = foodMapper.toDtoAll(foodRepository.findAllByName(user,
-    // name));
+        foodMapper.toDtoAll(foodRepository.findAll(spec2, limit).toList());
+    List<FoodResponseDto> response2 =
+        foodMapper.toDtoAll(foodRepository.findAll(spec3, limit).toList());
+
+    for (FoodResponseDto dto : response2) {
+      boolean check = true;
+      for (int i = 0; i < response.size(); i++) {
+        if (dto.getId().equals(response.get(i).getId())) {
+          check = false;
+          break;
+        }
+      }
+      if (check == true) {
+        response.add(dto);
+      }
+    }
     log.info("response for food : {}", response);
 
     return response;
@@ -68,7 +89,8 @@ public class FoodServiceImpl implements FoodService {
       String name = barCodeSearch.search(barcode);
       if (name != null) {
         Specification<Food> newSpec = (root, query, builder) -> null;
-        newSpec = newSpec.and(FoodSpecification.containName(name, user));
+        newSpec = newSpec.and(FoodSpecification.equalUser(user));
+        newSpec = newSpec.and(FoodSpecification.containName(name));
         FoodBarCodeDto barCodeDto = FoodBarCodeDto.builder().barcode(barcode).build();
         log.info("barcode dto :{}", barCodeDto);
         List<Food> foodList = foodRepository.findAll(newSpec, limit).toList();
