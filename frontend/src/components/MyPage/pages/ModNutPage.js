@@ -99,8 +99,8 @@ function ModNutPage() {
       text: "회원님의 정보를 바탕으로 조정해드립니다.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#7c83fd",
+      cancelButtonColor: "#00033f",
       confirmButtonText: "확인",
       cancelButtonText: "취소",
     }).then((result) => {
@@ -118,7 +118,7 @@ function ModNutPage() {
             dispatch(registerUserInfo(response.data));
             MySwal.fire({
               icon: "success",
-              title: "성공적으로 수정되었습니다!",
+              text: "성공적으로 수정되었습니다!",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -161,7 +161,7 @@ function ModNutPage() {
       {calorie ? (
         <div>
           <div id="top_nav_area">
-            <TopNav arrow={["mypage/mod", ""]}></TopNav>
+            <TopNav arrow={["/mypage/mod", ""]}></TopNav>
           </div>
           <div
             style={{

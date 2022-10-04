@@ -1,18 +1,18 @@
-import classes from "./ModHeightPage.module.css"
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import TheSlider from "../../SignUpPage/TheSlider/TheSlider"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
-import { instance } from "../../../api/index"
-import { registerUserInfo } from "../../../store/userSlice"
-import { useHistory } from "react-router-dom"
+import classes from "./ModHeightPage.module.css";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import TheSlider from "../../SignUpPage/TheSlider/TheSlider";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { instance } from "../../../api/index";
+import { registerUserInfo } from "../../../store/userSlice";
+import { useHistory } from "react-router-dom";
 
 function ModWeightPage() {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const [weight, setWeight] = useState(null)
-  const history = useHistory()
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [weight, setWeight] = useState(null);
+  const history = useHistory();
 
   const _userInfo = {
     gender: userInfo.gender,
@@ -26,14 +26,14 @@ function ModWeightPage() {
     dailyProtein: userInfo.dailyProtein,
     dailyFat: userInfo.dailyFat,
     isAutomatic: true,
-  }
+  };
 
-  const MySwal = withReactContent(Swal)
-  const dispatch = useDispatch()
+  const MySwal = withReactContent(Swal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setWeight(userInfo.weight)
-  }, [userInfo])
+    setWeight(userInfo.weight);
+  }, [userInfo]);
 
   return (
     <div>
@@ -56,7 +56,7 @@ function ModWeightPage() {
             range={[30, 120]}
             value={weight}
             setValue={(value) => {
-              setWeight(value)
+              setWeight(value);
             }}
             term={0.5}
           />
@@ -65,15 +65,15 @@ function ModWeightPage() {
               instance
                 .put("/user", { ..._userInfo, weight: weight }, {})
                 .then((response) => {
-                  dispatch(registerUserInfo(response.data))
+                  dispatch(registerUserInfo(response.data));
                   MySwal.fire({
                     icon: "success",
-                    title: "성공적으로 수정되었습니다!",
+                    text: "성공적으로 수정되었습니다!",
                     showConfirmButton: false,
                     timer: 1500,
-                  })
-                  history.goBack()
-                })
+                  });
+                  history.goBack();
+                });
             }}
             className={classes.addButtonContainer}
           >
@@ -82,7 +82,7 @@ function ModWeightPage() {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default ModWeightPage
+export default ModWeightPage;
