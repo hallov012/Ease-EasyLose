@@ -34,11 +34,28 @@
 }
 
 .nutrient_percent_text {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  width: 90%;
-  font-size: 1.1rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  grid-gap: 10%;
+}
+
+.percent_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--sub-color);
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 5px;
+}
+
+.percent_box div:first-child {
+  margin-bottom: 0.5rem;
 }
 
 .initialize_percent_button {
