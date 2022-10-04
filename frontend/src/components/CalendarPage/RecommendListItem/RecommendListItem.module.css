@@ -6,6 +6,8 @@
   align-items: center;
   padding-left: 2vw;
   padding-right: 2vw;
+  background-color: var(--gray-color);
+  border-radius: 10px;
 }
 
 .left {

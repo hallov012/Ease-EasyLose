@@ -42,8 +42,7 @@
 
 .pickedList {
   width: 100%;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  max-width: 450px;
   position: absolute;
   bottom: 16vh;
   display: flex;
@@ -53,8 +52,8 @@
 }
 
 .pickedItem {
-  padding-left: 4vw;
-  padding-right: 4vw;
+  padding-left: 5%;
+  padding-right: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
