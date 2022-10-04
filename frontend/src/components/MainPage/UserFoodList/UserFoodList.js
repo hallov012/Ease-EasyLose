@@ -17,6 +17,7 @@ function UserFoodList(props) {
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
   )
+
   const MySwal = withReactContent(Swal)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -67,7 +68,7 @@ function UserFoodList(props) {
                                     params: {
                                       date: dateFormat(
                                         target_date,
-                                        "yyyy-MM-dd"
+                                        "yyyy-mm-dd"
                                       ),
                                     },
                                   })

@@ -1,43 +1,45 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import PlanNav from "../PlanNav/PlanNav";
-import NutrientSummary from "../../../components/MainPage/NutrientSummary/NutrientSummary";
-import SumProgressBar from "../../../components/MainPage/SumProgressBar/SumProgressBar";
-import MealCardList from "../../../components/MainPage/MealCardList/MealCardList";
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { NavLink } from "react-router-dom"
+import PlanNav from "../PlanNav/PlanNav"
+import NutrientSummary from "../../../components/MainPage/NutrientSummary/NutrientSummary"
+import SumProgressBar from "../../../components/MainPage/SumProgressBar/SumProgressBar"
+import MealCardList from "../../../components/MainPage/MealCardList/MealCardList"
 
-import classes from "./PlanPage.module.css";
-import { useHistory } from "react-router-dom";
-import { registerPlanId } from "../../../store/planSlice";
+import classes from "./PlanPage.module.css"
+import { useHistory } from "react-router-dom"
+import { registerPlanId } from "../../../store/planSlice"
+import { registerTargetDate } from "../../../store/statusSlice"
 
 function PlanDetailPage() {
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const dispatch = useDispatch()
+  const history = useHistory()
   useEffect(() => {
-    const temp = JSON.parse(localStorage.getItem("target_date"));
+    const temp = JSON.parse(localStorage.getItem("target_date"))
     if (temp) {
       if (typeof temp === "number") {
-        dispatch(registerPlanId(temp));
+        dispatch(registerPlanId(temp))
+        dispatch(registerTargetDate(temp))
       }
     } else {
-      history.push("/plan");
+      history.push("/plan")
     }
-  }, []);
+  }, [])
 
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const planId = useSelector((state) => state.plan.planId);
-  const dailyMealList = useSelector((state) => state.plan.dailyMealList);
-  const [dailyMeal, setDailyMeal] = useState([]);
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const planId = useSelector((state) => state.plan.planId)
+  const dailyMealList = useSelector((state) => state.plan.dailyMealList)
+  const [dailyMeal, setDailyMeal] = useState([])
   function isPlan(element) {
     if (element.id === planId) {
-      return true;
+      return true
     }
   }
   useEffect(() => {
     if (planId && dailyMealList.length) {
-      setDailyMeal(dailyMealList.filter(isPlan));
+      setDailyMeal(dailyMealList.filter(isPlan))
     }
-  }, [planId, dailyMealList]);
+  }, [planId, dailyMealList])
 
   return (
     <div className={classes.plan_page}>
@@ -69,6 +71,6 @@ function PlanDetailPage() {
         <p>REPORT</p>
       </NavLink>
     </div>
-  );
+  )
 }
-export default PlanDetailPage;
+export default PlanDetailPage
