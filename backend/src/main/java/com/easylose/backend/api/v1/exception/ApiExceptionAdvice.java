@@ -4,9 +4,8 @@ import java.nio.file.AccessDeniedException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+// @RestControllerAdvice
 public class ApiExceptionAdvice {
 
   @ExceptionHandler({RuntimeException.class})
