@@ -59,3 +59,47 @@
 .icon {
   font-size: 50px;
 }
+
+.food_info_box {
+  margin-bottom: 3vh;
+}
+
+.food_info__top span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.food_info__body {
+  margin-top: 5vh;
+  display: grid;
+  grid-template-columns: 5fr 1fr 10fr 1fr 12fr;
+  align-items: center;
+  width: 80vw;
+  font-size: 1.3rem;
+}
+
+.amount_text {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  justify-content: center;
+}
+
+.amount_text span {
+  font-weight: bold;
+  background: var(--sub-color);
+  width: 12vw;
+  height: 12vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10vw;
+  margin-right: 1vw;
+  font-size: 1.3rem;
+  color: white;
+}
+
+.total_text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
