@@ -16,7 +16,7 @@ public class ApiExceptionAdvice {
         .body(
             ApiExceptionEntity.builder()
                 .errorCode(ExceptionEnum.RUNTIME_EXCEPTION.getCode())
-                .errorMessage("잘못된 입력입니다.")
+                .errorMessage("잘못된 접근입니다.")
                 .build());
   }
 

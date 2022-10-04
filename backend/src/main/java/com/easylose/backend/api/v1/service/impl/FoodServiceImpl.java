@@ -41,9 +41,11 @@ public class FoodServiceImpl implements FoodService {
       return null;
     }
     spec = spec.and(FoodSpecification.containName(name, user));
-    Pageable limit = PageRequest.of(0, 20, Direction.ASC, "name");
+    Pageable limit = PageRequest.of(0, 20);
     List<FoodResponseDto> response =
         foodMapper.toDtoAll(foodRepository.findAll(spec, limit).toList());
+    //    List<FoodResponseDto> response = foodMapper.toDtoAll(foodRepository.findAllByName(user,
+    // name));
     log.info("response for food : {}", response);
 
     return response;
