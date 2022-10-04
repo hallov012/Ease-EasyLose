@@ -1,0 +1,37 @@
+.chart_box {
+}
+
+.chart_box span {
+  font-weight: bolder;
+  float: left;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.top_area {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chart_info {
+  display: flex;
+}
+
+.info_item {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.info_item div {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  margin-right: 0.3rem;
+}
+
+.info_item p {
+  margin: 0;
+}

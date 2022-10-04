@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.pickedItem {
+  width: 120px;
+  height: 60px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  background: var(--main-color);
+  background: linear-gradient(
+    90deg,
+    var(--main-color) 44%,
+    var(--light-color) 88%
+  );
+  color: white;
+  border: 0;
+  outline: 0;
+  margin: 5vw;
+  font-size: 20px;
+  font-weight: 1000;
+}
+
+.genderItem {
+  background: #ebebeb;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  width: 120px;
+  height: 60px;
+  border: 0;
+  outline: 0;
+  margin: 5vw;
+  font-size: 20px;
+  font-weight: 1000;
+}

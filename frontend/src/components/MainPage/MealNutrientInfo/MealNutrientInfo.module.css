@@ -1,0 +1,21 @@
+.info_box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  color: var(--inner-text-color);
+}
+
+.info_item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info_item span:first-child {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.info_item span:nth-child(2) {
+  font-size: 1rem;
+}
