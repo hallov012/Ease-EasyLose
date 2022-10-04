@@ -94,3 +94,24 @@
 .scroll::-webkit-scrollbar {
   display: none;
 }
+
+.input {
+  width: 75vw;
+  height: 5vh;
+  border: none;
+  border-radius: 5px;
+  background: var(--gray-color);
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+}
+
+.input:focus {
+  background: var(--sub-color);
+  background: linear-gradient(
+    90deg,
+    var(--sub-color) 33%,
+    var(--gray-color) 100%
+  );
+  border: none;
+  outline: none;
+}

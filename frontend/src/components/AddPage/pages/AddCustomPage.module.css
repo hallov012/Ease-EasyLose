@@ -22,10 +22,19 @@
   height: 5vh;
   width: 60vw;
   border-radius: 5px;
-  background: var(--gray-color);
+  background: var(--sub-color);
   text-align: center;
   font-family: "Arita-dotum-Medium";
-  font-size: 18px;
+  font-size: 1rem;
+}
+
+.foodName:focus {
+  background: var(--sub-color);
+  background: linear-gradient(
+    90deg,
+    var(--point-color) 33%,
+    var(--sub-color) 100%
+  );
 }
 
 .detailcontainer {
