@@ -31,7 +31,7 @@ public class FoodSet {
   @OnDelete(action = OnDeleteAction.CASCADE)
   private User user;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "foodSet")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "foodSet", orphanRemoval = true)
   @JsonManagedReference
   @Default
   private Set<FoodSetDetail> details = new HashSet<FoodSetDetail>();
