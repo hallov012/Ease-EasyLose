@@ -71,8 +71,39 @@ a {
   color: var(--text-color);
 }
 
+/* .size_block {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000000de;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.size_block__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 30vw;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  flex-direction: column;
+} */
+
 @media (min-height: 800px) {
   .App {
     font-size: 1.1rem;
   }
 }
+
+/* @media (max-width: 500px) {
+  .size_block {
+    display: none;
+  }
+} */
