@@ -314,7 +314,7 @@ function CalendarMainPage() {
   }
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       {detailClicked ? (
         <div>
           <div id="top_nav_area">
@@ -360,9 +360,8 @@ function CalendarMainPage() {
                     점
                   </span>
                 </div>
-                <div>멘트멘트멘트멘트멘트멘트</div>
               </div>
-              <div>
+              <div className={classes.ccontainer}>
                 <div className={classes.graphcontainer}>
                   <div className={classes.graph_title}>
                     <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
@@ -377,18 +376,18 @@ function CalendarMainPage() {
                     height={"90%"}
                   ></ReactApexChart>
                 </div>
-                <div style={{ width: "90vw", height: "35vh" }}>
+                <div style={{ width: "90%", height: "35vh" }}>
                   <div className={classes.recommend_title}>
                     <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                       부족한 영양소 보충을 위한 리스트입니다!
                     </div>
                   </div>
-                  <div style={{ overflow: "scroll", height: "32vh" }}>
+                  <div className={classes.rcontainer}>
                     {recommendList.map((item, index) => {
                       return (
                         <div
                           key={index}
-                          style={{ width: "90vw", height: "10vh" }}
+                          style={{ width: "100%", height: "10vh" }}
                         >
                           <RecommendListItem></RecommendListItem>
                         </div>

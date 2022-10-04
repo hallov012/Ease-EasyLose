@@ -59,7 +59,7 @@ function PlanNav({ title, planId }) {
       })
   }
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       {planId ? (
         <div className={classes.nav_area}>
           <NavLink to="/plan">

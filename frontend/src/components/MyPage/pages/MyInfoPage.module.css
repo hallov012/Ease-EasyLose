@@ -4,11 +4,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
   padding: 5vw;
 }
 
 .title {
-  width: 90vw;
+  width: 100%;
   height: 5vh;
   font-size: 20px;
   font-weight: 1000;
@@ -17,7 +18,7 @@
 }
 
 .box {
-  width: 90vw;
+  width: 100%;
   padding: 2vw;
   display: flex;
   flex-direction: column;
@@ -29,7 +30,7 @@
 }
 
 .boxTitle {
-  width: 84vw;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -40,12 +41,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 84vw;
+  width: 95%;
   margin-bottom: 2vh;
 }
 
 .boxicon i {
-  font-size: 22vw;
+  font-size: 7rem;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
@@ -61,6 +62,7 @@
   justify-content: space-around;
   align-items: center;
   height: 24vw;
+  width: 60%;
 }
 
 .user_info_item {
@@ -68,14 +70,14 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: solid 1px var(--main-color);
-  width: 60vw;
+  width: 100%;
 }
 
 .activity_and_goal {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 84vw;
+  width: 100%;
   margin-bottom: 1vh;
 }
 
@@ -87,14 +89,14 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 84vw;
+  width: 100%;
   margin-top: 1vh;
   margin-bottom: 2vh;
 }
 
 .item {
-  width: 18vw;
-  height: 18vw;
+  width: 20%;
+  aspect-ratio: 1/1;
   color: black;
   background: var(--sub-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -109,7 +111,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90vw;
+  width: 100%;
   margin-top: 2vh;
   background-color: var(--gray-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

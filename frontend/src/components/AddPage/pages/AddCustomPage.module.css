@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   margin-top: 9vh;
 }
 
 .inputbox {
-  width: 90vw;
+  width: 90%;
   height: 12vh;
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@
 
 .detailcontainer {
   margin-top: 2vh;
-  width: 90vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80vw;
+  width: 90%;
   font-weight: bold;
   margin-bottom: 5px;
   border-bottom: solid #d9d9d9 1px;
@@ -61,7 +61,7 @@
 }
 
 .detailSmall {
-  width: 80vw;
+  width: 90%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -69,7 +69,7 @@
 }
 
 .detailSmallSmall {
-  width: 75vw;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,7 +88,8 @@
 }
 
 .addButtonContainer {
-  width: 100vw;
+  max-width: 450px;
+  width: 100%;
   position: absolute;
   bottom: 10vh;
   display: flex;
@@ -97,7 +98,7 @@
 }
 
 .addButton {
-  width: 90vw;
+  width: 90%;
   height: 5vh;
   background: var(--gray-color);
   display: flex;
@@ -112,7 +113,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100vw;
+  max-width: 450px;
+  width: 100%;
   height: 8vh;
   background-color: var(--main-color);
   bottom: 0;

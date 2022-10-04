@@ -29,7 +29,7 @@ function UserFoodList(props) {
       setFoodItems(
         props.foodList.map((item) => {
           return (
-            <div key={item.id} style={{ width: "90vw", height: "8vh" }}>
+            <div key={item.id} style={{ width: "100%", height: "8vh" }}>
               <div className={classes.container}>
                 <div className={classes.left}>
                   <div className={classes.item_title}>{item.food.name}</div>

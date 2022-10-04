@@ -1,14 +1,14 @@
-import classes from "./AddAmountPage.module.css";
-import { useState } from "react";
-import AddButtonList from "../AddButtonList/AddButtonList";
+import classes from "./AddAmountPage.module.css"
+import { useState } from "react"
+import AddButtonList from "../AddButtonList/AddButtonList"
 
-import { useHistory } from "react-router-dom";
-import { registerItem } from "../../../store/basketSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom"
+import { registerItem } from "../../../store/basketSlice"
+import { useDispatch, useSelector } from "react-redux"
 
-import Slider from "@mui/material/Slider";
-import { styled } from "@mui/material/styles";
-import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import Slider from "@mui/material/Slider"
+import { styled } from "@mui/material/styles"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 const PrettoSlider = styled(Slider)({
   color: "#7c83fd",
@@ -47,29 +47,29 @@ const PrettoSlider = styled(Slider)({
       transform: "rotate(45deg)",
     },
   },
-});
+})
 
 function AddAmountPage() {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const [amount, setAmount] = useState(1);
-  const foodInfo = history.location.state.foodInfo;
-  const listType = history.location.state.type;
-  const pickedList = useSelector((state) => state.basket.pickedList);
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const [amount, setAmount] = useState(1)
+  const foodInfo = history.location.state.foodInfo
+  const listType = history.location.state.type
+  const pickedList = useSelector((state) => state.basket.pickedList)
 
   const current_total_calorie = () => {
-    let sum = 0;
+    let sum = 0
     pickedList.map((item) => {
-      sum += item.calorie;
-    });
-    return sum;
-  };
+      sum += item.calorie
+    })
+    return sum
+  }
 
   const onClickHandler = () => {
-    const temp = { ...foodInfo, count: amount, listType: listType };
-    dispatch(registerItem(temp));
-    history.goBack();
-  };
+    const temp = { ...foodInfo, count: amount, listType: listType }
+    dispatch(registerItem(temp))
+    history.goBack()
+  }
 
   return (
     <div>
@@ -93,7 +93,7 @@ function AddAmountPage() {
             </div>
           </div>
         </div>
-        <div style={{ width: "80vw", marginTop: "10vh" }}>
+        <div style={{ width: "80%", marginTop: "10vh" }}>
           <PrettoSlider
             valueLabelDisplay="on"
             aria-label="pretto slider"
@@ -102,13 +102,13 @@ function AddAmountPage() {
             min={0.5}
             max={5}
             onChange={(e) => {
-              setAmount(e.target.value);
+              setAmount(e.target.value)
             }}
           />
         </div>
         <div
           style={{
-            width: "80vw",
+            width: "80%",
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
@@ -122,7 +122,7 @@ function AddAmountPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  );
+  )
 }
 
-export default AddAmountPage;
+export default AddAmountPage
