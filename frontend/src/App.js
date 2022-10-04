@@ -65,12 +65,12 @@ function App() {
 
   return (
     <div className="App">
-      <div className="size_block">
+      {/* <div className="size_block">
         <div className="size_block__content">
           <div>Ease는 모바일 화면에 최적화 되어있습니다</div>
           <div>서비스 이용을 위해서는 화면 크기를 줄여주세요</div>
         </div>
-      </div>
+      </div> */}
       <div className="top_line_gradient"></div>
       <Switch>
         <Route path="/" exact>
