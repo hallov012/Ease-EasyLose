@@ -17,13 +17,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "recommend")
 public class Recommend {
-
   @Id @GeneratedValue private Long id;
-
   private int carb;
-
   private int protein;
-
   private int fat;
 
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

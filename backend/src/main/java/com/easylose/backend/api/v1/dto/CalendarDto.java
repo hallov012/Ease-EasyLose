@@ -1,5 +1,7 @@
 package com.easylose.backend.api.v1.dto;
 
+import com.easylose.backend.api.v1.dto.RecommendDto.RecommendResponseDto;
+import java.util.List;
 import lombok.*;
 
 public class CalendarDto {
@@ -21,5 +23,7 @@ public class CalendarDto {
     private float dailyCarb;
     private float dailyProtein;
     private float dailyFat;
+
+    private List<RecommendResponseDto> recommends;
   }
 }
