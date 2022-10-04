@@ -1,18 +1,18 @@
-import classes from "./ModHeightPage.module.css"
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import TheSlider from "../../SignUpPage/TheSlider/TheSlider"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
-import { instance } from "../../../api/index"
-import { registerUserInfo } from "../../../store/userSlice"
-import { useHistory } from "react-router-dom"
+import classes from "./ModHeightPage.module.css";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import TheSlider from "../../SignUpPage/TheSlider/TheSlider";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { instance } from "../../../api/index";
+import { registerUserInfo } from "../../../store/userSlice";
+import { useHistory } from "react-router-dom";
 
 function ModAgePage() {
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const [age, setAge] = useState(null)
-  const history = useHistory()
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [age, setAge] = useState(null);
+  const history = useHistory();
 
   const _userInfo = {
     gender: userInfo.gender,
@@ -26,14 +26,14 @@ function ModAgePage() {
     dailyProtein: userInfo.dailyProtein,
     dailyFat: userInfo.dailyFat,
     isAutomatic: true,
-  }
+  };
 
-  const MySwal = withReactContent(Swal)
-  const dispatch = useDispatch()
+  const MySwal = withReactContent(Swal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setAge(userInfo.age)
-  }, [userInfo])
+    setAge(userInfo.age);
+  }, [userInfo]);
 
   return (
     <div>
@@ -56,7 +56,7 @@ function ModAgePage() {
             range={[10, 80]}
             value={age}
             setValue={(value) => {
-              setAge(value)
+              setAge(value);
             }}
             term={1}
           />
@@ -65,15 +65,15 @@ function ModAgePage() {
               instance
                 .put("/user", { ..._userInfo, age: age }, {})
                 .then((response) => {
-                  dispatch(registerUserInfo(response.data))
+                  dispatch(registerUserInfo(response.data));
                   MySwal.fire({
                     icon: "success",
-                    title: "성공적으로 수정되었습니다!",
+                    text: "성공적으로 수정되었습니다!",
                     showConfirmButton: false,
                     timer: 1500,
-                  })
-                  history.goBack()
-                })
+                  });
+                  history.goBack();
+                });
             }}
             className={classes.addButtonContainer}
           >
@@ -82,7 +82,7 @@ function ModAgePage() {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default ModAgePage
+export default ModAgePage;

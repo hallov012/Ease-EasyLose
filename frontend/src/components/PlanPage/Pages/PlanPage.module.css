@@ -18,3 +18,25 @@
   position: absolute;
   opacity: 0.1;
 }
+
+.report_btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 12vh;
+  right: 5vw;
+  width: 16vw;
+  height: 16vw;
+  background: var(--main-color);
+  opacity: 0.8;
+  border-radius: 100%;
+  color: white;
+  font-size: 8vw;
+}
+
+.report_btn p {
+  font-size: 0.5rem;
+  margin: 0;
+}

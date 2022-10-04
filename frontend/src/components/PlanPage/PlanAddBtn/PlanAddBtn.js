@@ -7,6 +7,9 @@ import { instance } from "../../../api/index";
 import { useDispatch } from "react-redux";
 import { registerDailyMealList } from "../../../store/planSlice";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 import classes from "./PlanAddBtn.module.css";
 
 const style = {
@@ -24,6 +27,7 @@ const style = {
 };
 
 function PlanAddBtn() {
+  const MySwal = withReactContent(Swal);
   const dispatch = useDispatch();
   const [inputName, setName] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -45,6 +49,12 @@ function PlanAddBtn() {
           .get("/foodset")
           .then((response) => {
             dispatch(registerDailyMealList(response.data));
+            MySwal.fire({
+              icon: "success",
+              text: "생성되었습니다!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           })
           .catch((error) => console.log(error));
         setName("");

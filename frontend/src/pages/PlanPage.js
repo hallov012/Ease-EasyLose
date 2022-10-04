@@ -8,6 +8,7 @@ import { registerDailyMealList, registerOneMealList } from "../store/planSlice";
 import PlanDetailPage from "../components/PlanPage/Pages/PlanDetailPage";
 import PlanSummaryPage from "../components/PlanPage/Pages/PlanSummaryPage";
 import PlanMealSummaryPage from "../components/PlanPage/Pages/PlanMealSummaryPage";
+import PlanReportPage from "../components/PlanPage/Pages/PlanReportPage";
 
 import classes from "../components/PlanPage/Pages/PlanPage.module.css";
 
@@ -37,6 +38,9 @@ function PlanPage() {
       </Route>
       <Route path="/plan/:planId/summary" exact>
         <PlanSummaryPage colorSet={colorSet}></PlanSummaryPage>
+      </Route>
+      <Route path="/plan/:planId/report" exact>
+        <PlanReportPage></PlanReportPage>
       </Route>
       <Route path="/plan/:planId/meal/:mealtime">
         <PlanMealSummaryPage colorSet={colorSet}></PlanMealSummaryPage>

@@ -13,7 +13,7 @@
 
 .navbar {
   width: 100vw;
-  height: 10vh;
+  height: 9vh;
   background: var(--main-color);
   background: linear-gradient(0deg, var(--main-color) 0%, var(--sub-color) 76%);
   display: inline-flex;
