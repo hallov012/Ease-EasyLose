@@ -265,6 +265,8 @@ function AddSearchPage() {
               showConfirmButton: false,
               timer: 1500,
             })
+            dispatch(initializeBasket())
+            dispatch(registerSearchOrRecent(0))
             history.goBack()
           }
         }}
