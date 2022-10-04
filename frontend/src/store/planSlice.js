@@ -3,24 +3,27 @@ import { createSlice } from "@reduxjs/toolkit"
 export const planSlice = createSlice({
   name: "plan",
   initialState: {
-    oneMealList: [],
     dailyMealList: [],
     planId: -1,
+    testList: [],
   },
   reducers: {
-    registerOneMealList: (state, action) => {
-      state.oneMealList = action.payload
+    registerTestItem: (state, action) => {
+      state.testList = [...state.testList, action.payload]
+    },
+    removeTestItem: (state, action) => {
+      state.testList = state.testList.filter((item) => {
+        return action.payload.id !== item.id
+      })
+    },
+    initializeTestList: (state) => {
+      state.testList = []
     },
     registerDailyMealList: (state, action) => {
       state.dailyMealList = action.payload
     },
     registerPlanId: (state, action) => {
       state.planId = action.payload
-    },
-    removeOneMealItem: (state, action) => {
-      state.oneMealList = state.oneMealList.filter((item) => {
-        return action.payload.id !== item.id
-      })
     },
     removeDailyMealItem: (state, action) => {
       state.dailyMealList = state.dailyMealList.filter((item) => {
@@ -31,11 +34,12 @@ export const planSlice = createSlice({
 })
 
 export const {
-  registerOneMealList,
   registerDailyMealList,
   registerPlanId,
-  removeOneMealItem,
   removeDailyMealItem,
+  registerTestItem,
+  removeTestItem,
+  initializeTestList,
 } = planSlice.actions
 
 export default planSlice.reducer

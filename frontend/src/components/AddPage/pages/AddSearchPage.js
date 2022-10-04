@@ -136,7 +136,7 @@ function AddSearchPage() {
   }
 
   return (
-    <div style={{ marginTop: "9vh" }}>
+    <div style={{ marginTop: "9vh", width: "100%" }}>
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {

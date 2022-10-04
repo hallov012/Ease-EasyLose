@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import "./CalendarMainPage.css"
 import classes from "./CalendarMainPage.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Modal from "@mui/material/Modal"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import {
   addDays,
@@ -19,6 +22,23 @@ import { instance } from "../../api/index"
 import ReactApexChart from "react-apexcharts"
 import RecommendListItem from "./RecommendListItem/RecommendListItem"
 import CountUp from "react-countup"
+import { useDispatch, useSelector } from "react-redux"
+import { initializeTestList } from "../../store/planSlice"
+
+const style = {
+  maxWidth: "350px",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "100%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "5px",
+  border: "none",
+  outline: "none",
+}
 
 function CalendarMainPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -26,6 +46,10 @@ function CalendarMainPage() {
   const [monthData, setMonthData] = useState({})
   const [detailClicked, setDetailClicked] = useState(false)
   const [detailData, setDetailData] = useState(undefined)
+  const testList = useSelector((state) => state.plan.testList)
+  const [open, setOpen] = useState(false)
+  const handleClose = () => setOpen(false)
+  const dispatch = useDispatch()
   const [limit, setLimit] = useState(0)
   const [state, setState] = useState({
     options: {
@@ -43,12 +67,12 @@ function CalendarMainPage() {
       },
     ],
   })
-  const [recommendList, setRecommendList] = useState([1, 2, 3, 4, 5])
+  const [recommendList, setRecommendList] = useState([])
 
   function previousToday(rsvDate) {
     let now = new Date()
     if (rsvDate) {
-      now = format(currentMonth, "yyyy-MM-dd")
+      now = format(now, "yyyy-MM-dd")
 
       if (rsvDate < now) {
         return true
@@ -56,8 +80,26 @@ function CalendarMainPage() {
     }
   }
 
+  console.log(detailData)
+
+  function onClickTestHandler() {
+    setOpen(true)
+    let tempCalorie = detailData.totalCalorie
+    let tempCarb = detailData.totalCarb
+    let tempProtein = detailData.totalProtein
+    let tempFat = detailData.totalFat
+    testList.map((item) => {
+      tempCalorie += item.calorie
+      tempCarb += item.carb
+      tempProtein += item.protein
+      tempFat += item.fat
+    })
+    console.log(`${tempCalorie}/${tempCarb}/${tempProtein}/${tempFat}`)
+  }
+
   useEffect(() => {
     if (detailData) {
+      setRecommendList(detailData.recommends)
       setLimit(Math.round(detailData.score * 100))
       setState({
         options: {
@@ -160,6 +202,8 @@ function CalendarMainPage() {
       })
     }
   }, [detailData])
+
+  console.log(monthData)
 
   useEffect(() => {
     instance
@@ -274,7 +318,7 @@ function CalendarMainPage() {
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
             }}
             key={day}
             onClick={(e) => {
@@ -324,6 +368,7 @@ function CalendarMainPage() {
                   className={`${classes.top_nav_item__box} ${classes.top_nav_item__arrow}`}
                   style={{ display: "flex" }}
                   onClick={() => {
+                    dispatch(initializeTestList())
                     setDetailClicked(false)
                     setDetailData(null)
                     setLimit(0)
@@ -376,23 +421,36 @@ function CalendarMainPage() {
                     height={"90%"}
                   ></ReactApexChart>
                 </div>
-                <div style={{ width: "90%", height: "35vh" }}>
+                <div style={{ width: "90%", height: "36vh" }}>
                   <div className={classes.recommend_title}>
                     <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                       부족한 영양소 보충을 위한 리스트입니다!
                     </div>
                   </div>
                   <div className={classes.rcontainer}>
-                    {recommendList.map((item, index) => {
-                      return (
-                        <div
-                          key={index}
-                          style={{ width: "100%", height: "10vh" }}
-                        >
-                          <RecommendListItem></RecommendListItem>
-                        </div>
-                      )
-                    })}
+                    {recommendList.length !== 0
+                      ? recommendList.map((item) => {
+                          return (
+                            <div
+                              key={item.food.id}
+                              style={{ width: "100%", height: "10vh" }}
+                            >
+                              <RecommendListItem
+                                foodInfo={item.food}
+                                reason={item.reason}
+                              ></RecommendListItem>
+                            </div>
+                          )
+                        })
+                      : null}
+                  </div>
+                </div>
+                <div style={{ height: "4vh", width: "90%" }}>
+                  <div
+                    onClick={onClickTestHandler}
+                    className={classes.testbutton}
+                  >
+                    추가해보기
                   </div>
                 </div>
               </div>
@@ -412,6 +470,76 @@ function CalendarMainPage() {
           </div>
         </div>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            style={{
+              fontSize: "1.3rem",
+              fontWeight: "bold",
+              fontFamily: "Arita-dotum-Medium",
+            }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            예상 결과입니다!
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div className={classes.information}>
+                <div className={classes.info_item}>
+                  <CountUp end={limit} useEasing={true} />{" "}
+                  <span style={{ fontSize: "1.3rem", marginBottom: "2vh" }}>
+                    점
+                  </span>
+                </div>
+              </div>
+              <div className={classes.graphcontainer}>
+                <div className={classes.graph_title}>
+                  <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+                    목표 대비 섭취량
+                  </div>
+                </div>
+
+                <ReactApexChart
+                  options={state.options}
+                  series={state.series}
+                  type="bar"
+                  height={"90%"}
+                ></ReactApexChart>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                  width: "100%",
+                  height: "5vh",
+                  color: "black",
+                  backgroundColor: "var(--gray-color)",
+                  fontSize: "1.1rem",
+                  fontFamily: "Arita-dotum-Medium",
+                }}
+                onClick={handleClose}
+              >
+                확인
+              </div>
+            </div>
+          </Typography>
+        </Box>
+      </Modal>
     </div>
   )
 }

@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  padding-left: 5%;
+  padding-right: 5%;
   margin-top: 4vh;
   width: 100%;
 }
