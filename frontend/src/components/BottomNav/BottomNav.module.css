@@ -12,7 +12,8 @@
 }
 
 .navbar {
-  width: 100vw;
+  width: 100%;
+  max-width: 450px;
   height: 9vh;
   background: var(--main-color);
   background: linear-gradient(0deg, var(--main-color) 0%, var(--sub-color) 76%);

@@ -133,7 +133,7 @@ function SignUpPage() {
         <div id="top_nav_area">
           <TopNav text="" arrow={setArrow()}></TopNav>
         </div>
-        <div style={{ marginTop: "9vh" }}>
+        <div style={{ width: "100%", marginTop: "9vh" }}>
           <SignUpHeader
             title={temp.title}
             done={temp.done}

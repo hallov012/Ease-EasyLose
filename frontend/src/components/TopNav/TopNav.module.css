@@ -1,6 +1,6 @@
 .top_nav_item_list {
   display: grid;
-  width: 100vw;
+  width: 100%;
   grid-template-columns: 1fr 8fr 1fr;
 }
 
@@ -33,7 +33,7 @@
 
 .date__input {
   display: flex;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
   align-items: center;
 }

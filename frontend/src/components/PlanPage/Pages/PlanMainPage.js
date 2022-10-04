@@ -28,7 +28,7 @@ function PlanMainPage() {
         {term === 1
           ? oneMealList.map((item) => {
               return (
-                <div style={{ width: "90vw", height: "10vh" }}>
+                <div style={{ width: "100%", height: "10vh" }}>
                   <ListItem></ListItem>
                 </div>
               )
@@ -37,7 +37,7 @@ function PlanMainPage() {
               return (
                 <div
                   key={index}
-                  style={{ width: "90vw", height: "10vh", marginBottom: "1vh" }}
+                  style={{ width: "100%", height: "10vh", marginBottom: "1vh" }}
                 >
                   <ListItem data={item}></ListItem>
                 </div>

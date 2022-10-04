@@ -30,7 +30,7 @@ function AddPage() {
   }, [])
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Route path="/add/search">
         <AddSearchPage></AddSearchPage>
       </Route>

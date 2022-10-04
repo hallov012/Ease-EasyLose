@@ -11,6 +11,12 @@
 
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.AppContainer {
+  width: 450px;
 }
 
 .top_line_gradient {
@@ -22,7 +28,8 @@
     var(--light-color) 50%,
     var(--main-color) 100%
   );
-  width: 100vw;
+  width: 100%;
+  max-width: 450px;
   position: fixed;
   top: 0;
   z-index: 100;
@@ -31,7 +38,8 @@
 #top_nav_area {
   height: 7vh;
   background: var(--gray-color);
-  width: 100vw;
+  width: 100%;
+  max-width: 450px;
   display: flex;
   align-items: center;
   position: fixed;
@@ -99,6 +107,12 @@ a {
 @media (min-height: 800px) {
   .App {
     font-size: 1.1rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .AppContainer {
+    width: 100vh;
   }
 }
 

@@ -22,7 +22,8 @@
 }
 
 .addButtonContainer {
-  width: 100vw;
+  width: 100%;
+  max-width: 450px;
   position: absolute;
   bottom: 4vh;
   display: flex;
@@ -31,7 +32,7 @@
 }
 
 .addButton {
-  width: 90vw;
+  width: 90%;
   height: 5vh;
   background: linear-gradient(
     90deg,

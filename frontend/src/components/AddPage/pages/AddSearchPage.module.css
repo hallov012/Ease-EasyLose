@@ -9,13 +9,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90vw;
+  width: 90%;
   height: 5vh;
   margin-bottom: 1vh;
 }
 
 .addButtonContainer {
-  width: 100vw;
+  width: 100%;
+  max-width: 450px;
   position: absolute;
   bottom: 10vh;
   display: flex;
@@ -24,7 +25,7 @@
 }
 
 .addButton {
-  width: 90vw;
+  width: 90%;
   height: 5vh;
   background: linear-gradient(
     90deg,
@@ -40,7 +41,7 @@
 }
 
 .pickedList {
-  width: 100vw;
+  width: 100%;
   padding-left: 5vw;
   padding-right: 5vw;
   position: absolute;
@@ -59,7 +60,7 @@
   align-items: center;
   background-color: var(--main-color);
   border-radius: 5px;
-  width: 90vw;
+  width: 90%;
   font-size: 1.2rem;
   height: 8vh;
   margin-top: 1vh;
@@ -89,6 +90,7 @@
 .scroll {
   overflow: scroll;
   height: 60vh;
+  width: 90%;
 }
 
 .scroll::-webkit-scrollbar {
@@ -96,7 +98,7 @@
 }
 
 .input {
-  width: 75vw;
+  width: 80%;
   height: 5vh;
   border: none;
   border-radius: 5px;
