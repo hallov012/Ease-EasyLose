@@ -1,5 +1,6 @@
 import ListItemButton from "@mui/material/ListItemButton"
 import ListItemText from "@mui/material/ListItemText"
+import "./BundleMealList.css"
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import ListItemIcon from "@mui/material/ListItemIcon"
@@ -95,10 +96,13 @@ function BundleMealListItem({ type, foodList }) {
             추가될 목록입니다!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <div style={{ overflow: "scroll", height: "50vh" }}>
+            <div style={{}} className="noScroll">
               {foodList.map((foodInfo) => {
                 return (
-                  <div style={{ width: "100%", height: "8vh" }}>
+                  <div
+                    key={foodInfo.id}
+                    style={{ width: "100%", height: "8vh" }}
+                  >
                     <div
                       style={{
                         width: "100%",

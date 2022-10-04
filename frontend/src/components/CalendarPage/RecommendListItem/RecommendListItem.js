@@ -3,8 +3,10 @@ import classes from "./RecommendListItem.module.css"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { registerTestItem, removeTestItem } from "../../../store/planSlice"
+import { useHistory } from "react-router-dom"
 
 function RecommendListItem({ foodInfo, reason }) {
+  const history = useHistory()
   const dispatch = useDispatch()
   const [sentence, setSentence] = useState("")
   const [checked, setChecked] = useState(false)
@@ -16,7 +18,9 @@ function RecommendListItem({ foodInfo, reason }) {
     setSentence((temp + "보충 가능!").trim())
   }, [reason])
 
-  function onClickHandler() {}
+  function onClickHandler() {
+    history.push("/add/detail", { foodInfo: foodInfo })
+  }
 
   function onCheckHandler() {
     if (checked) dispatch(removeTestItem(foodInfo))
