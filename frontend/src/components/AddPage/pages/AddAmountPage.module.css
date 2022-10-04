@@ -94,7 +94,7 @@
 .amount_text span {
   font-weight: bold;
   background: var(--sub-color);
-  height: 50%;
+  width: 45%;
   aspect-ratio: 1/1;
   display: flex;
   align-items: center;
