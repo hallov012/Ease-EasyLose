@@ -17,6 +17,7 @@ function PlanReportPage() {
   const testList = useSelector((state) => state.plan.testList)
   const dailyMealList = useSelector((state) => state.plan.dailyMealList)
   const [recommendList, setRecommendList] = useState({})
+  const [foodNames, setFoodNames] = useState({})
 
   console.log(testList)
 
@@ -43,11 +44,14 @@ function PlanReportPage() {
   useEffect(() => {
     if (planId !== -1) {
       instance.get(`/recommend/${planId}`, {}).then((response) => {
+        const obj2 = {}
         const obj = {}
         response.data.map((item, index) => {
+          obj2[index] = item.name
           obj[index] = item
         })
         setRecommendList(obj)
+        setFoodNames(obj2)
       })
     }
   }, [planId])
