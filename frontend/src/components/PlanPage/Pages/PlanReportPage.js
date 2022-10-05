@@ -19,8 +19,6 @@ function PlanReportPage() {
   const [recommendList, setRecommendList] = useState({})
   const [foodNames, setFoodNames] = useState({})
 
-  console.log(testList)
-
   console.log(
     `userInfo: ${userInfo.dailyCalorie}/${userInfo.dailyCarb}/${userInfo.dailyProtein}/${userInfo.dailyFat}`
   )
@@ -30,6 +28,22 @@ function PlanReportPage() {
       `consume: ${detailData[0].total.calorie}/${detailData[0].total.carb}/${detailData[0].total.protein}/${detailData[0].total.fat}`
     )
   }
+
+  useEffect(() => {
+    if (detailData) {
+      let _carb = detailData[0].total.carb
+      let _protein = detailData[0].total.protein
+      let _fat = detailData[0].total.fat
+      const _score = Math.round(
+        ((mealScore(_carb, userInfo.dailyCarb) +
+          mealScore(_protein, userInfo.dailyProtein) +
+          mealScore(_fat, userInfo.dailyFat)) /
+          3) *
+          100
+      )
+      setScore(_score)
+    }
+  }, [detailData])
 
   useEffect(() => {
     if (planId !== -1 && dailyMealList.length !== 0) {
@@ -55,6 +69,36 @@ function PlanReportPage() {
       })
     }
   }, [planId])
+
+  function mealScore(total, daily) {
+    const corr = 0.1
+
+    const absRawScore = Math.abs(1 - total / daily)
+    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr)
+    return 1 - absCorrScore
+  }
+
+  useEffect(() => {
+    if (detailData) {
+      let _carb = detailData[0].total.carb
+      let _protein = detailData[0].total.protein
+      let _fat = detailData[0].total.fat
+      Object.keys(testList).map((item) => {
+        _carb += testList[item].carb
+        _protein += testList[item].protein
+        _fat += testList[item].fat
+      })
+      const _score = Math.round(
+        ((mealScore(_carb, userInfo.dailyCarb) +
+          mealScore(_protein, userInfo.dailyProtein) +
+          mealScore(_fat, userInfo.dailyFat)) /
+          3) *
+          100
+      )
+      console.log(`score: ${_score}`)
+      setScore(_score)
+    }
+  }, [testList])
 
   return (
     <div>
