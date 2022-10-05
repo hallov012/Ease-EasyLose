@@ -34,13 +34,17 @@ function CalendarMainPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [monthData, setMonthData] = useState({})
-  const detailClicked = useSelector((state) => state.plan.detailClicked)
+  const [detailClicked, setDetailClicked] = useState(false)
   const detailData = useSelector((state) => state.plan.detailData)
   const testList = useSelector((state) => state.plan.testList)
   const dispatch = useDispatch()
   const [score, setScore] = useState(0)
   const [recommendList, setRecommendList] = useState({})
   const [foodNames, setFoodNames] = useState({})
+
+  useEffect(() => {
+    dispatch(initializeTestList())
+  }, [])
 
   function previousToday(rsvDate) {
     let now = new Date()
@@ -198,7 +202,7 @@ function CalendarMainPage() {
                 monthData[format(cloneDay, "yyyy-MM-dd")] &&
                 previousToday(format(cloneDay, "yyyy-MM-dd"))
               ) {
-                dispatch(setDetailClicked())
+                setDetailClicked(true)
                 dispatch(
                   setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
                 )
@@ -273,7 +277,7 @@ function CalendarMainPage() {
                   style={{ display: "flex" }}
                   onClick={() => {
                     dispatch(initializeTestList())
-                    dispatch(setDetailClicked())
+                    setDetailClicked(false)
                     dispatch(setDetailData(null))
                     setScore(0)
                   }}

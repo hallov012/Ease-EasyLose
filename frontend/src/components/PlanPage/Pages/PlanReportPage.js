@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 import { instance } from "../../../api/index"
 import { initializeTestList } from "../../../store/planSlice"
+import ReportChart from "../../CalendarPage/ReportChart/ReportChart"
 
 function PlanReportPage() {
   const dispatch = useDispatch()
@@ -18,6 +19,11 @@ function PlanReportPage() {
   const dailyMealList = useSelector((state) => state.plan.dailyMealList)
   const [recommendList, setRecommendList] = useState({})
   const [foodNames, setFoodNames] = useState({})
+  const [tempData, setTempData] = useState(null)
+
+  useEffect(() => {
+    dispatch(initializeTestList())
+  }, [])
 
   console.log(
     `userInfo: ${userInfo.dailyCalorie}/${userInfo.dailyCarb}/${userInfo.dailyProtein}/${userInfo.dailyFat}`
@@ -28,6 +34,7 @@ function PlanReportPage() {
       `consume: ${detailData[0].total.calorie}/${detailData[0].total.carb}/${detailData[0].total.protein}/${detailData[0].total.fat}`
     )
   }
+  console.log(tempData)
 
   useEffect(() => {
     if (detailData) {
@@ -42,6 +49,16 @@ function PlanReportPage() {
           100
       )
       setScore(_score)
+      setTempData({
+        dailyCalorie: userInfo.dailyCalorie,
+        dailyCarb: userInfo.dailyCarb,
+        dailyProtein: userInfo.dailyProtein,
+        dailyFat: userInfo.dailyFat,
+        totalCalorie: detailData[0].total.calorie,
+        totalCarb: detailData[0].total.carb,
+        totalProtein: detailData[0].total.protein,
+        totalFat: detailData[0].total.fat,
+      })
     }
   }, [detailData])
 
@@ -124,7 +141,13 @@ function PlanReportPage() {
               </div>
             </div>
 
-            <div>{/* 그래프 들어갈 자리 */}</div>
+            {tempData ? (
+              <ReportChart
+                name={foodNames}
+                detailData={tempData}
+                testList={testList}
+              />
+            ) : null}
           </div>
           <div style={{ width: "90%", height: "36vh" }}>
             <div className={classes.recommend_title}>
