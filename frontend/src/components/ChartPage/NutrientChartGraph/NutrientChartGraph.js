@@ -63,7 +63,7 @@ function NutrientChartGraph({ nutData }) {
       plotOptions: {
         bar: {
           horizontal: false,
-          borderRadius: 5,
+          borderRadius: 0,
           columnWidth: "60%",
         },
       },
