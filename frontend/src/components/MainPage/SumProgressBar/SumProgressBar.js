@@ -53,15 +53,15 @@ function SumProgressBar(props) {
       <div className={classes.info_box}>
         <div className={classes.info_item}>
           <div style={{ background: "var(--sub-color)" }}></div>
-          <span>탄수화물: {value.amount[0]}g</span>
+          <span>탄수화물: {Math.round(value.amount[0])}g</span>
         </div>
         <div className={classes.info_item}>
           <div style={{ background: "var(--main-color)" }}></div>
-          <span>단백질: {value.amount[1]}g</span>
+          <span>단백질: {Math.round(value.amount[1])}g</span>
         </div>
         <div className={classes.info_item}>
           <div style={{ background: "var(--light-color)" }}></div>
-          <span>지방: {value.amount[2]}g</span>
+          <span>지방: {Math.round(value.amount[2])}g</span>
         </div>
       </div>
     </div>

@@ -1,31 +1,31 @@
-import classes from "./MealCardItem.module.css";
-import { NavLink } from "react-router-dom";
-import * as React from "react";
-import { useEffect, useState } from "react";
-import LinearProgress from "@mui/material/LinearProgress";
+import classes from "./MealCardItem.module.css"
+import { NavLink } from "react-router-dom"
+import * as React from "react"
+import { useEffect, useState } from "react"
+import LinearProgress from "@mui/material/LinearProgress"
 
 function MealCardItem(props) {
-  const meal = props.meal;
-  const [value, setValue] = useState({ calSum: 0, percent: 0 });
+  const meal = props.meal
+  const [value, setValue] = useState({ calSum: 0, percent: 0 })
   const MealName = {
     BREAKFAST: "아침",
     LUNCH: "점심",
     DINNER: "저녁",
     SNACK: "간식",
-  };
+  }
 
-  const mealType = meal.type;
+  const mealType = meal.type
 
   useEffect(() => {
     if (props.userDailyDiet) {
-      const temp = { calSum: 0, percent: 0 };
-      temp.calSum = props.userDailyDiet[0].sums[mealType].calorie;
+      const temp = { calSum: 0, percent: 0 }
+      temp.calSum = props.userDailyDiet[0].sums[mealType].calorie
       temp.percent = Math.ceil(
         (props.userDailyDiet[0].sums[mealType].calorie / props.planCal) * 100
-      );
-      setValue(temp);
+      )
+      setValue(temp)
     }
-  }, [props.userDailyDiet, props.planCal]);
+  }, [props.userDailyDiet, props.planCal])
 
   return (
     <NavLink to={`${props.path}/meal/${props.meal.type}`}>
@@ -35,7 +35,7 @@ function MealCardItem(props) {
         </div>
         <div className={classes.item__middle}>
           <span>{MealName[meal.type]}</span>
-          <span>{value.calSum}kcal</span>
+          <span>{Math.round(value.calSum)}kcal</span>
         </div>
         <div className={classes.item__bottom}>
           <span>{value.percent}%</span>
@@ -47,6 +47,6 @@ function MealCardItem(props) {
         </div>
       </div>
     </NavLink>
-  );
+  )
 }
-export default MealCardItem;
+export default MealCardItem
