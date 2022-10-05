@@ -193,13 +193,24 @@ function CalendarMainPage() {
 
   function showEmotion(score) {
     if (score > 80) {
-      return <i className="fa-solid fa-face-laugh-squint"></i>;
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <i className={`fa-solid fa-face-laugh-squint ${classes.icon_1}`}></i>
+          <div className={classes.shadow}></div>
+        </div>
+      );
     } else if (score > 60) {
-      return <i className="fa-solid fa-face-smile"></i>;
+      return <i className={`fa-solid fa-face-smile ${classes.icon_2}`}></i>;
     } else if (score > 40) {
-      return <i className="fa-solid fa-face-meh"></i>;
+      return <i className={`fa-solid fa-face-meh ${classes.icon_3}`}></i>;
     } else {
-      return <i className="fa-solid fa-face-dizzy"></i>;
+      return <i className={`fa-solid fa-face-dizzy ${classes.icon_4}`}></i>;
     }
   }
 
@@ -383,7 +394,7 @@ function CalendarMainPage() {
                               >
                                 <div className={classes.tooltip}>
                                   <b>열량</b>
-                                  <span>{detailData.dailyCalorie}g</span>
+                                  <span>{detailData.dailyCalorie}kcal</span>
                                 </div>
                                 <div className={classes.tooltip}>
                                   <b>탄수화물</b>
