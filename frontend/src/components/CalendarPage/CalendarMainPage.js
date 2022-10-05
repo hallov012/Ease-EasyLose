@@ -23,51 +23,22 @@ import ReactApexChart from "react-apexcharts"
 import RecommendListItem from "./RecommendListItem/RecommendListItem"
 import CountUp from "react-countup"
 import { useDispatch, useSelector } from "react-redux"
-import { initializeTestList } from "../../store/planSlice"
-
-const style = {
-  maxWidth: "350px",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "100%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "5px",
-  border: "none",
-  outline: "none",
-}
+import {
+  initializeTestList,
+  setDetailClicked,
+  setDetailData,
+} from "../../store/planSlice"
 
 function CalendarMainPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [monthData, setMonthData] = useState({})
-  const [detailClicked, setDetailClicked] = useState(false)
-  const [detailData, setDetailData] = useState(undefined)
+  const detailClicked = useSelector((state) => state.plan.detailClicked)
+  const detailData = useSelector((state) => state.plan.detailData)
   const testList = useSelector((state) => state.plan.testList)
-  const [open, setOpen] = useState(false)
-  const handleClose = () => setOpen(false)
   const dispatch = useDispatch()
-  const [limit, setLimit] = useState(0)
-  const [state, setState] = useState({
-    options: {
-      chart: {
-        id: "basic-bar",
-      },
-      xaxis: {
-        categories: ["칼로리", "탄수화물", "단백질", "지방"],
-      },
-    },
-    series: [
-      {
-        name: "series-1",
-        data: [0, 0, 0, 0],
-      },
-    ],
-  })
-  const [recommendList, setRecommendList] = useState([])
+  const [score, setScore] = useState(0)
+  const [recommendList, setRecommendList] = useState({})
 
   function previousToday(rsvDate) {
     let now = new Date()
@@ -80,130 +51,25 @@ function CalendarMainPage() {
     }
   }
 
-  console.log(detailData)
-
-  function onClickTestHandler() {
-    setOpen(true)
-    let tempCalorie = detailData.totalCalorie
-    let tempCarb = detailData.totalCarb
-    let tempProtein = detailData.totalProtein
-    let tempFat = detailData.totalFat
-    testList.map((item) => {
-      tempCalorie += item.calorie
-      tempCarb += item.carb
-      tempProtein += item.protein
-      tempFat += item.fat
-    })
-    console.log(`${tempCalorie}/${tempCarb}/${tempProtein}/${tempFat}`)
+  if (detailData) {
+    console.log(
+      `userInfo: ${detailData.dailyCalorie}/${detailData.dailyCarb}/${detailData.dailyProtein}/${detailData.dailyFat}`
+    )
+    console.log(
+      `consume: ${detailData.totalCalorie}/${detailData.totalCalorie}/${detailData.totalProtein}/${detailData.totalFat}`
+    )
   }
 
   useEffect(() => {
     if (detailData) {
-      setRecommendList(detailData.recommends)
-      setLimit(Math.round(detailData.score * 100))
-      setState({
-        options: {
-          colors: [
-            Math.round(
-              ((detailData.totalCalorie - detailData.dailyCalorie) /
-                detailData.dailyCalorie) *
-                100 +
-                100
-            ) > 100
-              ? "#2c00e9"
-              : "#f90000",
-            Math.round(
-              ((detailData.totalCarb - detailData.dailyCarb) /
-                detailData.dailyCarb) *
-                100 +
-                100
-            ) > 100
-              ? "#2c00e9"
-              : "#f90000",
-            Math.round(
-              ((detailData.totalProtein - detailData.dailyProtein) /
-                detailData.dailyProtein) *
-                100 +
-                100
-            ) > 100
-              ? "#2c00e9"
-              : "#f90000",
-            Math.round(
-              ((detailData.totalFat - detailData.dailyFat) /
-                detailData.dailyFat) *
-                100 +
-                100
-            ) > 100
-              ? "#2c00e9"
-              : "#f90000",
-          ],
-          chart: {
-            id: "basic-bar",
-            toolbar: {
-              show: false,
-            },
-          },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              borderRadius: 5,
-              columnWidth: "50%",
-              distributed: true,
-            },
-          },
-          legend: {
-            show: false,
-          },
-          yaxis: {
-            labels: {
-              formatter: function (y) {
-                return y.toFixed(0) + "%"
-              },
-            },
-          },
-          xaxis: {
-            categories: ["칼로리", "탄수화물", "단백질", "지방"],
-          },
-          dataLabels: {
-            enabled: false,
-          },
-        },
-        series: [
-          {
-            name: "diff",
-            data: [
-              Math.round(
-                ((detailData.totalCalorie - detailData.dailyCalorie) /
-                  detailData.dailyCalorie) *
-                  100 +
-                  100
-              ),
-              Math.round(
-                ((detailData.totalCarb - detailData.dailyCarb) /
-                  detailData.dailyCarb) *
-                  100 +
-                  100
-              ),
-              Math.round(
-                ((detailData.totalProtein - detailData.dailyProtein) /
-                  detailData.dailyProtein) *
-                  100 +
-                  100
-              ),
-              Math.round(
-                ((detailData.totalFat - detailData.dailyFat) /
-                  detailData.dailyFat) *
-                  100 +
-                  100
-              ),
-            ],
-          },
-        ],
+      const obj = {}
+      detailData.recommends.map((item, index) => {
+        obj[index] = item
       })
+      setRecommendList(obj)
+      setScore(Math.round(detailData.score * 100))
     }
   }, [detailData])
-
-  console.log(monthData)
 
   useEffect(() => {
     instance
@@ -326,8 +192,10 @@ function CalendarMainPage() {
                 monthData[format(cloneDay, "yyyy-MM-dd")] &&
                 previousToday(format(cloneDay, "yyyy-MM-dd"))
               ) {
-                setDetailClicked(true)
-                setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
+                dispatch(setDetailClicked())
+                dispatch(
+                  setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
+                )
               }
             }}
           >
@@ -369,25 +237,9 @@ function CalendarMainPage() {
                   style={{ display: "flex" }}
                   onClick={() => {
                     dispatch(initializeTestList())
-                    setDetailClicked(false)
-                    setDetailData(null)
-                    setLimit(0)
-                    setState({
-                      options: {
-                        chart: {
-                          id: "basic-bar",
-                        },
-                        xaxis: {
-                          categories: ["칼로리", "탄수화물", "단백질", "지방"],
-                        },
-                      },
-                      series: [
-                        {
-                          name: "series-1",
-                          data: [0, 0, 0, 0],
-                        },
-                      ],
-                    })
+                    dispatch(setDetailClicked())
+                    dispatch(setDetailData(null))
+                    setScore(0)
                   }}
                 >
                   <FontAwesomeIcon icon={faAngleLeft} size="xl" />
@@ -400,7 +252,7 @@ function CalendarMainPage() {
             <div className={classes.container}>
               <div className={classes.information}>
                 <div className={classes.info_item}>
-                  <CountUp end={limit} useEasing={true} />{" "}
+                  <CountUp end={score} useEasing={true} />{" "}
                   <span style={{ fontSize: "1.5rem", marginBottom: "1vh" }}>
                     점
                   </span>
@@ -414,12 +266,7 @@ function CalendarMainPage() {
                     </div>
                   </div>
 
-                  <ReactApexChart
-                    options={state.options}
-                    series={state.series}
-                    type="bar"
-                    height={"90%"}
-                  ></ReactApexChart>
+                  {/* 그래프 자리 입니다 */}
                 </div>
                 <div style={{ width: "90%", height: "36vh" }}>
                   <div className={classes.recommend_title}>
@@ -428,29 +275,26 @@ function CalendarMainPage() {
                     </div>
                   </div>
                   <div className={classes.rcontainer}>
-                    {recommendList.length !== 0
-                      ? recommendList.map((item) => {
+                    {Object.keys(recommendList).length !== 0
+                      ? Object.keys(recommendList).map((item, index) => {
                           return (
                             <div
-                              key={item.food.id}
-                              style={{ width: "100%", height: "10vh" }}
+                              key={recommendList[item].food.id}
+                              style={{
+                                width: "100%",
+                                height: "8vh",
+                                marginBottom: "1vh",
+                              }}
                             >
                               <RecommendListItem
-                                foodInfo={item.food}
-                                reason={item.reason}
+                                index={index}
+                                foodInfo={recommendList[item].food}
+                                reason={recommendList[item].reason}
                               ></RecommendListItem>
                             </div>
                           )
                         })
                       : null}
-                  </div>
-                </div>
-                <div style={{ height: "4vh", width: "90%" }}>
-                  <div
-                    onClick={onClickTestHandler}
-                    className={classes.testbutton}
-                  >
-                    추가해보기
                   </div>
                 </div>
               </div>
@@ -470,76 +314,6 @@ function CalendarMainPage() {
           </div>
         </div>
       )}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography
-            style={{
-              fontSize: "1.3rem",
-              fontWeight: "bold",
-              fontFamily: "Arita-dotum-Medium",
-            }}
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-          >
-            예상 결과입니다!
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <div className={classes.information}>
-                <div className={classes.info_item}>
-                  <CountUp end={limit} useEasing={true} />{" "}
-                  <span style={{ fontSize: "1.3rem", marginBottom: "2vh" }}>
-                    점
-                  </span>
-                </div>
-              </div>
-              <div className={classes.graphcontainer}>
-                <div className={classes.graph_title}>
-                  <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
-                    목표 대비 섭취량
-                  </div>
-                </div>
-
-                <ReactApexChart
-                  options={state.options}
-                  series={state.series}
-                  type="bar"
-                  height={"90%"}
-                ></ReactApexChart>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  width: "100%",
-                  height: "5vh",
-                  color: "black",
-                  backgroundColor: "var(--gray-color)",
-                  fontSize: "1.1rem",
-                  fontFamily: "Arita-dotum-Medium",
-                }}
-                onClick={handleClose}
-              >
-                확인
-              </div>
-            </div>
-          </Typography>
-        </Box>
-      </Modal>
     </div>
   )
 }

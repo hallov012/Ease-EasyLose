@@ -5,16 +5,27 @@ export const planSlice = createSlice({
   initialState: {
     dailyMealList: [],
     planId: -1,
-    testList: [],
+    testList: {},
+    detailClicked: false,
+    detailData: null,
   },
   reducers: {
-    registerTestItem: (state, action) => {
-      state.testList = [...state.testList, action.payload]
+    setDetailClicked: (state) => {
+      state.detailClicked = !state.detailClicked
     },
-    removeTestItem: (state, action) => {
-      state.testList = state.testList.filter((item) => {
-        return action.payload.id !== item.id
-      })
+    setDetailData: (state, action) => {
+      state.detailData = action.payload
+    },
+    registerTestItem: (state, action) => {
+      state.testList = action.payload
+    },
+    unCheckTestItem: (state, action) => {
+      console.log(action.payload)
+      delete state.testList[action.payload]
+    },
+    checkTestItem: (state, action) => {
+      console.log(action.payload)
+      state.testList = { ...state.testList, ...action.payload }
     },
     initializeTestList: (state) => {
       state.testList = []
@@ -38,8 +49,11 @@ export const {
   registerPlanId,
   removeDailyMealItem,
   registerTestItem,
-  removeTestItem,
   initializeTestList,
+  setDetailClicked,
+  setDetailData,
+  unCheckTestItem,
+  checkTestItem,
 } = planSlice.actions
 
 export default planSlice.reducer

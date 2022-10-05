@@ -2,10 +2,10 @@ import { useEffect } from "react"
 import classes from "./RecommendListItem.module.css"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { registerTestItem, removeTestItem } from "../../../store/planSlice"
+import { checkTestItem, unCheckTestItem } from "../../../store/planSlice"
 import { useHistory } from "react-router-dom"
 
-function RecommendListItem({ foodInfo, reason }) {
+function RecommendListItem({ foodInfo, reason, index }) {
   const history = useHistory()
   const dispatch = useDispatch()
   const [sentence, setSentence] = useState("")
@@ -23,8 +23,11 @@ function RecommendListItem({ foodInfo, reason }) {
   }
 
   function onCheckHandler() {
-    if (checked) dispatch(removeTestItem(foodInfo))
-    else dispatch(registerTestItem(foodInfo))
+    if (checked) {
+      dispatch(unCheckTestItem(index))
+    } else {
+      dispatch(checkTestItem({ [index]: foodInfo }))
+    }
     setChecked(checked ? false : true)
   }
 
