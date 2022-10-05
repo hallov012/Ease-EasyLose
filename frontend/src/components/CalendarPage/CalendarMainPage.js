@@ -54,14 +54,14 @@ function CalendarMainPage() {
   }
   console.log(testList)
 
-  if (detailData) {
-    console.log(
-      `userInfo: ${detailData.dailyCalorie}/${detailData.dailyCarb}/${detailData.dailyProtein}/${detailData.dailyFat}`
-    )
-    console.log(
-      `consume: ${detailData.totalCalorie}/${detailData.totalCalorie}/${detailData.totalProtein}/${detailData.totalFat}`
-    )
-  }
+  // if (detailData) {
+  //   console.log(
+  //     `userInfo: ${detailData.dailyCalorie}/${detailData.dailyCarb}/${detailData.dailyProtein}/${detailData.dailyFat}`
+  //   )
+  //   console.log(
+  //     `consume: ${detailData.totalCalorie}/${detailData.totalCalorie}/${detailData.totalProtein}/${detailData.totalFat}`
+  //   )
+  // }
 
   useEffect(() => {
     if (detailData) {
@@ -230,6 +230,36 @@ function CalendarMainPage() {
 
     return <>{rows}</>
   }
+
+  function mealScore(total, daily) {
+    const corr = 0.1
+
+    const absRawScore = Math.abs(1 - total / daily)
+    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr)
+    return 1 - absCorrScore
+  }
+
+  useEffect(() => {
+    if (detailData) {
+      let _carb = detailData.totalCarb
+      let _protein = detailData.totalProtein
+      let _fat = detailData.totalFat
+      Object.keys(testList).map((item) => {
+        _carb += testList[item].carb
+        _protein += testList[item].protein
+        _fat += testList[item].fat
+      })
+      const _score = Math.round(
+        ((mealScore(_carb, detailData.dailyCarb) +
+          mealScore(_protein, detailData.dailyProtein) +
+          mealScore(_fat, detailData.dailyFat)) /
+          3) *
+          100
+      )
+      console.log(`score: ${_score}`)
+      setScore(_score)
+    }
+  }, [testList])
 
   return (
     <div style={{ width: "100%" }}>
