@@ -132,7 +132,7 @@ function UserFoodList(props) {
           history.push("/add/search", { from: location })
         }}
       >
-        <span>먹은 음식 추가하기</span>
+        <span>음식 추가하기</span>
       </div>
     </div>
   )
