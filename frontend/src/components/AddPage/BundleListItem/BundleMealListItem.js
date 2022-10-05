@@ -186,6 +186,7 @@ function BundleMealListItem({ type, foodList }) {
                   backgroundColor: "var(--main-color)",
                   fontSize: "1.1rem",
                   fontFamily: "Arita-dotum-Medium",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
               >
                 추가하기
@@ -202,6 +203,7 @@ function BundleMealListItem({ type, foodList }) {
                   backgroundColor: "var(--gray-color)",
                   fontSize: "1.1rem",
                   fontFamily: "Arita-dotum-Medium",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
                 onClick={handleClose}
               >
