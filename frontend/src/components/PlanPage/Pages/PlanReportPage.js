@@ -8,6 +8,11 @@ import { useState, useEffect } from "react";
 import { instance } from "../../../api/index";
 import { initializeTestList } from "../../../store/planSlice";
 import ReportChart from "../../CalendarPage/ReportChart/ReportChart";
+import * as React from "react";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Stack from "@mui/material/Stack";
+import Confetti from "../../SignUpPage/Confetti/Confetti";
 
 function PlanReportPage({ colorSet }) {
   const dispatch = useDispatch();
@@ -20,6 +25,7 @@ function PlanReportPage({ colorSet }) {
   const [recommendList, setRecommendList] = useState({});
   const [foodNames, setFoodNames] = useState({});
   const [tempData, setTempData] = useState(null);
+  const [origin, setOrigin] = useState(0);
 
   useEffect(() => {
     dispatch(initializeTestList());
@@ -49,6 +55,7 @@ function PlanReportPage({ colorSet }) {
           100
       );
       setScore(_score);
+      setOrigin(_score);
       setTempData({
         dailyCalorie: userInfo.dailyCalorie,
         dailyCarb: userInfo.dailyCarb,
@@ -119,6 +126,7 @@ function PlanReportPage({ colorSet }) {
 
   return (
     <div>
+      {origin >= 80 ? <Confetti /> : null}
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {
@@ -127,6 +135,22 @@ function PlanReportPage({ colorSet }) {
         />
       </div>
       <div className={classes.container}>
+        {origin < 50 ? (
+          <Stack sx={{ width: "100%" }} spacing={2}>
+            <Alert severity="error" color="info">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                }}
+              >
+                <strong>식사를 전부 입력하신게 맞나요?</strong>
+                <div>아닐 경우 추천이 제대로 이루어지지 않을 수 있어요</div>
+              </div>
+            </Alert>
+          </Stack>
+        ) : null}
         <div className={classes.information}>
           <div className={classes.info_item}>
             <CountUp end={score} useEasing={true} />{" "}
