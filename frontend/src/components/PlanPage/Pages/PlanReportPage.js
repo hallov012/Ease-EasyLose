@@ -214,7 +214,7 @@ function PlanReportPage({ colorSet }) {
                         >
                           <div className={classes.tooltip}>
                             <b>열량</b>
-                            <span>{userInfo.dailyCalorie}g</span>
+                            <span>{userInfo.dailyCalorie}kcal</span>
                           </div>
                           <div className={classes.tooltip}>
                             <b>탄수화물</b>
