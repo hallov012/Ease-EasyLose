@@ -1,9 +1,9 @@
 .sum_progress {
-  margin-top: 0.7rem;
+  margin-top: 0.3rem;
   background-color: var(--gray-color);
   border-radius: 0;
   width: 100%;
-  height: 12px;
+  height: 13px;
   display: flex;
   color: white;
   font-size: 0.7rem;
@@ -26,8 +26,8 @@
 
 .info_box {
   display: flex;
-  margin-top: 0.3rem;
-  justify-content: center;
+  margin-top: 0.7rem;
+  /* justify-content: space-between; */
 }
 
 .info_item {
@@ -37,11 +37,15 @@
   align-items: center;
 }
 
-.info_item div {
+.nut_span {
+  margin-left: 0.3rem;
+}
+
+/* .info_item div {
   width: 12px;
   height: 12px;
   margin-right: 0.3rem;
-}
+} */
 
 @media (min-height: 800px) {
   .sum_progress {
