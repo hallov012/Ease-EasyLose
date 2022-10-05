@@ -1,12 +1,15 @@
-import { useEffect } from "react"
-import classes from "./RecommendListItem.module.css"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { checkTestItem, unCheckTestItem } from "../../../store/planSlice"
-import { useHistory } from "react-router-dom"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
+import { useEffect } from "react";
+import classes from "./RecommendListItem.module.css";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { checkTestItem, unCheckTestItem } from "../../../store/planSlice";
+import { useHistory } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import * as React from "react";
+import Chip from "@mui/material/Chip";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const style = {
   position: "absolute",
@@ -21,36 +24,58 @@ const style = {
   borderRadius: "5px",
   border: "none",
   outline: "none",
-}
+};
 
-function RecommendListItem({ foodInfo, reason, index }) {
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const [checked, setChecked] = useState(false)
-  const [open, setOpen] = useState(false)
-  const handleClose = () => setOpen(false)
+function RecommendListItem({ foodInfo, reason, index, colorSet }) {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: `${colorSet.carbColor}`,
+      },
+      secondary: {
+        main: `${colorSet.proteinColor}`,
+      },
+      error: {
+        main: `${colorSet.fatColor}`,
+      },
+    },
+  });
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [checked, setChecked] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
   function onClickHandler() {
-    setOpen(true)
+    setOpen(true);
   }
 
   function onCheckHandler() {
     if (checked) {
-      dispatch(unCheckTestItem(index))
+      dispatch(unCheckTestItem(index));
     } else {
-      dispatch(checkTestItem({ [index]: foodInfo }))
+      dispatch(checkTestItem({ [index]: foodInfo }));
     }
-    setChecked(checked ? false : true)
+    setChecked(checked ? false : true);
   }
 
   return (
     <div className={classes.Wcontainer}>
-      <div className={classes.left}>
+      <div className={classes.left} style={{ marginLeft: ".3rem" }}>
         <div className={classes.item_title}> {foodInfo.name}</div>
-        <div className={classes.item_subtitle}>
-          {/* 여기다 넣어야 합니다 */}
-          {/* reason ex) carb protein fat 이런식으로 해당되는 영양소의 단어 문자열이 날아온다 */}
-          {/* 있는 단어에 맞게 라벨을 넣어야 할 듯! */}
-        </div>
+        <ThemeProvider theme={theme}>
+          <div className={classes.info_box}>
+            {reason.includes("carb") ? (
+              <Chip label="탄수화물" color="primary" size="small" />
+            ) : null}
+            {reason.includes("protein") ? (
+              <Chip label="단백질" color="secondary" size="small" />
+            ) : null}
+            {reason.includes("fat") ? (
+              <Chip label="지방" color="error" size="small" />
+            ) : null}
+          </div>
+        </ThemeProvider>
       </div>
       <div className={classes.right}>
         <div onClick={onCheckHandler} style={{ marginRight: "20%" }}>
@@ -167,7 +192,7 @@ function RecommendListItem({ foodInfo, reason, index }) {
             </div>
             <div
               onClick={() => {
-                setOpen(false)
+                setOpen(false);
               }}
               className={classes.closebutton}
             >
@@ -177,7 +202,7 @@ function RecommendListItem({ foodInfo, reason, index }) {
         </Box>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default RecommendListItem
+export default RecommendListItem;

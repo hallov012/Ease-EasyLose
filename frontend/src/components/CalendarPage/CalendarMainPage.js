@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
-import "./CalendarMainPage.css"
-import classes from "./CalendarMainPage.module.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
+import { useEffect, useState } from "react";
+import "./CalendarMainPage.css";
+import classes from "./CalendarMainPage.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import {
   addDays,
   startOfMonth,
@@ -17,46 +17,50 @@ import {
   addMonths,
   format,
   subMonths,
-} from "date-fns"
-import { instance } from "../../api/index"
-import ReactApexChart from "react-apexcharts"
-import RecommendListItem from "./RecommendListItem/RecommendListItem"
-import ReportChart from "./ReportChart/ReportChart"
-import CountUp from "react-countup"
-import { useDispatch, useSelector } from "react-redux"
+} from "date-fns";
+import { instance } from "../../api/index";
+import ReactApexChart from "react-apexcharts";
+import RecommendListItem from "./RecommendListItem/RecommendListItem";
+import ReportChart from "./ReportChart/ReportChart";
+import CountUp from "react-countup";
+import { useDispatch, useSelector } from "react-redux";
 import {
   initializeTestList,
   setDetailClicked,
   setDetailData,
-} from "../../store/planSlice"
+} from "../../store/planSlice";
 
 function CalendarMainPage() {
-  const [currentMonth, setCurrentMonth] = useState(new Date())
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [monthData, setMonthData] = useState({})
-  const [detailClicked, setDetailClicked] = useState(false)
-  const detailData = useSelector((state) => state.plan.detailData)
-  const testList = useSelector((state) => state.plan.testList)
-  const dispatch = useDispatch()
-  const [score, setScore] = useState(0)
-  const [recommendList, setRecommendList] = useState({})
-  const [foodNames, setFoodNames] = useState({})
+  const colorSet = {
+    carbColor: "#afb4ff",
+    proteinColor: "#7c83fd",
+    fatColor: "#b1e1ff",
+  };
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [monthData, setMonthData] = useState({});
+  const [detailClicked, setDetailClicked] = useState(false);
+  const detailData = useSelector((state) => state.plan.detailData);
+  const testList = useSelector((state) => state.plan.testList);
+  const dispatch = useDispatch();
+  const [score, setScore] = useState(0);
+  const [recommendList, setRecommendList] = useState({});
+  const [foodNames, setFoodNames] = useState({});
 
   useEffect(() => {
-    dispatch(initializeTestList())
-  }, [])
+    dispatch(initializeTestList());
+  }, []);
 
   function previousToday(rsvDate) {
-    let now = new Date()
+    let now = new Date();
     if (rsvDate) {
-      now = format(now, "yyyy-MM-dd")
+      now = format(now, "yyyy-MM-dd");
 
       if (rsvDate < now) {
-        return true
+        return true;
       }
     }
   }
-  console.log(testList)
 
   // if (detailData) {
   //   console.log(
@@ -69,17 +73,17 @@ function CalendarMainPage() {
 
   useEffect(() => {
     if (detailData) {
-      const obj = {}
-      const obj2 = {}
+      const obj = {};
+      const obj2 = {};
       detailData.recommends.map((item, index) => {
-        obj2[index] = item.name
-        obj[index] = item
-      })
-      setRecommendList(obj)
-      setFoodNames(obj2)
-      setScore(Math.round(detailData.score * 100))
+        obj2[index] = item.name;
+        obj[index] = item;
+      });
+      setRecommendList(obj);
+      setFoodNames(obj2);
+      setScore(Math.round(detailData.score * 100));
     }
-  }, [detailData])
+  }, [detailData]);
 
   useEffect(() => {
     instance
@@ -87,24 +91,24 @@ function CalendarMainPage() {
         params: { year_month: format(currentMonth, "yyyy-MM") },
       })
       .then((response) => {
-        setMonthData(response.data)
+        setMonthData(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }, [currentMonth])
+        console.log(error);
+      });
+  }, [currentMonth]);
 
   const prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1))
-  }
+    setCurrentMonth(subMonths(currentMonth, 1));
+  };
   const nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1))
-  }
+    setCurrentMonth(addMonths(currentMonth, 1));
+  };
   const onDateClick = (day) => {
-    setSelectedDate(day)
-  }
+    setSelectedDate(day);
+  };
   const renderHeader = () => {
-    const dateFormat = "MMMM yyyy"
+    const dateFormat = "MMMM yyyy";
 
     return (
       <div className={classes.top_nav_item_list}>
@@ -134,52 +138,52 @@ function CalendarMainPage() {
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const renderDays = () => {
-    const dateFormat = "EEE"
-    const days = []
+    const dateFormat = "EEE";
+    const days = [];
 
-    let startDate = startOfWeek(currentMonth)
+    let startDate = startOfWeek(currentMonth);
 
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="day" key={i}>
           {format(addDays(startDate, i), dateFormat)}
         </div>
-      )
+      );
     }
 
-    return <div className="week day-labels">{days}</div>
-  }
+    return <div className="week day-labels">{days}</div>;
+  };
 
   function showEmotion(score) {
     if (score > 80) {
-      return <i className="fa-solid fa-face-laugh-squint"></i>
+      return <i className="fa-solid fa-face-laugh-squint"></i>;
     } else if (score > 60) {
-      return <i className="fa-solid fa-face-smile"></i>
+      return <i className="fa-solid fa-face-smile"></i>;
     } else if (score > 40) {
-      return <i className="fa-solid fa-face-meh"></i>
+      return <i className="fa-solid fa-face-meh"></i>;
     } else {
-      return <i className="fa-solid fa-face-dizzy"></i>
+      return <i className="fa-solid fa-face-dizzy"></i>;
     }
   }
 
   const renderCells = () => {
-    const monthStart = startOfMonth(currentMonth)
-    const monthEnd = endOfMonth(monthStart)
-    const startDate = startOfWeek(monthStart)
-    const endDate = endOfWeek(monthEnd)
-    const dateFormat = "d"
-    const rows = []
-    let days = []
-    let day = startDate
-    let formattedDate = ""
+    const monthStart = startOfMonth(currentMonth);
+    const monthEnd = endOfMonth(monthStart);
+    const startDate = startOfWeek(monthStart);
+    const endDate = endOfWeek(monthEnd);
+    const dateFormat = "d";
+    const rows = [];
+    let days = [];
+    let day = startDate;
+    let formattedDate = "";
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
-        formattedDate = format(day, dateFormat)
-        const cloneDay = day
+        formattedDate = format(day, dateFormat);
+        const cloneDay = day;
         days.push(
           <div
             className={`day ${
@@ -202,10 +206,10 @@ function CalendarMainPage() {
                 monthData[format(cloneDay, "yyyy-MM-dd")] &&
                 previousToday(format(cloneDay, "yyyy-MM-dd"))
               ) {
-                setDetailClicked(true)
+                setDetailClicked(true);
                 dispatch(
                   setDetailData(monthData[format(cloneDay, "yyyy-MM-dd")])
-                )
+                );
               }
             }}
           >
@@ -221,49 +225,48 @@ function CalendarMainPage() {
                 : null}
             </div>
           </div>
-        )
-        day = addDays(day, 1)
+        );
+        day = addDays(day, 1);
       }
       rows.push(
         <div className="week" key={day}>
           {days}
         </div>
-      )
-      days = []
+      );
+      days = [];
     }
 
-    return <>{rows}</>
-  }
+    return <>{rows}</>;
+  };
 
   function mealScore(total, daily) {
-    const corr = 0.1
+    const corr = 0.1;
 
-    const absRawScore = Math.abs(1 - total / daily)
-    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr)
-    return 1 - absCorrScore
+    const absRawScore = Math.abs(1 - total / daily);
+    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr);
+    return 1 - absCorrScore;
   }
 
   useEffect(() => {
     if (detailData) {
-      let _carb = detailData.totalCarb
-      let _protein = detailData.totalProtein
-      let _fat = detailData.totalFat
+      let _carb = detailData.totalCarb;
+      let _protein = detailData.totalProtein;
+      let _fat = detailData.totalFat;
       Object.keys(testList).map((item) => {
-        _carb += testList[item].carb
-        _protein += testList[item].protein
-        _fat += testList[item].fat
-      })
+        _carb += testList[item].carb;
+        _protein += testList[item].protein;
+        _fat += testList[item].fat;
+      });
       const _score = Math.round(
         ((mealScore(_carb, detailData.dailyCarb) +
           mealScore(_protein, detailData.dailyProtein) +
           mealScore(_fat, detailData.dailyFat)) /
           3) *
           100
-      )
-      console.log(`score: ${_score}`)
-      setScore(_score)
+      );
+      setScore(_score);
     }
-  }, [testList])
+  }, [testList]);
 
   return (
     <div style={{ width: "100%" }}>
@@ -276,10 +279,10 @@ function CalendarMainPage() {
                   className={`${classes.top_nav_item__box} ${classes.top_nav_item__arrow}`}
                   style={{ display: "flex" }}
                   onClick={() => {
-                    dispatch(initializeTestList())
-                    setDetailClicked(false)
-                    dispatch(setDetailData(null))
-                    setScore(0)
+                    dispatch(initializeTestList());
+                    setDetailClicked(false);
+                    dispatch(setDetailData(null));
+                    setScore(0);
                   }}
                 >
                   <FontAwesomeIcon icon={faAngleLeft} size="xl" />
@@ -317,6 +320,15 @@ function CalendarMainPage() {
                     <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                       부족한 영양소 보충을 위한 리스트입니다!
                     </div>
+                    <div
+                      style={{
+                        fontSize: ".9rem",
+                        marginTop: ".2rem",
+                        color: `${colorSet.proteinColor}`,
+                      }}
+                    >
+                      음식을 추가해 부족한 영양소를 채워보세요!
+                    </div>
                   </div>
                   <div className={classes.rcontainer}>
                     {Object.keys(recommendList).length !== 0
@@ -326,7 +338,7 @@ function CalendarMainPage() {
                               key={recommendList[item].food.id}
                               style={{
                                 width: "100%",
-                                height: "8vh",
+                                height: "9vh",
                                 marginBottom: "1vh",
                               }}
                             >
@@ -334,9 +346,10 @@ function CalendarMainPage() {
                                 index={index}
                                 foodInfo={recommendList[item].food}
                                 reason={recommendList[item].reason}
+                                colorSet={colorSet}
                               ></RecommendListItem>
                             </div>
-                          )
+                          );
                         })
                       : null}
                   </div>
@@ -359,7 +372,7 @@ function CalendarMainPage() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default CalendarMainPage
+export default CalendarMainPage;
