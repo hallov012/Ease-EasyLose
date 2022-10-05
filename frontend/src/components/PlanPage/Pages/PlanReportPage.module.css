@@ -94,7 +94,7 @@
 
 .graph_title {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 90%;
 }
@@ -124,4 +124,14 @@
 
 .rcontainer::-webkit-scrollbar {
   display: none;
+}
+
+.tooltip {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tooltip b {
+  margin-right: 0.6rem;
 }
