@@ -50,6 +50,7 @@ function CalendarMainPage() {
       }
     }
   }
+  console.log(testList)
 
   if (detailData) {
     console.log(
