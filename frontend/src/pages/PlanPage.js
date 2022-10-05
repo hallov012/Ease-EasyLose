@@ -34,7 +34,7 @@ function PlanPage() {
         <PlanMainPage></PlanMainPage>
       </Route>
       <Route path="/plan/:planId" exact>
-        <PlanDetailPage></PlanDetailPage>
+        <PlanDetailPage colorSet={colorSet}></PlanDetailPage>
       </Route>
       <Route path="/plan/:planId/summary" exact>
         <PlanSummaryPage colorSet={colorSet}></PlanSummaryPage>

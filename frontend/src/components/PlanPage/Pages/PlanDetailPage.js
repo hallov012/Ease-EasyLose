@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import { registerPlanId } from "../../../store/planSlice";
 import { registerTargetDate } from "../../../store/statusSlice";
 
-function PlanDetailPage() {
+function PlanDetailPage({ colorSet }) {
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -54,7 +54,7 @@ function PlanDetailPage() {
               userDailyDiet={dailyMeal}
               path={`/plan/${planId}`}
             />
-            <SumProgressBar userDailyDiet={dailyMeal} />
+            <SumProgressBar userDailyDiet={dailyMeal} colorSet={colorSet} />
             <MealCardList
               userInfo={userInfo}
               userDailyDiet={dailyMeal}
