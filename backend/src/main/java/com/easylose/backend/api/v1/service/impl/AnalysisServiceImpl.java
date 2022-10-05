@@ -58,7 +58,7 @@ public class AnalysisServiceImpl implements AnalysisService {
       LocalDate start = date.minusDays(i);
       LocalDateTime dateTime = start.atTime(23, 59, 59);
       if (user.getCreatedAt().isAfter(start.atStartOfDay())) {
-        dateTime = user.getCreatedAt().plusHours(1);
+        dateTime = measureLogRepository.findTopByUser(user).getCreatedAt();
       }
       log.info("datetime : {}", dateTime);
 
