@@ -53,8 +53,8 @@ function UserFoodList(props) {
                         text: "한 번 더 확인해주세요!",
                         icon: "warning",
                         showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
+                        confirmButtonColor: "#7c83fd",
+                        cancelButtonColor: "#00033f",
                         confirmButtonText: "삭제",
                         cancelButtonText: "취소",
                       }).then((result) => {
@@ -78,7 +78,7 @@ function UserFoodList(props) {
                                   .catch((error) => console.log(error));
                                 MySwal.fire({
                                   icon: "success",
-                                  title: "성공적으로 삭제되었습니다!",
+                                  text: "성공적으로 삭제되었습니다!",
                                   showConfirmButton: false,
                                   timer: 1500,
                                 });
@@ -98,7 +98,7 @@ function UserFoodList(props) {
                                   .catch((error) => console.log(error));
                                 MySwal.fire({
                                   icon: "success",
-                                  title: "성공적으로 삭제되었습니다!",
+                                  text: "성공적으로 삭제되었습니다!",
                                   showConfirmButton: false,
                                   timer: 1500,
                                 });

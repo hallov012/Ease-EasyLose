@@ -41,8 +41,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 
 .left {

@@ -1,5 +1,5 @@
-import classes from "./AddButtonList.module.css"
-import { NavLink } from "react-router-dom"
+import classes from "./AddButtonList.module.css";
+import { NavLink } from "react-router-dom";
 
 function AddButtonList() {
   return (
@@ -26,10 +26,10 @@ function AddButtonList() {
         activeClassName={classes.activeicon}
       >
         <i className="fa-solid fa-folder-plus"></i>
-        <div>커스텀</div>
+        <div>항목 추가</div>
       </NavLink>
     </div>
-  )
+  );
 }
 
-export default AddButtonList
+export default AddButtonList;
