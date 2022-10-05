@@ -129,7 +129,7 @@ function ReportChart({ detailData, testList }) {
   };
   return (
     <div>
-      <div style={{ width: "100%", height: "28vh" }}>
+      <div style={{ width: "100%", height: "24vh" }}>
         <ReactApexChart
           options={data.options}
           series={data.series}

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 export const planSlice = createSlice({
   name: "plan",
@@ -11,37 +11,36 @@ export const planSlice = createSlice({
   },
   reducers: {
     setDetailClicked: (state) => {
-      state.detailClicked = !state.detailClicked
+      state.detailClicked = !state.detailClicked;
     },
     setDetailData: (state, action) => {
-      state.detailData = action.payload
+      state.detailData = action.payload;
     },
     registerTestItem: (state, action) => {
-      state.testList = action.payload
+      state.testList = action.payload;
     },
     unCheckTestItem: (state, action) => {
-      delete state.testList[action.payload]
+      delete state.testList[action.payload];
     },
     checkTestItem: (state, action) => {
-      state.testList = { ...state.testList, ...action.payload }
+      state.testList = { ...state.testList, ...action.payload };
     },
     initializeTestList: (state) => {
-      console.log("init")
-      state.testList = {}
+      state.testList = {};
     },
     registerDailyMealList: (state, action) => {
-      state.dailyMealList = action.payload
+      state.dailyMealList = action.payload;
     },
     registerPlanId: (state, action) => {
-      state.planId = action.payload
+      state.planId = action.payload;
     },
     removeDailyMealItem: (state, action) => {
       state.dailyMealList = state.dailyMealList.filter((item) => {
-        return action.payload.id !== item.id
-      })
+        return action.payload.id !== item.id;
+      });
     },
   },
-})
+});
 
 export const {
   registerDailyMealList,
@@ -53,6 +52,6 @@ export const {
   setDetailData,
   unCheckTestItem,
   checkTestItem,
-} = planSlice.actions
+} = planSlice.actions;
 
-export default planSlice.reducer
+export default planSlice.reducer;

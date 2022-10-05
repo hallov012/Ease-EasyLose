@@ -1,54 +1,54 @@
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
-import classes from "./PlanReportPage.module.css"
-import CountUp from "react-countup"
-import RecommendListItem from "../../CalendarPage/RecommendListItem/RecommendListItem"
-import ReactApexChart from "react-apexcharts"
-import { useDispatch, useSelector } from "react-redux"
-import { useState, useEffect } from "react"
-import { instance } from "../../../api/index"
-import { initializeTestList } from "../../../store/planSlice"
-import ReportChart from "../../CalendarPage/ReportChart/ReportChart"
+import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import classes from "./PlanReportPage.module.css";
+import CountUp from "react-countup";
+import RecommendListItem from "../../CalendarPage/RecommendListItem/RecommendListItem";
+import ReactApexChart from "react-apexcharts";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { instance } from "../../../api/index";
+import { initializeTestList } from "../../../store/planSlice";
+import ReportChart from "../../CalendarPage/ReportChart/ReportChart";
 
-function PlanReportPage() {
-  const dispatch = useDispatch()
-  const userInfo = useSelector((state) => state.user.userInfo)
-  const [score, setScore] = useState(0)
-  const [detailData, setDetailData] = useState(null)
-  const planId = useSelector((state) => state.plan.planId)
-  const testList = useSelector((state) => state.plan.testList)
-  const dailyMealList = useSelector((state) => state.plan.dailyMealList)
-  const [recommendList, setRecommendList] = useState({})
-  const [foodNames, setFoodNames] = useState({})
-  const [tempData, setTempData] = useState(null)
+function PlanReportPage({ colorSet }) {
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [score, setScore] = useState(0);
+  const [detailData, setDetailData] = useState(null);
+  const planId = useSelector((state) => state.plan.planId);
+  const testList = useSelector((state) => state.plan.testList);
+  const dailyMealList = useSelector((state) => state.plan.dailyMealList);
+  const [recommendList, setRecommendList] = useState({});
+  const [foodNames, setFoodNames] = useState({});
+  const [tempData, setTempData] = useState(null);
 
   useEffect(() => {
-    dispatch(initializeTestList())
-  }, [])
+    dispatch(initializeTestList());
+  }, []);
 
   console.log(
     `userInfo: ${userInfo.dailyCalorie}/${userInfo.dailyCarb}/${userInfo.dailyProtein}/${userInfo.dailyFat}`
-  )
+  );
 
   if (detailData) {
     console.log(
       `consume: ${detailData[0].total.calorie}/${detailData[0].total.carb}/${detailData[0].total.protein}/${detailData[0].total.fat}`
-    )
+    );
   }
-  console.log(tempData)
+  console.log(tempData);
 
   useEffect(() => {
     if (detailData) {
-      let _carb = detailData[0].total.carb
-      let _protein = detailData[0].total.protein
-      let _fat = detailData[0].total.fat
+      let _carb = detailData[0].total.carb;
+      let _protein = detailData[0].total.protein;
+      let _fat = detailData[0].total.fat;
       const _score = Math.round(
         ((mealScore(_carb, userInfo.dailyCarb) +
           mealScore(_protein, userInfo.dailyProtein) +
           mealScore(_fat, userInfo.dailyFat)) /
           3) *
           100
-      )
-      setScore(_score)
+      );
+      setScore(_score);
       setTempData({
         dailyCalorie: userInfo.dailyCalorie,
         dailyCarb: userInfo.dailyCarb,
@@ -58,71 +58,71 @@ function PlanReportPage() {
         totalCarb: detailData[0].total.carb,
         totalProtein: detailData[0].total.protein,
         totalFat: detailData[0].total.fat,
-      })
+      });
     }
-  }, [detailData])
+  }, [detailData]);
 
   useEffect(() => {
     if (planId !== -1 && dailyMealList.length !== 0) {
       setDetailData(
         dailyMealList.filter((item) => {
-          return item.id === planId
+          return item.id === planId;
         })
-      )
+      );
     }
-  }, [planId, dailyMealList])
+  }, [planId, dailyMealList]);
 
   useEffect(() => {
     if (planId !== -1) {
       instance.get(`/recommend/${planId}`, {}).then((response) => {
-        const obj2 = {}
-        const obj = {}
+        const obj2 = {};
+        const obj = {};
         response.data.map((item, index) => {
-          obj2[index] = item.name
-          obj[index] = item
-        })
-        setRecommendList(obj)
-        setFoodNames(obj2)
-      })
+          obj2[index] = item.name;
+          obj[index] = item;
+        });
+        setRecommendList(obj);
+        setFoodNames(obj2);
+      });
     }
-  }, [planId])
+  }, [planId]);
 
   function mealScore(total, daily) {
-    const corr = 0.1
+    const corr = 0.1;
 
-    const absRawScore = Math.abs(1 - total / daily)
-    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr)
-    return 1 - absCorrScore
+    const absRawScore = Math.abs(1 - total / daily);
+    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr);
+    return 1 - absCorrScore;
   }
 
   useEffect(() => {
     if (detailData) {
-      let _carb = detailData[0].total.carb
-      let _protein = detailData[0].total.protein
-      let _fat = detailData[0].total.fat
+      let _carb = detailData[0].total.carb;
+      let _protein = detailData[0].total.protein;
+      let _fat = detailData[0].total.fat;
       Object.keys(testList).map((item) => {
-        _carb += testList[item].carb
-        _protein += testList[item].protein
-        _fat += testList[item].fat
-      })
+        _carb += testList[item].carb;
+        _protein += testList[item].protein;
+        _fat += testList[item].fat;
+      });
       const _score = Math.round(
         ((mealScore(_carb, userInfo.dailyCarb) +
           mealScore(_protein, userInfo.dailyProtein) +
           mealScore(_fat, userInfo.dailyFat)) /
           3) *
           100
-      )
-      console.log(`score: ${_score}`)
-      setScore(_score)
+      );
+      console.log(`score: ${_score}`);
+      setScore(_score);
     }
-  }, [testList])
+  }, [testList]);
 
   return (
     <div>
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {
-            dispatch(initializeTestList())
+            dispatch(initializeTestList());
           }}
         />
       </div>
@@ -154,6 +154,15 @@ function PlanReportPage() {
               <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                 부족한 영양소 보충을 위한 리스트입니다!
               </div>
+              <div
+                style={{
+                  fontSize: ".9rem",
+                  marginTop: ".2rem",
+                  color: `${colorSet.proteinColor}`,
+                }}
+              >
+                음식을 추가해 부족한 영양소를 채워보세요!
+              </div>
             </div>
             <div className={classes.rcontainer}>
               {Object.keys(recommendList).length !== 0
@@ -163,7 +172,7 @@ function PlanReportPage() {
                         key={recommendList[item].food.id}
                         style={{
                           width: "100%",
-                          height: "8vh",
+                          height: "9vh",
                           marginBottom: "1vh",
                         }}
                       >
@@ -171,9 +180,10 @@ function PlanReportPage() {
                           index={index}
                           foodInfo={recommendList[item].food}
                           reason={recommendList[item].reason}
+                          colorSet={colorSet}
                         ></RecommendListItem>
                       </div>
-                    )
+                    );
                   })
                 : null}
             </div>
@@ -181,6 +191,6 @@ function PlanReportPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default PlanReportPage
+export default PlanReportPage;
