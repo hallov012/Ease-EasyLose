@@ -123,10 +123,41 @@ public abstract class CalendarMapper {
           log.info("Here is more than 4");
           List<Recommend> randomList = new ArrayList<>();
           Random rand = new Random();
-          for (int i = 0; i < 4; i++) {
-            int randomIndex = rand.nextInt(recommendList.size());
-            randomList.add(recommendList.get(randomIndex));
-            recommendList.remove(randomIndex);
+
+          List<String> nameList = new ArrayList<>();
+          for (Recommend rec : recommendList) {
+            if (nameList.size() > 4) {
+              break;
+            }
+            if (!nameList.contains(rec.getFood().getName())) {
+              nameList.add(rec.getFood().getName());
+            }
+          }
+          log.info("this is name List : {}", nameList);
+          if (nameList.size() > 4) {
+            while (randomList.size() < 4) {
+              int randomIndex = rand.nextInt(recommendList.size());
+              boolean possible = true;
+              for (Recommend recc : randomList) {
+                if (recc.getFood().getName().equals(recommendList.get(randomIndex))) {
+                  possible = false;
+                  break;
+                }
+              }
+              if (possible == true) {
+                randomList.add(recommendList.get(randomIndex));
+                recommendList.remove(randomIndex);
+              }
+            }
+          } else {
+            for (int b = 0; b < nameList.size(); b++) {
+              for (Recommend rec2 : recommendList) {
+                if (rec2.getFood().getName().equals(nameList.get(b))) {
+                  randomList.add(rec2);
+                  break;
+                }
+              }
+            }
           }
           recommendList = randomList;
         }
