@@ -20,15 +20,14 @@ export const planSlice = createSlice({
       state.testList = action.payload
     },
     unCheckTestItem: (state, action) => {
-      console.log(action.payload)
       delete state.testList[action.payload]
     },
     checkTestItem: (state, action) => {
-      console.log(action.payload)
       state.testList = { ...state.testList, ...action.payload }
     },
     initializeTestList: (state) => {
-      state.testList = []
+      console.log("init")
+      state.testList = {}
     },
     registerDailyMealList: (state, action) => {
       state.dailyMealList = action.payload

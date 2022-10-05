@@ -5,11 +5,8 @@ import RecommendListItem from "../../CalendarPage/RecommendListItem/RecommendLis
 import ReactApexChart from "react-apexcharts"
 import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from "react"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
 import { instance } from "../../../api/index"
-import { registerTestItem, setDetailData } from "../../../store/planSlice"
+import { initializeTestList } from "../../../store/planSlice"
 
 function PlanReportPage() {
   const dispatch = useDispatch()
@@ -58,7 +55,11 @@ function PlanReportPage() {
   return (
     <div>
       <div id="top_nav_area">
-        <TopHistoryNav />
+        <TopHistoryNav
+          bonus={() => {
+            dispatch(initializeTestList())
+          }}
+        />
       </div>
       <div className={classes.container}>
         <div className={classes.information}>
