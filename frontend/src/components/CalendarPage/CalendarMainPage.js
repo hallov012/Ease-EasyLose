@@ -34,6 +34,23 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
 import Confetti from "../SignUpPage/Confetti/Confetti";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { styled } from "@mui/material/styles";
+import Zoom from "@mui/material/Zoom";
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: "#a66cff",
+    opacity: 0.8,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "#a66cff",
+    opacity: 0.8,
+  },
+}));
 
 function CalendarMainPage() {
   const colorSet = {
@@ -52,6 +69,15 @@ function CalendarMainPage() {
   const [recommendList, setRecommendList] = useState({});
   const [foodNames, setFoodNames] = useState({});
   const [origin, setOrigin] = useState(0);
+  const [open, setOpen] = React.useState(false);
+
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
     dispatch(initializeTestList());
@@ -300,7 +326,7 @@ function CalendarMainPage() {
 
           {detailData ? (
             <div className={classes.container}>
-              {origin >= 80 ? <Confetti /> : null}
+              {origin >= 90 ? <Confetti /> : null}
               {origin < 50 ? (
                 <Stack sx={{ width: "100%" }} spacing={2}>
                   <Alert severity="error" color="info">
@@ -333,6 +359,58 @@ function CalendarMainPage() {
                     <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                       목표 대비 섭취량
                     </div>
+                    <ClickAwayListener onClickAway={handleTooltipClose}>
+                      <div style={{ marginLeft: ".5rem" }}>
+                        <HtmlTooltip
+                          TransitionComponent={Zoom}
+                          PopperProps={{
+                            disablePortal: true,
+                          }}
+                          onClose={handleTooltipClose}
+                          open={open}
+                          disableFocusListener
+                          disableHoverListener
+                          disableTouchListener
+                          placement="right"
+                          title={
+                            <React.Fragment>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  alignItems: "flex-start",
+                                }}
+                              >
+                                <div className={classes.tooltip}>
+                                  <b>열량</b>
+                                  <span>{detailData.dailyCalorie}g</span>
+                                </div>
+                                <div className={classes.tooltip}>
+                                  <b>탄수화물</b>
+                                  <span>{detailData.dailyCarb}g</span>
+                                </div>
+                                <div className={classes.tooltip}>
+                                  <b>단백질</b>
+                                  <span>{detailData.dailyProtein}g</span>
+                                </div>
+                                <div className={classes.tooltip}>
+                                  <b>지방</b>
+                                  <span>{detailData.dailyFat}g</span>
+                                </div>
+                              </div>
+                            </React.Fragment>
+                          }
+                          color="primary"
+                          arrow
+                        >
+                          <i
+                            onClick={handleTooltipOpen}
+                            className="fa-regular fa-circle-question"
+                            style={{ position: "relative" }}
+                          ></i>
+                        </HtmlTooltip>
+                      </div>
+                    </ClickAwayListener>
                   </div>
 
                   <ReportChart

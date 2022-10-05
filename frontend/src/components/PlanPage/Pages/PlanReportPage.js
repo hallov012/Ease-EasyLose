@@ -13,6 +13,24 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
 import Confetti from "../../SignUpPage/Confetti/Confetti";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { styled } from "@mui/material/styles";
+import Zoom from "@mui/material/Zoom";
+import zIndex from "@mui/material/styles/zIndex";
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: "#a66cff",
+    opacity: 0.8,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "#a66cff",
+    opacity: 0.8,
+  },
+}));
 
 function PlanReportPage({ colorSet }) {
   const dispatch = useDispatch();
@@ -26,6 +44,15 @@ function PlanReportPage({ colorSet }) {
   const [foodNames, setFoodNames] = useState({});
   const [tempData, setTempData] = useState(null);
   const [origin, setOrigin] = useState(0);
+  const [open, setOpen] = React.useState(false);
+
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
     dispatch(initializeTestList());
@@ -126,7 +153,7 @@ function PlanReportPage({ colorSet }) {
 
   return (
     <div>
-      {origin >= 80 ? <Confetti /> : null}
+      {origin >= 90 ? <Confetti /> : null}
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {
@@ -163,6 +190,58 @@ function PlanReportPage({ colorSet }) {
               <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                 목표 대비 섭취량
               </div>
+              <ClickAwayListener onClickAway={handleTooltipClose}>
+                <div style={{ marginLeft: ".5rem" }}>
+                  <HtmlTooltip
+                    TransitionComponent={Zoom}
+                    PopperProps={{
+                      disablePortal: true,
+                    }}
+                    onClose={handleTooltipClose}
+                    open={open}
+                    disableFocusListener
+                    disableHoverListener
+                    disableTouchListener
+                    placement="right"
+                    title={
+                      <React.Fragment>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <div className={classes.tooltip}>
+                            <b>열량</b>
+                            <span>{userInfo.dailyCalorie}g</span>
+                          </div>
+                          <div className={classes.tooltip}>
+                            <b>탄수화물</b>
+                            <span>{userInfo.dailyCarb}g</span>
+                          </div>
+                          <div className={classes.tooltip}>
+                            <b>단백질</b>
+                            <span>{userInfo.dailyProtein}g</span>
+                          </div>
+                          <div className={classes.tooltip}>
+                            <b>지방</b>
+                            <span>{userInfo.dailyFat}g</span>
+                          </div>
+                        </div>
+                      </React.Fragment>
+                    }
+                    color="primary"
+                    arrow
+                  >
+                    <i
+                      onClick={handleTooltipOpen}
+                      style={{ position: "relative" }}
+                      className="fa-regular fa-circle-question"
+                    ></i>
+                  </HtmlTooltip>
+                </div>
+              </ClickAwayListener>
             </div>
 
             {tempData ? (
