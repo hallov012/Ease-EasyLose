@@ -430,7 +430,7 @@ function CalendarMainPage() {
                     testList={testList}
                   />
                 </div>
-                <div style={{ width: "90%", height: "36vh" }}>
+                <div style={{ width: "90%" }}>
                   <div className={classes.recommend_title}>
                     <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                       부족한 영양소 보충을 위한 리스트입니다!
