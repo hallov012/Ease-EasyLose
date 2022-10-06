@@ -88,7 +88,7 @@ function CalendarMainPage() {
     if (rsvDate) {
       now = format(now, "yyyy-MM-dd")
 
-      if (rsvDate < now) {
+      if (rsvDate <= now) {
         return true
       }
     }
