@@ -6,6 +6,10 @@
 
 ****
 
+<br />
+
+<br />
+
 ## StartPage
 
 ![ease_startpage](/uploads/cb33dd6c09b7e98bfa8bb8dba7cda72f/ease_startpage.gif)
@@ -111,7 +115,7 @@
 
 ### 유저 항목 생성
 
-![ease_addpage_custom](/uploads/9d7df345ad089f547b3bb654c0aae5e0/ease_addpage_custom.png = 325x500)
+![ease_addpage_custom](/uploads/1e7b8432fbcbc9ac94fe7b418cba965e/ease_addpage_custom.gif)
 
 <br />
 
@@ -149,7 +153,18 @@
 
 ****
 
+<br />
 
+<br />
 
+## FE Members
 
+### 🥑 윤경식
 
+>소감
+
+<br />
+
+### 🍒 조혜림
+
+> 소감...
