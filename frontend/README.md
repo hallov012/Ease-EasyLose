@@ -1,5 +1,11 @@
 # Ease FE README
 
+## Wirefram
+
+[Figma 주소](https://www.figma.com/file/obQZZIW01ZKQMaWTnZHP26/Ease(%ED%8A%B9%ED%99%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8)?node-id=0%3A1)
+
+****
+
 ## StartPage
 
 ![ease_startpage](/uploads/cb33dd6c09b7e98bfa8bb8dba7cda72f/ease_startpage.gif)
@@ -81,7 +87,7 @@
 
 ### 검색, History를 이용한 음식 추가
 
-![ease_addpage_search](/uploads/9eb634b504d515d7d0269083ae09dd3e/ease_addpage_search.gif)
+![ease_addpage_search](/uploads/9eb634b504d515d7d0269083ae09dd3e/ease_addpage_search.gif){:width="325", height="500"}
 
 * 
 
@@ -105,7 +111,47 @@
 
 ### 유저 항목 생성
 
-![ease_addpage_custom](/uploads/9d7df345ad089f547b3bb654c0aae5e0/ease_addpage_custom.png)
+![ease_addpage_custom](/uploads/9d7df345ad089f547b3bb654c0aae5e0/ease_addpage_custom.png){:width="325", height="705"}
 
 * 
+
+<br />
+
+<br />
+
+## CalendarPage
+
+![ease_calendarpage](/uploads/f364da17fcfd6bffaf558e26344a2e16/ease_calendarpage.gif)
+
+* 
+
+<br />
+
+<br />
+
+## ChartPage
+
+![ease_charpage](/uploads/275d47ebafe6fc297465295de5d70ea7/ease_charpage.gif)
+
+* 
+
+<br />
+
+<br />
+
+## MyPage
+
+![ease_mypage](/uploads/e2781e025699735ac019f1d09d527e9b/ease_mypage.gif)
+
+> ModNut 이외는 SignupPage의 화면과 동일하므로 생략
+
+### ModNut
+
+* 칼로리와 탄수화물, 단백질, 지방 비율로 목표 영양수치 변경 가능
+
+****
+
+
+
+
 
