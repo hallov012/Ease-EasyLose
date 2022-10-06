@@ -1,23 +1,23 @@
-import TopHistoryNav from "../../TopNav/TopHistoryNav";
-import classes from "./PlanReportPage.module.css";
-import CountUp from "react-countup";
-import RecommendListItem from "../../CalendarPage/RecommendListItem/RecommendListItem";
-import ReactApexChart from "react-apexcharts";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { instance } from "../../../api/index";
-import { initializeTestList } from "../../../store/planSlice";
-import ReportChart from "../../CalendarPage/ReportChart/ReportChart";
-import * as React from "react";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Stack from "@mui/material/Stack";
-import Confetti from "../../SignUpPage/Confetti/Confetti";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import { styled } from "@mui/material/styles";
-import Zoom from "@mui/material/Zoom";
-import zIndex from "@mui/material/styles/zIndex";
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
+import classes from "./PlanReportPage.module.css"
+import CountUp from "react-countup"
+import RecommendListItem from "../../CalendarPage/RecommendListItem/RecommendListItem"
+import ReactApexChart from "react-apexcharts"
+import { useDispatch, useSelector } from "react-redux"
+import { useState, useEffect } from "react"
+import { instance } from "../../../api/index"
+import { initializeTestList } from "../../../store/planSlice"
+import ReportChart from "../../CalendarPage/ReportChart/ReportChart"
+import * as React from "react"
+import Alert from "@mui/material/Alert"
+import AlertTitle from "@mui/material/AlertTitle"
+import Stack from "@mui/material/Stack"
+import Confetti from "../../SignUpPage/Confetti/Confetti"
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip"
+import ClickAwayListener from "@mui/material/ClickAwayListener"
+import { styled } from "@mui/material/styles"
+import Zoom from "@mui/material/Zoom"
+import zIndex from "@mui/material/styles/zIndex"
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -30,59 +30,59 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     backgroundColor: "#a66cff",
     opacity: 0.8,
   },
-}));
+}))
 
 function PlanReportPage({ colorSet }) {
-  const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const [score, setScore] = useState(0);
-  const [detailData, setDetailData] = useState(null);
-  const planId = useSelector((state) => state.plan.planId);
-  const testList = useSelector((state) => state.plan.testList);
-  const dailyMealList = useSelector((state) => state.plan.dailyMealList);
-  const [recommendList, setRecommendList] = useState({});
-  const [foodNames, setFoodNames] = useState({});
-  const [tempData, setTempData] = useState(null);
-  const [origin, setOrigin] = useState(0);
-  const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const [score, setScore] = useState(0)
+  const [detailData, setDetailData] = useState(null)
+  const planId = useSelector((state) => state.plan.planId)
+  const testList = useSelector((state) => state.plan.testList)
+  const dailyMealList = useSelector((state) => state.plan.dailyMealList)
+  const [recommendList, setRecommendList] = useState({})
+  const [foodNames, setFoodNames] = useState({})
+  const [tempData, setTempData] = useState(null)
+  const [origin, setOrigin] = useState(0)
+  const [open, setOpen] = React.useState(false)
 
   const handleTooltipClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleTooltipOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   useEffect(() => {
-    dispatch(initializeTestList());
-  }, []);
+    dispatch(initializeTestList())
+  }, [])
 
   console.log(
     `userInfo: ${userInfo.dailyCalorie}/${userInfo.dailyCarb}/${userInfo.dailyProtein}/${userInfo.dailyFat}`
-  );
+  )
 
   if (detailData) {
     console.log(
       `consume: ${detailData[0].total.calorie}/${detailData[0].total.carb}/${detailData[0].total.protein}/${detailData[0].total.fat}`
-    );
+    )
   }
-  console.log(tempData);
+  console.log(tempData)
 
   useEffect(() => {
     if (detailData) {
-      let _carb = detailData[0].total.carb;
-      let _protein = detailData[0].total.protein;
-      let _fat = detailData[0].total.fat;
+      let _carb = detailData[0].total.carb
+      let _protein = detailData[0].total.protein
+      let _fat = detailData[0].total.fat
       const _score = Math.round(
         ((mealScore(_carb, userInfo.dailyCarb) +
           mealScore(_protein, userInfo.dailyProtein) +
           mealScore(_fat, userInfo.dailyFat)) /
           3) *
           100
-      );
-      setScore(_score);
-      setOrigin(_score);
+      )
+      setScore(_score)
+      setOrigin(_score)
       setTempData({
         dailyCalorie: userInfo.dailyCalorie,
         dailyCarb: userInfo.dailyCarb,
@@ -92,64 +92,64 @@ function PlanReportPage({ colorSet }) {
         totalCarb: detailData[0].total.carb,
         totalProtein: detailData[0].total.protein,
         totalFat: detailData[0].total.fat,
-      });
+      })
     }
-  }, [detailData]);
+  }, [detailData])
 
   useEffect(() => {
     if (planId !== -1 && dailyMealList.length !== 0) {
       setDetailData(
         dailyMealList.filter((item) => {
-          return item.id === planId;
+          return item.id === planId
         })
-      );
+      )
     }
-  }, [planId, dailyMealList]);
+  }, [planId, dailyMealList])
 
   useEffect(() => {
     if (planId !== -1) {
       instance.get(`/recommend/${planId}`, {}).then((response) => {
-        const obj2 = {};
-        const obj = {};
+        const obj2 = {}
+        const obj = {}
         response.data.map((item, index) => {
-          obj2[index] = item.name;
-          obj[index] = item;
-        });
-        setRecommendList(obj);
-        setFoodNames(obj2);
-      });
+          obj2[index] = item.name
+          obj[index] = item
+        })
+        setRecommendList(obj)
+        setFoodNames(obj2)
+      })
     }
-  }, [planId]);
+  }, [planId])
 
   function mealScore(total, daily) {
-    const corr = 0.1;
+    const corr = 0.1
 
-    const absRawScore = Math.abs(1 - total / daily);
-    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr);
-    return 1 - absCorrScore;
+    const absRawScore = Math.abs(1 - total / daily)
+    const absCorrScore = Math.max(0, absRawScore - corr) / (1 - corr)
+    return 1 - absCorrScore
   }
 
   useEffect(() => {
     if (detailData) {
-      let _carb = detailData[0].total.carb;
-      let _protein = detailData[0].total.protein;
-      let _fat = detailData[0].total.fat;
+      let _carb = detailData[0].total.carb
+      let _protein = detailData[0].total.protein
+      let _fat = detailData[0].total.fat
       Object.keys(testList).map((item) => {
-        _carb += testList[item].carb;
-        _protein += testList[item].protein;
-        _fat += testList[item].fat;
-      });
+        _carb += testList[item].carb
+        _protein += testList[item].protein
+        _fat += testList[item].fat
+      })
       const _score = Math.round(
         ((mealScore(_carb, userInfo.dailyCarb) +
           mealScore(_protein, userInfo.dailyProtein) +
           mealScore(_fat, userInfo.dailyFat)) /
           3) *
           100
-      );
-      console.log(`score: ${_score}`);
-      setScore(_score);
+      )
+      console.log(`score: ${_score}`)
+      setScore(_score)
     }
-  }, [testList]);
+  }, [testList])
 
   return (
     <div>
@@ -157,7 +157,7 @@ function PlanReportPage({ colorSet }) {
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {
-            dispatch(initializeTestList());
+            dispatch(initializeTestList())
           }}
         />
       </div>
@@ -252,7 +252,7 @@ function PlanReportPage({ colorSet }) {
               />
             ) : null}
           </div>
-          <div style={{ width: "90%", height: "36vh" }}>
+          <div style={{ width: "90%" }}>
             <div className={classes.recommend_title}>
               <div style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
                 부족한 영양소 보충을 위한 리스트입니다!
@@ -286,7 +286,7 @@ function PlanReportPage({ colorSet }) {
                           colorSet={colorSet}
                         ></RecommendListItem>
                       </div>
-                    );
+                    )
                   })
                 : null}
             </div>
@@ -294,6 +294,6 @@ function PlanReportPage({ colorSet }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default PlanReportPage;
+export default PlanReportPage

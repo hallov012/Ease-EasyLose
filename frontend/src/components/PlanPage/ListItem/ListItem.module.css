@@ -55,7 +55,7 @@
   perspective: 500px;
 }
 .tooltip__content {
-  position: absolute;
+  position: fixed;
   bottom: 2em;
   backface-visibility: hidden;
   left: -9999px;
@@ -87,7 +87,7 @@
 }
 .tooltip__content_inner:before,
 .tooltip__content_inner:after {
-  position: absolute;
+  position: fixed;
   left: 50%;
   margin-left: -6px;
   bottom: -6px;

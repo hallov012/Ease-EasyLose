@@ -90,7 +90,7 @@
 .addButtonContainer {
   max-width: 450px;
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 10vh;
   display: flex;
   justify-content: center;

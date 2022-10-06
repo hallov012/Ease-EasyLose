@@ -7,7 +7,7 @@
   height: 8vh;
   background-color: var(--main-color);
   bottom: 0;
-  position: absolute;
+  position: fixed;
 }
 
 .icon {

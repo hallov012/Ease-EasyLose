@@ -43,7 +43,7 @@
 .pickedList {
   width: 100%;
   max-width: 450px;
-  position: absolute;
+  position: fixed;
   bottom: 16vh;
   display: flex;
   flex-direction: column-reverse;

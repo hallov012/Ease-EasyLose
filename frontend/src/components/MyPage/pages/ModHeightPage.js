@@ -1,18 +1,19 @@
-import classes from "./ModHeightPage.module.css";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import TopHistoryNav from "../../TopNav/TopHistoryNav";
-import TheSlider from "../../SignUpPage/TheSlider/TheSlider";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import { instance } from "../../../api/index";
-import { registerUserInfo } from "../../../store/userSlice";
-import { useHistory } from "react-router-dom";
+import classes from "./ModHeightPage.module.css"
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
+import TheSlider from "../../SignUpPage/TheSlider/TheSlider"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+import { instance } from "../../../api/index"
+import { registerUserInfo } from "../../../store/userSlice"
+import { useHistory } from "react-router-dom"
+import MySlider from "./MySlider"
 
 function ModHeightPage() {
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const [height, setHeight] = useState(null);
-  const history = useHistory();
+  const userInfo = useSelector((state) => state.user.userInfo)
+  const [height, setHeight] = useState(null)
+  const history = useHistory()
 
   const _userInfo = {
     gender: userInfo.gender,
@@ -26,14 +27,14 @@ function ModHeightPage() {
     dailyProtein: userInfo.dailyProtein,
     dailyFat: userInfo.dailyFat,
     isAutomatic: true,
-  };
+  }
 
-  const MySwal = withReactContent(Swal);
-  const dispatch = useDispatch();
+  const MySwal = withReactContent(Swal)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    setHeight(userInfo.height);
-  }, [userInfo]);
+    setHeight(userInfo.height)
+  }, [userInfo])
 
   return (
     <div>
@@ -51,12 +52,12 @@ function ModHeightPage() {
           >
             키 수정
           </div>
-          <TheSlider
+          <MySlider
             type={"height"}
             range={[130, 210]}
             value={height}
             setValue={(value) => {
-              setHeight(value);
+              setHeight(value)
             }}
             term={0.5}
           />
@@ -65,15 +66,15 @@ function ModHeightPage() {
               instance
                 .put("/user", { ..._userInfo, height: height }, {})
                 .then((response) => {
-                  dispatch(registerUserInfo(response.data));
+                  dispatch(registerUserInfo(response.data))
                   MySwal.fire({
                     icon: "success",
                     text: "성공적으로 수정되었습니다!",
                     showConfirmButton: false,
                     timer: 1500,
-                  });
-                  history.goBack();
-                });
+                  })
+                  history.goBack()
+                })
             }}
             className={classes.addButtonContainer}
           >
@@ -82,7 +83,7 @@ function ModHeightPage() {
         </div>
       ) : null}
     </div>
-  );
+  )
 }
 
-export default ModHeightPage;
+export default ModHeightPage

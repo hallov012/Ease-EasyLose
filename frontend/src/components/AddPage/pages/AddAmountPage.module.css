@@ -9,7 +9,7 @@
 
 .addButtonContainer {
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 10vh;
   display: flex;
   justify-content: center;
