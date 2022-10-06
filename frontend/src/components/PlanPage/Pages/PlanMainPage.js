@@ -45,7 +45,9 @@ function PlanMainPage() {
               );
             })}
       </div>
-      <PlanAddBtn />
+      <div className={classes.add_btn}>
+        <PlanAddBtn />
+      </div>
     </div>
   );
 }
