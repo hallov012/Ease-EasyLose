@@ -266,7 +266,12 @@ function AddSearchPage() {
         }}
         className={classes.addButtonContainer}
       >
-        <div className={classes.addButton}>추가하기</div>
+        <div
+          className={classes.addButton}
+          style={{ color: "var(--inner-text-color)" }}
+        >
+          추가하기
+        </div>
       </div>
       <AddButtonList></AddButtonList>
     </div>
