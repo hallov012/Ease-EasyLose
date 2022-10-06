@@ -1,10 +1,10 @@
-import classes from "./AddButtonList.module.css"
-import { NavLink } from "react-router-dom"
-import * as React from "react"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import Modal from "@mui/material/Modal"
-import BarcodeModal from "../BarcodeModal/BarcodeModal"
+import classes from "./AddButtonList.module.css";
+import { NavLink } from "react-router-dom";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import BarcodeModal from "../BarcodeModal/BarcodeModal";
 
 const style = {
   position: "absolute",
@@ -19,13 +19,13 @@ const style = {
   borderRadius: "5px",
   border: "none",
   outline: "none",
-}
+};
 
 function AddButtonList() {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-  const handleState = (data) => setOpen(data)
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleState = (data) => setOpen(data);
   return (
     <div className={classes.container}>
       <div
@@ -50,7 +50,7 @@ function AddButtonList() {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <BarcodeModal
               handleState={() => {
-                handleClose()
+                handleClose();
               }}
             />
           </Typography>
@@ -60,6 +60,7 @@ function AddButtonList() {
         to="/add/bundle"
         className={classes.icon}
         activeClassName={classes.activeicon}
+        style={{ color: "var(--inner-text-color)" }}
       >
         <i className="fa-solid fa-file-import"></i>
         <div>계획 불러오기</div>
@@ -68,12 +69,13 @@ function AddButtonList() {
         to="/add/custom"
         className={classes.icon}
         activeClassName={classes.activeicon}
+        style={{ color: "var(--inner-text-color)" }}
       >
         <i className="fa-solid fa-folder-plus"></i>
         <div>항목 추가</div>
       </NavLink>
     </div>
-  )
+  );
 }
 
-export default AddButtonList
+export default AddButtonList;
