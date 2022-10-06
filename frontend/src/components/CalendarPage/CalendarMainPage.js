@@ -54,9 +54,9 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 
 function CalendarMainPage() {
   const colorSet = {
-    carbColor: "#afb4ff",
-    proteinColor: "#7c83fd",
-    fatColor: "#b1e1ff",
+    carbColor: "#a369e5",
+    proteinColor: "#242f9b",
+    fatColor: "#7c83fd",
   }
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
@@ -88,7 +88,7 @@ function CalendarMainPage() {
     if (rsvDate) {
       now = format(now, "yyyy-MM-dd")
 
-      if (rsvDate < now) {
+      if (rsvDate <= now) {
         return true
       }
     }

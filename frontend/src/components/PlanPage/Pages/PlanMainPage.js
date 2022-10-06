@@ -15,14 +15,6 @@ function PlanMainPage() {
 
   return (
     <div className={classes.container}>
-      {/* <div style={{ width: "90vw" }}>
-        <SelectBtn
-          data={["하루 식단 모음", "한끼 모음"]}
-          setValue={(value) => {
-            setTerm(value);
-          }}
-        ></SelectBtn>
-      </div> */}
       <div className={classes.page_title}>나의 식단 목록</div>
       <div className={classes.itemContainer}>
         {term === 1

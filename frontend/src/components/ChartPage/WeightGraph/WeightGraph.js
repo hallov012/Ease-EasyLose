@@ -7,7 +7,7 @@ function WeightGraph({ weightData }) {
   const dataset = { weight: [], date: [] }
   for (const log of weightData) {
     dataset.weight.push(log.weight)
-    dataset.date.push(dateFormat(log.date, "mm/dd"))
+    dataset.date.push(dateFormat(log.createdAt, "mm/dd"))
   }
 
   const data = {

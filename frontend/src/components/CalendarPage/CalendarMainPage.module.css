@@ -117,8 +117,6 @@
 }
 
 .rcontainer {
-  overflow: scroll;
-  height: 35vh;
 }
 
 .rcontainer::-webkit-scrollbar {
@@ -146,10 +144,10 @@
   font-size: 2.5rem;
   background: linear-gradient(
     120deg,
-    var(--main-color) 20%,
-    rgb(108, 232, 226) 40%,
-    rgb(243, 243, 115) 60%,
-    var(--main-color) 80%
+    var(--sub-color) 20%,
+    var(--point-color) 40%,
+    var(--light-color) 60%,
+    var(--sub-color) 80%
   );
   background-size: 200% auto;
   color: #000;
@@ -157,13 +155,17 @@
   text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine 3s linear infinite;
+  animation: shine 0.7s linear infinite;
   -webkit-text-stroke: 1px var(--main-color);
 }
 
 .icon_2 {
-  background: var(--main-color);
-  opacity: 0.8;
+  background: var(--point-color);
+  background: linear-gradient(
+    120deg,
+    var(--point-color) 20%,
+    var(--sub-color) 80%
+  );
   background-size: 100% auto;
   color: #000;
   background-clip: text;

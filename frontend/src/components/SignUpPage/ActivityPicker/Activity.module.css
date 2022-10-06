@@ -22,7 +22,7 @@
     var(--main-color) 44%,
     var(--light-color) 88%
   );
-  color: black;
+  color: var(--inner-text-color);
   border: 0;
   outline: 0;
   margin: 2vw;
