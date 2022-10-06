@@ -53,7 +53,7 @@
 
 ## PlanPage
 
-![ease_planpage](/uploads/ff4a70ae236772bafbee2c4bdd5b99e5/ease_planpage.gif)
+![ease_planpage](/uploads/ff4a70ae236772bafbee2c4bdd5b99e5/ease_planpage.gif = 320x500)
 
 > MainPage와 페이지 구성이 거의 같기 때문에 색상으로 페이지 간의 차이를 줌
 
@@ -87,7 +87,7 @@
 
 ### 검색, History를 이용한 음식 추가
 
-![ease_addpage_search](/uploads/9eb634b504d515d7d0269083ae09dd3e/ease_addpage_search.gif){:width="325", height="500"}
+![ease_addpage_search](/uploads/9eb634b504d515d7d0269083ae09dd3e/ease_addpage_search.gif)
 
 * 
 
