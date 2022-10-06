@@ -25,7 +25,7 @@ springdoc:
     path: /documentation/v3/api-docs
 
 barcode:
-  uri: "${BARCODE_URI}"
-  key: "${BARCODE_KEY}"
-  service-id: "${BARCODE_SERVICE_ID}"
-  data-type: "${BARCODE_DATA_TYPE}"
+  uri: "https://openapi.foodsafetykorea.go.kr/api"
+  key: "${BARCODE_API_KEY}"
+  service-id: "C005"
+  data-type: "json"

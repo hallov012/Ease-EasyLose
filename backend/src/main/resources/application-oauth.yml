@@ -42,9 +42,10 @@ spring:
             user-name-attribute: response
 
 easylose:
-  frontend-redirect-uri: "${FRONTEND_REDIRECT_URI}"
+  frontend-redirect-host: "${FRONTEND_REDIRECT_HOST:${SERVICE_HOST}}"
+  frontend-redirect-scheme: "${FRONTEND_REDIRECT_SCHEME:https}"
 
 secret:
   jwt:
-    access-encode-key: "${JWT_ACCESS_ENCODE_KEY}"
-    refresh-encode-key: "${JWT_REFRESH_ENCODE_KEY}"
+    access-secret-string: "${JWT_ACCESS_SECRET_STRING}"
+    refresh-secret-string: "${JWT_REFRESH_SECRET_STRING}"

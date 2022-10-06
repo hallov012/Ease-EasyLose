@@ -51,8 +51,8 @@ services:
     image: easylose/frontend
     expose:
       - 80
-    env_file:
-      - .env
+    environment:
+      - REACT_APP_BACKEND_BASE_URL=https://${SERVICE_HOST}
 
   hadoop:
     build: ./hadoop

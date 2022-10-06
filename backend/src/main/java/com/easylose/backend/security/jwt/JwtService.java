@@ -5,26 +5,34 @@ import com.easylose.backend.api.v1.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import javax.crypto.SecretKey;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class JwtService {
 
   private final UserRepository userRepository;
-  private @Value("${secret.jwt.access-encode-key}") String accessEncodeKey;
-  private @Value("${secret.jwt.refresh-encode-key}") String refreshEncodeKey;
+  private final SecretKey accessSecretKey;
+  private final SecretKey refreshSecretKey;
+
+  public JwtService(
+      UserRepository userRepository,
+      @Value("${secret.jwt.access-secret-string}") String accessSecretString,
+      @Value("${secret.jwt.refresh-secret-string}") String refreshSecretString) {
+    this.userRepository = userRepository;
+    this.accessSecretKey = Keys.hmacShaKeyFor(accessSecretString.getBytes(StandardCharsets.UTF_8));
+    this.refreshSecretKey =
+        Keys.hmacShaKeyFor(refreshSecretString.getBytes(StandardCharsets.UTF_8));
+  }
 
   public TokenDto create(User user) {
-    String accessJws = createJws(accessEncodeKey, 30, user, "AT");
-    String refreshJws = createJws(refreshEncodeKey, 60 * 24 * 700, null, "RT");
+    String accessJws = createJws(accessSecretKey, 30, user, "AT");
+    String refreshJws = createJws(refreshSecretKey, 60 * 24 * 7, null, "RT");
     return TokenDto.builder().accessJws(accessJws).refreshJws(refreshJws).build();
   }
 
@@ -35,12 +43,10 @@ public class JwtService {
     }
     User user = queryResult.get(0);
 
-    return createJws(accessEncodeKey, 30, user, "AT");
+    return createJws(accessSecretKey, 30, user, "AT");
   }
 
-  private String createJws(String encodeKey, int expMin, User user, String subject) {
-    SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(encodeKey));
-
+  private String createJws(SecretKey secretKey, int expMin, User user, String subject) {
     JwtBuilder builder = Jwts.builder();
 
     builder.setHeaderParam("typ", "JWT");
@@ -57,7 +63,7 @@ public class JwtService {
   }
 
   public JwtValidateResultEnum validateAccessJws(String accessJws) {
-    return validate(accessJws, accessEncodeKey);
+    return validate(accessJws, accessSecretKey);
   }
 
   public JwtValidateResultEnum validateRefreshJws(String refreshJws) {
@@ -65,11 +71,10 @@ public class JwtService {
     if (queryResult.isEmpty()) {
       return JwtValidateResultEnum.ERROR;
     }
-    return validate(refreshJws, refreshEncodeKey);
+    return validate(refreshJws, refreshSecretKey);
   }
 
-  private JwtValidateResultEnum validate(String jws, String encodeKey) {
-    SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(encodeKey));
+  private JwtValidateResultEnum validate(String jws, SecretKey secretKey) {
     try {
       Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jws);
 
@@ -84,11 +89,10 @@ public class JwtService {
   }
 
   public Long getId(String accessJws) {
-    SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(accessEncodeKey));
     Number id =
         (Integer)
             Jwts.parserBuilder()
-                .setSigningKey(secretKey)
+                .setSigningKey(accessSecretKey)
                 .build()
                 .parseClaimsJws(accessJws)
                 .getBody()
