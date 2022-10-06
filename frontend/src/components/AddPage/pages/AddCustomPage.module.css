@@ -20,7 +20,7 @@
   border: 0;
   outline: 0;
   height: 5vh;
-  width: 60vw;
+  width: 60%;
   border-radius: 5px;
   background: var(--sub-color);
   text-align: center;
@@ -80,7 +80,7 @@
 .input {
   border: 0;
   outline: 0;
-  width: 20vw;
+  width: 50%;
   text-align: right;
   font-family: "Arita-dotum-Medium";
   font-weight: inherit;
