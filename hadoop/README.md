@@ -26,7 +26,7 @@ last modified on: 2022-10-06
     - 추천하기 적절한 음식(조리료 등 제외)을 can_recommend true로 설정
         - group name을 바탕으로 결정
 <p align='center'>
-    <img src="/develop/DATA_ANALYSIS/식품영양성분DB(new)/result/식품영양DB_nutrition_range_total_scatter.png" alt="data distribution">
+    <img src="/hadoop/develop/DATA_ANALYSIS/식품영양성분DB(new)/result/식품영양DB_nutrition_range_total_scatter.png" alt="data distribution">
 </p>
 
 ## 추천 알고리즘
