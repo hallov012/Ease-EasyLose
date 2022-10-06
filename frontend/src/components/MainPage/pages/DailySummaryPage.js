@@ -37,9 +37,10 @@ function DailySummaryPage({ colorSet }) {
       </div>
       <div
         style={{
-          margin: "10vh 5% 15vh",
+          margin: "11vh 5% 15vh",
         }}
       >
+        <UserInfoBox userInfo={userInfo} />
         <NutrientChart dietSum={dietSum} colorSet={colorSet} />
         <NutrientProgressGraph
           userInfo={userInfo}
@@ -51,7 +52,6 @@ function DailySummaryPage({ colorSet }) {
           dietSum={dietSum}
           colorSet={colorSet}
         />
-        <UserInfoBox userInfo={userInfo} />
       </div>
     </div>
   );
