@@ -1,38 +1,39 @@
-import TopNavDate from "../components/TopNav/TopNavDate";
-import { useDispatch, useSelector } from "react-redux";
-import { registerTargetDate } from "../store/statusSlice";
-import dateFormat, { masks } from "dateformat";
-import { instance } from "../api/index";
+import TopNavDate from "../components/TopNav/TopNavDate"
+import { useDispatch, useSelector } from "react-redux"
+import { registerTargetDate } from "../store/statusSlice"
+import dateFormat, { masks } from "dateformat"
+import { instance } from "../api/index"
 
-import SelectBtn from "../components/ChartPage/SelectBtn/SelectBtn";
-import WeightGraph from "../components/ChartPage/WeightGraph/WeightGraph";
-import NutrientChartGraph from "../components/ChartPage/NutrientChartGraph/NutrientChartGraph";
-import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import SelectBtn from "../components/ChartPage/SelectBtn/SelectBtn"
+import WeightGraph from "../components/ChartPage/WeightGraph/WeightGraph"
+import NutrientChartGraph from "../components/ChartPage/NutrientChartGraph/NutrientChartGraph"
+import { useHistory } from "react-router-dom"
+import { useState, useEffect } from "react"
 
 function ChartPage() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [nutData, setNutData] = useState(undefined);
-  const [weightData, setWeightData] = useState(undefined);
-  const temp = JSON.parse(localStorage.getItem("target_date"));
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const [nutData, setNutData] = useState(undefined)
+  const [weightData, setWeightData] = useState(undefined)
+  const temp = JSON.parse(localStorage.getItem("target_date"))
+
   useEffect(() => {
     if (temp) {
       if (typeof temp !== "number")
-        dispatch(registerTargetDate(JSON.stringify(temp)));
+        dispatch(registerTargetDate(JSON.stringify(temp)))
       else {
-        localStorage.setItem("target_date", JSON.stringify(new Date()));
-        dispatch(registerTargetDate(JSON.stringify(new Date())));
+        localStorage.setItem("target_date", JSON.stringify(new Date()))
+        dispatch(registerTargetDate(JSON.stringify(new Date())))
       }
     } else {
-      localStorage.setItem("target_date", JSON.stringify(new Date()));
-      dispatch(registerTargetDate(JSON.stringify(new Date())));
+      localStorage.setItem("target_date", JSON.stringify(new Date()))
+      dispatch(registerTargetDate(JSON.stringify(new Date())))
     }
-  }, []);
+  }, [])
 
   const target_date = JSON.parse(
     useSelector((state) => state.status.targetDate)
-  );
+  )
 
   useEffect(() => {
     if (typeof temp !== "number") {
@@ -42,24 +43,24 @@ function ChartPage() {
           params: { date: dateFormat(target_date, "yyyy-mm-dd") },
         })
         .then((response) => {
-          setNutData(response.data);
+          setNutData(response.data)
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
       // 몸무게 정보
       instance
         .get("/analysis/weight", {
           params: { date: dateFormat(target_date, "yyyy-mm-dd") },
         })
         .then((response) => {
-          setWeightData(response.data);
+          setWeightData(response.data)
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
-  }, [target_date, dispatch]);
+  }, [target_date, dispatch])
 
   return (
     <div>
@@ -79,7 +80,7 @@ function ChartPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ChartPage;
+export default ChartPage
