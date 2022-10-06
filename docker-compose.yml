@@ -47,12 +47,13 @@ services:
       - .env
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_BACKEND_BASE_URL=https://${SERVICE_HOST}
     image: easylose/frontend
     expose:
       - 80
-    environment:
-      - REACT_APP_BACKEND_BASE_URL=https://${SERVICE_HOST}
 
   hadoop:
     build: ./hadoop
