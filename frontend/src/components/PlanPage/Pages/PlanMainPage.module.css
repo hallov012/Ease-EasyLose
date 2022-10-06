@@ -34,3 +34,11 @@
   display: flex;
   justify-content: flex-start;
 }
+
+.add_btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 13vh;
+}
