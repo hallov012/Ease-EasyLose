@@ -71,7 +71,7 @@ function ListItem({ data }) {
       <div onClick={handleId} className={classes.left}>
         <div className={classes.item_title}>{data.name}</div>
         <div className={classes.item_subtitle}>
-          총 칼로리: {data.total.calorie}kcal
+          총 칼로리: {Math.round(data.total.calorie)}kcal
         </div>
       </div>
       <div className={classes.right}>
