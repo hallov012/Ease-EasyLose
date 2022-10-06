@@ -1,6 +1,7 @@
 FROM node:16.16-alpine3.15 as build-stage
 COPY . /code
 WORKDIR /code
+ARG REACT_APP_BACKEND_BASE_URL
 RUN npm install
 RUN npm run build
 
