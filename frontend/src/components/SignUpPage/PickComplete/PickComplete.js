@@ -27,7 +27,7 @@ function PickComplete({ putUserInfo }) {
       {load ? <Loader /> : null}
       <Confetti />
       {/* <FontAwesomeIcon icon={faUserCheck} size="5x"></FontAwesomeIcon> */}
-      <div style={{ height: "80vh" }} className={classes.body}>
+      <div style={{ height: "60vh" }} className={classes.body}>
         <img
           className={classes.logo}
           src={logo}
