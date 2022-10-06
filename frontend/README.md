@@ -53,7 +53,7 @@
 
 ## PlanPage
 
-![ease_planpage](/uploads/ff4a70ae236772bafbee2c4bdd5b99e5/ease_planpage.gif = 320x500)
+![ease_planpage](/uploads/ff4a70ae236772bafbee2c4bdd5b99e5/ease_planpage.gif)
 
 > MainPage와 페이지 구성이 거의 같기 때문에 색상으로 페이지 간의 차이를 줌
 
@@ -111,9 +111,7 @@
 
 ### 유저 항목 생성
 
-![ease_addpage_custom](/uploads/9d7df345ad089f547b3bb654c0aae5e0/ease_addpage_custom.png){:width="325", height="705"}
-
-* 
+![ease_addpage_custom](/uploads/9d7df345ad089f547b3bb654c0aae5e0/ease_addpage_custom.png = 325x500)
 
 <br />
 
