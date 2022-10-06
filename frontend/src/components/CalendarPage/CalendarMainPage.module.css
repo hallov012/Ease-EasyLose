@@ -117,8 +117,6 @@
 }
 
 .rcontainer {
-  overflow: scroll;
-  height: 35vh;
 }
 
 .rcontainer::-webkit-scrollbar {
