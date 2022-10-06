@@ -8,9 +8,9 @@ function InfoModPage() {
   const userInfo = useSelector((state) => state.user.userInfo)
   const history = useHistory()
   const colorSet = {
-    carbColor: "#afb4ff",
-    proteinColor: "#7c83fd",
-    fatColor: "#b1e1ff",
+    carbColor: "#a369e5",
+    proteinColor: "#242f9b",
+    fatColor: "#7c83fd",
   }
 
   function showGoal(goal) {

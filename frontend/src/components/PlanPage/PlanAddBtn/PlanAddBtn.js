@@ -67,7 +67,7 @@ function PlanAddBtn() {
   }
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "90%" }}>
       <div
         className={`${classes.add_btn} gradient_color__horizon box_shadow`}
         onClick={handleOpen}
@@ -97,6 +97,7 @@ function PlanAddBtn() {
               <button
                 onClick={handleAdd}
                 className={`${classes.add_btn_2} box_shadow`}
+                style={{ color: "white" }}
               >
                 생성하기
               </button>

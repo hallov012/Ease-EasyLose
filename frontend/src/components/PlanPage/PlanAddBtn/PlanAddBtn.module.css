@@ -1,11 +1,15 @@
 .add_btn {
   width: 100%;
+  max-width: 400px;
   height: 5vh;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  color: var(--inner-text-color);
+  position: relative;
+  margin: auto;
 }
 
 .input {
