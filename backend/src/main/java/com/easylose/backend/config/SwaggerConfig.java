@@ -25,7 +25,7 @@ public class SwaggerConfig {
                     .name("Apache 2.0")
                     .url("https://www.apache.org/licenses/LICENSE-2.0"));
 
-    SecurityScheme securityScheme =
+    SecurityScheme securitySchemeBearer =
         new SecurityScheme()
             .type(SecurityScheme.Type.HTTP)
             .scheme("bearer")
@@ -33,11 +33,21 @@ public class SwaggerConfig {
             .in(SecurityScheme.In.HEADER)
             .name("Authorization");
 
-    SecurityRequirement securityRequirement = new SecurityRequirement().addList("Bearer");
+    SecurityScheme securitySchemeRefreshToken =
+        new SecurityScheme()
+            .type(SecurityScheme.Type.APIKEY)
+            .in(SecurityScheme.In.HEADER)
+            .name("Refresh-Token");
+
+    SecurityRequirement securityRequirement =
+        new SecurityRequirement().addList("Bearer").addList("RefreshToken");
 
     return new OpenAPI()
         .info(info)
-        .components(new Components().addSecuritySchemes("Bearer", securityScheme))
+        .components(
+            new Components()
+                .addSecuritySchemes("Bearer", securitySchemeBearer)
+                .addSecuritySchemes("RefreshToken", securitySchemeRefreshToken))
         .security(Arrays.asList(securityRequirement));
   }
 }
