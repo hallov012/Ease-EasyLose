@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  hadoop:
+    build:
+      ./hadoop/.
+    ports:
+      - "16010:16010"
+    command: /home/hadoop/start_ease_hadoop.sh
+    tty: true
+

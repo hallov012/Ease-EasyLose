@@ -1,0 +1,2 @@
+create 'nutrition_DB', 'nutrition'
+create 'food_recommend', 'foods_num'
