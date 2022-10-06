@@ -148,8 +148,8 @@
   background: linear-gradient(
     120deg,
     var(--main-color) 20%,
-    var(--light-color) 40%,
-    var(--light-color) 60%,
+    rgb(108, 232, 226) 40%,
+    rgb(243, 243, 115) 60%,
     var(--main-color) 80%
   );
   background-size: 200% auto;
@@ -164,6 +164,7 @@
 
 .icon_2 {
   background: var(--main-color);
+  opacity: 0.8;
   background-size: 100% auto;
   color: #000;
   background-clip: text;
@@ -183,16 +184,16 @@
   );
   background-size: 100% auto;
   color: #000;
-  background-clip: text;
+  background-clip: text;s
   text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 0.2px #d2a2c7; */
-  color: #383d97;
+  color: #7d80a8;
 }
 
 .icon_4 {
-  color: #16195e;
+  color: rgba(168, 168, 168, 0.521);
 }
 
 .shadow {
