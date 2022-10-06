@@ -25,9 +25,9 @@ last modified on: 2022-10-06
         - 수기로 기입한 데이터로 보이며 이에 따라 오타로 인한 alias를 발견했기 때문에 데이터의 분포를 파악하여 alias 제거
     - 추천하기 적절한 음식(조리료 등 제외)을 can_recommend true로 설정
         - group name을 바탕으로 결정
-<p align='center'>
-    <img src="./develop/DATA_ANALYSIS/식품영양성분DB(new)/result/식품영양DB_nutrition_range_total_scatter.png" alt="data distribution">
-</p>
+
+![data distribution](./develop/DATA_ANALYSIS/식품영양성분DB(new)/result/식품영양DB_nutrition_range_total_scatter.png)
+
 
 ## 추천 알고리즘
 ### HBase food_recommend table
