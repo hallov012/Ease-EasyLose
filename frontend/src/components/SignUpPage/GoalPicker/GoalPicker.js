@@ -86,12 +86,11 @@ function GoalPicker({ setValue, value }) {
               style={{
                 fontSize: "20px",
                 fontWeight: "1000",
-                marginLeft: "3vw",
               }}
             >
               {item.title}
             </div>
-            <div className={classes.exp} style={{ marginLeft: "3vw" }}>
+            <div className={classes.exp}>
               <div>{item.explanation}</div>
               <ThemeProvider theme={theme}>
                 <div className={classes.info_box}>
