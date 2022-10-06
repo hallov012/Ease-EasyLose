@@ -1,41 +1,57 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 export const planSlice = createSlice({
   name: "plan",
   initialState: {
-    oneMealList: [],
     dailyMealList: [],
     planId: -1,
+    testList: {},
+    detailClicked: false,
+    detailData: null,
   },
   reducers: {
-    registerOneMealList: (state, action) => {
-      state.oneMealList = action.payload
+    setDetailClicked: (state) => {
+      state.detailClicked = !state.detailClicked;
+    },
+    setDetailData: (state, action) => {
+      state.detailData = action.payload;
+    },
+    registerTestItem: (state, action) => {
+      state.testList = action.payload;
+    },
+    unCheckTestItem: (state, action) => {
+      delete state.testList[action.payload];
+    },
+    checkTestItem: (state, action) => {
+      state.testList = { ...state.testList, ...action.payload };
+    },
+    initializeTestList: (state) => {
+      state.testList = {};
     },
     registerDailyMealList: (state, action) => {
-      state.dailyMealList = action.payload
+      state.dailyMealList = action.payload;
     },
     registerPlanId: (state, action) => {
-      state.planId = action.payload
-    },
-    removeOneMealItem: (state, action) => {
-      state.oneMealList = state.oneMealList.filter((item) => {
-        return action.payload.id !== item.id
-      })
+      state.planId = action.payload;
     },
     removeDailyMealItem: (state, action) => {
       state.dailyMealList = state.dailyMealList.filter((item) => {
-        return action.payload.id !== item.id
-      })
+        return action.payload.id !== item.id;
+      });
     },
   },
-})
+});
 
 export const {
-  registerOneMealList,
   registerDailyMealList,
   registerPlanId,
-  removeOneMealItem,
   removeDailyMealItem,
-} = planSlice.actions
+  registerTestItem,
+  initializeTestList,
+  setDetailClicked,
+  setDetailData,
+  unCheckTestItem,
+  checkTestItem,
+} = planSlice.actions;
 
-export default planSlice.reducer
+export default planSlice.reducer;

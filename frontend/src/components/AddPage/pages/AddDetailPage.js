@@ -1,14 +1,14 @@
-import classes from "./AddDetailPage.module.css";
-import TopNav from "../../TopNav/TopNav";
-import { useRef } from "react";
-import AddButtonList from "../AddButtonList/AddButtonList";
-import { useHistory } from "react-router-dom";
-import TopHistoryNav from "../../TopNav/TopHistoryNav";
+import classes from "./AddDetailPage.module.css"
+import TopNav from "../../TopNav/TopNav"
+import { useRef } from "react"
+import AddButtonList from "../AddButtonList/AddButtonList"
+import { useHistory } from "react-router-dom"
+import TopHistoryNav from "../../TopNav/TopHistoryNav"
 
 function AddDetailPage() {
-  const history = useHistory();
-  const foodInfo = history.location.state.foodInfo;
-  console.log(foodInfo);
+  const history = useHistory()
+  const foodInfo = history.location.state.foodInfo
+  console.log(foodInfo)
   return (
     <div>
       <div id="top_nav_area">
@@ -17,21 +17,21 @@ function AddDetailPage() {
       <div style={{ marginTop: "9vh" }} className={classes.container}>
         <div className={classes.header}>
           <div className={classes.name}>
-            <div
+            {/* <div
               style={{ fontSize: 16, marginBottom: "1vh", color: "#A8A8A8" }}
             >
               {foodInfo.food_type}
-            </div>
+            </div> */}
             <div style={{ fontSize: 20, fontWeight: 1000 }}>
               {foodInfo.name}
             </div>
           </div>
         </div>
-        <div>
+        <div style={{ width: "90%" }}>
           <div className={classes.header2}>
-            <div style={{ fontSize: 14, marginBottom: "1vh" }}>
-              {foodInfo.total_amount}
-            </div>
+            {/* <div style={{ fontSize: 14, marginBottom: "1vh" }}>
+              1회 분량 기준입니다
+            </div> */}
             <div style={{ fontSize: 18, fontWeight: 700 }}>영양정보</div>
           </div>
           <div className={classes.itemList}>
@@ -108,7 +108,7 @@ function AddDetailPage() {
       </div>
       <AddButtonList></AddButtonList>
     </div>
-  );
+  )
 }
 
-export default AddDetailPage;
+export default AddDetailPage

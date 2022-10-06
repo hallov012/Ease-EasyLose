@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   margin-top: 9vh;
 }
 
 .mod_list {
-  width: 90vw;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +36,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90vw;
+  width: 90%;
   flex-direction: column;
 }
 
@@ -44,12 +44,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80vw;
+  width: 90%;
 }
 
 .item {
-  width: 18vw;
-  height: 18vw;
+  width: 20%;
+  aspect-ratio: 1/1;
   color: white;
   background: #7c83fd;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -60,7 +60,7 @@
   border-radius: 5px;
 }
 .addButtonContainer {
-  width: 100vw;
+  width: 100%;
   position: absolute;
   bottom: 12vh;
   display: flex;
@@ -69,7 +69,7 @@
 }
 
 .addButton {
-  width: 90vw;
+  width: 90%;
   height: 5vh;
   background: linear-gradient(
     90deg,
@@ -84,18 +84,24 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
+.initcontainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .initialize_percent_button {
   padding: 10px;
   background-color: var(--gray-color);
   font-size: 1.1rem;
   font-weight: bold;
-  width: 50vw;
+  width: 50%;
   border-radius: 10px;
-  right: 5vw;
-  bottom: 14vh;
-  position: absolute;
   display: flex;
   justify-content: space-around;
   align-items: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-right: 10%;
+  margin-top: 2vh;
 }

@@ -1,5 +1,6 @@
 import ListItemButton from "@mui/material/ListItemButton"
 import ListItemText from "@mui/material/ListItemText"
+import "./BundleMealList.css"
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import ListItemIcon from "@mui/material/ListItemIcon"
@@ -17,10 +18,11 @@ import { registerItem } from "../../../store/basketSlice"
 
 const style = {
   position: "absolute",
+  maxWidth: "350px",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "80vw",
+  width: "100%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -94,10 +96,13 @@ function BundleMealListItem({ type, foodList }) {
             추가될 목록입니다!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <div style={{ overflow: "scroll", height: "50vh" }}>
+            <div style={{}} className="noScroll">
               {foodList.map((foodInfo) => {
                 return (
-                  <div style={{ width: "100%", height: "8vh" }}>
+                  <div
+                    key={foodInfo.id}
+                    style={{ width: "100%", height: "8vh" }}
+                  >
                     <div
                       style={{
                         width: "100%",
@@ -181,6 +186,7 @@ function BundleMealListItem({ type, foodList }) {
                   backgroundColor: "var(--main-color)",
                   fontSize: "1.1rem",
                   fontFamily: "Arita-dotum-Medium",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
               >
                 추가하기
@@ -197,6 +203,7 @@ function BundleMealListItem({ type, foodList }) {
                   backgroundColor: "var(--gray-color)",
                   fontSize: "1.1rem",
                   fontFamily: "Arita-dotum-Medium",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
                 onClick={handleClose}
               >

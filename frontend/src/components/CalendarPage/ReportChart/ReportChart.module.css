@@ -1,0 +1,30 @@
+.legend_box {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 0.3rem;
+}
+
+.legend_item {
+  display: flex;
+  align-items: center;
+  height: 3vh;
+  width: 100%;
+}
+
+.legend_color {
+  width: 20%;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+}
+
+.legend_item div:nth-child(2) {
+  width: 4rem;
+  height: 100%;
+  text-align: left;
+  padding-left: 5%;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

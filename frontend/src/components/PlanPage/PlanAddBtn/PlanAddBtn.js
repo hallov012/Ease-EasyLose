@@ -1,41 +1,42 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { useState } from "react";
-import { instance } from "../../../api/index";
-import { useDispatch } from "react-redux";
-import { registerDailyMealList } from "../../../store/planSlice";
+import * as React from "react"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Modal from "@mui/material/Modal"
+import { useState } from "react"
+import { instance } from "../../../api/index"
+import { useDispatch } from "react-redux"
+import { registerDailyMealList } from "../../../store/planSlice"
 
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 
-import classes from "./PlanAddBtn.module.css";
+import classes from "./PlanAddBtn.module.css"
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "80vw",
+  width: "100%",
+  maxWidth: 350,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
   borderRadius: "5px",
   border: "none",
   outline: "none",
-};
+}
 
 function PlanAddBtn() {
-  const MySwal = withReactContent(Swal);
-  const dispatch = useDispatch();
-  const [inputName, setName] = useState("");
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handleChange = (event) => setName(event.target.value);
+  const MySwal = withReactContent(Swal)
+  const dispatch = useDispatch()
+  const [inputName, setName] = useState("")
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  const handleChange = (event) => setName(event.target.value)
   const handleAdd = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     instance
       .post(
         "/foodset",
@@ -48,25 +49,25 @@ function PlanAddBtn() {
         instance
           .get("/foodset")
           .then((response) => {
-            dispatch(registerDailyMealList(response.data));
+            dispatch(registerDailyMealList(response.data))
             MySwal.fire({
               icon: "success",
               text: "생성되었습니다!",
               showConfirmButton: false,
               timer: 1500,
-            });
+            })
           })
-          .catch((error) => console.log(error));
-        setName("");
-        setOpen(false);
+          .catch((error) => console.log(error))
+        setName("")
+        setOpen(false)
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <div
         className={`${classes.add_btn} gradient_color__horizon box_shadow`}
         onClick={handleOpen}
@@ -104,6 +105,6 @@ function PlanAddBtn() {
         </Box>
       </Modal>
     </div>
-  );
+  )
 }
-export default PlanAddBtn;
+export default PlanAddBtn

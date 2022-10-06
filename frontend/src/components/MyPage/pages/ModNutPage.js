@@ -50,6 +50,26 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
+const PrettoSlider2 = styled(Slider)({
+  color: "#7c83fd",
+  height: 20,
+  "& .MuiSlider-track": {
+    border: "none",
+  },
+  "& .MuiSlider-thumb": {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
+      boxShadow: "inherit",
+    },
+    "&:before": {
+      display: "none",
+    },
+  },
+});
+
 const minDistance = 10;
 
 function ModNutPage() {
@@ -128,6 +148,10 @@ function ModNutPage() {
     });
   }
 
+  const [position, setPosition] = useState([10, 10, 10]);
+
+  console.log(position);
+
   const MySwal = withReactContent(Swal);
 
   const handleChange1 = (event, newValue, activeThumb) => {
@@ -183,11 +207,11 @@ function ModNutPage() {
                 }}
               >{`섭취 칼로리`}</div>
               <div
-                style={{ fontSize: "1.1rem", marginBottom: "3vh" }}
+                style={{ fontSize: "1.5rem", marginBottom: "3vh" }}
               >{`${calorie} kcal`}</div>
             </div>
 
-            <div style={{ width: "80vw" }}>
+            <div style={{ width: "80%" }}>
               <PrettoSlider
                 valueLabelDisplay="on"
                 aria-label="pretto slider"
@@ -200,27 +224,36 @@ function ModNutPage() {
                 }}
               />
             </div>
-            <div style={{ marginBottom: "3vh" }}>
+            <div style={{ width: "60%" }}>
               <div
                 style={{
                   fontSize: "1.3rem",
-                  marginBottom: "1vh",
+                  marginBottom: "2vh",
                   fontWeight: "bold",
                 }}
               >{`섭취 영양소 비율`}</div>
               <div className={classes.nutrient_percent_text}>
-                <div>{`탄수화물: ${boundary[0]}%`}</div>
-                <div>{`단백질: ${boundary[1] - boundary[0]}%`}</div>
-                <div>{`지방: ${100 - boundary[1]}%`}</div>
+                <div className={classes.percent_box}>
+                  <div>탄수화물</div>
+                  <div>{boundary[0]}%</div>
+                </div>
+                <div className={classes.percent_box}>
+                  <div>단백질</div>
+                  <div>{boundary[1] - boundary[0]}%</div>
+                </div>
+                <div className={classes.percent_box}>
+                  <div>지방</div>
+                  <div>{100 - boundary[1]}%</div>
+                </div>
               </div>
             </div>
 
-            <div style={{ width: "80vw" }}>
-              <PrettoSlider
+            <div style={{ width: "80%" }}>
+              <PrettoSlider2
                 getAriaLabel={() => "Minimum distance"}
                 value={boundary}
                 onChange={handleChange1}
-                valueLabelDisplay="on"
+                valueLabelDisplay="off"
                 getAriaValueText={(value) => {
                   return value;
                 }}
@@ -228,11 +261,13 @@ function ModNutPage() {
               />
             </div>
           </div>
-          <div
-            onClick={initializePercent}
-            className={classes.initialize_percent_button}
-          >
-            추천 수치로 초기화하기
+          <div className={classes.initcontainer}>
+            <div
+              onClick={initializePercent}
+              className={classes.initialize_percent_button}
+            >
+              추천 수치로 초기화하기
+            </div>
           </div>
 
           <div

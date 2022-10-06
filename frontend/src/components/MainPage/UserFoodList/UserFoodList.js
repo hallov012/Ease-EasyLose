@@ -1,24 +1,25 @@
-import classes from "./UserFoodList.module.css"
-import UserFoodItem from "../UserFoodItem/UserFoodItem"
-import { useHistory, useLocation } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { instance } from "../../../api/index"
-import { useDispatch, useSelector } from "react-redux"
-import { registerDailyDiet } from "../../../store/dailySlice"
-import dateFormat, { masks } from "dateformat"
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
+import classes from "./UserFoodList.module.css";
+import UserFoodItem from "../UserFoodItem/UserFoodItem";
+import { useHistory, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { instance } from "../../../api/index";
+import { useDispatch, useSelector } from "react-redux";
+import { registerDailyDiet } from "../../../store/dailySlice";
+import dateFormat, { masks } from "dateformat";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { registerDailyMealList } from "../../../store/planSlice";
 
 function UserFoodList(props) {
-  const history = useHistory()
-  const location = useLocation()
-  const [foodItems, setFoodItems] = useState(<div></div>)
-  const target_date = dateFormat(
-    JSON.parse(useSelector((state) => state.status.targetDate)),
-    "yyyy-mm-dd"
-  )
-  const MySwal = withReactContent(Swal)
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const location = useLocation();
+  const [foodItems, setFoodItems] = useState(<div></div>);
+  const target_date = JSON.parse(
+    useSelector((state) => state.status.targetDate)
+  );
+
+  const MySwal = withReactContent(Swal);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (props.foodList) {
       // const foodComponent = foodList.map((data, idx) => (
@@ -26,9 +27,9 @@ function UserFoodList(props) {
       // ))
       // setFoodItems(foodComponent)
       setFoodItems(
-        props.foodList.map((item) => {
+        props.foodList.map((item, idx) => {
           return (
-            <div key={item.id} style={{ width: "90vw", height: "8vh" }}>
+            <div key={item.id} style={{ width: "100%", height: "8vh" }}>
               <div className={classes.container}>
                 <div className={classes.left}>
                   <div className={classes.item_title}>{item.food.name}</div>
@@ -40,7 +41,7 @@ function UserFoodList(props) {
                 <div className={classes.right}>
                   <div
                     onClick={() => {
-                      history.push("/add/detail", { foodInfo: item.food })
+                      history.push("/add/detail", { foodInfo: item.food });
                     }}
                   >
                     <i className="fa-regular fa-circle-question"></i>
@@ -52,33 +53,59 @@ function UserFoodList(props) {
                         text: "한 번 더 확인해주세요!",
                         icon: "warning",
                         showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
+                        confirmButtonColor: "#7c83fd",
+                        cancelButtonColor: "#00033f",
                         confirmButtonText: "삭제",
                         cancelButtonText: "취소",
                       }).then((result) => {
                         if (result.isConfirmed) {
-                          instance
-                            .delete(`/dailymeal/${item.id}`, {})
-                            .then((response) => {
-                              instance
-                                .get("/dailymeal", {
-                                  params: { date: target_date },
-                                })
-                                .then((response) => {
-                                  dispatch(registerDailyDiet(response.data))
-                                })
-                                .catch((error) => console.log(error))
-                            })
-                            .catch((error) => console.log(error))
-                          MySwal.fire({
-                            icon: "success",
-                            title: "성공적으로 삭제되었습니다!",
-                            showConfirmButton: false,
-                            timer: 1500,
-                          })
+                          if (typeof target_date !== "number") {
+                            instance
+                              .delete(`/dailymeal/${item.id}`, {})
+                              .then((response) => {
+                                instance
+                                  .get("/dailymeal", {
+                                    params: {
+                                      date: dateFormat(
+                                        target_date,
+                                        "yyyy-mm-dd"
+                                      ),
+                                    },
+                                  })
+                                  .then((response) => {
+                                    dispatch(registerDailyDiet(response.data));
+                                  })
+                                  .catch((error) => console.log(error));
+                                MySwal.fire({
+                                  icon: "success",
+                                  text: "성공적으로 삭제되었습니다!",
+                                  showConfirmButton: false,
+                                  timer: 1500,
+                                });
+                              })
+                              .catch((error) => console.log(error));
+                          } else {
+                            instance
+                              .delete(`/foodset/${target_date}/${item.id}`, {})
+                              .then((response) => {
+                                instance
+                                  .get("/foodset", {})
+                                  .then((response) => {
+                                    dispatch(
+                                      registerDailyMealList(response.data)
+                                    );
+                                  })
+                                  .catch((error) => console.log(error));
+                                MySwal.fire({
+                                  icon: "success",
+                                  text: "성공적으로 삭제되었습니다!",
+                                  showConfirmButton: false,
+                                  timer: 1500,
+                                });
+                              });
+                          }
                         }
-                      })
+                      });
                     }}
                   >
                     <i className="fa-solid fa-trash-can"></i>
@@ -86,11 +113,11 @@ function UserFoodList(props) {
                 </div>
               </div>
             </div>
-          )
+          );
         })
-      )
+      );
     }
-  }, [props])
+  }, [props]);
 
   return (
     <div className={classes.user_food_box}>
@@ -102,12 +129,12 @@ function UserFoodList(props) {
       <div
         className={`${classes.add_btn} box_shadow`}
         onClick={() => {
-          history.push("/add/search", { from: location })
+          history.push("/add/search", { from: location });
         }}
       >
-        <span>먹은 음식 추가하기</span>
+        <span>음식 추가하기</span>
       </div>
     </div>
-  )
+  );
 }
-export default UserFoodList
+export default UserFoodList;

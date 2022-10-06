@@ -9,8 +9,9 @@ import MealCardList from "../../../components/MainPage/MealCardList/MealCardList
 import classes from "./PlanPage.module.css";
 import { useHistory } from "react-router-dom";
 import { registerPlanId } from "../../../store/planSlice";
+import { registerTargetDate } from "../../../store/statusSlice";
 
-function PlanDetailPage() {
+function PlanDetailPage({ colorSet }) {
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -18,6 +19,7 @@ function PlanDetailPage() {
     if (temp) {
       if (typeof temp === "number") {
         dispatch(registerPlanId(temp));
+        dispatch(registerTargetDate(temp));
       }
     } else {
       history.push("/plan");
@@ -46,13 +48,13 @@ function PlanDetailPage() {
           <div id="top_nav_area">
             <PlanNav title={dailyMeal[0].name} planId={planId} />
           </div>
-          <div style={{ margin: "10vh 5vw" }}>
+          <div style={{ margin: "10vh 5%" }}>
             <NutrientSummary
               userInfo={userInfo}
               userDailyDiet={dailyMeal}
               path={`/plan/${planId}`}
             />
-            <SumProgressBar userDailyDiet={dailyMeal} />
+            <SumProgressBar userDailyDiet={dailyMeal} colorSet={colorSet} />
             <MealCardList
               userInfo={userInfo}
               userDailyDiet={dailyMeal}
@@ -61,13 +63,17 @@ function PlanDetailPage() {
           </div>
         </div>
       ) : null}
-      <NavLink
-        to={`/plan/${planId}/report`}
-        className={`${classes.report_btn} box_shadow`}
+      <div
+        style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
       >
-        <i class="fa-solid fa-square-poll-vertical"></i>
-        <p>REPORT</p>
-      </NavLink>
+        <NavLink
+          to={`/plan/${planId}/report`}
+          className={`${classes.report_btn} box_shadow`}
+        >
+          <i class="fa-solid fa-square-poll-vertical"></i>
+          <p>REPORT</p>
+        </NavLink>
+      </div>
     </div>
   );
 }

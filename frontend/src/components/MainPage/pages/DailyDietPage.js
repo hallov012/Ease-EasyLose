@@ -5,23 +5,23 @@ import MealCardList from "../MealCardList/MealCardList";
 
 import { useSelector } from "react-redux";
 
-function DailyDietPage() {
+function DailyDietPage({ colorSet }) {
   const userInfo = useSelector((state) => state.user.userInfo);
   const userDailyDiet = useSelector((state) => state.daily.dailyDiet);
   // const [progressBarPercent, setProgressBarPercent] = useState([33, 33, 33])
   // const [progressBarAmount, setProgressBarAmount] = useState([50, 50, 50])
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <div id="top_nav_area">
         <TopNavDate />
       </div>
-      <div style={{ margin: "10vh 5vw" }}>
+      <div style={{ margin: "10vh 5%" }}>
         <NutrientSummary
           userInfo={userInfo}
           userDailyDiet={userDailyDiet}
           path={"/main"}
         />
-        <SumProgressBar userDailyDiet={userDailyDiet} />
+        <SumProgressBar userDailyDiet={userDailyDiet} colorSet={colorSet} />
         <MealCardList
           userInfo={userInfo}
           userDailyDiet={userDailyDiet}

@@ -1,7 +1,8 @@
 import axios from "axios"
+import "../"
 
 const instance = axios.create({
-  baseURL: "https://j7a704.p.ssafy.io/api/v1",
+  baseURL: `${process.env.REACT_APP_BACKEND_BASE_URL}/api/v1`,
   headers: {
     "Content-Type": "application/json",
   },

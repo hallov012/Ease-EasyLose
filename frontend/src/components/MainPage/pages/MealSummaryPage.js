@@ -53,7 +53,7 @@ function MealSummaryPage(props) {
       </div>
       <div
         style={{
-          margin: "10vh 5vw 15vh",
+          margin: "10vh 5% 15vh",
         }}
       >
         <MealNutrientInfo dietSum={value.dietSum} />

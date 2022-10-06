@@ -65,91 +65,99 @@ function App() {
 
   return (
     <div className="App">
-      <div className="top_line_gradient"></div>
-      <Switch>
-        <Route path="/" exact>
-          <StartPage></StartPage>
-        </Route>
-        <Route
-          path="/signup"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <SignUpPage></SignUpPage>
-            )
-          }}
-        ></Route>
-        <Route
-          path="/mypage"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <MyPage></MyPage>
-            )
-          }}
-        ></Route>
-        <Route
-          path="/main"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <MainPage></MainPage>
-            )
-          }}
-        >
-          {/* <MainPage></MainPage> */}
-        </Route>
-        <Route
-          path="/calendar"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <CalendarPage></CalendarPage>
-            )
-          }}
-        ></Route>
-        <Route
-          path="/plan"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <PlanPage></PlanPage>
-            )
-          }}
-        ></Route>
-        <Route
-          path="/chart"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <ChartPage></ChartPage>
-            )
-          }}
-        ></Route>
-        <Route
-          path="/add"
-          render={() => {
-            return localStorage.getItem("accessToken") === null ? (
-              <Redirect to="/"></Redirect>
-            ) : (
-              <AddPage></AddPage>
-            )
-          }}
-        ></Route>
-        <Route path="/auth/:tokenInfo">
-          <AuthPage></AuthPage>
-        </Route>
-        <Route>
-          <NotFoundPage></NotFoundPage>
-        </Route>
-      </Switch>
-      {renderBottomNav()}
+      {/* <div className="size_block">
+        <div className="size_block__content">
+          <div>Ease는 모바일 화면에 최적화 되어있습니다</div>
+          <div>서비스 이용을 위해서는 화면 크기를 줄여주세요</div>
+        </div>
+      </div> */}
+      <div className="AppContainer">
+        <div className="top_line_gradient"></div>
+        <Switch>
+          <Route path="/" exact>
+            <StartPage></StartPage>
+          </Route>
+          <Route
+            path="/signup"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <SignUpPage></SignUpPage>
+              )
+            }}
+          ></Route>
+          <Route
+            path="/mypage"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <MyPage></MyPage>
+              )
+            }}
+          ></Route>
+          <Route
+            path="/main"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <MainPage></MainPage>
+              )
+            }}
+          >
+            {/* <MainPage></MainPage> */}
+          </Route>
+          <Route
+            path="/calendar"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <CalendarPage></CalendarPage>
+              )
+            }}
+          ></Route>
+          <Route
+            path="/plan"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <PlanPage></PlanPage>
+              )
+            }}
+          ></Route>
+          <Route
+            path="/chart"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <ChartPage></ChartPage>
+              )
+            }}
+          ></Route>
+          <Route
+            path="/add"
+            render={() => {
+              return localStorage.getItem("accessToken") === null ? (
+                <Redirect to="/"></Redirect>
+              ) : (
+                <AddPage></AddPage>
+              )
+            }}
+          ></Route>
+          <Route path="/auth/:tokenInfo">
+            <AuthPage></AuthPage>
+          </Route>
+          <Route>
+            <NotFoundPage></NotFoundPage>
+          </Route>
+        </Switch>
+        {renderBottomNav()}
+      </div>
     </div>
   )
 }

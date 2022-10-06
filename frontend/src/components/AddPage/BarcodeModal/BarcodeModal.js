@@ -1,22 +1,19 @@
-import classes from "./AddBarcodePage.module.css"
-import TopHistoryNav from "../../TopNav/TopHistoryNav"
 import Html5QrcodePlugin from "../BarcodeComponent/Html5QrcodeScannerPlugin"
 import { useEffect, useState } from "react"
 import { instance } from "../../../api/index"
 import { useDispatch } from "react-redux"
 import { registerItem } from "../../../store/basketSlice"
-import { useHistory } from "react-router-dom"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 
-function AddBarcodePage() {
+function BarcodeModal({ handleState }) {
   const dispatch = useDispatch()
-  const history = useHistory()
   const [lastResult, setLastResult] = useState("")
   const MySwal = withReactContent(Swal)
   function onScanSuccess(decodedText, decodedResult) {
     if (decodedText !== lastResult) setLastResult(decodedText)
   }
+
   useEffect(() => {
     if (lastResult) {
       console.log(lastResult)
@@ -28,22 +25,21 @@ function AddBarcodePage() {
 
             MySwal.fire({
               icon: "success",
-              title: `${response.data[0].name}이(가) 성공적으로 인식되었습니다!`,
-              input: "text",
-              inputAttributes: {
-                autocapitalize: "off",
-              },
+              title: `${response.data[0].name}`,
+              text: "수량을 입력해주세요",
               showCancelButton: true,
               confirmButtonText: "입력 완료",
               showLoaderOnConfirm: true,
-              cancelButtonText: "취소",
-              inputPlaceholder: "몇 인분 드시나요?",
-              inputValue: 1,
-              preConfirm: (count) => {
-                if (isNaN(count))
-                  Swal.showValidationMessage(`숫자를 입력해주세요!`)
-                else return count
+              input: "range",
+              inputAttributes: {
+                min: 0.5,
+                max: 10,
+                step: 0.5,
               },
+              padding: "2rem",
+              inputValue: 1,
+              confirmButtonColor: "#7c83fd",
+              cancelButtonColor: "#00033f",
             }).then((result) => {
               if (result.isConfirmed) {
                 console.log(result)
@@ -56,7 +52,7 @@ function AddBarcodePage() {
                 )
               }
             })
-            history.goBack()
+            handleState()
           } else {
             MySwal.fire({
               icon: "error",
@@ -65,31 +61,20 @@ function AddBarcodePage() {
               showConfirmButton: false,
               timer: 1500,
             })
-            history.goBack()
+            handleState()
           }
         })
     }
   }, [lastResult])
-
   return (
     <div>
-      <div id="top_nav_area">
-        <TopHistoryNav></TopHistoryNav>
-      </div>
-      <div className={classes.container}>
-        <Html5QrcodePlugin
-          fps={60}
-          qrbox={{ width: 300, height: 150 }}
-          disableFlip={false}
-        ></Html5QrcodePlugin>
-      </div>
-      <div className={classes.bcontainer}>
-        <div className={classes.icon}>
-          <i className="fa-solid fa-barcode fa-fw"></i>
-        </div>
-      </div>
+      <Html5QrcodePlugin
+        fps={60}
+        qrbox={{ width: 300, height: 150 }}
+        disableFlip={false}
+        qrCodeSuccessCallback={onScanSuccess}
+      ></Html5QrcodePlugin>
     </div>
   )
 }
-
-export default AddBarcodePage
+export default BarcodeModal

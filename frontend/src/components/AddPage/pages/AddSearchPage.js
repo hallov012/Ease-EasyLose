@@ -136,7 +136,7 @@ function AddSearchPage() {
   }
 
   return (
-    <div style={{ marginTop: "9vh" }}>
+    <div style={{ marginTop: "9vh", width: "100%" }}>
       <div id="top_nav_area">
         <TopHistoryNav
           bonus={() => {
@@ -148,7 +148,7 @@ function AddSearchPage() {
       <div className={classes.container}>
         <div
           style={{
-            width: "90vw",
+            width: "90%",
             height: "5vh",
             marginTop: "2vh",
             marginBottom: "2vh",
@@ -187,11 +187,11 @@ function AddSearchPage() {
         <div className={classes.scroll}>
           {searchOrRecent === 1 ? (
             searchList.length === 0 ? (
-              <NonList />
+              <NonList style={{ width: "100%" }} />
             ) : (
               searchList.map((item) => {
                 return (
-                  <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
+                  <div key={item.id} style={{ width: "100%", height: "10vh" }}>
                     <ListItemCheckBox
                       selected={false}
                       foodInfo={item}
@@ -206,7 +206,7 @@ function AddSearchPage() {
           ) : (
             recentList.map((item) => {
               return (
-                <div key={item.id} style={{ width: "90vw", height: "10vh" }}>
+                <div key={item.id} style={{ width: "100%", height: "10vh" }}>
                   <ListItemCheckBox
                     selected={false}
                     foodInfo={item}
