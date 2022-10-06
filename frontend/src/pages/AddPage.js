@@ -1,6 +1,5 @@
 import { Route, useHistory } from "react-router-dom"
 import AddAmountPage from "../components/AddPage/pages/AddAmountPage"
-import AddBarcodePage from "../components/AddPage/pages/AddBarcodePage"
 import AddCustomPage from "../components/AddPage/pages/AddCustomPage"
 import AddDetailPage from "../components/AddPage/pages/AddDetailPage"
 import AddSearchPage from "../components/AddPage/pages/AddSearchPage"
@@ -42,9 +41,6 @@ function AddPage() {
       </Route>
       <Route path="/add/custom">
         <AddCustomPage></AddCustomPage>
-      </Route>
-      <Route path="/add/barcode">
-        <AddBarcodePage></AddBarcodePage>
       </Route>
       <Route path="/add/bundle">
         <AddBundlePage></AddBundlePage>
