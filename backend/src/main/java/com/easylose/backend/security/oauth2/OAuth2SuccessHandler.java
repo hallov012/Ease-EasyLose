@@ -26,7 +26,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
   private final UserRepository userRepository;
   private final JwtService jwtService;
-  private @Value("${easylose.frontend-redirect-uri}") String frontendRedirectUri;
+  private @Value("${easylose.frontend-redirect-host}") String frontendRedirectHost;
+  private @Value("${easylose.frontend-redirect-scheme}") String frontendRedirectScheme;
 
   @Override
   public void onAuthenticationSuccess(
@@ -71,15 +72,18 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     user.setRefreshJws(token.getRefreshJws());
     userRepository.save(user);
 
-    String url =
-        UriComponentsBuilder.fromUriString(frontendRedirectUri)
+    String uri =
+        UriComponentsBuilder.newInstance()
+            .scheme(frontendRedirectScheme)
+            .host(frontendRedirectHost)
+            .path("/auth/redirect")
             .queryParam("accessToken", token.getAccessJws())
             .queryParam("refreshToken", token.getRefreshJws())
             .build()
             .toUriString();
 
-    log.info(url);
+    log.info(uri);
 
-    getRedirectStrategy().sendRedirect(request, response, url);
+    getRedirectStrategy().sendRedirect(request, response, uri);
   }
 }
