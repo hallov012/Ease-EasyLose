@@ -18,12 +18,6 @@ public class FoodSpecification {
     };
   }
 
-  public static Specification<Food> haveName(String name) {
-    return (root, query, builder) -> {
-      return builder.like(root.get("name"), "%" + name + "%");
-    };
-  }
-
   public static Specification<Food> equalBarcode(String code, User user) {
     return (root, query, builder) ->
         builder.and(
