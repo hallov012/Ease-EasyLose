@@ -97,7 +97,7 @@
 .item {
   width: 20%;
   aspect-ratio: 1/1;
-  color: black;
+  color: var(--inner-text-color);
   background: var(--sub-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -105,6 +105,7 @@
   justify-content: space-evenly;
   align-items: center;
   border-radius: 5px;
+  font-size: 0.9rem;
 }
 
 .box_logout {
