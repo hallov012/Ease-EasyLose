@@ -9,19 +9,25 @@ function SocialBtns() {
     <div>
       <span>소셜 로그인으로 시작하기</span>
       <div className={classes.btns__box}>
-        <a href="https://j7a704.p.ssafy.io/oauth2/authorization/kakao">
+        <a
+          href={`${process.env.REACT_APP_BACKEND_BASE_URL}/oauth2/authorization/kakao`}
+        >
           <div className={classes.social__btn}>
             <KakaoLogo fill="#00033F" />
             카카오
           </div>
         </a>
-        <a href="https://j7a704.p.ssafy.io/oauth2/authorization/google">
+        <a
+          href={`${process.env.REACT_APP_BACKEND_BASE_URL}/oauth2/authorization/google`}
+        >
           <div className={classes.social__btn}>
             <GoogleLogo fill="#00033F" />
             구글
           </div>
         </a>
-        <a href="https://j7a704.p.ssafy.io/oauth2/authorization/naver">
+        <a
+          href={`${process.env.REACT_APP_BACKEND_BASE_URL}/oauth2/authorization/naver`}
+        >
           <div className={classes.social__btn}>
             <NaverLogo fill="#00033F" />
             네이버
