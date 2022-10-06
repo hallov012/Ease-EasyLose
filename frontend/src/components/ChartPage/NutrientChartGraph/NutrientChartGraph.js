@@ -1,7 +1,7 @@
-import classes from "./NutrientChartGraph.module.css";
-import { useEffect, useState } from "react";
+import classes from "./NutrientChartGraph.module.css"
+import { useEffect, useState } from "react"
 
-import ReactApexChart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts"
 
 function NutrientChartGraph({ nutData }) {
   const [value, setValue] = useState({
@@ -10,24 +10,24 @@ function NutrientChartGraph({ nutData }) {
     protein: Array.from({ length: 7 }, () => 0),
     fat: Array.from({ length: 7 }, () => 0),
     date: Array.from({ length: 7 }, () => 0),
-  });
+  })
 
   useEffect(() => {
     if (nutData) {
-      const dataset = { extra: [], carb: [], protein: [], fat: [], date: [] };
+      const dataset = { extra: [], carb: [], protein: [], fat: [], date: [] }
       for (const i in nutData) {
-        const daily = nutData[i];
+        const daily = nutData[i]
         const extraValue =
-          daily.calorie - daily.carb * 4 - daily.protein * 4 - daily.fat * 8;
-        dataset.extra.push(extraValue);
-        dataset.carb.push(daily.carb * 4);
-        dataset.protein.push(daily.protein * 4);
-        dataset.fat.push(daily.fat * 8);
-        dataset.date.push(daily.date.substr(5).replace("-", "/"));
+          daily.calorie - daily.carb * 4 - daily.protein * 4 - daily.fat * 8
+        dataset.extra.push(extraValue)
+        dataset.carb.push(daily.carb * 4)
+        dataset.protein.push(daily.protein * 4)
+        dataset.fat.push(daily.fat * 8)
+        dataset.date.push(daily.date.substr(5).replace("-", "/"))
       }
-      setValue(dataset);
+      setValue(dataset)
     }
-  }, [nutData]);
+  }, [nutData])
 
   const data = {
     series: [
@@ -49,7 +49,7 @@ function NutrientChartGraph({ nutData }) {
       },
     ],
     options: {
-      colors: ["#cecece", "#afb4ff", "#7c83fd", "#b1e1ff"],
+      colors: ["#cecece", "#a369e5", "#242f9b", "#7c83fd"],
       chart: {
         type: "bar",
         stacked: true,
@@ -83,12 +83,12 @@ function NutrientChartGraph({ nutData }) {
       tooltip: {
         y: {
           formatter: function (val) {
-            return val + "kcal";
+            return val + "kcal"
           },
         },
       },
     },
-  };
+  }
   return (
     <div className={classes.graph_box}>
       <div className={classes.top_area}>
@@ -106,11 +106,11 @@ function NutrientChartGraph({ nutData }) {
         style={{ marginTop: "1vh", marginLeft: "3vw" }}
       >
         <div className={classes.info_item}>
-          <div style={{ background: "var(--main-color)" }}></div>
+          <div style={{ background: "var(--sub-color)" }}></div>
           <span>탄수화물</span>
         </div>
         <div className={classes.info_item}>
-          <div style={{ background: "var(--sub-color)" }}></div>
+          <div style={{ background: "var(--main-color)" }}></div>
           <span>단백질</span>
         </div>
         <div className={classes.info_item}>
@@ -123,6 +123,6 @@ function NutrientChartGraph({ nutData }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default NutrientChartGraph;
+export default NutrientChartGraph

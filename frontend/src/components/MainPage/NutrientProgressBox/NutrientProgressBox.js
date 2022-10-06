@@ -1,9 +1,9 @@
-import classes from "./NutrientProgressBox.module.css";
-import ReactApexChart from "react-apexcharts";
-import { useState, useEffect } from "react";
+import classes from "./NutrientProgressBox.module.css"
+import ReactApexChart from "react-apexcharts"
+import { useState, useEffect } from "react"
 
 function NutrientProgressBox(props) {
-  const colorSet = props.colorSet;
+  const colorSet = props.colorSet
   const nutrient = [
     "calorie",
     "carb",
@@ -12,31 +12,31 @@ function NutrientProgressBox(props) {
     "sugar",
     "salt",
     "cholesterol",
-  ];
+  ]
   const [NutData, setNutData] = useState({
     plan: Array.from({ length: 7 }, () => 0),
     now: Array.from({ length: 7 }, () => 0),
-  });
+  })
 
   useEffect(() => {
     if (props.userInfo && props.dietSum) {
       const temp = {
         plan: [0, 0, 0, 0, 32, 2700, 300],
         now: Array.from({ length: 7 }, () => 0),
-      };
-      temp.plan[0] = props.userInfo.dailyCalorie;
-      temp.plan[1] = props.userInfo.dailyCarb;
-      temp.plan[2] = props.userInfo.dailyProtein;
-      temp.plan[3] = props.userInfo.dailyFat;
-
-      const now_temp = Array.from({ length: 7 }, () => 0);
-      for (var i = 0; i < 7; i++) {
-        now_temp[i] = props.dietSum[nutrient[i]];
       }
-      temp.now = now_temp;
-      setNutData(temp);
+      temp.plan[0] = props.userInfo.dailyCalorie
+      temp.plan[1] = props.userInfo.dailyCarb
+      temp.plan[2] = props.userInfo.dailyProtein
+      temp.plan[3] = props.userInfo.dailyFat
+
+      const now_temp = Array.from({ length: 7 }, () => 0)
+      for (var i = 0; i < 7; i++) {
+        now_temp[i] = props.dietSum[nutrient[i]]
+      }
+      temp.now = now_temp
+      setNutData(temp)
     }
-  }, [props.userInfo, props.dietSum]);
+  }, [props.userInfo, props.dietSum])
 
   const title = [
     "열량 (kcal)",
@@ -46,7 +46,7 @@ function NutrientProgressBox(props) {
     "당 (g)",
     "나트륨 (mg)",
     "콜레스트롤 (mg)",
-  ];
+  ]
 
   const dataSet = NutData.plan.map((value, idx) => {
     return {
@@ -62,8 +62,8 @@ function NutrientProgressBox(props) {
           strokeColor: "#00033f",
         },
       ],
-    };
-  });
+    }
+  })
   const data = {
     series: [
       {
@@ -111,7 +111,7 @@ function NutrientProgressBox(props) {
         enabled: false,
       },
     },
-  };
+  }
 
   return (
     <div className={`${classes.nutrient_box} box_shadow`}>
@@ -123,7 +123,7 @@ function NutrientProgressBox(props) {
             <p>목표치</p>
           </div>
           <div className={classes.info_item}>
-            <div style={{ background: "var(--main-color)" }}></div>
+            <div style={{ background: `${colorSet.carbColor}` }}></div>
             <p>현재</p>
           </div>
         </div>
@@ -137,6 +137,6 @@ function NutrientProgressBox(props) {
         />
       </div>
     </div>
-  );
+  )
 }
-export default NutrientProgressBox;
+export default NutrientProgressBox
