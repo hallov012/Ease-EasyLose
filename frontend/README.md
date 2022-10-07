@@ -1,6 +1,6 @@
 # Ease FE README
 
-## Wirefram
+## Wireframe
 
 [Figma 주소](https://www.figma.com/file/obQZZIW01ZKQMaWTnZHP26/Ease(%ED%8A%B9%ED%99%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8)?node-id=0%3A1)
 
@@ -119,7 +119,11 @@
 
 ![ease_addpage_search](/uploads/9eb634b504d515d7d0269083ae09dd3e/ease_addpage_search.gif)
 
-* 
+* 식단에 음식을 추가할 수 있는 페이지
+* 리스트의 "?" 버튼 클릭 시 해당 음식의 상세 정보 출력
+* 리스트의 "+" 버튼 클릭 시 수량 입력 후 선택 리스트에 등록 가능
+* 화면 하단의 선택 리스트의 "X" 버튼 클릭 시 리스트에서 제외 가능
+* 화면 하단의 "추가하기" 버튼을 클릭하여 선택 리스트의 음식들 최종 식단 등록
 
 <br />
 
@@ -127,7 +131,8 @@
 
 ![ease_addpage_barcode](/uploads/f8839429174de54c664d9010e406f641/ease_addpage_barcode.gif)
 
-* 
+* Html5-QRCode 라이브러리 사용(https://github.com/mebjas/html5-qrcode)
+* 인식된 바코드 번호와 일치하는 음식이 있을 경우 수량 입력 후 선택 리스트에 등록
 
 <br />
 
@@ -135,7 +140,7 @@
 
 ![ease_addpage_plan](/uploads/13ce4fee03f8c2a581e034812b689b39/ease_addpage_plan.gif) 
 
-* 
+* 모의 식단으로 등록되어 있는 식단 목록을 불러와 한 번에 선택 리스트에 등록 가능
 
 <br />
 
@@ -151,7 +156,9 @@
 
 ![ease_calendarpage](/uploads/f364da17fcfd6bffaf558e26344a2e16/ease_calendarpage.gif)
 
-* 
+* 매달 하나 이상의 식단이 등록되어 있는 날짜의 총 평가 내용 출력
+* 점수를 4단계화하여 4개의 이모티콘으로 점수 시각화
+* 오늘 이하의 날짜 클릭 시 식단 점수 및 보완이 필요할 경우, 추천 음식 리스트를 출력
 
 <br />
 
@@ -190,7 +197,13 @@
 
 ### 🥑 윤경식
 
->소감
+> 개인적인 기술력 부족으로 인해 많은 난관에 부딪혔습니다. 공부의 필요성을 절실히 느낄 수 있었던 프로젝트였습니다.
+>
+> UI/UX 역량이 부족하여 팀원의 도움을 지나치게 많이 받을 수 밖에 없었던 점 또한 해결할 과제로 남은 것 같습니다.
+>
+> 분업이 잘된 프로젝트였다고 생각합니다.
+>
+> 프론트엔드 팀원으로서 미숙한 점이 굉장히 많았지만, 끝까지 싫은 소리 한 번 안하는 팀원들 덕분에 포기하지 않고 마무리할 수 있었습니다. 모든 팀원분들께 깊은 감사의 말을 전하고 싶습니다.
 
 <br />
 
