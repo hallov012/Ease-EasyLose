@@ -9,8 +9,7 @@ last modified on: 2022-10-06
 
 `SSAFY 특화 프로젝트 A704`  
 
-![Ease gif](/assets/ease_start.gif)
-
+## 🎥 서비스 소개 영상
 [![Ease를 소개합니다](https://img.youtube.com/vi/xj-3bDGLxIg/0.jpg)](https://youtu.be/xj-3bDGLxIg) 
 
 
@@ -26,6 +25,15 @@ last modified on: 2022-10-06
 
 ## File structure
 `master`
+```
+|-- assets    // logo, architecture img
+|-- backend   
+|-- docs      // presentation file
+|-- exec      // porting manual, DB dump
+|-- frontend  
+|-- hadoop    
+|-- nginx     
+```
 
 ## Total Architecture
 ![total architecture](/assets/%ED%8A%B9%ED%99%94pjt_%ED%86%A0%ED%83%88%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png)
@@ -49,6 +57,9 @@ last modified on: 2022-10-06
     - OpenAPI 3
     - springdoc-openapi v1.6.11
 ### FE
+- React 18.2.0
+- Redux 8.0.4
+- react-router 5.3.3
 ### Hadoop
 - Hadoop 3.2.2
 - HBase 2.4.14
