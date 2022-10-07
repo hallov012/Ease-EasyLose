@@ -1,5 +1,6 @@
 .add_btn {
   width: 100%;
+  max-width: 420px;
   height: 5vh;
   border-radius: 5px;
   display: flex;
