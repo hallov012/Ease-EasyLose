@@ -11,7 +11,7 @@ last modified on: 2022-10-06
 
 ![Ease gif](/assets/ease_start.gif)
 
--- 홍보 영상 링크--
+[![Ease를 소개합니다](https://img.youtube.com/vi/xj-3bDGLxIg/0.jpg)](https://youtu.be/xj-3bDGLxIg) 
 
 
 ## 🥗 초보자를 위한 식단 기록 & 관리 서비스
